@@ -1,6 +1,22 @@
 # Treaty-Lab
 
-**Pilot v0.1 — Indigenous-led infrastructure intelligence terminal.**
+**Pilot v0.2 — Indigenous-led infrastructure intelligence terminal.**
+
+## v0.2 changes
+
+- **Content grounded in real cited sources.** Evidence Library expanded from 12 invented items to 36 cited primary documents (Constitution Acts, UNDRIP + UN Declaration Act + 2023-2028 Action Plan, Yahey 2021 BCSC 1287, Blueberry River Implementation Agreement, Tsuu T'ina v. Alberta 2008, AB Water Act, AB Surface Water Allocation Directive, AB Proponent Consultation Guide 2024, CIB Indigenous Equity Initiative + Investment Policy, AIOC Loan Guarantee Guidelines + Mandate, FNFA 2024-25 Annual Report + Morningstar DBRS 2025, FNMPC Loan Guarantee Primer, CILGC Applicant Guide v3, CER Growing Indigenous Ownership 2026, Cedar LNG FID + EA + Pembina news release, Hydro One IR Policy 2025, AB Indigenous Relations Business Plan 2026-29, AB AI Data Centre Strategy, AESO 2025 Annual Report + Phase I + Phase 2A, NERC Large Loads Task Force 2025, Capital Power Genesee 2025, AB Drought Response Plan + Water Supply Outlook + SSRB Closed Basin Directive + SSRB Allocation 2003-05, Peace & Slave Watershed 2024, OSM 2025, Palash mine-water climate 2025, Weber wetland governance 2017, FNIGC OCAP Principles + Barriers & Levers 2014, Davidson legislative slippage 2018).
+- **Indicators replaced with measurable real readings.** 38 indicators, every one tied to a cited source (e.g. 85% of Blueberry Claim Area within 250m of industrial disturbance, St. Mary 118% of median natural flow, AESO 20,000+ MW data-centre queue with only 1,200 MW Phase I cap cleared, Capital Power Genesee 1,500 MW PROPOSED on Treaty 6 land, FNFA $3.9B portfolio at AA-/Aa3/AA(low), FNMPC-projected $51B 10-year Indigenous equity need, documented Coastal GasLink First Nation equity forfeiture, Hydro One 50%-equity threshold above $100M Ontario transmission projects).
+- **Cedar LNG project assessment fully rebuilt** with 30+ confirmed facts from the Pembina April 2024 release, Cedar LNG fact sheets, Morningstar DBRS October 2025 credit-rating report, and CER 2026 Market Snapshot — including FID date (June 25 2024), US$3.4B Class III capex (US$4.0B fully loaded), 60/40 debt-equity split, Samsung Heavy Industries + Black & Veatch EPC, MUFG + CIBC financial advisors, $200M federal SIF + FNFA capital commitment + $200M BC electrification contribution agreement.
+- **Coastal GasLink** now documents the FNMPC-recorded First Nations equity forfeiture in the 10% expansion round — the canonical case for why federal loan-guarantee architecture matters.
+- **Site C** now notes the Blueberry Implementation Agreement's explicit Site C transmission carveout from the 'New Disturbance' definition.
+- **TMX** now references the Athabasca Indigenous Investments / Enbridge precedent ($1.12B for 11.57% — $250M AIOC + $870M bond) as the documented analogue for a future Indigenous-led TMX acquisition.
+- **New Command Center radar chart** showing the cross-domain composite severity (treaty / water / energy / finance / governance), built on recharts via the shadcn chart primitive. Sits alongside per-domain readings panel.
+- **Subtle institutional glow** added behind the hero thesis.
+- **Phase 8 Sources PDF corpus** (~115 PDFs across Legal, Finance, Water, Power-AI-DataCentres, Govt Policy, Community Validation, Precedents, Advisor Questions) extracted to plain text via `scripts/extract-pdfs.mjs` (uses `unpdf`, no Poppler required) and synthesised in parallel by five domain-focused subagents. Synthesis markers are kept in `.work/agent-out-*.md` for transparency on how each cited fact was sourced.
+
+---
+
+**Pilot v0.1 baseline:**
 
 Treaty-Lab turns messy legal, financial, technical, government, and community information into clear intelligence for decision-making — for First Nation communities, infrastructure investors, legal and policy researchers, and government-relations teams.
 
