@@ -12,6 +12,7 @@ import {
   Library,
   Lightbulb,
   Archive,
+  ListTree,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -34,6 +35,7 @@ const intelligence: NavItem[] = [
 const research: NavItem[] = [
   { href: "/projects", label: "Project Assessments", icon: FolderKanban, code: "PRJ" },
   { href: "/evidence", label: "Evidence Library", icon: Library, code: "EVD" },
+  { href: "/sources", label: "Cited Sources", icon: ListTree, code: "SRC" },
   { href: "/explainers", label: "Plain-Language", icon: Lightbulb, code: "EXP" },
   { href: "/archive", label: "Treaty Archive", icon: Archive, code: "ARC" },
 ];

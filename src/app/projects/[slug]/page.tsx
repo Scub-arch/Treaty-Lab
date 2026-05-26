@@ -4,6 +4,7 @@ import { ExternalLink, ChevronLeft } from "lucide-react";
 import { getProject, getProjects, getEvidenceItem } from "@/lib/content";
 import { IntelligencePanel } from "@/components/intel/intelligence-panel";
 import { EvidenceStrengthBadge } from "@/components/intel/evidence-strength-badge";
+import { ProjectLineageTree } from "@/components/intel/project-lineage-tree";
 import type { Claim } from "@/lib/content/types";
 
 export function generateStaticParams() {
@@ -213,6 +214,17 @@ export default async function ProjectDetail(props: PageProps<"/projects/[slug]">
           </div>
         </aside>
       </div>
+
+      {/* Lineage tree (full-width below main grid) */}
+      <IntelligencePanel
+        title="Lineage"
+        code="PRJ · LIN"
+        subtitle="Project → parties (consenting / contesting / regulator / financier) and primary public-record sources. Source nodes link to the Evidence Library."
+      >
+        <div className="text-foreground/85">
+          <ProjectLineageTree project={project} />
+        </div>
+      </IntelligencePanel>
     </div>
   );
 }
