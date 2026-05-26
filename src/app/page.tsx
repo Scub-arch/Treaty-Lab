@@ -15,7 +15,9 @@ import {
   type DomainComposite,
 } from "@/components/intel/radar-overview";
 import { GeographicOverview } from "@/components/intel/geographic-overview";
+import { LoadGrowthTrend } from "@/components/intel/load-growth-trend";
 import { Glow } from "@/components/ui/glow";
+import { ProjectAssessmentCard } from "@/components/intel/project-assessment-card";
 import { ArrowRight } from "lucide-react";
 
 // Project + territory anchors plotted on the Command Center globe.
@@ -105,42 +107,81 @@ export default function CommandCenter() {
         </p>
       </section>
 
-      {/* Geographic + composite-severity overview */}
-      <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <IntelligencePanel
-          title="Geographic Intelligence — Projects & Territories"
-          code="CMD · GEO"
-          subtitle="Pilot projects, affected First-Nation territories, and proposed data-centre load clusters. Drag to rotate. Lines mark project corridors."
-        >
-          <GeographicOverview markers={GLOBE_MARKERS} arcs={GLOBE_ARCS} />
-        </IntelligencePanel>
-        <IntelligencePanel
-          title="Cross-Domain Severity Composite"
-          code="CMD · COMPOSITE"
-          subtitle="Average indicator-severity per domain. Higher = more pressing exposure."
-        >
-          <RadarOverview composites={composites} />
-          <div className="mt-4 pt-4 border-t border-border/60">
-            <ul className="space-y-1.5 text-sm">
-              {composites.map((c) => (
-                <li key={c.domain} className="flex items-baseline justify-between gap-3">
-                  <span className="text-foreground/90">{c.label}</span>
-                  <span className="flex items-baseline gap-2">
-                    <span className="font-mono tabular-nums font-medium">
-                      {c.severityScore.toFixed(2)}
+      {/* 4-quadrant Command Center overview */}
+      <section>
+        <div className="font-mono text-[10px] tracking-[0.18em] text-muted-foreground mb-3">
+          CMD · OVERVIEW
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {/* Quadrant 1 (TL): Geographic */}
+          <IntelligencePanel
+            title="Geographic Intelligence — Projects & Territories"
+            code="CMD · GEO"
+            subtitle="Pilot projects, affected First-Nation territories, and proposed data-centre clusters. Drag to rotate."
+          >
+            <GeographicOverview markers={GLOBE_MARKERS} arcs={GLOBE_ARCS} />
+          </IntelligencePanel>
+
+          {/* Quadrant 2 (TR): Composite severity */}
+          <IntelligencePanel
+            title="Cross-Domain Severity Composite"
+            code="CMD · COMPOSITE"
+            subtitle="Average indicator-severity per domain. Higher = more pressing exposure."
+          >
+            <RadarOverview composites={composites} />
+            <div className="mt-4 pt-4 border-t border-border/60">
+              <ul className="space-y-1.5 text-sm">
+                {composites.map((c) => (
+                  <li key={c.domain} className="flex items-baseline justify-between gap-3">
+                    <span className="text-foreground/90">{c.label}</span>
+                    <span className="flex items-baseline gap-2">
+                      <span className="font-mono tabular-nums font-medium">
+                        {c.severityScore.toFixed(2)}
+                      </span>
+                      <span className="font-mono text-[10px] text-muted-foreground">
+                        / 5.00
+                      </span>
+                      <span className="font-mono text-[10px] text-muted-foreground">
+                        ({c.indicatorCount} ind.)
+                      </span>
                     </span>
-                    <span className="font-mono text-[10px] text-muted-foreground">
-                      / 5.00
-                    </span>
-                    <span className="font-mono text-[10px] text-muted-foreground">
-                      ({c.indicatorCount} ind.)
-                    </span>
-                  </span>
-                </li>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </IntelligencePanel>
+
+          {/* Quadrant 3 (BL): Trend chart */}
+          <IntelligencePanel
+            title="Energy & Grid — Pressure Trend"
+            code="CMD · TREND"
+            subtitle="AESO data-centre interconnection queue is the highest-velocity grid-stress signal in the Treaty 6 / 8 corridors."
+          >
+            <LoadGrowthTrend />
+          </IntelligencePanel>
+
+          {/* Quadrant 4 (BR): Pilot project mini-cards */}
+          <IntelligencePanel
+            title="Pilot Project Assessments"
+            code="CMD · PRJ"
+            subtitle={`${projects.length} projects under continuous review across treaty, water, energy, and finance dimensions.`}
+            actions={
+              <Link
+                href="/projects"
+                className="font-mono text-[10px] tracking-[0.12em] text-foreground/80 hover:text-foreground inline-flex items-center gap-1"
+              >
+                OPEN ALL
+                <ArrowRight className="w-3 h-3" />
+              </Link>
+            }
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {projects.map((p) => (
+                <ProjectAssessmentCard key={p.slug} project={p} />
               ))}
-            </ul>
-          </div>
-        </IntelligencePanel>
+            </div>
+          </IntelligencePanel>
+        </div>
       </section>
 
 
