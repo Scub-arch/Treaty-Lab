@@ -1,0 +1,57 @@
+{
+  "explainers": [
+    {
+      "slug": "what-does-this-mean-for-communities",
+      "question": "What does this mean for communities?",
+      "shortAnswer": "Major infrastructure and finance decisions are increasingly being structured to require Indigenous validation — but the terms of that validation often determine who actually benefits and who carries the risk.",
+      "body": "When a pipeline, dam, transmission line, or LNG facility is proposed near or across Indigenous territory, communities are now routinely engaged. That engagement can take many forms — early notice, full consultation, an impact-benefit agreement, an option to take an equity stake, or full majority ownership.\n\nWhat each of these looks like in practice is very different. A consultation does not mean a community has agreed. An impact-benefit agreement provides fixed payments and conditions but typically not control. An equity option provides upside if the project performs — and exposure if it does not.\n\nThe phrase \"affected community\" tends to obscure these differences. The questions that matter are: who decided, on what basis, with what information, with what independent advice, and with what enforceable terms.",
+      "relatedEvidence": ["haida-nation-2004-scc-73", "tsilhqotin-2014-scc-44", "undrip-2007"],
+      "relatedProjects": ["coastal-gaslink", "cedar-lng"]
+    },
+    {
+      "slug": "who-carries-the-risk",
+      "question": "Who carries the risk?",
+      "shortAnswer": "In most infrastructure deals, risk shifts down the financing stack: shareholders absorb early losses, then lenders, then guarantors, then taxpayers — and increasingly, Indigenous equity holders whose loans are secured against the same project's cash flow.",
+      "body": "Every project has a stack of who gets paid first when cash comes in, and who eats the loss when it doesn't. This is called the cash-flow waterfall.\n\nAt the top: operating costs and taxes. Next: senior secured lenders (banks, bond holders). Then subordinated debt. Then preferred equity. Finally common equity — who gets whatever is left.\n\nWhen an Indigenous community takes an equity stake financed by a loan secured against that same equity (and the project's cash flow), the community sits low in the waterfall AND carries the loan obligation. If the project performs at expectations, this works. If it underperforms, the equity returns drop, but the loan still has to be serviced.\n\nUnderstanding where a community sits in this stack — and what happens in stress scenarios — is more important than the headline ownership percentage.",
+      "relatedEvidence": ["cib-indigenous-equity-initiative", "fnfa-bonds-overview"],
+      "relatedProjects": ["coastal-gaslink", "cedar-lng", "trans-mountain-expansion"]
+    },
+    {
+      "slug": "questions-before-approval",
+      "question": "What questions should be asked before approval?",
+      "shortAnswer": "Independent legal review, independent financial review, cash-flow waterfall disclosure, scenario stress-testing, governance rights, exit options, and what happens if the project underperforms.",
+      "body": "Before signing any major project agreement, communities should expect to have:\n\n**Independent legal review** — counsel chosen by and accountable to the community, not paid by the proponent.\n\n**Independent financial review** — a financial advisor with project-finance experience who can model the cash-flow waterfall in low / base / high scenarios.\n\n**Disclosure of the full waterfall** — who gets paid first, in what order, in what scenarios. A single base-case number is not enough.\n\n**Governance rights** — observer seats, veto rights on specific decisions, audit rights, dispute-resolution mechanisms.\n\n**Exit options** — what happens if the community wants to sell, transfer, or unwind its position.\n\n**Underperformance scenarios** — what is the community's exposure if the project's output, price, or operating costs differ materially from base case.\n\n**Treaty and rights preservation** — does signing this agreement waive, modify, or prejudice future treaty-rights claims.",
+      "relatedEvidence": ["constitution-act-1982-s35", "undrip-act-2021"]
+    },
+    {
+      "slug": "what-if-already-approved",
+      "question": "What can be done if a project is already approved?",
+      "shortAnswer": "Approval is not the end of the legal or governance road; consultation duties, ongoing regulatory conditions, and treaty-rights litigation remain available — and ownership / governance arrangements can be renegotiated at key project milestones.",
+      "body": "Project approval does not extinguish Indigenous rights. Several avenues remain:\n\n**Ongoing consultation** — operational decisions, modifications, and renewals trigger new consultation duties.\n\n**Regulatory conditions** — projects typically have hundreds of conditions in their approval. Compliance can be tracked, breaches reported, and conditions enforced.\n\n**Treaty-rights litigation** — the Yahey decision shows that cumulative effects of multiple projects can found a successful treaty-infringement claim even after individual approvals.\n\n**Renegotiation at milestones** — refinancing, change of control, expansion, or major capex events often open commercial agreements for renegotiation.\n\n**Equity acquisition** — secondary acquisition of equity (as discussed for TMX) can give a community a governance position after construction.\n\n**Monitoring and audit** — independent monitoring of operational impacts builds the evidence base for future enforcement or remediation.",
+      "relatedEvidence": ["treaty-8-1899", "haida-nation-2004-scc-73"],
+      "relatedProjects": ["trans-mountain-expansion", "site-c"]
+    },
+    {
+      "slug": "what-is-equity-participation",
+      "question": "What is equity participation?",
+      "shortAnswer": "An equity participant owns a slice of a project (or the company that owns it) and shares in profits — but also in losses, and sits below lenders in the cash-flow waterfall.",
+      "body": "Equity is ownership. If you own 10% of a project, you receive 10% of the cash that is left after operating costs, taxes, and debt service. You also bear 10% of any operating losses.\n\nFor Indigenous communities, equity participation typically takes one of three forms:\n\n1. **Direct equity, self-funded** — the community uses its own funds to buy a stake. Rare at scale because of capital requirements.\n\n2. **Debt-financed equity** — the community borrows (often from CIB, FNFA, or a commercial lender) to buy the stake, and repays the loan from the equity's cash flow. Most common structure for large projects. The community's net return depends on the spread between project cash yield and loan service.\n\n3. **Free-carried equity** — the proponent gifts a stake with no upfront capital required, sometimes with restrictions on transfer or governance. Less common.\n\nIn all three cases, the equity holder has profit upside in good scenarios and operational exposure in bad scenarios. The terms matter more than the percentage.",
+      "relatedEvidence": ["cib-indigenous-equity-initiative"],
+      "relatedProjects": ["cedar-lng", "coastal-gaslink"]
+    },
+    {
+      "slug": "what-is-a-loan-guarantee",
+      "question": "What is a loan guarantee?",
+      "shortAnswer": "A loan guarantee is a third party's promise to repay a loan if the borrower can't — typically used to let an Indigenous community borrow at lower rates and on better terms than they could alone.",
+      "body": "When a community borrows to buy project equity, the lender charges interest based on perceived risk. A loan guarantee from a credit-worthy third party (CIB, federal Crown, provincial government, or AIOC in Alberta) reduces the lender's risk and therefore the interest rate.\n\nThe guarantee changes who bears the loss in a default scenario:\n\n- **Without guarantee**: lender takes the loss (and the community loses its equity stake and credit standing).\n- **With guarantee**: the guarantor pays the lender and typically retains a claim against the borrower.\n\nKey questions a community should ask about any loan guarantee:\n\n- What event triggers the guarantor's payment?\n- Does the guarantor have recourse against the community after paying out, and on what terms?\n- What does the guarantor get in exchange (interest rate margin, governance rights, fee)?\n- Are there cross-default provisions that could affect other community borrowings?",
+      "relatedEvidence": ["cib-indigenous-equity-initiative", "fnfa-bonds-overview"]
+    },
+    {
+      "slug": "what-is-project-certainty",
+      "question": "What is project certainty?",
+      "shortAnswer": "\"Project certainty\" is the degree to which a project can be expected to proceed as planned, on schedule, at budget, and without successful legal or regulatory disruption — and it now depends as much on Indigenous validation as on engineering and financing.",
+      "body": "Proponents and lenders use \"project certainty\" to describe how confident they are that a project will reach commercial operation as planned. Historically this meant: do we have the permits, the engineering, the offtake contracts, the construction crew, and the financing.\n\nIn the current Canadian context, certainty has expanded to include:\n\n- **Consent and consultation completeness** — has the duty to consult been satisfied for every potentially-affected Indigenous group, including hereditary structures where they exist alongside elected councils?\n- **Treaty-rights cumulative effects** — does the project, in combination with adjacent projects, risk a Yahey-style infringement finding?\n- **Water availability under realistic drought scenarios** — not historical baselines.\n- **Grid availability under realistic demand growth** — including AI / data centre load.\n- **Financing structure resilience** — does the financing assume the base case, or does it survive realistic stress scenarios?\n- **Public-record evidence quality** — can the project withstand scrutiny by a community-side analyst doing the kind of work this platform supports?\n\nWhere any of these is weak, the project is less certain — and the cost of capital, the timeline, and the eventual returns adjust accordingly.",
+      "relatedEvidence": ["treaty-8-1899", "haida-nation-2004-scc-73", "undrip-act-2021"]
+    }
+  ]
+}

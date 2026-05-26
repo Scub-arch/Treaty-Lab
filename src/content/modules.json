@@ -1,0 +1,58 @@
+{
+  "modules": [
+    {
+      "slug": "treaty",
+      "title": "Treaty Terminal",
+      "tagline": "Treaty rights, consultation status, governance risk, and evidence strength",
+      "lede": "The Treaty Terminal tracks legal and governance signals across major Canadian projects: where treaty rights and Aboriginal title interact with project decisions, where consultation has and has not been adequate, and where consent doctrine remains unsettled.",
+      "featuredIndicatorSlugs": [
+        "treaty-rights-risk-bc-ne",
+        "consultation-status-tmx",
+        "governance-hereditary-vs-elected",
+        "community-validation-gaps",
+        "legal-uncertainty-undrip-implementation",
+        "evidence-strength-public-record"
+      ],
+      "featuredProjectSlugs": ["coastal-gaslink", "site-c", "trans-mountain-expansion"]
+    },
+    {
+      "slug": "water",
+      "title": "Water Intelligence",
+      "tagline": "Watershed stress, drought signals, industrial demand, and First Nation water rights",
+      "lede": "Water Intelligence tracks where projects are being approved against weakening water-availability assumptions and against First Nation water rights that are recognized but unevenly implemented through provincial allocation systems.",
+      "featuredIndicatorSlugs": [
+        "watershed-stress-peace",
+        "drought-indicator-prairie",
+        "industrial-water-demand-lng",
+        "fn-water-rights-recognition"
+      ],
+      "featuredProjectSlugs": ["site-c", "coastal-gaslink", "cedar-lng"]
+    },
+    {
+      "slug": "energy",
+      "title": "Energy & Grid Intelligence",
+      "tagline": "Transmission constraints, demand growth, AI/data-centre load, and asset-stranding exposure",
+      "lede": "Energy & Grid Intelligence tracks the realism of grid-expansion assumptions in major-project planning: where transmission cannot keep up with electrification, where AI / data-centre load is rewriting forecasts, and where long-life oil & gas assets carry demand-trajectory exposure.",
+      "featuredIndicatorSlugs": [
+        "transmission-constraints-bc",
+        "ai-datacentre-load-canada",
+        "oil-gas-infrastructure-exposure",
+        "project-certainty-index"
+      ],
+      "featuredProjectSlugs": ["site-c", "trans-mountain-expansion", "cedar-lng"]
+    },
+    {
+      "slug": "finance",
+      "title": "Indigenous Finance",
+      "tagline": "Ownership structures, loan guarantees, debt exposure, and cash-flow waterfalls",
+      "lede": "Indigenous Finance tracks how Indigenous communities are participating in major-project ownership: through which financing structures (CIB, AIOC, FNFA-style), under what loan-guarantee terms, with what debt exposure, and with what residual risk in stress scenarios.",
+      "featuredIndicatorSlugs": [
+        "indigenous-equity-uptake",
+        "cib-loan-guarantee-utilisation",
+        "debt-exposure-cash-flow-risk",
+        "fnfa-credit-rating"
+      ],
+      "featuredProjectSlugs": ["cedar-lng", "coastal-gaslink", "trans-mountain-expansion"]
+    }
+  ]
+}

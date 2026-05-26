@@ -1,0 +1,207 @@
+{
+  "indicators": [
+    {
+      "slug": "treaty-rights-risk-bc-ne",
+      "domain": "treaty",
+      "name": "Cumulative Treaty-Rights Infringement Risk — NE BC (Treaty 8)",
+      "summary": "Post-Yahey precedent on cumulative effects creates elevated risk for further Treaty 8 corridor development.",
+      "value": "Elevated",
+      "severity": "high",
+      "trend": "deteriorating",
+      "note": "Yahey v. BC (2021) found cumulative industrial development infringed Blueberry River First Nations' Treaty 8 rights. The decision applies in principle to NE BC corridor projects.",
+      "sources": [
+        { "evidenceSlug": "treaty-8-1899", "citing": "Treaty 8 hunting/fishing/trapping rights" }
+      ],
+      "updatedAt": "2026-05-25"
+    },
+    {
+      "slug": "consultation-status-tmx",
+      "domain": "treaty",
+      "name": "Crown Consultation Adequacy — Federal Major Projects",
+      "summary": "After 2018 FCA Tsleil-Waututh ruling, federal projects face heightened procedural-adequacy expectations.",
+      "value": "Heightened scrutiny",
+      "severity": "moderate",
+      "trend": "stable",
+      "note": "Post-2018 ruling raised the procedural bar; second-round consultation processes have become the working norm for federally-led major projects.",
+      "sources": [
+        { "evidenceSlug": "haida-nation-2004-scc-73", "citing": "Duty-to-consult framework" }
+      ],
+      "updatedAt": "2026-05-25"
+    },
+    {
+      "slug": "governance-hereditary-vs-elected",
+      "domain": "governance",
+      "name": "Hereditary vs. Elected Authority — Consent Risk",
+      "summary": "Unresolved doctrine on which authority governs project consent where Aboriginal title is asserted but unproven.",
+      "value": "Unresolved",
+      "severity": "high",
+      "trend": "stable",
+      "note": "Delgamuukw recognizes hereditary governance evidence. Tsilhqot'in confirms title-holders' decision-making rights. Practical application to specific projects varies.",
+      "sources": [
+        { "evidenceSlug": "tsilhqotin-2014-scc-44", "citing": "Title-holders' decision-making authority" }
+      ],
+      "updatedAt": "2026-05-25"
+    },
+    {
+      "slug": "evidence-strength-public-record",
+      "domain": "treaty",
+      "name": "Public-Record Evidence Strength — Major Projects",
+      "summary": "Quality of publicly-available evidence varies by project; financing terms are often the weakest area.",
+      "value": "Mixed",
+      "severity": "moderate",
+      "trend": "stable",
+      "note": "Court records, EA filings, and regulatory submissions form a strong public evidence base. Internal financing terms, impact-benefit agreement contents, and equity-option specifics are typically not public."
+    },
+    {
+      "slug": "watershed-stress-peace",
+      "domain": "water",
+      "name": "Peace River Watershed Stress",
+      "summary": "Cumulative flow alteration from existing and planned hydro + industrial withdrawals.",
+      "value": "Elevated",
+      "severity": "high",
+      "trend": "deteriorating",
+      "note": "Reservoir conversion at Site C and upstream W.A.C. Bennett operations affect flow regime, sediment, and downstream ecosystem services.",
+      "updatedAt": "2026-05-25"
+    },
+    {
+      "slug": "drought-indicator-prairie",
+      "domain": "water",
+      "name": "Prairie Drought Conditions (multi-year)",
+      "summary": "Multi-year precipitation deficit and snowpack decline pattern affects water-licence availability.",
+      "value": "Persistent concern",
+      "severity": "elevated",
+      "trend": "deteriorating",
+      "note": "Affects industrial water-licence renewals and Indigenous water-rights claims in the Prairies; verify against current provincial drought-bulletin data before acting."
+    },
+    {
+      "slug": "industrial-water-demand-lng",
+      "domain": "water",
+      "name": "Industrial Water Demand — Pacific LNG Corridor",
+      "summary": "LNG liquefaction is electricity-intensive but moderate direct water user; cooling water for power generation is the larger systemic factor.",
+      "value": "Moderate (direct), Elevated (systemic)",
+      "severity": "moderate",
+      "trend": "stable",
+      "note": "Direct facility water demand is relatively modest; the bigger water question is upstream electricity generation if grid expansion drives new hydro or thermal generation."
+    },
+    {
+      "slug": "fn-water-rights-recognition",
+      "domain": "water",
+      "name": "First Nation Water-Rights Recognition Progress",
+      "summary": "Domestic water rights are recognized in principle; allocation in practice still favours licensed industrial users.",
+      "value": "Recognition strong, allocation weak",
+      "severity": "elevated",
+      "trend": "improving",
+      "note": "Court recognition under Section 35 has strengthened; implementation through provincial water-licence systems lags. Watch C-61 federal First Nations Clean Water Act and related provincial reforms."
+    },
+    {
+      "slug": "transmission-constraints-bc",
+      "domain": "energy",
+      "name": "BC Grid — Transmission Constraints Northeast",
+      "summary": "Industrial load growth in NE BC outpaces transmission build; BC Hydro has signalled multi-year reinforcement plans.",
+      "value": "Elevated",
+      "severity": "elevated",
+      "trend": "stable",
+      "note": "Affects timing for electrification-dependent projects including LNG, mining, and data centres."
+    },
+    {
+      "slug": "ai-datacentre-load-canada",
+      "domain": "energy",
+      "name": "AI / Data Centre Load Growth — Canadian Grids",
+      "summary": "Hyperscaler data centre demand is a top driver of new load forecasts, with material implications for grid planning and siting.",
+      "value": "Rising sharply",
+      "severity": "elevated",
+      "trend": "deteriorating",
+      "note": "Hyperscalers are siting based on power availability and cost. Indigenous-owned generation and grid-adjacent land becomes strategically relevant. Verify specific load forecasts in each utility's IRP."
+    },
+    {
+      "slug": "oil-gas-infrastructure-exposure",
+      "domain": "energy",
+      "name": "Oil & Gas Infrastructure Exposure — Asset Stranding Risk",
+      "summary": "Long-life pipeline and processing assets carry decade-scale recovery horizons; demand-trajectory uncertainty affects residual value.",
+      "value": "Material",
+      "severity": "elevated",
+      "trend": "stable",
+      "note": "Indigenous equity in oil & gas assets shares this exposure; pricing of asset acquisitions should reflect realistic demand-trajectory scenarios, not historical baselines."
+    },
+    {
+      "slug": "project-certainty-index",
+      "domain": "energy",
+      "name": "Project Certainty — Composite Reading (Major Canadian Projects)",
+      "summary": "Composite of consent, treaty, water, regulatory, and finance signals across active major-project pipeline.",
+      "value": "Declining",
+      "severity": "elevated",
+      "trend": "deteriorating",
+      "note": "This is a qualitative composite, not a market index. The trend reflects rising importance of Indigenous validation and water/grid realism, not project quality."
+    },
+    {
+      "slug": "indigenous-equity-uptake",
+      "domain": "finance",
+      "name": "Indigenous Equity Participation — Major Projects",
+      "summary": "Indigenous equity tranches are increasingly offered; community uptake and terms vary widely.",
+      "value": "Growing, terms uneven",
+      "severity": "moderate",
+      "trend": "improving",
+      "note": "Cedar LNG (Indigenous majority) and CGL (10% option) illustrate range. Loan guarantees, cash-flow waterfall, and governance rights are the key terms to evaluate."
+    },
+    {
+      "slug": "cib-loan-guarantee-utilisation",
+      "domain": "finance",
+      "name": "CIB Indigenous Equity Initiative — Utilisation Pattern",
+      "summary": "Program has financed Indigenous equity in several major projects; specific terms vary by transaction.",
+      "value": "In active use",
+      "severity": "low",
+      "trend": "improving",
+      "note": "CIB structure is debt secured against acquired equity and project cash flow. Specific interest rates, tenors, and recourse terms are transaction-specific.",
+      "sources": [
+        { "evidenceSlug": "cib-indigenous-equity-initiative", "citing": "CIB program description" }
+      ]
+    },
+    {
+      "slug": "debt-exposure-cash-flow-risk",
+      "domain": "finance",
+      "name": "Indigenous Debt Exposure — Cash-Flow-Backed Loans",
+      "summary": "Where Indigenous equity is debt-financed against project cash flow, underperformance translates directly to community exposure.",
+      "value": "Material",
+      "severity": "elevated",
+      "trend": "stable",
+      "note": "The structure looks like 'free' equity if the project performs at base case; underperformance scenarios are where the carry shifts to the community."
+    },
+    {
+      "slug": "fnfa-credit-rating",
+      "domain": "finance",
+      "name": "FNFA Capital-Markets Access",
+      "summary": "FNFA pooled-borrowing program has investment-grade ratings; spreads remain wider than equivalent municipal benchmarks.",
+      "value": "Investment-grade",
+      "severity": "low",
+      "trend": "stable",
+      "note": "Verify current ratings and spreads in each new bond issue prospectus.",
+      "sources": [
+        { "evidenceSlug": "fnfa-bonds-overview", "citing": "FNFA program description" }
+      ]
+    },
+    {
+      "slug": "community-validation-gaps",
+      "domain": "governance",
+      "name": "Community Validation Gaps — Major Projects",
+      "summary": "Public-record evidence rarely captures internal community ratification or dissent processes.",
+      "value": "Persistent",
+      "severity": "elevated",
+      "trend": "stable",
+      "note": "External assessments should not over-claim 'community consent' from band-council signatures alone. Check for membership votes, hereditary positions, and youth/elder council positions where public."
+    },
+    {
+      "slug": "legal-uncertainty-undrip-implementation",
+      "domain": "governance",
+      "name": "UNDRIP Implementation — Domestic Legal Effect",
+      "summary": "Implementation pathway is established federally and in BC; specific litigation tests on consent standards are still developing.",
+      "value": "Evolving",
+      "severity": "moderate",
+      "trend": "improving",
+      "note": "Bill C-15 and BC DRIPA set the framework; courts are still working out the practical effect on individual project decisions.",
+      "sources": [
+        { "evidenceSlug": "undrip-act-2021", "citing": "Federal UNDRIP Act" },
+        { "evidenceSlug": "bc-dripa-2019", "citing": "BC DRIPA" }
+      ]
+    }
+  ]
+}

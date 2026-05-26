@@ -1,0 +1,356 @@
+{
+  "projects": [
+    {
+      "slug": "coastal-gaslink",
+      "name": "Coastal GasLink Pipeline",
+      "shortName": "CGL",
+      "status": "operational",
+      "summary": "670 km natural gas pipeline from Dawson Creek, BC to the LNG Canada export terminal at Kitimat. In service since 2023.",
+      "location": "Northern British Columbia (Dawson Creek to Kitimat)",
+      "jurisdictions": ["British Columbia", "Federal Canada"],
+      "proponent": "Coastal GasLink Pipeline Ltd. (TC Energy Corporation, with minority interests held by KKR-led consortium and Alberta Investment Management Corporation)",
+      "governmentObjective": "Enable LNG export from the Pacific coast as part of federal/provincial energy export strategy and reduce flaring of Western Canadian natural gas.",
+      "proponentObjective": "Long-term firm-service contract revenue from LNG Canada feedstock supply over the pipeline's operating life.",
+      "parties": [
+        { "name": "TC Energy Corporation (operator)", "role": "proponent" },
+        { "name": "20 elected First Nation band councils along the route (impact-benefit and option agreements)", "role": "consenting_first_nation" },
+        { "name": "Wet'suwet'en Hereditary Chiefs", "role": "contesting_first_nation" },
+        { "name": "BC Environmental Assessment Office", "role": "regulator" },
+        { "name": "Canadian Energy Regulator (CER)", "role": "regulator" }
+      ],
+      "firstNationImplications": [
+        {
+          "text": "All 20 elected First Nation band councils whose reserve lands the route passes through signed project agreements.",
+          "kind": "fact",
+          "sources": [
+            { "evidenceSlug": "haida-nation-2004-scc-73", "citing": "Consent of elected councils is one form of consultation/accommodation; case law treats hereditary vs. elected authority differently." }
+          ]
+        },
+        {
+          "text": "Wet'suwet'en Hereditary Chiefs have publicly opposed the pipeline across their unceded traditional territory and authority.",
+          "kind": "fact"
+        },
+        {
+          "text": "The Delgamuukw decision recognized Wet'suwet'en oral histories of governance; the relationship between hereditary and elected authority for consent on this project remains legally and politically contested.",
+          "kind": "needs_validation",
+          "sources": [
+            { "evidenceSlug": "tsilhqotin-2014-scc-44", "citing": "Aboriginal title affirms governance and decision-making over title lands." }
+          ]
+        }
+      ],
+      "treatyAndWaterRisk": [
+        {
+          "text": "Route crosses several salmon-bearing waterways; multiple BC EAO non-compliance orders have been issued during construction relating to sediment and erosion control.",
+          "kind": "fact"
+        },
+        {
+          "text": "Cumulative-effects exposure: this pipeline adds to a corridor of energy infrastructure that has been the subject of treaty-rights infringement findings elsewhere in BC.",
+          "kind": "risk",
+          "sources": [
+            { "evidenceSlug": "treaty-8-1899", "citing": "Yahey v. BC (2021) found cumulative effects had infringed Blueberry River First Nations' Treaty 8 rights — relevant precedent for nearby corridors." }
+          ]
+        }
+      ],
+      "financeRisk": [
+        {
+          "text": "Reported construction cost grew to approximately CAD $14.5B, more than double the original ~$6.6B estimate.",
+          "kind": "fact"
+        },
+        {
+          "text": "Cost overruns ultimately settled between TC Energy and LNG Canada shippers under confidential commercial arrangements; LNG Canada is the offtake counterparty.",
+          "kind": "fact"
+        },
+        {
+          "text": "Indigenous equity option: in 2024, TC Energy announced a 10% equity option offered to 16 First Nations along the route. Terms, financing structure, and equity carry remain partially public; community-by-community uptake decisions are ongoing.",
+          "kind": "needs_validation",
+          "sources": [
+            { "evidenceSlug": "cib-indigenous-equity-initiative", "citing": "CIB has been a financing pathway for similar First Nations equity transactions." }
+          ]
+        }
+      ],
+      "governanceQuestions": [
+        "Where the elected council and hereditary chiefs differ, what process determines whose consent governs for purposes of project decision-making?",
+        "How are cumulative environmental effects with adjacent projects assessed against treaty-rights infringement standards from Yahey?",
+        "What are the disclosed terms of the 10% Indigenous equity option, and what are the consequences for First Nations equity holders if pipeline cash flow underperforms?"
+      ],
+      "recommendedCommunityQuestions": [
+        "What share of project cash flow, after debt service and operating costs, actually reaches our community in years 1, 5, and 10?",
+        "If the equity loan is secured against our share of cash flow, what happens if shippers renegotiate tolls or volumes?",
+        "Who decides on environmental remediation if there is a future spill, and what are our enforcement rights?",
+        "Does signing an equity agreement affect future treaty-rights litigation we may want to bring?",
+        "What independent legal and financial review has our community had, and was it funded by the proponent?"
+      ],
+      "finance": {
+        "structure": "Privately-held by TC Energy, a KKR-led consortium, and AIMCo. Optional 10% equity tranche offered to 16 route First Nations (uptake ongoing).",
+        "totalCostEstimate": "≈ CAD $14.5B (in-service)",
+        "costOverrunsNoted": "Approximately 2.2× original estimate.",
+        "loanGuarantor": "Not publicly disclosed for the equity tranche financing pathway as of this writing.",
+        "riskCarrier": "Construction-cost overruns were borne by TC Energy and resolved with shippers. Operating risk is shared among equity holders and contractually with shippers. If First Nations equity is debt-financed against cash flow, residual underperformance risk would land on the equity holder."
+      },
+      "primarySources": [
+        { "evidenceSlug": "haida-nation-2004-scc-73", "citing": "Duty to consult standard" },
+        { "evidenceSlug": "treaty-8-1899", "citing": "Treaty 8 cumulative-effects precedent" },
+        { "evidenceSlug": "cib-indigenous-equity-initiative", "citing": "Comparable Indigenous equity financing pathway" }
+      ],
+      "evidenceConfidence": "strong",
+      "domains": ["treaty", "energy", "finance", "water"],
+      "lastReviewed": "2026-05-25"
+    },
+    {
+      "slug": "site-c",
+      "name": "Site C Clean Energy Project",
+      "shortName": "Site C",
+      "status": "under_construction",
+      "summary": "1,100 MW hydroelectric dam on the Peace River in northeast British Columbia. Reservoir filling underway; first power expected from initial units.",
+      "location": "Peace River, near Fort St. John, BC (Treaty 8 territory)",
+      "jurisdictions": ["British Columbia", "Federal Canada"],
+      "proponent": "BC Hydro (provincial Crown corporation)",
+      "governmentObjective": "Add ~5,100 GWh/year of firm hydroelectric capacity to the BC grid to meet electrification, industrial, and population growth demand.",
+      "proponentObjective": "Deliver large-scale firm baseload generation that integrates with BC's existing hydro system.",
+      "parties": [
+        { "name": "BC Hydro", "role": "proponent" },
+        { "name": "West Moberly First Nations", "role": "contesting_first_nation" },
+        { "name": "Prophet River First Nation", "role": "contesting_first_nation" },
+        { "name": "Blueberry River First Nations", "role": "affected_community" },
+        { "name": "Province of British Columbia", "role": "government" },
+        { "name": "BC Utilities Commission", "role": "regulator" }
+      ],
+      "firstNationImplications": [
+        {
+          "text": "West Moberly and Prophet River First Nations brought a treaty infringement claim against the project; the claim was settled in 2022 prior to a trial decision.",
+          "kind": "fact"
+        },
+        {
+          "text": "The settlement is confidential but BC Hydro publicly acknowledged it resolves the litigation; the precedent value of an avoided trial is therefore limited.",
+          "kind": "fact"
+        },
+        {
+          "text": "Reservoir flooding affects burial sites, fishing sites, hunting territories, and cultural sites; the long-term cultural-loss impact extends across generations.",
+          "kind": "needs_validation",
+          "sources": [
+            { "evidenceSlug": "treaty-8-1899", "citing": "Right to pursue usual vocations of hunting, trapping and fishing under Treaty 8." }
+          ]
+        }
+      ],
+      "treatyAndWaterRisk": [
+        {
+          "text": "Following the 2021 Yahey decision in favour of Blueberry River First Nations on cumulative effects in the same region, BC's broader approach to authorizing development in Treaty 8 territory has been under sustained legal and political pressure.",
+          "kind": "fact",
+          "sources": [
+            { "evidenceSlug": "treaty-8-1899", "citing": "Yahey v. British Columbia, 2021 BCSC 1287" }
+          ]
+        },
+        {
+          "text": "Reservoir conversion of riverine ecosystem to lake-like conditions affects sediment transport, fish habitat, and downstream flow regime for decades.",
+          "kind": "risk"
+        }
+      ],
+      "financeRisk": [
+        {
+          "text": "Capital cost grew from a 2014 estimate of CAD $7.9B to approximately CAD $16B (BC Hydro's 2021 reforecast).",
+          "kind": "fact"
+        },
+        {
+          "text": "Cost is ultimately borne by BC ratepayers through electricity rates; the Province of BC has provided rate relief mechanisms.",
+          "kind": "fact"
+        },
+        {
+          "text": "If long-run electricity demand falls short of projections (e.g. industrial load loss), the cost-recovery burden per ratepayer rises.",
+          "kind": "risk"
+        }
+      ],
+      "governanceQuestions": [
+        "What public-interest test would a similarly situated project face today under DRIPA and the post-Yahey consultation framework?",
+        "What governance role do affected First Nations have over reservoir-related decisions (e.g. ramping, debris management, future cultural-site protection) for the operating life of the dam?"
+      ],
+      "recommendedCommunityQuestions": [
+        "What enforceable commitments exist around access to traditional territory now under reservoir?",
+        "What is the long-term flow regime, and what monitoring will affected communities have access to?",
+        "What is the precedent value of the West Moberly / Prophet River settlement for future projects in our territory?"
+      ],
+      "finance": {
+        "structure": "Crown corporation balance sheet; ultimately backstopped by Province of BC.",
+        "totalCostEstimate": "≈ CAD $16B (2021 reforecast)",
+        "costOverrunsNoted": "Approximately 2× original 2014 estimate.",
+        "loanGuarantor": "Province of British Columbia (Crown corporation debt)",
+        "riskCarrier": "BC ratepayers via electricity rates; with Provincial backstop if Hydro's financial position required intervention."
+      },
+      "primarySources": [
+        { "evidenceSlug": "treaty-8-1899", "citing": "Treaty 8 hunting/fishing/trapping rights" },
+        { "evidenceSlug": "bc-dripa-2019", "citing": "Post-2019 BC consultation framework" }
+      ],
+      "evidenceConfidence": "strong",
+      "domains": ["treaty", "water", "energy", "finance"],
+      "lastReviewed": "2026-05-25"
+    },
+    {
+      "slug": "trans-mountain-expansion",
+      "name": "Trans Mountain Expansion Project (TMX)",
+      "shortName": "TMX",
+      "status": "operational",
+      "summary": "Twinned crude-oil pipeline from Edmonton, AB to Burnaby, BC, nearly tripling nameplate capacity from ~300,000 to ~890,000 bbl/day. In service since May 2024.",
+      "location": "Edmonton, AB to Burnaby, BC (with Westridge Marine Terminal expansion)",
+      "jurisdictions": ["Alberta", "British Columbia", "Federal Canada"],
+      "proponent": "Trans Mountain Corporation (federal Crown corporation since 2018)",
+      "governmentObjective": "Provide tidewater access for Alberta heavy crude to reach Asia-Pacific markets and reduce price discounts on Canadian crude.",
+      "proponentObjective": "Operate the pipeline to recover capital cost via committed shipper tolls under regulated tariffs.",
+      "parties": [
+        { "name": "Trans Mountain Corporation", "role": "proponent" },
+        { "name": "129 Indigenous groups along the route (with mutual benefit agreements, per Trans Mountain Corp.)", "role": "consenting_first_nation" },
+        { "name": "Tsleil-Waututh Nation", "role": "contesting_first_nation" },
+        { "name": "Squamish Nation", "role": "contesting_first_nation" },
+        { "name": "Coldwater Indian Band", "role": "contesting_first_nation" },
+        { "name": "Canadian Energy Regulator (CER)", "role": "regulator" },
+        { "name": "Government of Canada (sole shareholder via Canada TMP Finance Ltd.)", "role": "financier" }
+      ],
+      "firstNationImplications": [
+        {
+          "text": "The Federal Court of Appeal in 2018 (Tsleil-Waututh Nation v. Canada) found that the second-round Phase III consultation was inadequate and quashed the original federal approval; project was re-approved in 2019 after a remedial consultation process.",
+          "kind": "fact",
+          "sources": [
+            { "evidenceSlug": "haida-nation-2004-scc-73", "citing": "Duty-to-consult standard applied in TMX litigation." }
+          ]
+        },
+        {
+          "text": "Multiple First Nation-led equity acquisition proposals (e.g. Project Reconciliation, Nesika, Iron Coalition) have been publicly discussed; no transaction has been announced as of this writing.",
+          "kind": "fact"
+        },
+        {
+          "text": "If a sale to an Indigenous-led consortium were structured with CIB or comparable government support, the financing structure and risk-allocation terms would materially affect the outcome for participating Nations.",
+          "kind": "question"
+        }
+      ],
+      "treatyAndWaterRisk": [
+        {
+          "text": "Tanker traffic in Burrard Inlet associated with the expanded Westridge Marine Terminal raises documented marine-spill and Southern Resident Killer Whale concerns that were central to the 2018 FCA decision.",
+          "kind": "fact"
+        },
+        {
+          "text": "Coldwater Indian Band raised specific concerns about a routing alignment over their sole-source aquifer; the federal regulator and Trans Mountain have engaged on routing alternatives.",
+          "kind": "fact"
+        }
+      ],
+      "financeRisk": [
+        {
+          "text": "Capital cost grew from a 2017 estimate of ~CAD $7.4B to approximately CAD $34B at completion (Trans Mountain Corporation disclosure).",
+          "kind": "fact"
+        },
+        {
+          "text": "Government of Canada has signalled intent to divest its interest in the project; the eventual sale price, buyer composition, and Indigenous participation terms remain open.",
+          "kind": "question"
+        },
+        {
+          "text": "If tolls or shipper-commitment volumes prove insufficient to recover the full capital cost, the federal Crown carries the residual exposure until a divestment closes.",
+          "kind": "risk"
+        }
+      ],
+      "governanceQuestions": [
+        "What is the federal government's framework for evaluating Indigenous-led acquisition proposals, and how is fair price determined when the seller is the Crown and the buyer is partly Crown-financed?",
+        "How will environmental obligations (decommissioning, spill response, marine impacts) be preserved across a change of ownership?"
+      ],
+      "recommendedCommunityQuestions": [
+        "If our Nation is offered a stake in a future Indigenous-led acquisition, what is the cash-flow waterfall — who gets paid first, and where do we sit?",
+        "What is the indemnity structure for legacy environmental liabilities — do they stay with the Crown, transfer to buyers, or get split?",
+        "What veto, observer, or governance rights does an equity stake convey, distinct from cash returns?"
+      ],
+      "finance": {
+        "structure": "Federal Crown corporation. Acquired by Canada in 2018 for CAD $4.5B. Construction completed in 2024 at ≈ CAD $34B.",
+        "totalCostEstimate": "≈ CAD $34B (in-service)",
+        "costOverrunsNoted": "Approximately 4.6× the 2017 estimate.",
+        "loanGuarantor": "Government of Canada (via Canada TMP Finance Ltd.)",
+        "riskCarrier": "Government of Canada (federal taxpayers) until a divestment closes; tolls and shipper commitments are the recovery mechanism."
+      },
+      "primarySources": [
+        { "evidenceSlug": "haida-nation-2004-scc-73", "citing": "Duty-to-consult standard" },
+        { "evidenceSlug": "constitution-act-1982-s35", "citing": "Constitutional basis for treaty-rights claims" },
+        { "evidenceSlug": "cib-indigenous-equity-initiative", "citing": "Potential financing pathway for an Indigenous-led acquisition" }
+      ],
+      "evidenceConfidence": "strong",
+      "domains": ["treaty", "finance", "water", "energy"],
+      "lastReviewed": "2026-05-25"
+    },
+    {
+      "slug": "cedar-lng",
+      "name": "Cedar LNG",
+      "shortName": "Cedar LNG",
+      "status": "under_construction",
+      "summary": "≈ 3.3 Mtpa floating LNG export facility at Kitimat, BC. Indigenous-majority ownership: Haisla Nation 50.1%, Pembina Pipeline Corporation 49.9%.",
+      "location": "Kitimat, BC (Haisla Nation territory)",
+      "jurisdictions": ["British Columbia", "Federal Canada"],
+      "proponent": "Cedar LNG Partners LP (Haisla Nation 50.1%, Pembina 49.9%)",
+      "governmentObjective": "Demonstrate Indigenous-led major-project ownership at scale; expand Pacific LNG export capacity.",
+      "proponentObjective": "Generate long-term LNG export revenue under offtake contracts; for Haisla, build multi-decade community wealth and governance capacity.",
+      "parties": [
+        { "name": "Haisla Nation", "role": "consenting_first_nation" },
+        { "name": "Pembina Pipeline Corporation", "role": "proponent" },
+        { "name": "BC Environmental Assessment Office", "role": "regulator" },
+        { "name": "Impact Assessment Agency of Canada", "role": "regulator" },
+        { "name": "Export Development Canada (project finance role disclosed)", "role": "financier" }
+      ],
+      "firstNationImplications": [
+        {
+          "text": "Haisla Nation is the majority equity owner, not merely an impact-benefit beneficiary. This represents a structurally different model from most legacy LNG projects.",
+          "kind": "fact"
+        },
+        {
+          "text": "Project crosses multiple First Nations' interests via shipping channels; engagement with Haisla, Gitga'at, and others has been documented in the EA.",
+          "kind": "fact"
+        },
+        {
+          "text": "Long-run effects on Haisla governance capacity, intergenerational wealth, and exposure to global LNG price volatility will be material over the project's operating life.",
+          "kind": "question"
+        }
+      ],
+      "treatyAndWaterRisk": [
+        {
+          "text": "As an electrically-driven liquefaction facility, lifecycle emissions intensity is reported as lower than gas-driven LNG comparators.",
+          "kind": "fact"
+        },
+        {
+          "text": "Marine impacts (LNG carrier traffic in Douglas Channel, sensitive marine habitat) are part of the EA conditions.",
+          "kind": "fact"
+        }
+      ],
+      "financeRisk": [
+        {
+          "text": "Final investment decision was taken in 2024 with a capital cost estimate of approximately CAD $4B.",
+          "kind": "fact"
+        },
+        {
+          "text": "Haisla's 50.1% equity will be financed in part through external debt; specific lenders and loan-guarantee structure include disclosed federal participation.",
+          "kind": "needs_validation",
+          "sources": [
+            { "evidenceSlug": "cib-indigenous-equity-initiative", "citing": "CIB has been publicly identified in this transaction; verify current terms in CIB and project disclosures." }
+          ]
+        },
+        {
+          "text": "LNG price exposure: Cedar's revenue depends on global LNG prices through its offtake agreements. Sustained low-price environment would compress cash flows available to debt service and to Haisla's equity distribution.",
+          "kind": "risk"
+        }
+      ],
+      "governanceQuestions": [
+        "How are project-level decisions (capex deferrals, operating decisions, future expansions) governed between the 50.1% Indigenous equity holder and the operating partner?",
+        "What sequencing of debt repayment vs. community distribution applies, and how is it disclosed to Haisla members?"
+      ],
+      "recommendedCommunityQuestions": [
+        "For Haisla members: what is our annual expected distribution after debt service, in low / base / high LNG price scenarios?",
+        "What independent governance and audit structures exist to ensure the partnership delivers as designed?",
+        "What is the long-tail decommissioning plan, and who carries the obligation?"
+      ],
+      "finance": {
+        "structure": "Cedar LNG Partners LP. Haisla Nation 50.1%, Pembina 49.9%. Indigenous equity financed in part through debt with disclosed federal participation.",
+        "totalCostEstimate": "≈ CAD $4B (FID 2024)",
+        "loanGuarantor": "Federal participation has been publicly disclosed; verify specifics in CIB and project filings.",
+        "riskCarrier": "Project equity holders bear operating and price risk; lenders bear default risk subject to any government participation; Haisla cash flow waterfall sits after debt service."
+      },
+      "primarySources": [
+        { "evidenceSlug": "cib-indigenous-equity-initiative", "citing": "Federal financing pathway for Indigenous-majority equity" },
+        { "evidenceSlug": "fnfa-bonds-overview", "citing": "Comparable Indigenous capital-markets financing approach" },
+        { "evidenceSlug": "undrip-act-2021", "citing": "Implementation context for Indigenous-led project ownership" }
+      ],
+      "evidenceConfidence": "moderate",
+      "domains": ["treaty", "energy", "finance"],
+      "lastReviewed": "2026-05-25"
+    }
+  ]
+}
