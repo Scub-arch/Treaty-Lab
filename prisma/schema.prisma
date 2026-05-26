@@ -1,0 +1,72 @@
+// Treaty-Lab: international treaty database & explorer
+// docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Treaty {
+  id                 String   @id @default(cuid())
+  slug               String   @unique
+  name               String
+  shortName          String?
+  openedAt           DateTime
+  enteredIntoForceAt DateTime?
+  depository         String?
+  summary            String?
+  fullText           String
+  sourceUrl          String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  topics     Topic[]     @relation("TreatyTopics")
+  signatures Signature[]
+
+  @@index([openedAt])
+  @@index([enteredIntoForceAt])
+}
+
+model Party {
+  id   String @id @default(cuid())
+  code String @unique // ISO 3166-1 alpha-2 (e.g. "US", "FR") or org code (e.g. "UN", "EU")
+  name String
+  type String // "country" | "organization"
+
+  signatures Signature[]
+
+  @@index([type])
+}
+
+model Signature {
+  id          String   @id @default(cuid())
+  treatyId    String
+  partyId     String
+  signedAt    DateTime?
+  ratifiedAt  DateTime?
+  reservation String?
+  createdAt   DateTime @default(now())
+
+  treaty Treaty @relation(fields: [treatyId], references: [id], onDelete: Cascade)
+  party  Party  @relation(fields: [partyId], references: [id], onDelete: Cascade)
+
+  @@unique([treatyId, partyId])
+  @@index([treatyId])
+  @@index([partyId])
+  @@index([signedAt])
+}
+
+model Topic {
+  id       String   @id @default(cuid())
+  slug     String   @unique
+  name     String
+  parentId String?
+
+  parent   Topic?  @relation("TopicHierarchy", fields: [parentId], references: [id])
+  children Topic[] @relation("TopicHierarchy")
+  treaties Treaty[] @relation("TreatyTopics")
+}

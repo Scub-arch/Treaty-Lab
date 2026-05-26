@@ -1,0 +1,220 @@
+{
+  "items": [
+    {
+      "slug": "undrip-2007",
+      "title": "United Nations Declaration on the Rights of Indigenous Peoples (UNDRIP)",
+      "sourceType": "treaty_text",
+      "author": "United Nations General Assembly",
+      "publishedAt": "2007-09-13",
+      "url": "https://www.un.org/development/desa/indigenouspeoples/declaration-on-the-rights-of-indigenous-peoples.html",
+      "reliability": "established",
+      "tags": ["law", "government", "community"],
+      "supports": [
+        "Right to free, prior and informed consent (FPIC) before approval of projects affecting Indigenous lands or resources (Articles 19, 32).",
+        "Right of self-determination (Article 3).",
+        "Right to redress, including restitution, for lands taken without consent (Article 28)."
+      ],
+      "limitations": [
+        "UNDRIP is a declaration, not a binding treaty. Its domestic legal effect depends on implementing legislation in each state."
+      ],
+      "plainSummary": "The international standard, adopted by the UN in 2007, that says Indigenous peoples must give free, prior and informed consent before governments or companies use their lands and resources. Canada endorsed it in 2010 and passed implementing legislation in 2021."
+    },
+    {
+      "slug": "ilo-169-1989",
+      "title": "ILO Convention No. 169: Indigenous and Tribal Peoples Convention",
+      "sourceType": "treaty_text",
+      "author": "International Labour Organization",
+      "publishedAt": "1989-06-27",
+      "url": "https://www.ilo.org/dyn/normlex/en/f?p=NORMLEXPUB:12100:0::NO::P12100_ILO_CODE:C169",
+      "reliability": "established",
+      "tags": ["law", "community"],
+      "supports": [
+        "Obligation to consult Indigenous peoples through their representative institutions before measures that may affect them (Article 6).",
+        "Right to participate in decisions about development of natural resources on their lands (Articles 7, 15)."
+      ],
+      "limitations": [
+        "Canada has not ratified ILO 169. It is binding only on the 23+ states that have ratified."
+      ],
+      "plainSummary": "A 1989 international labour treaty on Indigenous rights. Stronger consultation and consent language than UNDRIP, but Canada has not ratified it."
+    },
+    {
+      "slug": "constitution-act-1982-s35",
+      "title": "Constitution Act, 1982 — Section 35 (Aboriginal and Treaty Rights)",
+      "sourceType": "legislation",
+      "author": "Parliament of Canada",
+      "publishedAt": "1982-04-17",
+      "url": "https://laws-lois.justice.gc.ca/eng/Const/page-13.html",
+      "reliability": "established",
+      "tags": ["law", "government"],
+      "supports": [
+        "Recognition and affirmation of 'existing aboriginal and treaty rights' as constitutional rights.",
+        "Includes rights acquired by way of land claims agreements (s. 35(3)).",
+        "Equal application of aboriginal and treaty rights to male and female persons (s. 35(4))."
+      ],
+      "plainSummary": "The clause in Canada's Constitution that recognizes and protects Indigenous and treaty rights. It is the legal anchor for nearly every Indigenous-rights case in Canada since 1982."
+    },
+    {
+      "slug": "haida-nation-2004-scc-73",
+      "title": "Haida Nation v. British Columbia (Minister of Forests), 2004 SCC 73",
+      "sourceType": "court_decision",
+      "author": "Supreme Court of Canada",
+      "publishedAt": "2004-11-18",
+      "url": "https://www.canlii.org/en/ca/scc/doc/2004/2004scc73/2004scc73.html",
+      "reliability": "established",
+      "tags": ["law", "government"],
+      "supports": [
+        "Established the Crown's duty to consult and, where appropriate, accommodate Indigenous interests before final proof of rights.",
+        "Duty is grounded in the honour of the Crown and is triggered when Crown contemplates conduct that might adversely affect a claimed right."
+      ],
+      "limitations": [
+        "Duty does not amount to a veto for First Nations; the Court framed it as a spectrum from notice to deep consultation depending on strength of claim and severity of impact."
+      ],
+      "plainSummary": "The leading Supreme Court ruling on the Crown's duty to consult Indigenous peoples before approving projects that might affect their rights — even when those rights have not yet been proven in court."
+    },
+    {
+      "slug": "tsilhqotin-2014-scc-44",
+      "title": "Tsilhqot'in Nation v. British Columbia, 2014 SCC 44",
+      "sourceType": "court_decision",
+      "author": "Supreme Court of Canada",
+      "publishedAt": "2014-06-26",
+      "url": "https://www.canlii.org/en/ca/scc/doc/2014/2014scc44/2014scc44.html",
+      "reliability": "established",
+      "tags": ["law", "community"],
+      "supports": [
+        "First declaration of Aboriginal title over a specific tract of land in Canadian history.",
+        "Held that Aboriginal title confers the right to decide how the land will be used and to economic benefit from the land.",
+        "Crown infringement of title requires both procedural duty of consultation and substantive justification."
+      ],
+      "plainSummary": "The first Supreme Court case to actually declare Aboriginal title to a specific area of land. Sets a high bar for governments and companies seeking to act on title land without consent."
+    },
+    {
+      "slug": "mikisew-cree-2018-scc-40",
+      "title": "Mikisew Cree First Nation v. Canada (Governor General in Council), 2018 SCC 40",
+      "sourceType": "court_decision",
+      "author": "Supreme Court of Canada",
+      "publishedAt": "2018-10-11",
+      "url": "https://www.canlii.org/en/ca/scc/doc/2018/2018scc40/2018scc40.html",
+      "reliability": "established",
+      "tags": ["law", "government"],
+      "supports": [
+        "Majority held the duty to consult is not triggered by the legislative process itself.",
+        "However, courts may still review whether legislative action that affects treaty rights is consistent with the honour of the Crown after enactment."
+      ],
+      "limitations": [
+        "Decision was fractured; several concurring reasons. Scope of post-enactment review is unsettled."
+      ],
+      "plainSummary": "A divided Supreme Court ruled that the duty to consult does not apply to Parliament passing laws — only to Crown decisions about specific projects. Important for understanding the limits of consultation."
+    },
+    {
+      "slug": "treaty-6-1876",
+      "title": "Treaty No. 6 (1876)",
+      "sourceType": "treaty_text",
+      "author": "Crown in Right of Canada and Cree, Assiniboine, and other signatories",
+      "publishedAt": "1876-08-23",
+      "url": "https://www.rcaanc-cirnac.gc.ca/eng/1100100028710/1581292569426",
+      "reliability": "established",
+      "tags": ["law", "community", "government"],
+      "supports": [
+        "Cession (per Crown interpretation) of land in present-day Saskatchewan and Alberta.",
+        "Promises by Crown including reserves, education assistance, agricultural implements, medicine chest provision, and famine relief.",
+        "First Nation oral histories and many scholars contest the 'cession' framing; treaty is also understood as a nation-to-nation agreement to share."
+      ],
+      "limitations": [
+        "The text reflects the Crown's record; Indigenous oral histories of treaty intent often differ materially."
+      ],
+      "plainSummary": "The 1876 numbered treaty covering large portions of what is now Saskatchewan and Alberta. The text and what the parties actually agreed to are still actively contested — particularly the difference between 'sharing the land' (oral understanding) and 'ceding the land' (Crown interpretation)."
+    },
+    {
+      "slug": "treaty-8-1899",
+      "title": "Treaty No. 8 (1899)",
+      "sourceType": "treaty_text",
+      "author": "Crown in Right of Canada and Cree, Beaver, Chipewyan, and other signatories",
+      "publishedAt": "1899-06-21",
+      "url": "https://www.rcaanc-cirnac.gc.ca/eng/1100100028813/1581293624572",
+      "reliability": "established",
+      "tags": ["law", "community", "government", "water"],
+      "supports": [
+        "Covers northern Alberta, northeastern British Columbia, northwestern Saskatchewan, and southern NWT.",
+        "Crown promise that signatories 'shall have the right to pursue their usual vocations of hunting, trapping and fishing' subject to regulation and to lands taken up for settlement, mining, lumbering, trading, or other purposes.",
+        "Has been the legal basis for major rights cases involving cumulative effects of resource development (e.g. Yahey v. British Columbia, 2021 BCSC 1287, on Blueberry River First Nations)."
+      ],
+      "limitations": [
+        "The 'taking up' clause has been at the centre of disputes about how much development is too much for treaty rights to remain meaningful."
+      ],
+      "plainSummary": "The 1899 treaty covering northeastern BC and northern Alberta — directly relevant to oil & gas, hydroelectric, and pipeline projects in that region. The Yahey decision found cumulative effects had infringed Blueberry River First Nations' treaty rights."
+    },
+    {
+      "slug": "undrip-act-2021",
+      "title": "United Nations Declaration on the Rights of Indigenous Peoples Act (Bill C-15)",
+      "sourceType": "legislation",
+      "author": "Parliament of Canada",
+      "publishedAt": "2021-06-21",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/U-2.2/",
+      "reliability": "established",
+      "tags": ["law", "government"],
+      "supports": [
+        "Affirms UNDRIP as a universal human rights instrument with application in Canadian law.",
+        "Requires the federal government to take measures to ensure the laws of Canada are consistent with UNDRIP, in consultation with Indigenous peoples.",
+        "Requires development of an Action Plan to achieve the Declaration's objectives."
+      ],
+      "limitations": [
+        "Does not directly grant individual cause of action; impact depends on implementing measures and judicial interpretation."
+      ],
+      "plainSummary": "Federal legislation that commits Canada to align its laws with UNDRIP. Passed in 2021. Implementation is being worked out through a federal Action Plan."
+    },
+    {
+      "slug": "bc-dripa-2019",
+      "title": "BC Declaration on the Rights of Indigenous Peoples Act (DRIPA)",
+      "sourceType": "legislation",
+      "author": "Legislature of British Columbia",
+      "publishedAt": "2019-11-28",
+      "url": "https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/19044",
+      "reliability": "established",
+      "tags": ["law", "government"],
+      "supports": [
+        "First provincial legislation in Canada to implement UNDRIP.",
+        "Requires BC to take measures to align provincial laws with UNDRIP.",
+        "Authorizes the provincial government to enter into agreements with Indigenous governing bodies that may include consent-based decision-making."
+      ],
+      "plainSummary": "British Columbia's 2019 law implementing UNDRIP at the provincial level — the first of its kind in Canada."
+    },
+    {
+      "slug": "cib-indigenous-equity-initiative",
+      "title": "Canada Infrastructure Bank — Indigenous Equity Initiative (program page)",
+      "sourceType": "government_report",
+      "author": "Canada Infrastructure Bank",
+      "publishedAt": "2023",
+      "url": "https://cib-bic.ca/en/sectors/indigenous-infrastructure/indigenous-equity-initiative/",
+      "reliability": "strong",
+      "tags": ["finance", "government", "market"],
+      "supports": [
+        "CIB provides loans to Indigenous communities to acquire equity stakes in infrastructure projects in CIB priority sectors.",
+        "Loans are secured against the equity acquired and project cash flows.",
+        "Intent is to lower the cost of capital for Indigenous equity participation."
+      ],
+      "limitations": [
+        "Program terms (interest rates, tenors, eligibility) evolve; verify current terms before quoting specifics."
+      ],
+      "plainSummary": "A federal program that lends money to Indigenous communities so they can buy ownership stakes in big infrastructure projects. The loan is repaid from the project's cash flow."
+    },
+    {
+      "slug": "fnfa-bonds-overview",
+      "title": "First Nations Finance Authority — Overview of Pooled Borrowing Program",
+      "sourceType": "financial_prospectus",
+      "author": "First Nations Finance Authority",
+      "publishedAt": "2024",
+      "url": "https://fnfa.ca/en/financing/",
+      "reliability": "strong",
+      "tags": ["finance", "community", "market"],
+      "supports": [
+        "FNFA is a not-for-profit corporation, established under the federal First Nations Fiscal Management Act, that issues bonds in capital markets and on-lends proceeds to First Nation borrowing members.",
+        "Borrowing members must be certified under the Financial Management Board and pledge specific revenue streams (e.g. tax, settlement, own-source revenues) as security.",
+        "FNFA debentures have received investment-grade credit ratings from major rating agencies."
+      ],
+      "limitations": [
+        "Specific bond terms (coupon, maturity, size) vary by issue; check current offerings."
+      ],
+      "plainSummary": "A Crown-enabled lender that bundles First Nations together to borrow money in capital markets at lower interest rates than any single Nation could get alone. Membership requires meeting financial-management standards."
+    }
+  ]
+}

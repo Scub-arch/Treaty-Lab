@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "treaty-lab",
+      "runtimeExecutable": "C:\\Claude\\.claude\\claude work folder\\npm.cmd",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3001
+    }
+  ]
+}
