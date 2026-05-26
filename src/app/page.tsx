@@ -14,8 +14,29 @@ import {
   RadarOverview,
   type DomainComposite,
 } from "@/components/intel/radar-overview";
+import { GeographicOverview } from "@/components/intel/geographic-overview";
 import { Glow } from "@/components/ui/glow";
 import { ArrowRight } from "lucide-react";
+
+// Project + territory anchors plotted on the Command Center globe.
+// Coordinates are approximate — sourced from public maps / regulator filings.
+const GLOBE_MARKERS = [
+  { id: "cedar-lng", location: [54.05, -128.65] as [number, number], label: "Cedar LNG · Kitimat (Haisla territory)", kind: "project" as const },
+  { id: "cgl-east", location: [55.77, -120.24] as [number, number], label: "Coastal GasLink · Dawson Creek (origin)", kind: "project" as const },
+  { id: "site-c", location: [56.25, -120.85] as [number, number], label: "Site C · Peace River (Treaty 8)", kind: "project" as const },
+  { id: "blueberry-river", location: [57.0, -122.0] as [number, number], label: "Blueberry River FN territory (Yahey claim area)", kind: "territory" as const },
+  { id: "tmx-edmonton", location: [53.55, -113.49] as [number, number], label: "TMX origin · Edmonton", kind: "project" as const },
+  { id: "tmx-burnaby", location: [49.27, -122.95] as [number, number], label: "TMX terminus · Burnaby (Tsleil-Waututh)", kind: "project" as const },
+  { id: "genesee-dc", location: [53.30, -114.30] as [number, number], label: "Capital Power Genesee DC proposal (Treaty 6)", kind: "datacentre" as const },
+  { id: "aeso-calgary", location: [51.05, -114.07] as [number, number], label: "AESO data-centre cluster · Calgary (3,533 MW)", kind: "datacentre" as const },
+];
+
+const GLOBE_ARCS = [
+  // TMX corridor (Edmonton → Burnaby)
+  { start: [53.55, -113.49] as [number, number], end: [49.27, -122.95] as [number, number] },
+  // CGL corridor (Dawson Creek → Kitimat → feeds Cedar LNG)
+  { start: [55.77, -120.24] as [number, number], end: [54.05, -128.65] as [number, number] },
+];
 
 const SEVERITY_RANK: Record<Severity, number> = {
   critical: 5,
@@ -84,44 +105,44 @@ export default function CommandCenter() {
         </p>
       </section>
 
-      {/* Composite radar — cross-domain severity overview */}
-      <section className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-6">
+      {/* Geographic + composite-severity overview */}
+      <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <IntelligencePanel
+          title="Geographic Intelligence — Projects & Territories"
+          code="CMD · GEO"
+          subtitle="Pilot projects, affected First-Nation territories, and proposed data-centre load clusters. Drag to rotate. Lines mark project corridors."
+        >
+          <GeographicOverview markers={GLOBE_MARKERS} arcs={GLOBE_ARCS} />
+        </IntelligencePanel>
         <IntelligencePanel
           title="Cross-Domain Severity Composite"
           code="CMD · COMPOSITE"
-          subtitle="Average indicator-severity reading per domain across the terminal. Higher score = more pressing exposure."
+          subtitle="Average indicator-severity per domain. Higher = more pressing exposure."
         >
           <RadarOverview composites={composites} />
-        </IntelligencePanel>
-        <div className="border border-border bg-card rounded-md p-5 space-y-3">
-          <div className="font-mono text-[10px] tracking-[0.18em] text-muted-foreground">
-            CMD · COMPOSITE · READINGS
+          <div className="mt-4 pt-4 border-t border-border/60">
+            <ul className="space-y-1.5 text-sm">
+              {composites.map((c) => (
+                <li key={c.domain} className="flex items-baseline justify-between gap-3">
+                  <span className="text-foreground/90">{c.label}</span>
+                  <span className="flex items-baseline gap-2">
+                    <span className="font-mono tabular-nums font-medium">
+                      {c.severityScore.toFixed(2)}
+                    </span>
+                    <span className="font-mono text-[10px] text-muted-foreground">
+                      / 5.00
+                    </span>
+                    <span className="font-mono text-[10px] text-muted-foreground">
+                      ({c.indicatorCount} ind.)
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
-          <h3 className="font-semibold text-sm tracking-tight">By domain</h3>
-          <ul className="space-y-2 text-sm">
-            {composites.map((c) => (
-              <li key={c.domain} className="flex items-baseline justify-between gap-3">
-                <span className="text-foreground/90">{c.label}</span>
-                <span className="flex items-baseline gap-2">
-                  <span className="font-mono tabular-nums font-medium">
-                    {c.severityScore.toFixed(2)}
-                  </span>
-                  <span className="font-mono text-[10px] text-muted-foreground">
-                    / 5.00
-                  </span>
-                  <span className="font-mono text-[10px] text-muted-foreground">
-                    ({c.indicatorCount} ind.)
-                  </span>
-                </span>
-              </li>
-            ))}
-          </ul>
-          <p className="text-[11px] text-muted-foreground leading-relaxed pt-3 border-t border-border/60">
-            Composite is a simple average of indicator-severity ranks (1=low → 5=critical) within
-            each domain. It is a qualitative orientation tool, not a market index.
-          </p>
-        </div>
+        </IntelligencePanel>
       </section>
+
 
       {/* Featured risk indicators */}
       <section>

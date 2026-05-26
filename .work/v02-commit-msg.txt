@@ -1,0 +1,80 @@
+Pilot v0.2: PDF-grounded content + radar overview + ui-app integration
+
+Ground every claim in real Phase 8 source PDFs (~115 documents extracted to
+text via scripts/extract-pdfs.mjs / unpdf and synthesised by five parallel
+domain-focused subagents — Finance, Legal, Water Technical, Power/AI/Data
+Centres, Precedents+Govt+Community).
+
+EVIDENCE LIBRARY (12 invented -> 36 cited primary sources):
+- Foundational law: Constitution Acts 1867-1982, UNDRIP, UN Declaration Act
+  + 2023-2028 Action Plan, BC DRIPA, Tsuu T'ina v. Alberta 2008 ABQB 547,
+  Haida, Tsilhqot'in, Yahey 2021 BCSC 1287, Blueberry River Implementation
+  Agreement (Jan 2023), Five-Nations $800M settlement (Apr 2023)
+- AB regulatory: Water Act (silent on s.35), Surface Water Allocation
+  Directive 2021, Proponent Consultation Guide 2024, SSRB Closed Basin
+  Directive 2016, SSRB Water Allocation 2003-2005, Drought Response Plan
+  2025, Water Supply Outlook Feb 2026
+- Finance architecture: CIB IEI + ICII + Investment Policy, AIOC LGIP +
+  Mandate, FNFA 2024-25 Annual Report, FNFA Morningstar DBRS Oct 2025
+  (AA low / Aa3 / AA-), FNMPC Loan Guarantee Primer (CGL forfeiture
+  documentation, $51B 10-year equity-need projection), CILGC Applicant
+  Guide v3 ($20M-$1B per-deal range, 75% federal stacking cap), CER
+  Growing Indigenous Ownership 2026 (pipeline-equity inventory + first
+  major federal ILGP at $400M for Westcoast NG Stonlasec8)
+- Cedar LNG: FID Update Dec 2024, EA Update Dec 2024, Pembina news release
+  Apr 2024 (capital cost, EPC, advisors, EBITDA guidance)
+- Energy/Grid: AB AI Data Centre Strategy 2024, AESO 2025 Annual Report,
+  AESO Phase I + Phase 2A docs, NERC Large Loads Task Force 2025
+  (~1,500 MW load-reduction events), Capital Power Genesee 2025
+- Govt/Community: AB Indigenous Relations Business Plan 2026-29
+  (120-day priority-project approval target), UNDRIP Act Action Plan
+  measures 19/23/30/32/34, Hydro One IR Policy 2025 (50% equity above
+  $100M), FNIGC OCAP Principles + Barriers and Levers 2014 (210+
+  federal data banks, ATIP recognition gap)
+
+INDICATORS (18 invented -> 38 cited measurable readings):
+- Yahey "significant or meaningful diminishment" doctrine
+- 85% Blueberry Claim Area within 250m of industrial disturbance
+- AB 120-day priority-project approval target
+- SSRB closure with First Nation on-Reserve exception
+- St. Mary 118% of median natural flow
+- AESO 20,000+ MW data-centre queue vs 1,200 MW Phase I cap
+- Capital Power Genesee 1,500 MW PROPOSED on Treaty 6 land
+- AB Winter 2025 peak 12,785 MW (record)
+- TMR costs +302% YoY, TCR +279% YoY
+- NERC 1,500 MW load-reduction events (Eastern + Texas)
+- CIB IEI $5-100M / 90% LTV / 75% cash sweep
+- FNFA $3.9B AA-/Aa3/AA(low)
+- CILGC ILGP $20M-$1B with 75% federal stacking cap
+- FNMPC $51B Indigenous-equity 10-year projection
+- FNFA-cited $349.2B First Nations infrastructure gap
+- Documented Coastal GasLink First Nation equity forfeiture
+- Hydro One 50% equity above $100M Ontario transmission projects
+- Westcoast NG / Stonlasec8 12.5% with $400M CILGC guarantee
+- 210+ federal First Nations data banks; ATIP government-recognition gap
+
+PROJECT ASSESSMENTS:
+- Cedar LNG: 30+ confirmed cited facts (FID June 25 2024, US$3.4B/4.0B,
+  Samsung+B&V EPC, MUFG+CIBC advisors, federal SIF $200M + FNFA + BC
+  $200M electrification, DBRS rating cites Haisla majority as load driver)
+- Coastal GasLink: FNMPC-documented 10% additional-equity forfeiture
+  before federal ILGP existed
+- Site C: Blueberry Implementation Agreement Site C transmission carveout
+  from "New Disturbance" definition
+- TMX: Athabasca Indigenous Investments / Enbridge precedent ($1.12B for
+  11.57% — $250M AIOC + $870M bond) as documented analogue
+
+UI:
+- New Command Center radar chart (recharts via shadcn chart primitive)
+  showing cross-domain severity composite
+- Glow component added for institutional hero backdrop
+- New CSS tokens --brand / --brand-foreground (warm amber)
+- Popover primitive added to component library
+- Deps added: recharts, class-variance-authority, date-fns, unpdf
+
+TOOLING:
+- scripts/extract-pdfs.mjs walks Phase 8 Sources tree, extracts text
+  via unpdf (pure JS, no Poppler/pdftoppm dependency), writes to
+  C:\Phase 8 Sources\_extracted\ for downstream agent analysis
+- .work/agent-out-*.md scratchpad markers document each domain
+  synthesis for transparency on sourcing
