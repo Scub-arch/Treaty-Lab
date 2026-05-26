@@ -5,13 +5,33 @@ import {
   getExplainer,
   getModules,
 } from "@/lib/content";
+import type { Domain, Severity } from "@/lib/content/types";
 import { IntelligencePanel } from "@/components/intel/intelligence-panel";
 import { RiskCard } from "@/components/intel/risk-card";
 import { WatchlistTable } from "@/components/intel/watchlist-table";
 import { PlainLanguageBox } from "@/components/intel/plain-language-box";
+import {
+  RadarOverview,
+  type DomainComposite,
+} from "@/components/intel/radar-overview";
+import { Glow } from "@/components/ui/glow";
 import { ArrowRight } from "lucide-react";
 
-const SEVERITY_RANK = { critical: 5, high: 4, elevated: 3, moderate: 2, low: 1 } as const;
+const SEVERITY_RANK: Record<Severity, number> = {
+  critical: 5,
+  high: 4,
+  elevated: 3,
+  moderate: 2,
+  low: 1,
+};
+
+const DOMAIN_LABELS: Record<Domain, string> = {
+  treaty: "Treaty",
+  water: "Water",
+  energy: "Energy",
+  finance: "Finance",
+  governance: "Governance",
+};
 
 export default function CommandCenter() {
   const indicators = getIndicators();
@@ -23,12 +43,30 @@ export default function CommandCenter() {
     .sort((a, b) => SEVERITY_RANK[b.severity] - SEVERITY_RANK[a.severity])
     .slice(0, 4);
 
+  // Composite per-domain severity for the radar overview.
+  const composites: DomainComposite[] = (Object.keys(DOMAIN_LABELS) as Domain[]).map(
+    (domain) => {
+      const inDomain = indicators.filter((i) => i.domain === domain);
+      const score = inDomain.length
+        ? inDomain.reduce((sum, i) => sum + SEVERITY_RANK[i.severity], 0) /
+          inDomain.length
+        : 0;
+      return {
+        domain,
+        label: DOMAIN_LABELS[domain],
+        severityScore: Number(score.toFixed(2)),
+        indicatorCount: inDomain.length,
+      };
+    },
+  );
+
   const projectCertainty = getExplainer("what-is-project-certainty");
 
   return (
     <div className="px-6 py-8 space-y-10 max-w-[1600px] mx-auto">
-      {/* Hero thesis */}
-      <section>
+      {/* Hero thesis with subtle institutional glow backdrop */}
+      <section className="relative overflow-hidden">
+        <Glow variant="top" className="opacity-40 -z-10" />
         <div className="font-mono text-[10px] tracking-[0.25em] text-muted-foreground mb-3">
           COMMAND CENTER · PILOT v0.1
         </div>
@@ -44,6 +82,45 @@ export default function CommandCenter() {
           confirmed facts, risks, questions, assumptions, and items needing legal or community
           validation.
         </p>
+      </section>
+
+      {/* Composite radar — cross-domain severity overview */}
+      <section className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-6">
+        <IntelligencePanel
+          title="Cross-Domain Severity Composite"
+          code="CMD · COMPOSITE"
+          subtitle="Average indicator-severity reading per domain across the terminal. Higher score = more pressing exposure."
+        >
+          <RadarOverview composites={composites} />
+        </IntelligencePanel>
+        <div className="border border-border bg-card rounded-md p-5 space-y-3">
+          <div className="font-mono text-[10px] tracking-[0.18em] text-muted-foreground">
+            CMD · COMPOSITE · READINGS
+          </div>
+          <h3 className="font-semibold text-sm tracking-tight">By domain</h3>
+          <ul className="space-y-2 text-sm">
+            {composites.map((c) => (
+              <li key={c.domain} className="flex items-baseline justify-between gap-3">
+                <span className="text-foreground/90">{c.label}</span>
+                <span className="flex items-baseline gap-2">
+                  <span className="font-mono tabular-nums font-medium">
+                    {c.severityScore.toFixed(2)}
+                  </span>
+                  <span className="font-mono text-[10px] text-muted-foreground">
+                    / 5.00
+                  </span>
+                  <span className="font-mono text-[10px] text-muted-foreground">
+                    ({c.indicatorCount} ind.)
+                  </span>
+                </span>
+              </li>
+            ))}
+          </ul>
+          <p className="text-[11px] text-muted-foreground leading-relaxed pt-3 border-t border-border/60">
+            Composite is a simple average of indicator-severity ranks (1=low → 5=critical) within
+            each domain. It is a qualitative orientation tool, not a market index.
+          </p>
+        </div>
       </section>
 
       {/* Featured risk indicators */}

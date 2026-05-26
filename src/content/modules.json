@@ -3,54 +3,65 @@
     {
       "slug": "treaty",
       "title": "Treaty Terminal",
-      "tagline": "Treaty rights, consultation status, governance risk, and evidence strength",
-      "lede": "The Treaty Terminal tracks legal and governance signals across major Canadian projects: where treaty rights and Aboriginal title interact with project decisions, where consultation has and has not been adequate, and where consent doctrine remains unsettled.",
+      "tagline": "Treaty rights, consultation depth, cumulative-effects doctrine, and the post-Yahey precedent",
+      "lede": "The Treaty Terminal tracks legal and governance signals across major Canadian infrastructure decisions: where treaty rights and Aboriginal title interact with project approvals, where Yahey-style cumulative-effects findings reshape the rules, and where consultation depth meets the limits of Alberta's narrowing 'directly and adversely affected' standard.",
       "featuredIndicatorSlugs": [
-        "treaty-rights-risk-bc-ne",
-        "consultation-status-tmx",
-        "governance-hereditary-vs-elected",
-        "community-validation-gaps",
-        "legal-uncertainty-undrip-implementation",
-        "evidence-strength-public-record"
+        "yahey-significant-diminishment-standard",
+        "blueberry-claim-area-disturbance-footprint",
+        "blueberry-implementation-restoration-fund",
+        "five-nations-treaty-8-settlement-quantum",
+        "ab-priority-project-approval-target",
+        "ab-water-act-section-35-silence"
       ],
       "featuredProjectSlugs": ["coastal-gaslink", "site-c", "trans-mountain-expansion"]
     },
     {
       "slug": "water",
       "title": "Water Intelligence",
-      "tagline": "Watershed stress, drought signals, industrial demand, and First Nation water rights",
-      "lede": "Water Intelligence tracks where projects are being approved against weakening water-availability assumptions and against First Nation water rights that are recognized but unevenly implemented through provincial allocation systems.",
+      "tagline": "Watershed allocation, drought signals, mine-water climate stress, and First Nation water rights",
+      "lede": "Water Intelligence tracks where projects are being approved against an over-allocated southern basin system (St. Mary > 100% of median flow), against Aboriginal Extreme Flow trends on the Lower Athabasca, and against a doctrinal baseline (Tsuu T'ina v. Alberta, 2008) that found no standalone Treaty 6/7 right to water.",
       "featuredIndicatorSlugs": [
-        "watershed-stress-peace",
-        "drought-indicator-prairie",
-        "industrial-water-demand-lng",
-        "fn-water-rights-recognition"
+        "ssrb-closure-status",
+        "st-mary-allocation-vs-natural-flow",
+        "ab-drought-stage-current",
+        "ab-water-supply-outlook-2026",
+        "wapiti-smoky-oil-gas-allocation-utilization",
+        "aboriginal-extreme-flow-lower-athabasca",
+        "ab-wetland-loss-historical",
+        "mine-watershed-climate-2050"
       ],
       "featuredProjectSlugs": ["site-c", "coastal-gaslink", "cedar-lng"]
     },
     {
       "slug": "energy",
       "title": "Energy & Grid Intelligence",
-      "tagline": "Transmission constraints, demand growth, AI/data-centre load, and asset-stranding exposure",
-      "lede": "Energy & Grid Intelligence tracks the realism of grid-expansion assumptions in major-project planning: where transmission cannot keep up with electrification, where AI / data-centre load is rewriting forecasts, and where long-life oil & gas assets carry demand-trajectory exposure.",
+      "tagline": "AESO large-load queue, Phase I/II framework, NERC reliability findings, and Treaty-territory grid stress",
+      "lede": "Energy & Grid Intelligence tracks the largest gap in Canadian-grid planning right now: > 20 GW of data-centre load applications against a 1,200 MW Phase I cap, a record 12,785 MW winter peak, transmission costs spiking 300%+ year-over-year, and concentration in Treaty 8 / Treaty 6 corridors where Indigenous consultation has not yet been documented at project scale.",
       "featuredIndicatorSlugs": [
-        "transmission-constraints-bc",
-        "ai-datacentre-load-canada",
-        "oil-gas-infrastructure-exposure",
-        "project-certainty-index"
+        "aeso-large-load-queue",
+        "aeso-phase1-allocation",
+        "ab-winter-peak-2025",
+        "transmission-must-run-cost-spike",
+        "nerc-large-load-reduction-events",
+        "capital-power-genesee-proposal",
+        "ab-ai-strategy-target-gap"
       ],
-      "featuredProjectSlugs": ["site-c", "trans-mountain-expansion", "cedar-lng"]
+      "featuredProjectSlugs": ["cedar-lng", "site-c", "trans-mountain-expansion"]
     },
     {
       "slug": "finance",
       "title": "Indigenous Finance",
-      "tagline": "Ownership structures, loan guarantees, debt exposure, and cash-flow waterfalls",
-      "lede": "Indigenous Finance tracks how Indigenous communities are participating in major-project ownership: through which financing structures (CIB, AIOC, FNFA-style), under what loan-guarantee terms, with what debt exposure, and with what residual risk in stress scenarios.",
+      "tagline": "CIB / AIOC / FNFA / CILGC architecture, Coastal GasLink forfeiture precedent, and the Hydro One model",
+      "lede": "Indigenous Finance tracks the layered architecture of Canadian Indigenous-equity capital: CIB Indigenous Equity Initiative ($5–$100M loans up to 90% LTV), AIOC ($1B→$3B Alberta envelope, $20M floor), federal CILGC ILGP ($20M–$1B per deal with 75% federal stacking cap), and FNFA's $3.9B portfolio at AA-/Aa3/AA(low). The Coastal GasLink forfeiture (FNMPC, 2024) is the canonical documented case for why this architecture matters; the Hydro One 50%-equity model is the active comparator precedent.",
       "featuredIndicatorSlugs": [
-        "indigenous-equity-uptake",
-        "cib-loan-guarantee-utilisation",
-        "debt-exposure-cash-flow-risk",
-        "fnfa-credit-rating"
+        "cib-iei-program-cap",
+        "cilgc-ilgp-headroom",
+        "fnfa-portfolio-size",
+        "fnmpc-projected-equity-need-2023-33",
+        "fnfa-cited-infrastructure-gap",
+        "cgl-fn-equity-forfeiture",
+        "hydro-one-equity-threshold",
+        "westcoast-stonlasec8-cilgc-precedent"
       ],
       "featuredProjectSlugs": ["cedar-lng", "coastal-gaslink", "trans-mountain-expansion"]
     }

@@ -1,6 +1,26 @@
 {
   "items": [
     {
+      "slug": "constitution-act-1867-1982",
+      "title": "Constitution Acts, 1867 to 1982 (consolidated)",
+      "sourceType": "legislation",
+      "author": "Department of Justice Canada",
+      "publishedAt": "1982-04-17",
+      "url": "https://laws-lois.justice.gc.ca/eng/Const/page-13.html",
+      "reliability": "established",
+      "tags": ["law", "government"],
+      "supports": [
+        "Section 91(24) (Constitution Act, 1867): exclusive federal legislative authority over 'Indians, and Lands reserved for the Indians'.",
+        "Section 92 (Constitution Act, 1867): provincial authority over public lands, property and civil rights, and natural-resource management — basis for AB/BC authority over Crown land and water licensing.",
+        "Section 35 (Constitution Act, 1982): 'the existing aboriginal and treaty rights of the aboriginal peoples of Canada are hereby recognized and affirmed'; s. 35(2) defines aboriginal peoples as Indian, Inuit, and Métis.",
+        "Section 25 (Charter): Charter rights 'shall not be construed so as to abrogate or derogate from any aboriginal, treaty or other rights or freedoms', including those recognized by the Royal Proclamation of 1763 and rights acquired by land-claims settlements."
+      ],
+      "limitations": [
+        "Constitutional text is the foundation; doctrines (honour of the Crown, duty to consult, Sparrow/Badger/Mikisew/Tsilhqot'in test) are judicial overlays not in the text itself."
+      ],
+      "plainSummary": "Splits jurisdiction (federal over 'Indians and lands reserved'; provinces over public lands and natural resources) and constitutionalizes Aboriginal and treaty rights through Section 35. Section 25 shields those rights from Charter interpretation."
+    },
+    {
       "slug": "undrip-2007",
       "title": "United Nations Declaration on the Rights of Indigenous Peoples (UNDRIP)",
       "sourceType": "treaty_text",
@@ -10,138 +30,17 @@
       "reliability": "established",
       "tags": ["law", "government", "community"],
       "supports": [
-        "Right to free, prior and informed consent (FPIC) before approval of projects affecting Indigenous lands or resources (Articles 19, 32).",
-        "Right of self-determination (Article 3).",
-        "Right to redress, including restitution, for lands taken without consent (Article 28)."
+        "Article 3: right of self-determination — freely determine political status, pursue economic, social and cultural development.",
+        "Article 18: right to participate in decision-making on matters affecting their rights through their own chosen representative institutions.",
+        "Article 19: States 'shall consult and cooperate in good faith ... in order to obtain their free, prior and informed consent before adopting and implementing legislative or administrative measures that may affect them.'",
+        "Article 26: rights to lands, territories and resources traditionally owned, occupied or used; States shall give legal recognition and protection.",
+        "Article 28: right to redress including restitution or fair compensation for lands taken without FPIC.",
+        "Article 32(2): States shall consult to obtain 'free and informed consent prior to the approval of any project affecting their lands or territories and other resources, particularly in connection with the development, utilization or exploitation of mineral, water or other resources.'"
       ],
       "limitations": [
-        "UNDRIP is a declaration, not a binding treaty. Its domestic legal effect depends on implementing legislation in each state."
+        "Declaration, not a binding treaty in itself; domestic legal effect depends on implementing legislation."
       ],
-      "plainSummary": "The international standard, adopted by the UN in 2007, that says Indigenous peoples must give free, prior and informed consent before governments or companies use their lands and resources. Canada endorsed it in 2010 and passed implementing legislation in 2021."
-    },
-    {
-      "slug": "ilo-169-1989",
-      "title": "ILO Convention No. 169: Indigenous and Tribal Peoples Convention",
-      "sourceType": "treaty_text",
-      "author": "International Labour Organization",
-      "publishedAt": "1989-06-27",
-      "url": "https://www.ilo.org/dyn/normlex/en/f?p=NORMLEXPUB:12100:0::NO::P12100_ILO_CODE:C169",
-      "reliability": "established",
-      "tags": ["law", "community"],
-      "supports": [
-        "Obligation to consult Indigenous peoples through their representative institutions before measures that may affect them (Article 6).",
-        "Right to participate in decisions about development of natural resources on their lands (Articles 7, 15)."
-      ],
-      "limitations": [
-        "Canada has not ratified ILO 169. It is binding only on the 23+ states that have ratified."
-      ],
-      "plainSummary": "A 1989 international labour treaty on Indigenous rights. Stronger consultation and consent language than UNDRIP, but Canada has not ratified it."
-    },
-    {
-      "slug": "constitution-act-1982-s35",
-      "title": "Constitution Act, 1982 — Section 35 (Aboriginal and Treaty Rights)",
-      "sourceType": "legislation",
-      "author": "Parliament of Canada",
-      "publishedAt": "1982-04-17",
-      "url": "https://laws-lois.justice.gc.ca/eng/Const/page-13.html",
-      "reliability": "established",
-      "tags": ["law", "government"],
-      "supports": [
-        "Recognition and affirmation of 'existing aboriginal and treaty rights' as constitutional rights.",
-        "Includes rights acquired by way of land claims agreements (s. 35(3)).",
-        "Equal application of aboriginal and treaty rights to male and female persons (s. 35(4))."
-      ],
-      "plainSummary": "The clause in Canada's Constitution that recognizes and protects Indigenous and treaty rights. It is the legal anchor for nearly every Indigenous-rights case in Canada since 1982."
-    },
-    {
-      "slug": "haida-nation-2004-scc-73",
-      "title": "Haida Nation v. British Columbia (Minister of Forests), 2004 SCC 73",
-      "sourceType": "court_decision",
-      "author": "Supreme Court of Canada",
-      "publishedAt": "2004-11-18",
-      "url": "https://www.canlii.org/en/ca/scc/doc/2004/2004scc73/2004scc73.html",
-      "reliability": "established",
-      "tags": ["law", "government"],
-      "supports": [
-        "Established the Crown's duty to consult and, where appropriate, accommodate Indigenous interests before final proof of rights.",
-        "Duty is grounded in the honour of the Crown and is triggered when Crown contemplates conduct that might adversely affect a claimed right."
-      ],
-      "limitations": [
-        "Duty does not amount to a veto for First Nations; the Court framed it as a spectrum from notice to deep consultation depending on strength of claim and severity of impact."
-      ],
-      "plainSummary": "The leading Supreme Court ruling on the Crown's duty to consult Indigenous peoples before approving projects that might affect their rights — even when those rights have not yet been proven in court."
-    },
-    {
-      "slug": "tsilhqotin-2014-scc-44",
-      "title": "Tsilhqot'in Nation v. British Columbia, 2014 SCC 44",
-      "sourceType": "court_decision",
-      "author": "Supreme Court of Canada",
-      "publishedAt": "2014-06-26",
-      "url": "https://www.canlii.org/en/ca/scc/doc/2014/2014scc44/2014scc44.html",
-      "reliability": "established",
-      "tags": ["law", "community"],
-      "supports": [
-        "First declaration of Aboriginal title over a specific tract of land in Canadian history.",
-        "Held that Aboriginal title confers the right to decide how the land will be used and to economic benefit from the land.",
-        "Crown infringement of title requires both procedural duty of consultation and substantive justification."
-      ],
-      "plainSummary": "The first Supreme Court case to actually declare Aboriginal title to a specific area of land. Sets a high bar for governments and companies seeking to act on title land without consent."
-    },
-    {
-      "slug": "mikisew-cree-2018-scc-40",
-      "title": "Mikisew Cree First Nation v. Canada (Governor General in Council), 2018 SCC 40",
-      "sourceType": "court_decision",
-      "author": "Supreme Court of Canada",
-      "publishedAt": "2018-10-11",
-      "url": "https://www.canlii.org/en/ca/scc/doc/2018/2018scc40/2018scc40.html",
-      "reliability": "established",
-      "tags": ["law", "government"],
-      "supports": [
-        "Majority held the duty to consult is not triggered by the legislative process itself.",
-        "However, courts may still review whether legislative action that affects treaty rights is consistent with the honour of the Crown after enactment."
-      ],
-      "limitations": [
-        "Decision was fractured; several concurring reasons. Scope of post-enactment review is unsettled."
-      ],
-      "plainSummary": "A divided Supreme Court ruled that the duty to consult does not apply to Parliament passing laws — only to Crown decisions about specific projects. Important for understanding the limits of consultation."
-    },
-    {
-      "slug": "treaty-6-1876",
-      "title": "Treaty No. 6 (1876)",
-      "sourceType": "treaty_text",
-      "author": "Crown in Right of Canada and Cree, Assiniboine, and other signatories",
-      "publishedAt": "1876-08-23",
-      "url": "https://www.rcaanc-cirnac.gc.ca/eng/1100100028710/1581292569426",
-      "reliability": "established",
-      "tags": ["law", "community", "government"],
-      "supports": [
-        "Cession (per Crown interpretation) of land in present-day Saskatchewan and Alberta.",
-        "Promises by Crown including reserves, education assistance, agricultural implements, medicine chest provision, and famine relief.",
-        "First Nation oral histories and many scholars contest the 'cession' framing; treaty is also understood as a nation-to-nation agreement to share."
-      ],
-      "limitations": [
-        "The text reflects the Crown's record; Indigenous oral histories of treaty intent often differ materially."
-      ],
-      "plainSummary": "The 1876 numbered treaty covering large portions of what is now Saskatchewan and Alberta. The text and what the parties actually agreed to are still actively contested — particularly the difference between 'sharing the land' (oral understanding) and 'ceding the land' (Crown interpretation)."
-    },
-    {
-      "slug": "treaty-8-1899",
-      "title": "Treaty No. 8 (1899)",
-      "sourceType": "treaty_text",
-      "author": "Crown in Right of Canada and Cree, Beaver, Chipewyan, and other signatories",
-      "publishedAt": "1899-06-21",
-      "url": "https://www.rcaanc-cirnac.gc.ca/eng/1100100028813/1581293624572",
-      "reliability": "established",
-      "tags": ["law", "community", "government", "water"],
-      "supports": [
-        "Covers northern Alberta, northeastern British Columbia, northwestern Saskatchewan, and southern NWT.",
-        "Crown promise that signatories 'shall have the right to pursue their usual vocations of hunting, trapping and fishing' subject to regulation and to lands taken up for settlement, mining, lumbering, trading, or other purposes.",
-        "Has been the legal basis for major rights cases involving cumulative effects of resource development (e.g. Yahey v. British Columbia, 2021 BCSC 1287, on Blueberry River First Nations)."
-      ],
-      "limitations": [
-        "The 'taking up' clause has been at the centre of disputes about how much development is too much for treaty rights to remain meaningful."
-      ],
-      "plainSummary": "The 1899 treaty covering northeastern BC and northern Alberta — directly relevant to oil & gas, hydroelectric, and pipeline projects in that region. The Yahey decision found cumulative effects had infringed Blueberry River First Nations' treaty rights."
+      "plainSummary": "The international standard for Indigenous rights. The engine clauses are Articles 3 (self-determination), 19 (FPIC for laws/admin measures), and 32(2) (FPIC for resource projects). Canada endorsed in 2010 (unqualified 2016), implemented federally in 2021."
     },
     {
       "slug": "undrip-act-2021",
@@ -153,14 +52,34 @@
       "reliability": "established",
       "tags": ["law", "government"],
       "supports": [
-        "Affirms UNDRIP as a universal human rights instrument with application in Canadian law.",
+        "Affirms UNDRIP as a 'universal international human rights instrument with application in Canadian law'.",
         "Requires the federal government to take measures to ensure the laws of Canada are consistent with UNDRIP, in consultation with Indigenous peoples.",
         "Requires development of an Action Plan to achieve the Declaration's objectives."
       ],
-      "limitations": [
-        "Does not directly grant individual cause of action; impact depends on implementing measures and judicial interpretation."
+      "plainSummary": "Federal statute received Royal Assent June 21, 2021. Commits Canada to align its laws with UNDRIP. Implementation through the federal 2023-2028 Action Plan."
+    },
+    {
+      "slug": "undrip-act-action-plan-2023-2028",
+      "title": "United Nations Declaration on the Rights of Indigenous Peoples Act Action Plan (2023-2028)",
+      "sourceType": "government_report",
+      "author": "UN Declaration Act Implementation Secretariat, Department of Justice Canada",
+      "publishedAt": "2023",
+      "url": "https://www.justice.gc.ca/eng/declaration/ap-pa/index.html",
+      "reliability": "established",
+      "tags": ["law", "government", "community", "finance"],
+      "supports": [
+        "Shared Priorities Measure 19: establish an independent Indigenous rights monitoring, oversight, recourse or remedy mechanism — Indigenous-led, distinctions-based, appropriately resourced.",
+        "Measure 20: annual public report to Parliament, including a section on progress towards dismantling the Indian Act.",
+        "Measure 21: 5-year review cycle for the Action Plan.",
+        "Measure 23: commitment to withdraw the Comprehensive Land Claims Policy and Inherent Right Policy; 'extinguishment of rights is not a policy objective'.",
+        "Measure 30: continued support for Indigenous Data Sovereignty and Indigenous-led data strategies through legislative, regulatory, and policy options.",
+        "Measure 32: develop guidance on engaging Indigenous peoples on natural resource projects aligned with UNDRIP Article 32(2) (FPIC).",
+        "Measure 34: enable Indigenous peoples to exercise federal regulatory authority for CER-regulated projects."
       ],
-      "plainSummary": "Federal legislation that commits Canada to align its laws with UNDRIP. Passed in 2021. Implementation is being worked out through a federal Action Plan."
+      "limitations": [
+        "Most measures are framework commitments to co-development; concrete deadlines limited to 5-year review and annual reporting."
+      ],
+      "plainSummary": "Canada's statutory roadmap for aligning federal law with UNDRIP between 2023 and 2028. Key commitments include an independent Indigenous rights monitoring body, withdrawal of the Comprehensive Land Claims Policy, and FPIC-aligned guidance for natural-resource projects."
     },
     {
       "slug": "bc-dripa-2019",
@@ -176,45 +95,772 @@
         "Requires BC to take measures to align provincial laws with UNDRIP.",
         "Authorizes the provincial government to enter into agreements with Indigenous governing bodies that may include consent-based decision-making."
       ],
-      "plainSummary": "British Columbia's 2019 law implementing UNDRIP at the provincial level — the first of its kind in Canada."
+      "plainSummary": "British Columbia's 2019 law implementing UNDRIP at the provincial level — the first of its kind in Canada. Cited as the reason BC declined to appeal the Yahey decision."
+    },
+    {
+      "slug": "haida-nation-2004-scc-73",
+      "title": "Haida Nation v. British Columbia (Minister of Forests), 2004 SCC 73",
+      "sourceType": "court_decision",
+      "author": "Supreme Court of Canada",
+      "publishedAt": "2004-11-18",
+      "url": "https://www.canlii.org/en/ca/scc/doc/2004/2004scc73/2004scc73.html",
+      "reliability": "established",
+      "tags": ["law", "government"],
+      "supports": [
+        "Established the Crown's duty to consult and, where appropriate, accommodate Indigenous interests before final proof of rights.",
+        "Duty is grounded in the honour of the Crown and is triggered when Crown contemplates conduct that might adversely affect a claimed right.",
+        "Duty is a spectrum from notice to deep consultation depending on strength of claim and severity of impact."
+      ],
+      "limitations": [
+        "Duty does not amount to a veto for First Nations."
+      ],
+      "plainSummary": "The leading Supreme Court ruling on the Crown's duty to consult Indigenous peoples before approving projects that might affect their rights — even where those rights have not yet been proven in court."
+    },
+    {
+      "slug": "tsilhqotin-2014-scc-44",
+      "title": "Tsilhqot'in Nation v. British Columbia, 2014 SCC 44",
+      "sourceType": "court_decision",
+      "author": "Supreme Court of Canada",
+      "publishedAt": "2014-06-26",
+      "url": "https://www.canlii.org/en/ca/scc/doc/2014/2014scc44/2014scc44.html",
+      "reliability": "established",
+      "tags": ["law", "community"],
+      "supports": [
+        "First declaration of Aboriginal title to a specific tract of land in Canadian history.",
+        "Aboriginal title confers the right to decide how the land will be used and to economic benefit from the land.",
+        "Crown infringement of title requires both procedural consultation and substantive justification."
+      ],
+      "plainSummary": "First Supreme Court case to actually declare Aboriginal title to a specific area. Sets a high bar for governments or proponents seeking to act on title land without consent."
+    },
+    {
+      "slug": "yahey-2021-bcsc-1287",
+      "title": "Yahey v. British Columbia, 2021 BCSC 1287 — Cumulative-Effects Treaty Infringement",
+      "sourceType": "court_decision",
+      "author": "Supreme Court of British Columbia (Justice Burke)",
+      "publishedAt": "2021-06-29",
+      "url": "https://www.canlii.org/en/bc/bcsc/doc/2021/2021bcsc1287/2021bcsc1287.html",
+      "reliability": "established",
+      "tags": ["law", "government", "community", "water"],
+      "supports": [
+        "First Canadian decision finding the Crown unjustifiably infringed treaty rights via cumulative effects of development (Treaty 8).",
+        "Lowered the infringement threshold from 'no meaningful exercise of the rights' (Mikisew 2005) to 'significant or meaningful diminishment'.",
+        "Held that cumulative effects of many prior approvals are justiciable — courts may aggregate impacts rather than evaluate single projects in isolation.",
+        "Court held BC's regulatory regime itself was inadequate to address cumulative effects, breaching the honour of the Crown.",
+        "Factual finding: by September 2018, ≈ 85% of the Blueberry River Claim Area (≈ 38,000 km²) was within 250 m of an industrial disturbance; 91% within 500 m.",
+        "Remedies: declarations of infringement; prohibition (suspended 6 months) on new authorizations contributing to cumulative effects; order to consult on a new cumulative-effects mechanism."
+      ],
+      "limitations": [
+        "Single trial-court decision; BC chose not to appeal — value as binding precedent outside BC is being tested in subsequent litigation (e.g. Duncan's First Nation v. Alberta)."
+      ],
+      "plainSummary": "Landmark 2021 BC Supreme Court ruling. Held that the cumulative effects of decades of oil and gas, forestry and other development had unjustifiably infringed Blueberry River First Nations' Treaty 8 rights. Lowered the legal bar for proving infringement and made the regulatory regime itself reviewable."
+    },
+    {
+      "slug": "blueberry-river-implementation-agreement-2023",
+      "title": "Blueberry River First Nations Implementation Agreement",
+      "sourceType": "treaty_text",
+      "author": "Province of British Columbia and Blueberry River First Nations",
+      "publishedAt": "2023-01-18",
+      "url": "https://www2.gov.bc.ca/assets/gov/environment/natural-resource-stewardship/consulting-with-first-nations/agreements/blueberry_river_implementation_agreement.pdf",
+      "reliability": "established",
+      "tags": ["law", "government", "community", "water"],
+      "supports": [
+        "Establishes the Blueberry-BC Restoration Fund with a $200 million target by 2025.",
+        "Disturbance fee of $60,000 per hectare for new disturbances on Crown land in High-Value 1 (HV1) areas and priority Watershed Management Basin Plan areas.",
+        "Direct payments of $87.5 million to Blueberry over 3 years, plus a revenue-sharing share of provincial oil, natural gas, and natural gas by-product royalties (specific royalty percentages confidential).",
+        "Forestry: approximate ~350,000 m³/year reduction in timber harvesting in the Fort St. John Timber Supply Area (excluding small locally-held woodlot tenures).",
+        "Petroleum and natural gas: zones where new development is prohibited; zones where new disturbances must be reduced ~50%; project-level caps liftable only with Blueberry consent.",
+        "Wildlife co-management including special focus on moose and caribou; cultural burning; guardian programs.",
+        "Watershed-level land-use plans to be advanced within 3 years (≈ Jan 2026 target).",
+        "Explicit carveout: electricity transmission and distribution rights-of-way (notably Site C) outside Area 1, or inside with Blueberry consent, excluded from 'New Disturbance' definition."
+      ],
+      "limitations": [
+        "Revenue-sharing percentages and full schedules of prohibited / reduced PNG areas remain confidential.",
+        "Implementation outcomes (actual restoration delivered, fee collections, ground-truth disturbance reductions) are still emerging."
+      ],
+      "plainSummary": "The January 2023 settlement implementing Yahey. Combines a $200M target restoration fund (funded by $60K/ha disturbance fees), $87.5M in direct payments, royalty sharing, forestry harvest cuts, PNG no-go and reduction zones, and wildlife co-management."
+    },
+    {
+      "slug": "five-nations-treaty-8-settlement-2023",
+      "title": "Five Nations Treaty 8 Land Claims Settlement (April 2023)",
+      "sourceType": "government_report",
+      "author": "Government of Canada and Government of British Columbia",
+      "publishedAt": "2023-04",
+      "reliability": "strong",
+      "tags": ["law", "government", "community"],
+      "supports": [
+        "Federal and BC governments paid $800 million to settle land claims with Blueberry River, Doig River, Halfway River, Saulteau, and West Moberly First Nations.",
+        "Settlement post-dates the Yahey decision and the Blueberry River Implementation Agreement and extends similar resolution to four neighbouring Treaty 8 Nations."
+      ],
+      "limitations": [
+        "Per-Nation breakdown and substantive non-monetary terms vary by individual Nation agreement."
+      ],
+      "plainSummary": "April 2023 multi-Nation settlement of Treaty 8 cumulative-effects claims that followed Yahey, signalling that the precedent reaches well beyond Blueberry River alone."
+    },
+    {
+      "slug": "tsuu-tina-2008-abqb-547",
+      "title": "Tsuu T'ina Nation v. Alberta (Environment), 2008 ABQB 547",
+      "sourceType": "court_decision",
+      "author": "Alberta Court of Queen's Bench",
+      "publishedAt": "2008-09",
+      "url": "https://www.canlii.org/en/ab/abqb/doc/2008/2008abqb547/2008abqb547.html",
+      "reliability": "established",
+      "tags": ["law", "water", "community"],
+      "supports": [
+        "Held Treaties 6 and 7 do not establish a standalone treaty right to water.",
+        "Court left open the possibility that a water right could be 'ancillary' to treaty rights to hunt, fish, or reserve land.",
+        "Found that the Crown's duty to consult had been met in adopting the SSRB Water Management Plan; basin closure justified by compelling/substantial conservation purpose."
+      ],
+      "plainSummary": "Foundational Alberta case: no standalone treaty right to water under Treaties 6 or 7, though the door was left open for water rights ancillary to other treaty rights. Treaty-Lab cites this as the doctrinal baseline for AB water-rights disputes."
+    },
+    {
+      "slug": "ab-water-act",
+      "title": "Water Act (Alberta), RSA 2000, c W-3",
+      "sourceType": "legislation",
+      "author": "Province of Alberta",
+      "publishedAt": "2000",
+      "url": "https://kings-printer.alberta.ca/1266.cfm?page=W03.cfm",
+      "reliability": "established",
+      "tags": ["law", "water", "government"],
+      "supports": [
+        "Vests property in and right to divert all water in Alberta in the Crown in right of Alberta.",
+        "Establishes the licence-based allocation system; preserves priority of licences (first-in-time, first-in-right / FITFIR).",
+        "Provides for Water Management Plans and Water Conservation Objectives (WCOs).",
+        "Authorizes the Minister to make orders, including emergency orders and water-management orders.",
+        "No occurrences of 'Aboriginal', 'Indigenous', 'First Nation', or 'Treaty' in the Act itself — silent on Section 35 rights."
+      ],
+      "limitations": [
+        "Statute last substantively amended in 1999; Indigenous-rights overlay sits outside the Act (in the AB Consultation Policy and common law)."
+      ],
+      "plainSummary": "Alberta's principal water statute. Crown owns the water; allocates via priority-dated licences. Notably silent on Indigenous and treaty rights — every consultation and rights obligation sits outside the Act itself."
+    },
+    {
+      "slug": "ab-surface-water-allocation-directive-2021",
+      "title": "Surface Water Allocation Directive (Alberta)",
+      "sourceType": "regulatory_filing",
+      "author": "Alberta Environment and Parks",
+      "publishedAt": "2021-12",
+      "url": "https://open.alberta.ca/publications/surface-water-allocation-directive",
+      "reliability": "established",
+      "tags": ["water", "law", "government"],
+      "supports": [
+        "Watershed-scale screening (Step W1): cumulative annual allocations capped at ≤ 12% of mean annual outflow without additional scientific assessment.",
+        "Large rivers (mean annual discharge ≥ 10 m³/s) — allocation capped at 15% of natural flow above Q80, tapering to 5% below.",
+        "Small streams (MAD < 2 m³/s) capped at 10% above Q80; zero allocation below Q80.",
+        "Lakes: annual allocation cap ≤ 12% of mean annual outflow; winter drawdown capped at 5 cm/month and 5% volumetric.",
+        "Wildlife-sensitivity blackouts: trumpeter swan (no diversions April 1 – Sept 30); piping plover and colonial nesting birds (April 15 – July 31).",
+        "Default winter ice thickness: 0.8 m (90th-percentile of measured 1985–2016 Alberta lake data, n=686)."
+      ],
+      "plainSummary": "The technical rulebook for new and temporary surface-water licences in Alberta — sets the 12% basin allocation cap, river/stream allocation tables by Q-statistic, and wildlife-sensitivity dates. Applies only where no Water Management Plan or regional plan governs."
+    },
+    {
+      "slug": "ab-proponent-consultation-guide-2024",
+      "title": "Government of Alberta Proponent Guide to First Nations, Metis Settlements and Credibly Asserted Métis Communities Consultation Procedures",
+      "sourceType": "government_report",
+      "author": "Alberta Indigenous Relations",
+      "publishedAt": "2024-08",
+      "url": "https://www.alberta.ca/aboriginal-consultation-office",
+      "reliability": "established",
+      "tags": ["law", "government", "community"],
+      "supports": [
+        "Triggers: Crown decisions under Public Lands Act, Water Act, EPEA, Mines and Minerals Act (Part 8), Forests Act that may adversely affect Treaty rights or Métis harvesting.",
+        "Three consultation depth tiers: Level 1 (Streamlined): 15-day notification; Level 2 (Standard): 15-day + 5-day & 10-day follow-ups, 20 days exploring concerns; Level 3 (Extensive): 20-day notification + 10-day & 15-day follow-ups, 60 days exploring concerns (longer for EIAs), requires ACO-approved information package before consultation begins.",
+        "Documentation: Record of Consultation (ROC) Log entries for every communication; Consultation Concern and Response Table (CCRT); bimonthly cumulative ROC reviews for Level 3.",
+        "Accommodation menu: modifying project design / location / timing; seeking mitigation opportunities; exploring options on access."
+      ],
+      "limitations": [
+        "Procedural-only; does not define substantive content of Treaty rights and does not directly address cumulative effects.",
+        "Concerns about cumulative impacts can be flagged as 'outside the scope' of delegated consultation."
+      ],
+      "plainSummary": "Alberta's three-tier proponent-led consultation framework. Depth maps to ACO assessment of severity and strength of claim. Adequacy is judged on the ROC Log. Cumulative-effects concerns may sit outside scope — the post-Yahey gap."
+    },
+    {
+      "slug": "ssrb-closed-basin-policy-directive-2016",
+      "title": "Water Allocation Policy for Closed River Basins in the SSRB (Directive 2016 No. 3)",
+      "sourceType": "regulatory_filing",
+      "author": "Alberta Environment and Parks, Water Policy Branch",
+      "publishedAt": "2016-09-22",
+      "reliability": "established",
+      "tags": ["water", "law", "government"],
+      "supports": [
+        "Reaffirms 2007 Bow, Oldman and S. Sask River Basin Water Allocation Order (AR 171/2007) reserving all unallocated water to the Crown in those three basins.",
+        "New allocations from reserved water permitted only for: (i) First Nation use on Reserve, or wholly/partially First-Nation-owned-and-operated project on First Nation land; (ii) a Water Conservation Objective; (iii) storage for aquatic environment or improving availability to existing licensees; (iv) applications complete before the Order filing."
+      ],
+      "plainSummary": "Confirms the South Saskatchewan, Oldman, and Bow basins are closed to new allocations except for four narrow exceptions — explicitly including First Nation use on Reserve. The most-protected modern pathway for new Indigenous-led water development in southern Alberta."
+    },
+    {
+      "slug": "ssrb-water-allocation-2003-2005",
+      "title": "South Saskatchewan River Basin Water Allocation (May 2003, revised Jan 2005)",
+      "sourceType": "government_report",
+      "author": "Alberta Environment, Regional Services (Southern Region)",
+      "publishedAt": "2005-01",
+      "reliability": "established",
+      "tags": ["water", "community"],
+      "supports": [
+        "St. Mary River allocations stand at ≈ 118% of median natural flow; Belly ≈ 80%; Waterton ≈ 75%; Bow at mouth ≈ 68%; Oldman at mouth ≈ 70%.",
+        "SSRB total licensed use ≈ 5.62 billion m³/year; irrigation ≈ 75% of total allocation; municipal ≈ 13%.",
+        "1991 SSRB Water Allocation Regulation: Blood (Kainai) Reserve Project 25,000 acres / 40,270 ac-ft; Piikani 15,000 acres / 35,000 ac-ft (0 ac-ft diverted as of 2000); Siksika 20,000 acres / 35,000 ac-ft (7,500 ac-ft diverted as of 2000) — substantial unused First Nation entitlements."
+      ],
+      "plainSummary": "Confirms the structural over-allocation of southern Alberta's tributaries (St. Mary > 100% of median natural flow) and documents that First Nation entitlements under the 1991 SSRB Regulation are partly unused — a key pathway for any new on-Reserve water development."
+    },
+    {
+      "slug": "alberta-drought-response-plan-2025",
+      "title": "Alberta Drought Response Plan (April 2025)",
+      "sourceType": "government_report",
+      "author": "Government of Alberta, Environment and Protected Areas",
+      "publishedAt": "2025-04",
+      "reliability": "strong",
+      "tags": ["water", "government"],
+      "supports": [
+        "Five-stage drought classification (S0 Adequate → S5 Catastrophic); S5 ≈ 1-in-50-year event.",
+        "Seven Major River Basins; PASRB carries ≈ 86% of Alberta's river flow.",
+        "Triggers regulatory tools: Temporary Diversion Licences, transfers, water-management orders, priority calls, declaration of a Water Emergency under Water Act s.107.",
+        "1969 Master Agreement on Apportionment: AB must pass ≥ 50% of natural flow of the South and North Saskatchewan Rivers to Saskatchewan, with minimum 1,500 cfs instantaneous (or half natural flow if natural < 3,000 cfs)."
+      ],
+      "plainSummary": "Alberta's master playbook for drought. Indigenous engagement is handled through EPA's Indigenous Initiatives Section — described as outreach, not co-management."
+    },
+    {
+      "slug": "ab-water-supply-outlook-2026-02",
+      "title": "Alberta Water Supply Outlook — February 2026",
+      "sourceType": "government_report",
+      "author": "Alberta Environment and Protected Areas, River Forecast Centre",
+      "publishedAt": "2026-02",
+      "url": "https://rivers.alberta.ca/Contents/WaterSupply/2026/2/",
+      "reliability": "strong",
+      "tags": ["water", "government"],
+      "supports": [
+        "Mar–Sep 2026 mountain runoff forecasts: NSRB 108–119% of median; Red Deer 118–128%; Bow 97–116%; Oldman 99–117%; Milk 82–113% — all above 2025 observed.",
+        "Drought status as of Dec 31, 2025: range S0 (Adequate) to S3 (Severe); most basins improved after December precipitation.",
+        "Feb 1, 2026 basin reservoir storage: North-Central 54%, Red Deer 65% (below normal for time of year), Bow 69%, Oldman & S. Sask 66%.",
+        "La Niña conditions; 75% chance of ENSO-neutral by Jan–Mar 2026."
+      ],
+      "plainSummary": "A relatively wet outlook for 2026 versus 2025 drought, with above-normal snowpack across Bow and N. Sask and most basins headed for normal-to-above-normal flows."
+    },
+    {
+      "slug": "osm-state-of-environment-2025",
+      "title": "Oil Sands Monitoring Program — State of Environment Report 2025 (Surface Water Quality and Quantity)",
+      "sourceType": "government_report",
+      "author": "Oil Sands Monitoring (Canada + Alberta + Indigenous + industry partners; Oversight Forum Agreement)",
+      "publishedAt": "2025-12-18",
+      "reliability": "strong",
+      "tags": ["water", "community"],
+      "supports": [
+        "157 sampling locations; 2.5 million data points; 203 parameters with guidelines (84 had ≥ 1 exceedance against the 25 guideline sets).",
+        "Most-flagged exceedance classes: aluminum and arsenic (Class 6 — very common + very large); iron, manganese, cadmium (Class 5).",
+        "Athabasca industrial withdrawals ≈ 2% of weekly flow Jan-Apr; < 1% May-Nov.",
+        "'Aboriginal Extreme Flow' (AXF) threshold = 482 m³/s on the Lower Athabasca; number of days below AXF in fall has increased since 1990.",
+        "Muskeg River shows upward trends in nickel, arsenic, chloride, sulphate (mostly within guidelines but trending).",
+        "Ells and Steepbank Rivers show measurable downstream water-quality degradation in surface-mining area.",
+        "OFA gives Indigenous community representatives consensus decision-making in the program; 17 Indigenous communities participate."
+      ],
+      "limitations": [
+        "Exceedance ≠ risk; cumulative effects, causation, and pre-development baselines explicitly not assessed."
+      ],
+      "plainSummary": "Multi-stakeholder, Indigenous-co-governed monitoring of oil sands water. Key Treaty-Lab signal: increasing days below Aboriginal Extreme Flow on the Lower Athabasca, and downstream water-quality degradation in Ells and Steepbank Rivers."
+    },
+    {
+      "slug": "palash-mine-water-climate-2025",
+      "title": "Hydro-climatological changes and mine-water management challenges in Canada under climate change",
+      "sourceType": "academic",
+      "author": "Palash W., Guimaraes A., AmirRahmani M., Sam S., Steen J., Kunz N.C. (UBC)",
+      "publishedAt": "2025-08-15",
+      "reliability": "strong",
+      "tags": ["water", "law"],
+      "supports": [
+        "209 active Canadian mines across 141 mining watersheds (~1.3M km²) as of Feb 2023.",
+        "Alberta mine watersheds: temperature +2.4–3.2°C by 2050s (RCP8.5 p50); +3.0–5.4°C by 2080s.",
+        "Alberta precipitation: +6–7% by 2050s; +7–11% by 2080s.",
+        "Current 100-year 24-h IDF storm becomes a ≈ 37–47-year return-period event by 2050s; 19–39-year by 2080s.",
+        "Snow depth declines 36–42% by 2050s; 44–64% by 2080s."
+      ],
+      "plainSummary": "Alberta mine watersheds face a double-bind by 2050: heavier short-duration storms (more overflow/tailings risk) plus much less snowpack (less summer baseflow)."
+    },
+    {
+      "slug": "peace-slave-water-use-2024",
+      "title": "The Peace and Slave River Watershed — Current and Future Water Use",
+      "sourceType": "government_report",
+      "author": "Pattison Resource Consulting Ltd. for Mighty Peace Watershed Alliance",
+      "publishedAt": "2024-06-19",
+      "reliability": "strong",
+      "tags": ["water", "community"],
+      "supports": [
+        "Watershed covers 28% of Alberta; > 1,900 km river length; in Treaty 8 Territory and Métis Nation of Alberta Regions 4, 5, 6.",
+        "By 2050 under high-growth scenarios, total consumptive demand projected at ≈ 1% of Peace River mainstem flow.",
+        "Wapiti/Smoky sub-basin: oil & gas water allocation utilization ≈ 99.64%; projected +62.79% by 2050.",
+        "Lower Peace livestock currently exceeds allocation by 468%; small-tributary stress is the dominant Indigenous-community exposure."
+      ],
+      "plainSummary": "Northern Alberta has lots of mainstem water, but small tributaries and on-reserve communities can still face shortages. Oil and gas is the only sector close to allocation limits; warns against 'myth of hyperabundance'."
+    },
+    {
+      "slug": "weber-wetland-governance-2017",
+      "title": "Natural capital and the political economy of wetland governance in Alberta",
+      "sourceType": "academic",
+      "author": "Weber M., Krogman N., Foote L., Rooney R. (J. Environmental Policy & Planning 19(3))",
+      "publishedAt": "2017",
+      "reliability": "strong",
+      "tags": ["water", "government"],
+      "supports": [
+        "Approximately two-thirds of wetlands lost in Alberta's settled area since the 1800s.",
+        "Clare & Creed (2014): in a 4,405 km² central-Alberta study area, > 80% of 1999–2009 wetland loss occurred without a permit.",
+        "Alberta Wetland Policy 2013 uses mitigation hierarchy (avoid, minimize, compensate) but operates case-by-case with weak enforcement."
+      ],
+      "plainSummary": "Wetland loss is Alberta's textbook example of cumulative-impact governance failure: two-thirds historically lost, and over 80% of recent agricultural-area loss is unpermitted."
+    },
+    {
+      "slug": "cib-investment-policy-2026",
+      "title": "Canada Infrastructure Bank — Investment Policy",
+      "sourceType": "government_report",
+      "author": "Canada Infrastructure Bank",
+      "publishedAt": "2026",
+      "url": "https://cib-bic.ca/en/about-us/investment-policy/",
+      "reliability": "strong",
+      "tags": ["finance", "government"],
+      "supports": [
+        "CIB Act authorizes up to CAD $35 billion aggregate appropriation; total net fiscal expense expected to remain under CAD $15 billion.",
+        "Five Priority Sectors: Public Transit; Clean Power; Green Infrastructure; Trade and Transportation; Broadband.",
+        "Indigenous Infrastructure target of at least CAD $1 billion across all five Priority Sectors.",
+        "Private capital minimum: 50% of total project costs as debt+equity, OR 20% as equity/equity-like.",
+        "Material-change definition for re-approval: investment increase ≥ lesser of 10% or $75M; > 12 months since approval."
+      ],
+      "plainSummary": "The CIB's governing rulebook — $35B statutory cap, $15B net fiscal expense ceiling, the $1B Indigenous target, and a multi-stage gated investment process with Board sign-off."
     },
     {
       "slug": "cib-indigenous-equity-initiative",
-      "title": "Canada Infrastructure Bank — Indigenous Equity Initiative (program page)",
+      "title": "CIB Indigenous Equity Initiative (IEI)",
       "sourceType": "government_report",
       "author": "Canada Infrastructure Bank",
-      "publishedAt": "2023",
+      "publishedAt": "2023-11",
       "url": "https://cib-bic.ca/en/sectors/indigenous-infrastructure/indigenous-equity-initiative/",
       "reliability": "strong",
-      "tags": ["finance", "government", "market"],
+      "tags": ["finance", "government", "community"],
       "supports": [
-        "CIB provides loans to Indigenous communities to acquire equity stakes in infrastructure projects in CIB priority sectors.",
-        "Loans are secured against the equity acquired and project cash flows.",
-        "Intent is to lower the cost of capital for Indigenous equity participation."
+        "Loans to Indigenous communities to acquire equity stakes in projects where CIB is also investing.",
+        "Investment size CAD $5M – $100M; up to 90% of the Indigenous equity interest.",
+        "Indicative pricing: Government of Canada bond yield matched to weighted-average life of the outstanding loan, with a 75% cash sweep on equity distributions.",
+        "Target loan tenor 15 years; senior secured interest in borrower's assets; non-recourse to Indigenous communities (except limited pledge guarantee)."
       ],
       "limitations": [
-        "Program terms (interest rates, tenors, eligibility) evolve; verify current terms before quoting specifics."
+        "Indicative terms; final pricing and percentages may vary per deal."
       ],
-      "plainSummary": "A federal program that lends money to Indigenous communities so they can buy ownership stakes in big infrastructure projects. The loan is repaid from the project's cash flow."
+      "plainSummary": "Federal CIB program letting Indigenous communities borrow up to 90% of an equity stake (up to CAD $100M) in CIB-co-invested infrastructure projects, repaid via a 75% cash sweep on distributions."
     },
     {
-      "slug": "fnfa-bonds-overview",
-      "title": "First Nations Finance Authority — Overview of Pooled Borrowing Program",
-      "sourceType": "financial_prospectus",
-      "author": "First Nations Finance Authority",
-      "publishedAt": "2024",
-      "url": "https://fnfa.ca/en/financing/",
+      "slug": "cib-icii-guide-2024",
+      "title": "CIB Indigenous Community Infrastructure Initiative — Applicant Guide",
+      "sourceType": "government_report",
+      "author": "Canada Infrastructure Bank",
+      "publishedAt": "2024-01",
+      "url": "https://cib-bic.ca/en/sectors/indigenous-infrastructure/indigenous-community-infrastructure-initiative/",
       "reliability": "strong",
-      "tags": ["finance", "community", "market"],
+      "tags": ["finance", "community"],
       "supports": [
-        "FNFA is a not-for-profit corporation, established under the federal First Nations Fiscal Management Act, that issues bonds in capital markets and on-lends proceeds to First Nation borrowing members.",
-        "Borrowing members must be certified under the Financial Management Board and pledge specific revenue streams (e.g. tax, settlement, own-source revenues) as security.",
-        "FNFA debentures have received investment-grade credit ratings from major rating agencies."
+        "ICII loan size CAD $5M – $100M; max 80% of capital cost net of grants; min 20% Indigenous community/sponsor equity.",
+        "Below-market interest rates available; loan tenor up to 35 years aligned with asset life.",
+        "$1 billion Indigenous infrastructure target is 'a floor rather than a ceiling'.",
+        "Loan is non-recourse to the community; security taken against direct/indirect revenue streams."
+      ],
+      "plainSummary": "Companion CIB program — below-market repayable loans of $5–100M for community-scale Indigenous infrastructure, up to 80% of net-of-grants capital, non-recourse to the community."
+    },
+    {
+      "slug": "aioc-loan-guarantee-program-guidelines",
+      "title": "Alberta Indigenous Opportunities Corporation — Loan Guarantee Investment Program Guidelines (v1.3)",
+      "sourceType": "government_report",
+      "author": "Alberta Indigenous Opportunities Corporation",
+      "publishedAt": "2022-04",
+      "url": "https://www.theaioc.com/loan-guarantee/",
+      "reliability": "strong",
+      "tags": ["finance", "government"],
+      "supports": [
+        "Aggregate program: up to CAD $1 billion committed by Government of Alberta to backstop loans (founding ceiling; FNMPC primer notes announced expansion to $3 billion).",
+        "Minimum loan guarantee: CAD $20 million per project; cannot be aggregated across small projects.",
+        "Eligible sectors: Energy (upstream/midstream/downstream oil & gas, renewables, power, coal), Mining, Forestry, Agriculture, Telecommunications, Transportation.",
+        "Consortium rule: Alberta-based Indigenous ownership must be ≥ 25% of total Indigenous investment if multiple groups.",
+        "Pre-construction projects require FID + permits + 'shovel-ready' status."
+      ],
+      "plainSummary": "Alberta's loan-guarantee playbook: $1B aggregate envelope (announced expansion to $3B), $20M minimum per deal, only for shovel-ready or operational natural-resource and infrastructure projects."
+    },
+    {
+      "slug": "aioc-mandate-roles",
+      "title": "AIOC Mandate and Roles Document",
+      "sourceType": "government_report",
+      "author": "Alberta Indigenous Opportunities Corporation / Minister of Indigenous Relations",
+      "publishedAt": "2024",
+      "url": "https://www.theaioc.com/",
+      "reliability": "strong",
+      "tags": ["finance", "government"],
+      "supports": [
+        "AIOC is a Crown corporation under the AIOC Act, operating at arm's length.",
+        "'For all purposes an agent of the Crown in right of Alberta' — Government of Alberta has legal responsibility for AIOC obligations.",
+        "Auditor: Auditor General of Alberta.",
+        "Director appointments by Lieutenant Governor in Council; max 10 years continuous service; terms ≤ 3 years.",
+        "Minister review of agency required at least every 7 years."
+      ],
+      "plainSummary": "Governance charter establishing AIOC as an Alberta-backed Crown agent for Indigenous loan guarantees in natural-resource and infrastructure sectors."
+    },
+    {
+      "slug": "fnfa-annual-report-2024-2025",
+      "title": "First Nations Finance Authority — 2024–2025 Annual Report",
+      "sourceType": "corporate_disclosure",
+      "author": "First Nations Finance Authority",
+      "publishedAt": "2025-06",
+      "url": "https://fnfa.ca/en/annual-reports/",
+      "reliability": "strong",
+      "tags": ["finance", "market", "community"],
+      "supports": [
+        "Loan portfolio exceeded CAD $3.3 billion as of March 31, 2025 (185 borrowing members; 12 cumulative debentures issued).",
+        "FY 2024-25 debentures issued: 2 debentures totaling CAD $1.102 billion; weighted average interest rate 4.07%.",
+        "Credit ratings: S&P AA- (Stable), upgraded from A+ during the year; Moody's Aa3 (Stable); Morningstar DBRS AA (low).",
+        "Commercial paper program grown to CAD $900M; R-1 (middle) DBRS rating.",
+        "Infrastructure gap First Nations face is estimated by FNFA at ≈ CAD $349.2 billion.",
+        "FNFA is publicly advocating for the legal ability to lend to Special Purpose Vehicles — would unlock large equity-partnership deals."
+      ],
+      "plainSummary": "FY 2024-25 portfolio crossed $3.3B with 185 members; S&P upgraded to AA-. FNFA is lobbying to be able to lend to SPVs (which would directly serve major-project Indigenous equity deals)."
+    },
+    {
+      "slug": "fnfa-credit-rating-dbrs-2025",
+      "title": "First Nations Finance Authority — Credit Rating Report (Morningstar DBRS)",
+      "sourceType": "financial_prospectus",
+      "author": "Morningstar DBRS (Joshi, Shaw)",
+      "publishedAt": "2025-10-06",
+      "reliability": "established",
+      "tags": ["finance", "market"],
+      "supports": [
+        "Issuer Rating AA (low) Stable; Long-Term Debt AA (low) Stable; Commercial Paper R-1 (middle) Stable — all confirmed.",
+        "As of August 2025, FNFA loan portfolio totalled CAD $3.9 billion (up from $2.5 billion prior year).",
+        "Loan sizes $0.5M – $323.5M; average ≈ $32.8M; weighted-average remaining term ≈ 23 years.",
+        "Largest single-borrower concentration: ≈ 10.3% of total loan value.",
+        "FY 2025 actual debt-service coverage ratio 1.90x vs. board policy 1.39x.",
+        "Total FNFA capital (DRF + sinking + CEF + contingency + surplus): $522.3M — covers ≈ 5× the $114M annual interest liability.",
+        "Explicit citation: 'Haisla First Nation's majority equity ownership of the Cedar LNG project' as driver of equity-participation loan demand.",
+        "DRF replenishment and intervention mechanisms remain legally untested — a key constraint."
+      ],
+      "plainSummary": "October 2025 third-party credit rating confirming FNFA at AA (low). Notably cites Haisla's majority equity in Cedar LNG as a load driver for Indigenous-finance demand, and flags the untested intervention mechanism as the key risk."
+    },
+    {
+      "slug": "fnmpc-loan-guarantee-primer-2024",
+      "title": "FNMPC — Government Loan Guarantees for First Nation Equity Participation: A Primer",
+      "sourceType": "academic",
+      "author": "Fantauzzo, Edwards, Podlasly (First Nations Major Projects Coalition)",
+      "publishedAt": "2024",
+      "url": "https://fnmpc.ca/resources/",
+      "reliability": "strong",
+      "tags": ["finance", "community", "law"],
+      "supports": [
+        "FNMPC has 150+ First Nations members and supports 14 major projects with combined capital cost > CAD $55 billion.",
+        "Projected First Nation equity opportunities 2023–2033: ≈ CAD $531B total capital; $165B total equity; ≈ $51B Indigenous equity.",
+        "Section 89 Indian Act prohibits pledging reserve-based assets as collateral — central financing barrier.",
+        "Coastal GasLink: First Nations had a 10% equity option. 'Some First Nations attempted to acquire an additional 10% in a now-completed financing round and had to forfeit their opportunity to their private-sector partners as they were unable to successfully raise capital at rates that made the equity investment financially viable.'",
+        "Pacific Trails: First Nations forfeited 30% ownership option in exchange for a benefit agreement 'worth substantially less'.",
+        "Wataynikaneyap Power: 24 First Nations in 51-49 partnership with Fortis; initial $220M equity loan guaranteed by Ontario ALGP.",
+        "Athabasca Indigenous Investment: $1.12B raised for 11.57% Enbridge pipeline stake — first $250M ATB Financial loan guaranteed by AIOC; remainder as bond.",
+        "Alberta announced expansion of AIOC program from $1B to $3B."
+      ],
+      "plainSummary": "FNMPC's case for a federal Indigenous loan-guarantee program. Documents the Coastal GasLink and Pacific Trails forfeiture cases as concrete evidence of financing-cost barriers, and projects $51B in Indigenous equity needing financing 2023–2033."
+    },
+    {
+      "slug": "cilgc-applicant-guide-v3",
+      "title": "Canada Indigenous Loan Guarantee Corporation — Applicant Guide (v3.0)",
+      "sourceType": "government_report",
+      "author": "Canada Indigenous Loan Guarantee Corporation (subsidiary of CDEV)",
+      "publishedAt": "2026",
+      "url": "https://www.cilgc-cgpac.ca/",
+      "reliability": "established",
+      "tags": ["finance", "government", "law"],
+      "supports": [
+        "Indigenous Loan Guarantee Program (ILGP): minimum CAD $20M, maximum CAD $1 billion per deal.",
+        "Sector-agnostic except gaming/casinos.",
+        "Federal stacking cap: total federal support (incl. Indigenous equity + debt via federal Crown corps) cannot exceed 75% of project costs — capital structure must retain ≥ 25% non-federal capital.",
+        "Harmonization with provincial guarantees explicitly facilitated, 'up to 100% of the value of the equity'.",
+        "Eligibility limited to Indigenous groups (or wholly-owned subs) with 'credibly asserted or affirmed rights under section 35 of the Constitution Act, 1982'.",
+        "Structures supported: convertible debt/debentures; conditional guarantees pre-construction; loan guarantees of traditional project debt; Equity Acquisition Loan at commercial operations date.",
+        "'Projects of National Interest' (referred to the Major Projects Office) are explicitly prioritized."
+      ],
+      "plainSummary": "The federal Indigenous Loan Guarantee Program (CILGC). Per-deal guarantees $20M–$1B; sector-agnostic except gaming; requires asserted Section 35 rights and investment-ready status; combined federal exposure capped at 75% of project costs."
+    },
+    {
+      "slug": "cer-growing-indigenous-ownership-2026",
+      "title": "Market Snapshot: Growing Indigenous ownership in Canadian pipelines and LNG facilities",
+      "sourceType": "government_report",
+      "author": "Canada Energy Regulator",
+      "publishedAt": "2026-02-11",
+      "url": "https://www.cer-rec.gc.ca/en/data-analysis/energy-markets/market-snapshots/2026/market-snapshot-growing-indigenous-ownership-canadian-pipelines-lng.html",
+      "reliability": "strong",
+      "tags": ["finance", "market", "community"],
+      "supports": [
+        "Since 2021, Indigenous Communities have acquired interests in > 5,000 km of operating pipelines in Canada.",
+        "Indigenous Communities are the third-largest collective owners of clean energy assets nationally after government.",
+        "Named operating deals (selected): Northern Courier Pipeline — Astisiy Partnership 14.25% ($40M AIOC); Enbridge Oilsands Lines 19/45/74/18/75/49/70 — Athabasca Indigenous Investments 11.57% ($250M AIOC); Access NGL Pipeline — Northern Lakehead Indigenous Alliance 43% ($103M AIOC); Westcoast Natural Gas Pipeline — Stonlasec8 Alliance 12.5% ($400M CILGC — first major federal ILGP guarantee); Clearwater Midstream — Wapiscanis Waseskwan Nipiy 85% ($150M AIOC).",
+        "Cedar LNG (Haisla 50.1% / Pembina 49.9%): $200M federal Strategic Innovation Fund + FNFA capital commitment; $200M BC contribution agreement for electrification."
+      ],
+      "plainSummary": "Federal regulator inventory of Indigenous ownership in Canadian pipelines and LNG, including the first major use of the federal CILGC loan-guarantee program ($400M for the Westcoast Natural Gas Pipeline Stonlasec8 deal)."
+    },
+    {
+      "slug": "cedar-lng-fid-update-2024",
+      "title": "Cedar LNG Project Update — Final Investment Decision (Fact Sheet)",
+      "sourceType": "corporate_disclosure",
+      "author": "Cedar LNG (Haisla Nation / Pembina Pipeline Corporation joint venture)",
+      "publishedAt": "2024-12",
+      "url": "https://cedarlng.com/",
+      "reliability": "strong",
+      "tags": ["company", "community", "finance"],
+      "supports": [
+        "Positive Final Investment Decision declared June 25, 2024 in Kitamaat Village — 'world's first Indigenous majority-owned LNG facility'.",
+        "Construction commenced early July 2024 (marine terminal area and pipeline right-of-way first).",
+        "Floating LNG unit under development at Samsung Heavy Industries (Korea); delivery anticipated 2028.",
+        "Peak onshore construction anticipated 2026; operations anticipated late 2028.",
+        "20-year liquefaction services agreement with ARC Resources entered December 2023 (binding agreement disclosed April 2024).",
+        "EPC contract awarded March 2023; BC Environmental Assessment Certificate issued March 2023."
+      ],
+      "plainSummary": "Cedar LNG's own December 2024 status report confirming FID, construction start, EPC partner, and amendment package for engineering refinements."
+    },
+    {
+      "slug": "pembina-cedar-lng-news-release-2024",
+      "title": "Pembina Pipeline — Cedar LNG Significant Milestones (April 4, 2024)",
+      "sourceType": "corporate_disclosure",
+      "author": "Pembina Pipeline Corporation (TSX: PPL; NYSE: PBA)",
+      "publishedAt": "2024-04-04",
+      "url": "https://www.pembina.com/media-centre/news-releases/news-details/?nid=132131",
+      "reliability": "strong",
+      "tags": ["company", "finance", "market"],
+      "supports": [
+        "Class III gross capital cost estimate: US$3.4 billion, of which US$2.3 billion (~70%) is under a fixed-price lump-sum agreement for the FLNG production unit; US$1.1B onshore infrastructure / owner's costs.",
+        "Total project cost including ≈ US$0.6B interest during construction and transaction costs ≈ US$4.0 billion gross.",
+        "Nameplate capacity 3.3 mtpa (raised from 3.0 mtpa via engineering optimization).",
+        "20-year take-or-pay liquefaction tolling agreement with ARC Resources for 1.5 mtpa at a fixed toll; ARC supplies ≈ 200 mmcf/d of Montney gas via Coastal GasLink.",
+        "Pembina holds mirror bridging agreement for the remaining 1.5 mtpa, intends to assign to third-party offtaker post-FID.",
+        "Project financing ≈ 60% project debt / 40% equity; MUFG financial advisor on project financing; CIBC advisor to Haisla on its equity raise.",
+        "Pembina expected net investment ≈ US$2.0B for its 50% interest, comprising project debt + ≈ US$0.8B equity.",
+        "EPC consortium: Samsung Heavy Industries (Korea) + Black & Veatch (LNG technology).",
+        "Liquefaction powered by renewable electricity from BC Hydro — 'one of the lowest carbon intensity LNG facilities in the world' per proponent.",
+        "Run-rate adjusted EBITDA guidance net to Pembina: US$200M–US$260M per year."
       ],
       "limitations": [
-        "Specific bond terms (coupon, maturity, size) vary by issue; check current offerings."
+        "Forward-looking statements subject to standard disclaimers; figures as of April 4, 2024."
       ],
-      "plainSummary": "A Crown-enabled lender that bundles First Nations together to borrow money in capital markets at lower interest rates than any single Nation could get alone. Membership requires meeting financial-management standards."
+      "plainSummary": "The pre-FID milestone release that locked in the ARC Resources offtake, Samsung + Black & Veatch EPC, US$3.4B Class III capex (US$4.0B fully loaded), MUFG project-finance mandate, and CIBC mandate for the Haisla equity raise."
+    },
+    {
+      "slug": "cedar-lng-ea-update-2024",
+      "title": "Cedar LNG Environmental Assessment Update (Fact Sheet)",
+      "sourceType": "regulatory_filing",
+      "author": "Cedar LNG",
+      "publishedAt": "2024-12",
+      "url": "https://cedarlng.com/environment",
+      "reliability": "strong",
+      "tags": ["company", "community", "water"],
+      "supports": [
+        "Holds BC Environmental Assessment Certificate (March 2023), federal Decision Statement, Cedar LNG Pipeline permit (connection to Coastal GasLink), and BC Energy Regulator LNG Facility Permit.",
+        "Amendment applications filed October 2024: alternate transmission line re-route to avoid impacts on mature trees, marbled murrelet habitat, and wetlands; addition of a previously-unapproved distribution power line; expanded marine terminal area due to switch from strut to spread mooring (anchors outside original footprint).",
+        "Proponent states the spread mooring system 'will not restrict vessel movement in Douglas Channel'.",
+        "Engagement ongoing with Haisla Nation and 'other Indigenous Nations and the community' on the amendments."
+      ],
+      "plainSummary": "Details the original Cedar LNG EA approvals plus the October 2024 amendment package addressing transmission re-routing, an added distribution line, and a larger marine footprint."
+    },
+    {
+      "slug": "hydro-one-indigenous-relations-policy-2025",
+      "title": "Hydro One Indigenous Relations Policy",
+      "sourceType": "corporate_disclosure",
+      "author": "Hydro One Limited (CEO David Lebeter)",
+      "publishedAt": "2025-02",
+      "url": "https://www.hydroone.com/about/corporate-information/Indigenous-Relations",
+      "reliability": "strong",
+      "tags": ["company", "community", "government"],
+      "supports": [
+        "Explicit commitment to UNDRIP and to use FPIC 'as a goal and a guide in every engagement'.",
+        "Alignment with TRC Call to Action #92.",
+        "Hydro One Equity Model: every new transmission line project over $100 million in Ontario will offer applicable First Nations 50% equity.",
+        "Equity earns the Ontario Energy Board's regulated rate of return (historically 8–10%).",
+        "Hydro One commits to actively support First Nations accessing capital for their investments at reasonable costs."
+      ],
+      "limitations": [
+        "Procurement targets are qualitative ('aggressive') in this document."
+      ],
+      "plainSummary": "Hydro One's signed corporate policy and equity model: FPIC adoption + automatic 50% First Nations equity offer above the $100M project-cost threshold at the OEB-regulated rate of return — the leading regulated-utility comparator."
+    },
+    {
+      "slug": "ab-indigenous-relations-business-plan-2026-29",
+      "title": "Alberta Indigenous Relations Business Plan 2026–29 (Budget 2026)",
+      "sourceType": "government_report",
+      "author": "Government of Alberta, Ministry of Indigenous Relations",
+      "publishedAt": "2026",
+      "url": "https://open.alberta.ca/publications/indigenous-relations-business-plan",
+      "reliability": "strong",
+      "tags": ["government", "community", "finance"],
+      "supports": [
+        "Aboriginal Business Investment Fund $8.3M/yr; target 100 Indigenous permanent FTEs/yr.",
+        "Indigenous Consultation Capacity Program $7M/yr (capacity funding to communities).",
+        "Aboriginal Consultation Office targets: pre-consultation adequacy 4 working days; consultation adequacy 10 working days.",
+        "4 First Nations protocol/relationship agreements targeted: Blackfoot Confederacy and Stoney Nakoda–Tsuut'ina protocol agreements; Confederacy of Treaty Six relationship agreement; Treaty 8 MOU under development.",
+        "Ministry will support lead ministries to streamline regulatory approvals for priority projects to achieve a 120-day approval timeline.",
+        "MOU planned with federal government on Pathways Carbon Capture project and 'west coast pipeline' to align consultation processes."
+      ],
+      "plainSummary": "Alberta's 2026–29 plan tying dollar amounts to consultation capacity, business investment, and reconciliation initiatives. Two flags for Treaty-Lab: only 4 active First Nations protocol/relationship agreements (limited coverage) and a 120-day fast-track approval target for priority projects (compresses FPIC space)."
+    },
+    {
+      "slug": "ab-ai-data-centre-strategy-2024",
+      "title": "Alberta's AI Data Centre Strategy",
+      "sourceType": "government_report",
+      "author": "Government of Alberta, Ministry of Technology and Innovation",
+      "publishedAt": "2024-12",
+      "url": "https://open.alberta.ca/publications/albertas-ai-data-centre-strategy",
+      "reliability": "strong",
+      "tags": ["government", "power", "market"],
+      "supports": [
+        "Three strategic pillars: power capacity, sustainable cooling, economic growth.",
+        "Commits to evaluating both off-grid and grid-connected solutions.",
+        "Commitment to AIOC-channelled Indigenous economic participation.",
+        "Cites McKinsey forecast that global data-centre capacity could 'more than triple by 2030' and Prescient & Strategic Intelligence estimate of US$820B global data-centre market by 2030."
+      ],
+      "limitations": [
+        "Strategy itself discloses NO dollar target, NO MW target, NO siting maps, NO specific timelines, and NO Treaty-territory analysis."
+      ],
+      "plainSummary": "Alberta's December 2024 AI Data Centre Strategy. Defers concrete MW, dollar, and Treaty-territory commitments to future implementation — Treaty-Lab notes the absence of disclosed targets as a finding in itself."
+    },
+    {
+      "slug": "aeso-2025-annual-report",
+      "title": "AESO 2025 Annual Report",
+      "sourceType": "regulatory_filing",
+      "author": "Alberta Electric System Operator",
+      "publishedAt": "2026-03-09",
+      "url": "https://www.aeso.ca/aeso/reporting/",
+      "reliability": "strong",
+      "tags": ["power", "market", "government"],
+      "supports": [
+        "2025 provincial demand 90,371 GWh (+1.74% YoY); internal-load growth 2.0% vs 5-yr avg 1.5%.",
+        "Installed capacity 23,242 MW; 689 qualified generating assets; winter 2025 all-time peak 12,785 MW.",
+        "'Projects in the AESO's connection process represented more than 20,000 MW of potential load, nearly double Alberta's average demand of approximately 10,500 MW.'",
+        "1,200 MW Phase I interim limit allocated July 2025; Phase II underway.",
+        "Transmission Must-Run (TMR) costs $21.3M (+301.9% YoY); Transmission Constraint Rebalancing (TCR) costs $14.4M (+278.9% YoY).",
+        "Restructured Energy Market (REM) final design published August 2025; ISO rules approved early 2026.",
+        "Optimal Transmission Planning Framework released July 2025 — ends 'zero-congestion' standard; introduces Transmission Reinforcement Payment for new generators."
+      ],
+      "plainSummary": "Authoritative 2025 grid picture: load grew 2.0%, peak hit 12,785 MW, > 20 GW of large-load (data-centre) connection requests against ~10,500 MW average demand. Reliability-driven ancillary services costs (TMR, TCR) climbed sharply."
+    },
+    {
+      "slug": "aeso-phase1-large-load-2025",
+      "title": "AESO Phase I Large Load Integration (Interim Connection Limit and Assignment)",
+      "sourceType": "regulatory_filing",
+      "author": "Alberta Electric System Operator",
+      "publishedAt": "2025-06-04",
+      "url": "https://www.aeso.ca/grid/large-load/",
+      "reliability": "strong",
+      "tags": ["power", "market"],
+      "supports": [
+        "29 data-centre applications totalling 16,229 MW of firm DTS requests as of June 2025.",
+        "AESO Jan 2024 winter peak 12,384 MW; 44 large-load projects (17 GW) entered the queue over 16 months.",
+        "Phase I interim cap of 1,200 MW for 2027/2028 timeframe — 'equivalent of 10 per cent to the province's current peak electricity use'.",
+        "Assignment process: qualification by June 30, 2025; contracts executed July 21 – Aug 4, 2025.",
+        "Financial security requirement ≈ $14M per 100 MW (2 months DTS + full PILON).",
+        "Phase II to address NERC large-load standards, ISO tariff redesign, and large-load-aware transmission planning."
+      ],
+      "plainSummary": "The defining Phase I document — anchors the 16,229 MW June-2025 queue, the 1,200 MW interim limit, and the deterministic calculation behind it (firm supply 16,700 MW, derates 2,000 MW, operating reserves 750 MW, winter 2027/2028 peak 12,750 MW)."
+    },
+    {
+      "slug": "aeso-phase2a-feb2026",
+      "title": "AESO Large Load Integration Phase 2A — One-on-One Results and Next Steps",
+      "sourceType": "regulatory_filing",
+      "author": "Alberta Electric System Operator",
+      "publishedAt": "2026-02-09",
+      "url": "https://www.aeso.ca/grid/large-load/",
+      "reliability": "strong",
+      "tags": ["power", "market"],
+      "supports": [
+        "Phase 2A direction = 'BYOG (Bring-Your-Own-Generation) Large Load Process for Immediate Term'.",
+        "Six critical process components: tethering agreements, self-supply service, grid capability, bridging load, project readiness, BYOG study process.",
+        "BYOG Process Rollout target April 30, 2026."
+      ],
+      "plainSummary": "Phase 2A pivot toward a BYOG-first interim framework while merchant-generation allocation is deferred — directly relevant to Capital Power's Genesee data-centre proposal and similar BYOG-structured deals."
+    },
+    {
+      "slug": "nerc-large-loads-task-force-2025",
+      "title": "NERC Large Loads Task Force — Characteristics and Risks of Emerging Large Loads (White Paper)",
+      "sourceType": "government_report",
+      "author": "North American Electric Reliability Corporation (NERC) — Reliability and Security Technical Committee, Large Loads Task Force",
+      "publishedAt": "2025",
+      "url": "https://www.nerc.com/comm/RSTC/Pages/Large-Loads-Task-Force.aspx",
+      "reliability": "strong",
+      "tags": ["power", "market"],
+      "supports": [
+        "Eastern and Texas Interconnections each experienced roughly 1,500 MW of voltage-sensitive load reduction events tied to emerging large loads.",
+        "High-priority risks identified across long-term planning (resource adequacy), operations / balancing, and stability (ride-through, voltage stability, angular stability, oscillations).",
+        "Large-load definition includes data centres, crypto mining, hydrogen electrolyzers, manufacturing, arc furnaces."
+      ],
+      "plainSummary": "Continental-scale finding that voltage-sensitive load reductions of ≈ 1,500 MW have already occurred in two interconnections — the empirical basis behind AESO's Phase I reliability caution."
+    },
+    {
+      "slug": "capital-power-genesee-dc-2025",
+      "title": "Capital Power Proposed Genesee Data Centre Project Update",
+      "sourceType": "corporate_disclosure",
+      "author": "Capital Power Corporation (TSX: CPX)",
+      "publishedAt": "2025-12",
+      "url": "https://www.capitalpower.com/data-centres/",
+      "reliability": "strong",
+      "tags": ["company", "power", "community"],
+      "supports": [
+        "Proposed Genesee Data Centre may require up to 1,500 MW; SASR filed with AESO June 2024.",
+        "Collocated on Capital Power-owned land within the Genesee Mine Permit Area (Treaty 6 territory, west of Edmonton).",
+        "Partnership with an unnamed data-centre developer; new transmission lines, substation, and emergency backup generation contemplated.",
+        "Did not receive sufficient Phase 1 allocation to proceed; deferred to Phase 2 BYOG framework.",
+        "Only two projects elected to proceed under the 1,200 MW Phase 1 cap (formally concluded early November 2025)."
+      ],
+      "limitations": [
+        "Newsletter, not a regulatory filing; partner identity undisclosed; behind-the-meter / self-supply structure not fully specified."
+      ],
+      "plainSummary": "The flagship private-sector data-centre proposal — 1,500 MW at the Genesee mine site west of Edmonton in Treaty 6 territory — was shut out of Phase 1 and is now positioning for the Phase 2 BYOG framework (rollout target April 30, 2026)."
+    },
+    {
+      "slug": "fnigc-ocap-principles",
+      "title": "The First Nations Principles of OCAP®",
+      "sourceType": "ngo_report",
+      "author": "First Nations Information Governance Centre (FNIGC)",
+      "publishedAt": "2020",
+      "url": "https://fnigc.ca/ocap-training/",
+      "reliability": "strong",
+      "tags": ["community", "government"],
+      "supports": [
+        "OCAP = Ownership, Control, Access, Possession.",
+        "Ownership: collective relationship of First Nations to their cultural knowledge, data, and information.",
+        "Control: right of First Nations to seek control over all stages of research and information-management processes that impact them.",
+        "Access: right of First Nations to access information and data about themselves and their communities, and to manage how external researchers access it.",
+        "Possession: physical control / stewardship of data — the mechanism by which ownership is asserted and protected.",
+        "OCAP applies to First Nations specifically — not 'Indigenous' generally."
+      ],
+      "plainSummary": "The four OCAP principles define how First Nations data should be collected, protected, used, or shared. Underpins First Nations data sovereignty and is the standard the federal UNDRIP Action Plan Measure 30 commits to support."
+    },
+    {
+      "slug": "fnigc-barriers-levers-ocap-2014",
+      "title": "Barriers and Levers for the Implementation of OCAP™",
+      "sourceType": "academic",
+      "author": "First Nations Information Governance Centre (in International Indigenous Policy Journal 5(2))",
+      "publishedAt": "2014",
+      "url": "https://ir.lib.uwo.ca/iipj/vol5/iss2/3/",
+      "reliability": "strong",
+      "tags": ["community", "law", "government"],
+      "supports": [
+        "AANDC (now Indigenous Services Canada / Crown-Indigenous Relations) alone holds 210+ data banks of First Nations data.",
+        "Access to Information Act, Privacy Act, and Library and Archives of Canada Act apply exclusively to federal institutions; do not recognize First Nations as 'governments' for confidential information sharing — except for self-governing or modern-treaty First Nations and 'Participating First Nations' under the BC Education Jurisdiction Act.",
+        "Most provinces' FOI regimes share this gap; Nova Scotia and Alberta are the exceptional provinces recognizing FN governments as governments.",
+        "Health Canada released de-identified Non-Insured Health Benefits data to Brogan Inc. (acquired by IMS Health in 2010) for global pharmaceutical marketing.",
+        "Mohawk Council of Akwesasne is the only First Nation that holds its own NIHB and First Nation Health Information System data — enabled by enacting its own privacy law."
+      ],
+      "plainSummary": "Catalogs the structural barriers to OCAP implementation — the Access to Information Act and Library and Archives of Canada Act are the dominant ones — and offers practical workarounds, with the Mohawk Council of Akwesasne first-nation-privacy-law model as the working template."
+    },
+    {
+      "slug": "davidson-edou-robinson-legislative-slippage-2018",
+      "title": "Chipping away at democracy: Legislative slippage in Alberta's energy development zone",
+      "sourceType": "academic",
+      "author": "Davidson D.J., Edou E.A., Robinson B. (Energy Research & Social Science 46)",
+      "publishedAt": "2018",
+      "url": "https://doi.org/10.1016/j.erss.2018.08.003",
+      "reliability": "strong",
+      "tags": ["law", "government", "community"],
+      "supports": [
+        "Alberta Land Stewardship Act (2010) and Responsible Energy Development Act (REDA, 2012) progressively narrowed citizen and Indigenous participation rights in energy approvals.",
+        "Alberta Energy Regulator (AER) created as a 'one-stop shop' consolidating regulatory authority over fossil-fuel development.",
+        "Samson Cree Nation denied a regulatory appeal because they did not provide 'hard evidence that establishes a Samson Cree Nation presence at a particular location in some ascertainable proximity to Project infrastructure or activities'.",
+        "AER finding that a First Nation with reserve within 15 km of a proposed fracking development was not 'directly and adversely affected' despite project being in traditional territory.",
+        "Under REDA s. 34 the decision to hold a hearing is at the AER's discretion; appeals to Alberta Court of Appeal only on questions of law or jurisdiction."
+      ],
+      "plainSummary": "Documents how Alberta has incrementally narrowed who can object to fossil-fuel projects — particularly relevant as a cautionary precedent for how procedural rights interact with Indigenous standing in energy approvals."
     }
   ]
 }
