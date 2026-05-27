@@ -53,3 +53,4 @@ next-env.d.ts
 .env.local
 *.db
 .work/
+!.env.example
