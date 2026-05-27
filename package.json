@@ -8,7 +8,10 @@
         "start": "next start",
         "check:content": "node scripts/check-content.mjs",
         "check": "npm run check:content && tsc --noEmit",
-        "chat": "tsx scripts/chat.ts"
+        "chat": "tsx scripts/chat.ts",
+        "lint": "eslint .",
+        "format": "prettier --write .",
+        "format:check": "prettier --check ."
     },
     "dependencies": {
         "@anthropic-ai/sdk": "^0.99.0",
@@ -40,6 +43,10 @@
         "@types/react": "^19",
         "@types/react-dom": "^19",
         "dotenv": "^17.4.2",
+        "eslint": "^9.39.4",
+        "eslint-config-next": "^16.2.6",
+        "eslint-config-prettier": "^10.1.8",
+        "prettier": "^3.8.3",
         "prisma": "^7.8.0",
         "tailwindcss": "^4",
         "tsx": "^4.22.3",
