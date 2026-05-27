@@ -79,3 +79,52 @@ export function resolveIndicators(slugs: string[]): Indicator[] {
 export function resolveProjects(slugs: string[]): ProjectAssessment[] {
   return slugs.map((s) => projects.find((p) => p.slug === s)).filter((x): x is ProjectAssessment => Boolean(x));
 }
+
+// Re-export cross-reference validators + aggregation helpers so the public
+// content API is a single import surface. Implementation lives in
+// `src/lib/content/validators.ts` and `src/lib/content/aggregations.ts`.
+export {
+  validateContent,
+  assertSlugsPresent,
+  formatValidationReport,
+} from "@/lib/content/validators";
+export type {
+  ValidationCollection,
+  ValidationError,
+  ValidationResult,
+} from "@/lib/content/validators";
+
+export {
+  groupBy,
+  countBy,
+  countByMultiValued,
+  distinct,
+  distinctMultiValued,
+  distinctTags,
+  countByTag,
+  countBySourceType,
+  countByReliability,
+  evidenceByReliability,
+  countIndicatorsByDomain,
+  countBySeverity,
+  countByTrend,
+  averageSeverityByDomain,
+  countProjectsByDomain,
+  projectsAcrossDomains,
+  claimsByKind,
+  countClaimsByKind,
+  allClaimsForProject,
+  countClaimsByKindAcrossProjects,
+  projectCitationsBySourceType,
+  evidenceMap,
+  topCitedEvidence,
+  evidenceCountsBySourceTypeAndReliability,
+  sankeyEvidenceToProject,
+} from "@/lib/content/aggregations";
+export type {
+  CitedEvidenceRecord,
+  SankeyData,
+  SankeyNode,
+  SankeyLink,
+} from "@/lib/content/aggregations";
+export type { ClaimKind } from "@/lib/content/aggregations";

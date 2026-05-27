@@ -16,6 +16,18 @@
 
 ---
 
+## The foundational lens — The Treaties Came First
+
+Every analytical layer in Treaty-Lab — water, energy, finance, governance — operates **downstream of Treaty**. Treaty 6, 7, and 8 covenants are not constraints applied after the fact; they are the jurisdictional chassis under every infrastructure question this platform analyzes.
+
+> "Alberta sovereignty is an illusion. Without Treaty, Alberta as we know it wouldn't exist. Our ancestors entered into Treaty in friendship — to share our territories and maintain our sacred responsibilities to our lands in peace. **The Treaties came first.**"
+>
+> — Confederacy of Treaty No. 6, 2026 statement opposing Bill 14 (Alberta independence enabling legislation), joined by the Blackfoot Confederacy and Treaty No. 8 Nations.
+
+Where provincial legislation, regulatory frameworks, or project financing structures are silent on s.35 rights or fail to address Treaty obligations, **that silence is itself an analytical signal**. The platform surfaces those silences rather than reading them as neutral.
+
+---
+
 **Pilot v0.1 baseline:**
 
 Treaty-Lab turns messy legal, financial, technical, government, and community information into clear intelligence for decision-making — for First Nation communities, infrastructure investors, legal and policy researchers, and government-relations teams.
