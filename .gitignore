@@ -49,3 +49,7 @@ next-env.d.ts
 # Next.js typegen output
 /.next/types
 
+.env
+.env.local
+*.db
+.work/
