@@ -861,6 +861,54 @@
         "Under REDA s. 34 the decision to hold a hearing is at the AER's discretion; appeals to Alberta Court of Appeal only on questions of law or jurisdiction."
       ],
       "plainSummary": "Documents how Alberta has incrementally narrowed who can object to fossil-fuel projects — particularly relevant as a cautionary precedent for how procedural rights interact with Indigenous standing in energy approvals."
+    },
+    {
+      "slug": "fnfa-bonds-overview",
+      "title": "First Nations Finance Authority — Bond Program Overview",
+      "sourceType": "financial_prospectus",
+      "author": "First Nations Finance Authority",
+      "url": "https://fnfa.ca/en/fnfa/about-fnfa/",
+      "reliability": "established",
+      "tags": ["finance", "law", "community", "market"],
+      "supports": [
+        "Established under Part 4 of the First Nations Fiscal Management Act (FNFMA, SC 2005, c. 9) as a not-for-profit borrowing institution wholly owned by member First Nations.",
+        "Issues pooled debentures backed by aggregated own-source-revenue and property-tax pledges from member borrowers, enabling First Nations to access long-term capital at near-Government-of-Canada borrowing rates.",
+        "Bond proceeds finance member First Nation infrastructure, economic-development equity, social housing, and on-reserve community works — including equity participation in major projects.",
+        "Credit ratings as of 2025: S&P AA- (Stable), Moody's Aa3 (Stable), Morningstar DBRS AA (low, Stable); commercial paper R-1 (middle).",
+        "Loan portfolio CAD $3.9B (Aug 2025); 185 borrowing members; loan sizes $0.5M–$323.5M; weighted-average remaining term ≈ 23 years.",
+        "Statutory mechanism: a Debt Reserve Fund (DRF) plus intervention rights provide protection to bondholders if a member misses payments — though the intervention pathway remains legally untested.",
+        "FNFA has publicly advocated for expanded statutory authority to lend to Special Purpose Vehicles (SPVs), which would unlock larger equity-partnership structures (e.g., pipeline/transmission/LNG deals)."
+      ],
+      "limitations": [
+        "Restricted by statute to member First Nations that have opted in to the FNFMA fiscal framework — not all First Nations in Canada are eligible borrowers.",
+        "Loans currently cannot fund non-Nation SPVs (a constraint on financing major-project equity participation); statutory amendment proposed but not enacted as of 2025.",
+        "DRF replenishment and the intervention pathway have not been tested in a default scenario."
+      ],
+      "plainSummary": "FNFA is the central capital-raising body for First Nations under the FNFMA. It pools member tax and own-source revenue to issue investment-grade bonds (AA-/Aa3/AA-low) and on-lend to members at near-Crown rates. As of August 2025: $3.9B loan portfolio, 185 borrowers. The major statutory gap is that FNFA cannot yet lend to SPVs, which constrains major-project Indigenous equity participation."
+    },
+    {
+      "slug": "treaty-8-1899",
+      "title": "Treaty No. 8 (1899)",
+      "sourceType": "treaty_text",
+      "author": "Crown in Right of Canada; Beaver, Cree, Chipewyan and other adhering First Nations",
+      "publishedAt": "1899-06-21",
+      "url": "https://www.rcaanc-cirnac.gc.ca/eng/1100100028813/1581293624401",
+      "reliability": "established",
+      "tags": ["law", "government", "community"],
+      "supports": [
+        "Signed at Lesser Slave Lake on 21 June 1899; subsequent adhesions through 1900 and into the early 20th century brought additional First Nations under the treaty.",
+        "Territory: ~840,000 km² spanning northern Alberta, northeastern British Columbia, northwestern Saskatchewan, and the southern Northwest Territories — the largest of the Numbered Treaties by area.",
+        "Reserve allotment: 1 square mile (640 acres) per family of five, or proportionate amounts; bands could elect treaty money in lieu of reserves.",
+        "Annuities: $5 per person annually, with $25 to each chief and $15 to each headman.",
+        "Hunting, trapping, and fishing rights affirmed 'throughout the tract surrendered ... saving and excepting such tracts as may be required or taken up from time to time for settlement, mining, lumbering, trading or other purposes' — the 'taking up' clause and its modern interpretation are the doctrinal core of Treaty 8 litigation.",
+        "Crown commitments included schooling, agricultural assistance, and ammunition/twine allowances.",
+        "Indigenous oral history of Treaty 8, like Treaty 6, frames the agreement as one of sharing rather than cession — repeatedly cited in modern Treaty 8 jurisprudence (Mikisew Cree 2005, Yahey 2021 BCSC 1287)."
+      ],
+      "limitations": [
+        "The written Crown text is the operative legal document for most regulatory purposes; oral commitments made at the signing and adhesions are documented in scholarship and oral histories but not in the treaty text itself.",
+        "Adhesions extended Treaty 8 over time; the boundaries of who is covered are still being adjudicated in some areas (e.g., Métis communities under Mikisew-related jurisprudence)."
+      ],
+      "plainSummary": "The 1899 Numbered Treaty covering northern AB / BC / SK and southern NWT — the largest of the Numbered Treaties by area. The 'taking up' clause — which permits the Crown to remove tracts from treaty harvesting rights for 'settlement, mining, lumbering, trading or other purposes' — is the doctrinal hinge of Treaty 8 cases including Mikisew Cree (2005), Grassy Narrows (2014), and Yahey (2021 BCSC 1287), which held that cumulative effects of industrial development can amount to a treaty infringement."
     }
   ]
 }

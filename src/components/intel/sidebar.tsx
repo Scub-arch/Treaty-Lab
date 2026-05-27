@@ -13,6 +13,8 @@ import {
   Lightbulb,
   Archive,
   ListTree,
+  MessageSquare,
+  BarChart3,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -40,6 +42,11 @@ const research: NavItem[] = [
   { href: "/archive", label: "Treaty Archive", icon: Archive, code: "ARC" },
 ];
 
+const tools: NavItem[] = [
+  { href: "/ask", label: "Analyst Q&A", icon: MessageSquare, code: "ASK" },
+  { href: "/reports", label: "Static Reports", icon: BarChart3, code: "RPT" },
+];
+
 export function Sidebar() {
   const pathname = usePathname();
 
@@ -62,6 +69,7 @@ export function Sidebar() {
       <nav className="flex-1 px-3 py-4 space-y-6 overflow-y-auto">
         <NavGroup title="Intelligence" items={intelligence} pathname={pathname} />
         <NavGroup title="Research" items={research} pathname={pathname} />
+        <NavGroup title="Tools" items={tools} pathname={pathname} />
       </nav>
 
       <div className="px-5 py-4 border-t border-border">

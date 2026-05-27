@@ -93,6 +93,23 @@ export default function CommandCenter() {
         <div className="font-mono text-[10px] tracking-[0.25em] text-muted-foreground mb-3">
           COMMAND CENTER · PILOT v0.1
         </div>
+
+        {/* Foundational lens — The Treaties Came First */}
+        <div className="mb-8 pb-8 border-b border-border/60 max-w-3xl">
+          <div className="font-mono text-[10px] tracking-[0.18em] text-foreground/80 mb-3">
+            FOUNDATIONAL LENS · THE TREATIES CAME FIRST
+          </div>
+          <blockquote className="text-base md:text-lg leading-relaxed text-foreground/90 border-l-2 border-foreground/40 pl-4 italic">
+            &ldquo;Alberta sovereignty is an illusion. Without Treaty, Alberta as we know it
+            wouldn&apos;t exist. Our ancestors entered into Treaty in friendship — to share our
+            territories and maintain our sacred responsibilities to our lands in peace.{" "}
+            <span className="not-italic font-semibold">The Treaties came first.</span>&rdquo;
+          </blockquote>
+          <div className="font-mono text-[10px] tracking-[0.12em] text-muted-foreground mt-3">
+            — CONFEDERACY OF TREATY NO. 6 · 2026 STATEMENT ON BILL 14
+          </div>
+        </div>
+
         <h1 className="text-3xl md:text-4xl font-semibold tracking-tight leading-tight max-w-4xl">
           Project certainty now depends on water, grid realism, treaty rights,
           Indigenous validation, and evidence traceability.
@@ -104,6 +121,12 @@ export default function CommandCenter() {
           Every claim in this pilot is traced to public-record evidence and clearly separated into
           confirmed facts, risks, questions, assumptions, and items needing legal or community
           validation.
+        </p>
+        <p className="text-muted-foreground mt-3 max-w-3xl leading-relaxed">
+          Every analytical layer below — water, energy, finance, governance — operates{" "}
+          <span className="text-foreground/90 font-medium">downstream of Treaty</span>. Treaty 6, 7,
+          and 8 covenants are not constraints applied after the fact; they are the jurisdictional
+          chassis under every infrastructure question this terminal analyzes.
         </p>
       </section>
 
@@ -255,6 +278,14 @@ export default function CommandCenter() {
           subtitle="How this pilot handles evidence, claims, and uncertainty."
         >
           <ul className="text-sm text-muted-foreground space-y-2 leading-relaxed">
+            <li>
+              <span className="font-medium text-foreground">The Treaties came first.</span>{" "}
+              This terminal treats Crown–Indigenous Treaty covenants as the foundational layer of
+              every infrastructure analysis — not as one variable among many. Where provincial
+              legislation, regulatory frameworks, or project financing structures are silent on s.35
+              rights or fail to address Treaty obligations, that silence is itself an analytical
+              signal.
+            </li>
             <li>
               <span className="font-medium text-foreground">Claims are separated by kind.</span>{" "}
               Each project assessment distinguishes confirmed facts, identified risks, open questions,

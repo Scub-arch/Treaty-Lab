@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { ChevronRight, ExternalLink } from "lucide-react";
-import { getEvidence } from "@/lib/content";
-import type { EvidenceItem } from "@/lib/content/types";
+import { getEvidence, evidenceCountsBySourceTypeAndReliability } from "@/lib/content";
+import type { EvidenceItem, EvidenceStrength, SourceType } from "@/lib/content/types";
 import { Separator } from "@/components/ui/separator";
 import { EvidenceStrengthBadge } from "@/components/intel/evidence-strength-badge";
+import { SourceReliabilityHeatmap } from "@/components/intel/source-reliability-heatmap";
 
 export const metadata = { title: "Cited Sources Index — Treaty-Lab" };
 
@@ -49,6 +50,26 @@ export default function SourcesIndexPage() {
 
   const totalItems = evidence.length;
 
+  // --- Reliability heatmap (server-side pivot) ----------------------------
+  const reliabilityPivot = evidenceCountsBySourceTypeAndReliability(evidence);
+  const RELIABILITY_COL_ORDER: EvidenceStrength[] = ["weak", "moderate", "strong", "established"];
+  // Only show columns that have at least one item somewhere
+  const presentReliability: EvidenceStrength[] = RELIABILITY_COL_ORDER.filter((r) =>
+    [...reliabilityPivot.values()].some((inner) => (inner.get(r) ?? 0) > 0),
+  );
+  // Sort source-type rows by total descending so densest categories are on top
+  const heatmapRows = [...reliabilityPivot.entries()]
+    .map(([sourceType, inner]) => {
+      const reliabilityCounts = presentReliability.map((r) => ({
+        reliability: r,
+        count: inner.get(r) ?? 0,
+      }));
+      const rowTotal = reliabilityCounts.reduce((acc, c) => acc + c.count, 0);
+      return { sourceType: sourceType as SourceType, reliabilityCounts, rowTotal };
+    })
+    .sort((a, b) => b.rowTotal - a.rowTotal)
+    .map(({ sourceType, reliabilityCounts }) => ({ sourceType, reliabilityCounts }));
+
   return (
     <div className="px-6 py-8 space-y-8 max-w-[1400px] mx-auto">
       <section>
@@ -67,6 +88,31 @@ export default function SourcesIndexPage() {
           </Link>
           .
         </p>
+      </section>
+
+      <section>
+        <div className="font-mono text-[10px] tracking-[0.18em] text-muted-foreground mb-3">
+          SRC · 00 — RELIABILITY MATRIX
+        </div>
+        <div className="border border-border rounded-md bg-card p-5 space-y-3">
+          <div>
+            <h2 className="text-base md:text-lg font-semibold tracking-tight">
+              Source type × reliability tier
+            </h2>
+            <p className="text-xs text-muted-foreground mt-1 max-w-3xl leading-relaxed">
+              Cells shade by count — darker means more evidence items in that category. Reliability
+              tracks the source itself (primary law &gt; peer-reviewed / government &gt; reputable
+              news &gt; single-source), not whether you should agree with what it says. The
+              platform deliberately avoids weak / moderate sources — if a column is empty, that
+              column has zero cited items.
+            </p>
+          </div>
+          <SourceReliabilityHeatmap
+            counts={heatmapRows}
+            reliabilityColumns={presentReliability}
+            total={totalItems}
+          />
+        </div>
       </section>
 
       {TAG_GROUPS.map((group) => {

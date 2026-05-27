@@ -21,7 +21,7 @@
       "question": "What questions should be asked before approval?",
       "shortAnswer": "Independent legal review, independent financial review, cash-flow waterfall disclosure, scenario stress-testing, governance rights, exit options, and what happens if the project underperforms.",
       "body": "Before signing any major project agreement, communities should expect to have:\n\n**Independent legal review** — counsel chosen by and accountable to the community, not paid by the proponent.\n\n**Independent financial review** — a financial advisor with project-finance experience who can model the cash-flow waterfall in low / base / high scenarios.\n\n**Disclosure of the full waterfall** — who gets paid first, in what order, in what scenarios. A single base-case number is not enough.\n\n**Governance rights** — observer seats, veto rights on specific decisions, audit rights, dispute-resolution mechanisms.\n\n**Exit options** — what happens if the community wants to sell, transfer, or unwind its position.\n\n**Underperformance scenarios** — what is the community's exposure if the project's output, price, or operating costs differ materially from base case.\n\n**Treaty and rights preservation** — does signing this agreement waive, modify, or prejudice future treaty-rights claims.",
-      "relatedEvidence": ["constitution-act-1982-s35", "undrip-act-2021"]
+      "relatedEvidence": ["constitution-act-1867-1982", "undrip-act-2021"]
     },
     {
       "slug": "what-if-already-approved",
