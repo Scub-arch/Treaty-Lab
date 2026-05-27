@@ -1,0 +1,34 @@
+# Dependency / build / generated output — never reformat
+node_modules/
+.next/
+out/
+build/
+dist/
+src/generated/
+prisma/migrations/
+
+# Lockfiles — npm manages format
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Synthesis files (research output, hand-formatted)
+.work/
+
+# Binary / static assets
+public/
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.pdf
+*.ico
+
+# Local env files (gitignored anyway, but skip just in case)
+.env
+.env.*
+!.env.example
+
+# Project metadata
+TASKS.md
