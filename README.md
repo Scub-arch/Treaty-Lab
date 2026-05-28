@@ -1,6 +1,20 @@
 # Treaty-Lab
 
-**Pilot v0.2 — Indigenous-led infrastructure intelligence terminal.**
+**Pilot v0.2 — a source-backed Indigenous infrastructure intelligence terminal.**
+
+Treaty-Lab is designed to help communities, analysts, leadership, and advisors
+understand project risk before decisions are made. Its core advantage is
+**traceable evidence + plain-language risk analysis + project decision support**.
+
+The product is organised around a single flow that every page reinforces:
+
+> **Claim → Source → Risk → Plain-language explanation → Decision support**
+
+The full product thesis, target users, evidence standards, safe-wording rules,
+required project-page structure, and roadmap are documented in
+[`docs/PROJECT_NORTH_STAR.md`](docs/PROJECT_NORTH_STAR.md). Read it before
+making changes that affect product copy, page structure, or claim/source
+handling.
 
 ## v0.2 changes
 
@@ -28,39 +42,61 @@ Where provincial legislation, regulatory frameworks, or project financing struct
 
 ---
 
-**Pilot v0.1 baseline:**
+**Pilot v0.1 baseline — what the platform is designed to do:**
 
-Treaty-Lab turns messy legal, financial, technical, government, and community information into clear intelligence for decision-making — for First Nation communities, infrastructure investors, legal and policy researchers, and government-relations teams.
+Treaty-Lab is designed to take scattered legal, financial, technical, government,
+and community information about an infrastructure project and present it in a
+form that supports a decision. The intended audience is First Nation communities,
+analysts, leadership and advisors, legal and policy reviewers, and the
+infrastructure / finance reviewers who interact with them.
 
-The pilot demonstrates that the platform can:
+The pilot is built to:
 
-- Trace every claim to public-record evidence
-- Separate confirmed facts from risks, open questions, stated assumptions, and items needing community or legal validation
-- Surface project certainty signals across treaty rights, water availability, grid realism, and financing structure
-- Translate finance and governance concepts into plain language
+- **Trace every claim to public-record evidence**, with source type and
+  reliability tier visible.
+- **Separate confirmed facts** from risks, open questions, stated assumptions,
+  and items needing community or legal validation.
+- **Surface project-certainty signals** across treaty rights, water availability,
+  grid realism, financing structure, and consultation status.
+- **Translate finance, governance, and regulatory concepts into plain language**
+  that supports community decision-making.
+- **Organise the decision-support questions** a community, analyst, or advisor
+  would ask before approving, opposing, partnering on, or financing a project.
+
+What the platform is **not**: a generic dashboard, a news site, an activism
+page, a legal-accusation tool, an unsourced AI assistant, or a replacement for
+legal advice, investment advice, or community consent processes.
 
 ## What's in this pilot
 
-Nine sections accessible via the sidebar terminal navigation:
+The intelligence terminal is organised in three groups in the sidebar:
 
-| Module                  | Path           | Purpose                                                                                      |
-| ----------------------- | -------------- | -------------------------------------------------------------------------------------------- |
-| Command Center          | `/`            | Hero thesis, current risk indicators, infrastructure watchlist, module index                 |
-| Treaty Terminal         | `/treaty`      | Treaty rights, consultation status, governance risk, community validation                    |
-| Water Intelligence      | `/water`       | Watershed stress, drought, industrial demand, First Nation water rights                      |
-| Energy & Grid           | `/energy`      | Transmission constraints, AI/data-centre load growth, asset-stranding exposure               |
-| Indigenous Finance      | `/finance`     | Ownership structures, CIB/AIOC/FNFA financing, debt exposure, cash-flow waterfalls           |
-| Project Assessments     | `/projects`    | Detailed assessments of 4 real Canadian projects, with claims separated by kind              |
-| Evidence Library        | `/evidence`    | 12 public-record sources (treaty texts, SCC decisions, legislation, program documentation)   |
-| Plain-Language          | `/explainers`  | 7 explainers for community-decision-relevant concepts                                        |
-| Treaty Archive          | `/archive`     | Searchable archive of 12 historical treaties — Numbered Treaties 1, 4, 6, 7, 8, 11 + international instruments (UNDRIP, ILO 169, UN Charter, VCLT, Geneva IV, Paris Agreement) |
+| Group        | Module              | Path          | Purpose                                                                                                                                                                        |
+| ------------ | ------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Intelligence | Command Center      | `/`           | Foundational thesis, cross-domain severity composite, current risk indicators, infrastructure watchlist, module index                                                          |
+| Intelligence | Treaty Terminal     | `/treaty`     | Treaty rights, consultation status, governance risk, community validation                                                                                                      |
+| Intelligence | Water Intelligence  | `/water`      | Watershed stress, drought, industrial demand, First Nation water rights                                                                                                        |
+| Intelligence | Energy & Grid       | `/energy`     | Transmission constraints, AI/data-centre load growth, asset-stranding exposure                                                                                                 |
+| Intelligence | Indigenous Finance  | `/finance`    | Ownership structures, CIB/AIOC/FNFA financing, debt exposure, cash-flow waterfalls                                                                                             |
+| Research     | Project Assessments | `/projects`   | Detailed assessments of 4 real Canadian projects, with claims separated by kind                                                                                                |
+| Research     | Evidence Library    | `/evidence`   | 48 public-record sources (treaty texts, SCC decisions, legislation, regulatory filings, program documentation)                                                                 |
+| Research     | Cited Sources       | `/sources`    | Source-reliability heatmap and cross-reference index                                                                                                                           |
+| Research     | Plain-Language      | `/explainers` | 7 explainers for community-decision-relevant concepts                                                                                                                          |
+| Research     | Treaty Archive      | `/archive`    | Searchable archive of historical treaties — Numbered Treaties 1, 4, 6, 7, 8, 11 + international instruments (UNDRIP, ILO 169, UN Charter, VCLT, Geneva IV, Paris Agreement)    |
+| Tools        | Analyst Q&A         | `/ask`        | Source-grounded question console backed by the Databricks AI Gateway                                                                                                           |
+| Tools        | Static Reports      | `/reports`    | Cross-reference visualisations (per-project citation mix, top-cited evidence, source-reliability heatmap)                                                                      |
+
+Current content counts (kept in sync by the validator in
+`src/lib/content/validators.ts`): **4 project assessments · 48 evidence items ·
+37 indicators · 7 explainers · 4 domain modules**.
 
 ## Sample data — important caveats
 
 - **Project assessments** cover Coastal GasLink, Site C, Trans Mountain Expansion, and Cedar LNG. Every claim is conservatively worded and tied to public-record evidence. Specific terms of impact-benefit agreements, equity options, and loan-guarantee structures that are not in the public record are explicitly flagged as `needs_validation`.
 - **The Treaty Archive** uses the Crown / institutional written versions of the Numbered Treaties. Indigenous oral histories of treaty intent often differ materially. The platform notes this on every Numbered Treaty.
-- **Indicators** are qualitative composites, not market indices. They are designed to surface considerations, not to recommend action.
-- **Nothing here is investment advice or legal advice.** This is a research-intelligence pilot.
+- **Indicators** are qualitative composites, not market indices. They are designed to surface considerations and risk signals, not to recommend action.
+- **Source-grounded answers** in the Analyst Q&A surface are produced by an LLM against the project, evidence, and indicator content. They are intended to organise and translate the existing record, not to introduce new facts. Always check the cited evidence directly.
+- **Nothing here is investment advice or legal advice.** This is a research-intelligence pilot. Community, counsel, and advisor review remain required before any operative use.
 
 ## Tech stack
 
@@ -128,10 +164,10 @@ src/
 │       ├── plain-language-box.tsx
 │       ├── indicator-badge.tsx
 │       └── evidence-strength-badge.tsx
-├── content/              # JSON sample data
+├── content/              # JSON sample data (validated by scripts/check-content.mjs)
 │   ├── projects.json     # 4 project assessments
-│   ├── evidence.json     # 12 evidence-library items
-│   ├── indicators.json   # 18 indicators across all modules
+│   ├── evidence.json     # 48 evidence-library items
+│   ├── indicators.json   # 37 indicators across all modules
 │   ├── explainers.json   # 7 plain-language explainers
 │   └── modules.json      # Module landing-page configs
 ├── lib/
