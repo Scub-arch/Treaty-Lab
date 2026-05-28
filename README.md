@@ -43,17 +43,17 @@ The pilot demonstrates that the platform can:
 
 Nine sections accessible via the sidebar terminal navigation:
 
-| Module                  | Path           | Purpose                                                                                      |
-| ----------------------- | -------------- | -------------------------------------------------------------------------------------------- |
-| Command Center          | `/`            | Hero thesis, current risk indicators, infrastructure watchlist, module index                 |
-| Treaty Terminal         | `/treaty`      | Treaty rights, consultation status, governance risk, community validation                    |
-| Water Intelligence      | `/water`       | Watershed stress, drought, industrial demand, First Nation water rights                      |
-| Energy & Grid           | `/energy`      | Transmission constraints, AI/data-centre load growth, asset-stranding exposure               |
-| Indigenous Finance      | `/finance`     | Ownership structures, CIB/AIOC/FNFA financing, debt exposure, cash-flow waterfalls           |
-| Project Assessments     | `/projects`    | Detailed assessments of 4 real Canadian projects, with claims separated by kind              |
-| Evidence Library        | `/evidence`    | 12 public-record sources (treaty texts, SCC decisions, legislation, program documentation)   |
-| Plain-Language          | `/explainers`  | 7 explainers for community-decision-relevant concepts                                        |
-| Treaty Archive          | `/archive`     | Searchable archive of 12 historical treaties — Numbered Treaties 1, 4, 6, 7, 8, 11 + international instruments (UNDRIP, ILO 169, UN Charter, VCLT, Geneva IV, Paris Agreement) |
+| Module              | Path          | Purpose                                                                                                                                                                        |
+| ------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Command Center      | `/`           | Hero thesis, current risk indicators, infrastructure watchlist, module index                                                                                                   |
+| Treaty Terminal     | `/treaty`     | Treaty rights, consultation status, governance risk, community validation                                                                                                      |
+| Water Intelligence  | `/water`      | Watershed stress, drought, industrial demand, First Nation water rights                                                                                                        |
+| Energy & Grid       | `/energy`     | Transmission constraints, AI/data-centre load growth, asset-stranding exposure                                                                                                 |
+| Indigenous Finance  | `/finance`    | Ownership structures, CIB/AIOC/FNFA financing, debt exposure, cash-flow waterfalls                                                                                             |
+| Project Assessments | `/projects`   | Detailed assessments of 4 real Canadian projects, with claims separated by kind                                                                                                |
+| Evidence Library    | `/evidence`   | 12 public-record sources (treaty texts, SCC decisions, legislation, program documentation)                                                                                     |
+| Plain-Language      | `/explainers` | 7 explainers for community-decision-relevant concepts                                                                                                                          |
+| Treaty Archive      | `/archive`    | Searchable archive of 12 historical treaties — Numbered Treaties 1, 4, 6, 7, 8, 11 + international instruments (UNDRIP, ILO 169, UN Charter, VCLT, Geneva IV, Paris Agreement) |
 
 ## Sample data — important caveats
 

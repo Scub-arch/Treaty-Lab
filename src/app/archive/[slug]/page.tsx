@@ -70,7 +70,11 @@ export default async function TreatyDetail(props: PageProps<"/archive/[slug]">) 
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
         <div className="space-y-6 min-w-0">
-          <IntelligencePanel title="Text" code="ARC · TEXT" subtitle="Crown / institutional version. Indigenous oral histories may differ materially.">
+          <IntelligencePanel
+            title="Text"
+            code="ARC · TEXT"
+            subtitle="Crown / institutional version. Indigenous oral histories may differ materially."
+          >
             <div className="prose-tl whitespace-pre-line text-sm leading-relaxed text-foreground/90">
               {treaty.fullText}
             </div>

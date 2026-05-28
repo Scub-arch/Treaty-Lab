@@ -109,7 +109,9 @@ function fetchTokenViaCli(): string | null {
     join(process.env.LOCALAPPDATA ?? "", "Microsoft", "WinGet", "Links", "databricks.exe"),
     join(
       process.env.LOCALAPPDATA ?? "",
-      "Microsoft", "WinGet", "Packages",
+      "Microsoft",
+      "WinGet",
+      "Packages",
       "Databricks.DatabricksCLI_Microsoft.Winget.Source_8wekyb3d8bbwe",
       "databricks.exe",
     ),
@@ -189,7 +191,11 @@ export async function chatTreaty(messages: Message[], opts: ChatOpts = {}): Prom
           | string
           | Array<
               | { type: "text"; text: string }
-              | { type: "reasoning"; summary?: Array<{ type: "summary_text"; text: string }>; text?: string }
+              | {
+                  type: "reasoning";
+                  summary?: Array<{ type: "summary_text"; text: string }>;
+                  text?: string;
+                }
             >;
       };
     }>;
@@ -231,7 +237,11 @@ export async function chatTreaty(messages: Message[], opts: ChatOpts = {}): Prom
 // Convenience — single-turn helper
 // ---------------------------------------------------------------------------
 
-export async function askTreaty(prompt: string, system?: string, opts: ChatOpts = {}): Promise<ChatResult> {
+export async function askTreaty(
+  prompt: string,
+  system?: string,
+  opts: ChatOpts = {},
+): Promise<ChatResult> {
   const messages: Message[] = [];
   if (system) messages.push({ role: "system", content: system });
   messages.push({ role: "user", content: prompt });

@@ -68,9 +68,13 @@ export function ResourcesTab({ data }: Props) {
                 <li key={c.domain} className="flex items-baseline justify-between gap-3">
                   <span className="text-foreground/90">{c.label}</span>
                   <span className="flex items-baseline gap-2">
-                    <span className="font-mono tabular-nums font-medium">{c.severityScore.toFixed(2)}</span>
+                    <span className="font-mono tabular-nums font-medium">
+                      {c.severityScore.toFixed(2)}
+                    </span>
                     <span className="font-mono text-[10px] text-muted-foreground">/ 5.00</span>
-                    <span className="font-mono text-[10px] text-muted-foreground">({c.indicatorCount} ind.)</span>
+                    <span className="font-mono text-[10px] text-muted-foreground">
+                      ({c.indicatorCount} ind.)
+                    </span>
                   </span>
                 </li>
               ))}

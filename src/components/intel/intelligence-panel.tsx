@@ -13,21 +13,9 @@ interface Props {
 }
 
 /** A standard intelligence-terminal panel: titled, bordered, with optional code/actions header. */
-export function IntelligencePanel({
-  title,
-  code,
-  subtitle,
-  actions,
-  children,
-  className,
-}: Props) {
+export function IntelligencePanel({ title, code, subtitle, actions, children, className }: Props) {
   return (
-    <section
-      className={cn(
-        "border border-border bg-card rounded-md overflow-hidden",
-        className,
-      )}
-    >
+    <section className={cn("border border-border bg-card rounded-md overflow-hidden", className)}>
       <header className="flex items-start justify-between gap-4 px-5 py-3 border-b border-border bg-muted/30">
         <div className="min-w-0">
           <div className="flex items-baseline gap-2">
@@ -40,9 +28,7 @@ export function IntelligencePanel({
               {title}
             </h2>
           </div>
-          {subtitle && (
-            <p className="text-xs text-muted-foreground mt-0.5">{subtitle}</p>
-          )}
+          {subtitle && <p className="text-xs text-muted-foreground mt-0.5">{subtitle}</p>}
         </div>
         {actions && <div className="shrink-0 flex items-center gap-2">{actions}</div>}
       </header>

@@ -1,6 +1,14 @@
 "use client";
 
-import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 import type { TreatyTimelinePoint } from "@/lib/dashboard-data";
 
 interface Props {
@@ -50,8 +58,15 @@ export function TreatyTimelineChart({ data }: Props) {
               borderRadius: 6,
               fontSize: 12,
             }}
-            labelStyle={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--muted-foreground)" }}
-            formatter={(v, name) => [v as number, name === "signed" ? "Treaties opened" : "Signatures ratified"]}
+            labelStyle={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 10,
+              color: "var(--muted-foreground)",
+            }}
+            formatter={(v, name) => [
+              v as number,
+              name === "signed" ? "Treaties opened" : "Signatures ratified",
+            ]}
           />
           <Area
             type="monotone"

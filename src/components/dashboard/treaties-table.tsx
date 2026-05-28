@@ -37,7 +37,8 @@ export function TreatiesTable({ rows, detailsById }: Props) {
       if (av == null && bv == null) return 0;
       if (av == null) return 1;
       if (bv == null) return -1;
-      if (typeof av === "number" && typeof bv === "number") return sortDir === "asc" ? av - bv : bv - av;
+      if (typeof av === "number" && typeof bv === "number")
+        return sortDir === "asc" ? av - bv : bv - av;
       return sortDir === "asc"
         ? String(av).localeCompare(String(bv))
         : String(bv).localeCompare(String(av));
@@ -102,7 +103,13 @@ export function TreatiesTable({ rows, detailsById }: Props) {
           <table className="w-full text-sm">
             <thead className="sticky top-0 z-10 bg-muted/40 backdrop-blur-sm">
               <tr className="border-b border-border text-left">
-                <SortHeader k="name" label="Treaty" current={sortKey} dir={sortDir} onClick={toggleSort} />
+                <SortHeader
+                  k="name"
+                  label="Treaty"
+                  current={sortKey}
+                  dir={sortDir}
+                  onClick={toggleSort}
+                />
                 <SortHeader
                   k="openedAt"
                   label="Opened"
@@ -149,16 +156,16 @@ export function TreatiesTable({ rows, detailsById }: Props) {
                     onClick={() => setSelectedId(active ? null : t.id)}
                     className={cn(
                       "border-b border-border/40 cursor-pointer transition-colors",
-                      active
-                        ? "bg-sky-500/10 hover:bg-sky-500/15"
-                        : "hover:bg-muted/30",
+                      active ? "bg-sky-500/10 hover:bg-sky-500/15" : "hover:bg-muted/30",
                       i === visibleRows.length - 1 && "border-b-0",
                     )}
                   >
                     <td className="px-3 py-3">
                       <div className="font-medium text-foreground leading-tight">{t.name}</div>
                       {t.shortName && (
-                        <div className="text-[11px] text-muted-foreground mt-0.5">{t.shortName}</div>
+                        <div className="text-[11px] text-muted-foreground mt-0.5">
+                          {t.shortName}
+                        </div>
                       )}
                     </td>
                     <td className="px-3 py-3 text-right font-mono text-xs text-muted-foreground tabular-nums">
@@ -179,7 +186,9 @@ export function TreatiesTable({ rows, detailsById }: Props) {
                         className={cn(
                           t.ratifiedCount === 0 && "text-muted-foreground/60",
                           t.ratifiedCount > 0 && t.ratifiedCount < t.partyCount && "text-amber-400",
-                          t.ratifiedCount > 0 && t.ratifiedCount === t.partyCount && "text-emerald-400",
+                          t.ratifiedCount > 0 &&
+                            t.ratifiedCount === t.partyCount &&
+                            "text-emerald-400",
                         )}
                       >
                         {t.ratifiedCount}
@@ -329,7 +338,12 @@ function SortHeader({
 }) {
   const active = current === k;
   return (
-    <th className={cn("font-mono text-[10px] tracking-[0.12em] text-muted-foreground font-medium px-3 py-2.5", align === "right" && "text-right")}>
+    <th
+      className={cn(
+        "font-mono text-[10px] tracking-[0.12em] text-muted-foreground font-medium px-3 py-2.5",
+        align === "right" && "text-right",
+      )}
+    >
       <button
         type="button"
         onClick={() => onClick(k)}
@@ -340,7 +354,8 @@ function SortHeader({
         )}
       >
         {label.toUpperCase()}
-        {active && (dir === "asc" ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />)}
+        {active &&
+          (dir === "asc" ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />)}
       </button>
     </th>
   );
@@ -360,5 +375,10 @@ function DetailBlock({ label, children }: { label: string; children: React.React
 function formatDate(iso: string): string {
   // Treat ISO date as UTC to avoid local-tz drift on historical dates
   const d = new Date(iso + "T00:00:00Z");
-  return d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });
+  return d.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  });
 }

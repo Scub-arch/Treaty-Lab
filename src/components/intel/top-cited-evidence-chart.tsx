@@ -1,6 +1,15 @@
 "use client";
 
-import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer, Cell } from "recharts";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  ResponsiveContainer,
+  Cell,
+} from "recharts";
 import type { SourceType } from "@/lib/content/types";
 import type { CitedEvidenceRecord } from "@/lib/content";
 
@@ -54,7 +63,9 @@ export function TopCitedEvidenceChart({ records }: Props) {
   const height = Math.max(240, data.length * 34);
 
   // Legend only contains the source types actually present in the top-N.
-  const presentTypes: SourceType[] = Array.from(new Set(data.map((d) => d.sourceType as SourceType)));
+  const presentTypes: SourceType[] = Array.from(
+    new Set(data.map((d) => d.sourceType as SourceType)),
+  );
 
   return (
     <div className="w-full">
@@ -93,7 +104,11 @@ export function TopCitedEvidenceChart({ records }: Props) {
             }}
             labelStyle={{ fontWeight: 600, marginBottom: 4 }}
             formatter={(value, _name, props) => {
-              const p = props.payload as { sourceType: SourceType; reliability: string; slug: string };
+              const p = props.payload as {
+                sourceType: SourceType;
+                reliability: string;
+                slug: string;
+              };
               const stLabel = SOURCE_TYPE_LABEL[p.sourceType] ?? p.sourceType;
               return [
                 `${value} citation site${value === 1 ? "" : "s"} · ${stLabel} · ${p.reliability}`,
@@ -103,7 +118,10 @@ export function TopCitedEvidenceChart({ records }: Props) {
           />
           <Bar dataKey="citations" isAnimationActive={false}>
             {data.map((d) => (
-              <Cell key={d.slug} fill={SOURCE_TYPE_PALETTE[d.sourceType as SourceType] ?? "#aaaaaa"} />
+              <Cell
+                key={d.slug}
+                fill={SOURCE_TYPE_PALETTE[d.sourceType as SourceType] ?? "#aaaaaa"}
+              />
             ))}
           </Bar>
         </BarChart>

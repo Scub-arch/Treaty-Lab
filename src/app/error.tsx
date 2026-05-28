@@ -51,9 +51,9 @@ export default function RootError({
             Something went wrong loading this view.
           </h1>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            The terminal couldn&apos;t render this section. This is usually a
-            transient issue — retrying often works. If it keeps happening,
-            head back to the Command Center and try again from there.
+            The terminal couldn&apos;t render this section. This is usually a transient issue —
+            retrying often works. If it keeps happening, head back to the Command Center and try
+            again from there.
           </p>
 
           {showDetail && (

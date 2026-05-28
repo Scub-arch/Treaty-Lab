@@ -32,9 +32,7 @@ export function SourceCard({ item, className }: { item: EvidenceItem; className?
           </span>
           <EvidenceStrengthBadge strength={item.reliability} />
           {item.publishedAt && (
-            <span className="font-mono text-[10px] text-muted-foreground">
-              {item.publishedAt}
-            </span>
+            <span className="font-mono text-[10px] text-muted-foreground">{item.publishedAt}</span>
           )}
         </div>
         <h3 className="font-semibold text-base leading-tight">
@@ -42,14 +40,10 @@ export function SourceCard({ item, className }: { item: EvidenceItem; className?
             {item.title}
           </Link>
         </h3>
-        {item.author && (
-          <div className="text-xs text-muted-foreground mt-1">{item.author}</div>
-        )}
+        {item.author && <div className="text-xs text-muted-foreground mt-1">{item.author}</div>}
       </header>
 
-      <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-        {item.plainSummary}
-      </p>
+      <p className="text-sm text-muted-foreground leading-relaxed mb-3">{item.plainSummary}</p>
 
       {item.supports.length > 0 && (
         <div className="mb-3">
@@ -61,9 +55,7 @@ export function SourceCard({ item, className }: { item: EvidenceItem; className?
               <li key={i}>{s}</li>
             ))}
             {item.supports.length > 2 && (
-              <li className="list-none text-muted-foreground">
-                +{item.supports.length - 2} more
-              </li>
+              <li className="list-none text-muted-foreground">+{item.supports.length - 2} more</li>
             )}
           </ul>
         </div>

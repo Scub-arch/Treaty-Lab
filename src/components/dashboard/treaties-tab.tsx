@@ -14,7 +14,9 @@ interface Props {
 
 export function TreatiesTab({ data, detailsById }: Props) {
   const { kpis, rows, timeline, partyTypes, topicDistribution } = data;
-  const inForcePct = kpis.totalTreaties ? Math.round((kpis.treatiesInForce / kpis.totalTreaties) * 100) : 0;
+  const inForcePct = kpis.totalTreaties
+    ? Math.round((kpis.treatiesInForce / kpis.totalTreaties) * 100)
+    : 0;
   return (
     <div className="space-y-6">
       {/* KPI row */}

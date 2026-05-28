@@ -6,6 +6,7 @@ source citations. **This document is planning only.** It does not modify
 JSON data, scrape registries, or make legal conclusions.
 
 Pair with:
+
 - [`NRTA_WATER_INGESTION_PLAN.md`](./NRTA_WATER_INGESTION_PLAN.md) — overall multi-phase plan (Phases 1-4).
 - [`NRTA_PHASE_1_README.md`](./NRTA_PHASE_1_README.md) — Phase 1 deliverables and the verbatim NRTA-002 ticket text.
 
@@ -15,13 +16,13 @@ Pair with:
 
 Five projects, taken verbatim from `src/content/nrta-authorizations.json` `projects[]`. All five are currently in `placeholder` state with `null` volumes.
 
-| # | `projects[].slug` | Name | Province | Treaty area | Category |
-|---|---|---|---|---|---|
-| 1 | `capital-power-genesee-data-centre` | Capital Power Genesee Data Centre | AB | Treaty 6 | `data_centre` |
-| 2 | `mihta-askiy-cree-ative-datacentre` | Mihta Askiy / Cree Ative Data Centre | AB | Treaty 8 | `data_centre` |
-| 3 | `onion-lake-energy` | Onion Lake Energy | AB (Reserve straddles SK) | Treaty 6 | `oil_and_gas_upstream` |
-| 4 | `wapiti-smoky-og-aggregate` | Wapiti / Smoky sub-basin O&G aggregate | AB | Treaty 8 | `oil_and_gas_upstream` |
-| 5 | `tmx-ab-pump-stations` | TMX — Alberta pump-station water licences | AB | Treaty 6 / Treaty 7 | `pipeline` |
+| #   | `projects[].slug`                   | Name                                      | Province                  | Treaty area         | Category               |
+| --- | ----------------------------------- | ----------------------------------------- | ------------------------- | ------------------- | ---------------------- |
+| 1   | `capital-power-genesee-data-centre` | Capital Power Genesee Data Centre         | AB                        | Treaty 6            | `data_centre`          |
+| 2   | `mihta-askiy-cree-ative-datacentre` | Mihta Askiy / Cree Ative Data Centre      | AB                        | Treaty 8            | `data_centre`          |
+| 3   | `onion-lake-energy`                 | Onion Lake Energy                         | AB (Reserve straddles SK) | Treaty 6            | `oil_and_gas_upstream` |
+| 4   | `wapiti-smoky-og-aggregate`         | Wapiti / Smoky sub-basin O&G aggregate    | AB                        | Treaty 8            | `oil_and_gas_upstream` |
+| 5   | `tmx-ab-pump-stations`              | TMX — Alberta pump-station water licences | AB                        | Treaty 6 / Treaty 7 | `pipeline`             |
 
 **Out of scope (deferred to later phases):**
 
@@ -37,15 +38,15 @@ Five projects, taken verbatim from `src/content/nrta-authorizations.json` `proje
 
 Seven authorization rows currently exist. All are `ingestionState: "placeholder"` and all `allocatedVolume_m3_per_year` are `null`.
 
-| # | `authorizations[].slug` | Intended use | Registry jur. | Notes |
-|---|---|---|---|---|
-| 1 | `capital-power-genesee-water-licence-placeholder` | `cooling` | AB | Cooling water for the Genesee site; check AB Authorizations Viewer + EPEA. |
-| 2 | `mihta-askiy-water-licence-placeholder` | `cooling` | AB | May not yet have a public licence — project at AESO Phase I queue stage. |
-| 3 | `onion-lake-energy-freshwater-placeholder` | `process` | AB | Reserve straddles AB/SK border — split into per-province rows is in scope. |
-| 4 | `onion-lake-energy-produced-water-placeholder` | `produced_water_disposal` | AB | Disposal volumes are separately licensed (AER, not the Water Act licence). |
-| 5 | `wapiti-smoky-og-allocation-placeholder` | `process` | AB | Aggregate placeholder. Phase 2 must replace this with per-licensee rows for the top 1-2 operators identified. |
-| 6 | `tmx-ab-pump-station-hydrostatic-test-placeholder` | `hydrostatic_test` | FEDERAL | One-time construction volume reported in CER filings (not an annual rate — see Risks §8). |
-| 7 | `tmx-ab-pump-station-operational-water-placeholder` | `process` | AB | One row per pump station may be appropriate once enumerated. |
+| #   | `authorizations[].slug`                             | Intended use              | Registry jur. | Notes                                                                                                         |
+| --- | --------------------------------------------------- | ------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------- |
+| 1   | `capital-power-genesee-water-licence-placeholder`   | `cooling`                 | AB            | Cooling water for the Genesee site; check AB Authorizations Viewer + EPEA.                                    |
+| 2   | `mihta-askiy-water-licence-placeholder`             | `cooling`                 | AB            | May not yet have a public licence — project at AESO Phase I queue stage.                                      |
+| 3   | `onion-lake-energy-freshwater-placeholder`          | `process`                 | AB            | Reserve straddles AB/SK border — split into per-province rows is in scope.                                    |
+| 4   | `onion-lake-energy-produced-water-placeholder`      | `produced_water_disposal` | AB            | Disposal volumes are separately licensed (AER, not the Water Act licence).                                    |
+| 5   | `wapiti-smoky-og-allocation-placeholder`            | `process`                 | AB            | Aggregate placeholder. Phase 2 must replace this with per-licensee rows for the top 1-2 operators identified. |
+| 6   | `tmx-ab-pump-station-hydrostatic-test-placeholder`  | `hydrostatic_test`        | FEDERAL       | One-time construction volume reported in CER filings (not an annual rate — see Risks §8).                     |
+| 7   | `tmx-ab-pump-station-operational-water-placeholder` | `process`                 | AB            | One row per pump station may be appropriate once enumerated.                                                  |
 
 ### Expected post-Phase-2 row count
 
@@ -63,23 +64,24 @@ Net rough estimate: `~10-15 authorization rows` post-Phase-2 vs. 7 today.
 
 Per `src/lib/nrta/types.ts::Authorization`, the per-row fields a reviewer extracts from a single AB licence record:
 
-| Field | Type | Source in registry | Required for `needs_verification`? |
-|---|---|---|---|
-| `authorizationNumber` | string | Licence # / TFC | **Yes** |
-| `allocatedVolume_m3_per_year` | number | "Quantity" column on the licence record | **Yes** |
-| `sourceWatershed` | string | Basin field on the licence record | **Yes** |
-| `sourceBody` | string | Specific river/aquifer/lake on the licence | Recommended |
-| `intendedUse` | enum | "Purpose" / "Use" field, mapped to the `IntendedWaterUse` enum | Already set from Phase 1 |
-| `firstLicensedAt` | ISO date | "Effective date" / "First issued" field | **Yes** |
-| `conditions` | string[] | Conditions section of the licence text | Recommended if non-empty |
-| `actualConsumption_m3_per_year` | number? | Annual reporting summary, if disclosed | Optional |
-| `consumptionReportingYear` | number? | Year of the reported consumption | Optional (required if `actualConsumption_m3_per_year` set) |
-| `s35TreatyRightsAcknowledged` | boolean? | Read the licence text — explicit s.35 / Treaty wording? Almost always `false` for AB Water Act licences. | Optional |
-| `consultationDocumented` | boolean? | Look for an attached consultation record or pre-issuance FN engagement note in the registry. | Optional |
+| Field                           | Type     | Source in registry                                                                                       | Required for `needs_verification`?                         |
+| ------------------------------- | -------- | -------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| `authorizationNumber`           | string   | Licence # / TFC                                                                                          | **Yes**                                                    |
+| `allocatedVolume_m3_per_year`   | number   | "Quantity" column on the licence record                                                                  | **Yes**                                                    |
+| `sourceWatershed`               | string   | Basin field on the licence record                                                                        | **Yes**                                                    |
+| `sourceBody`                    | string   | Specific river/aquifer/lake on the licence                                                               | Recommended                                                |
+| `intendedUse`                   | enum     | "Purpose" / "Use" field, mapped to the `IntendedWaterUse` enum                                           | Already set from Phase 1                                   |
+| `firstLicensedAt`               | ISO date | "Effective date" / "First issued" field                                                                  | **Yes**                                                    |
+| `conditions`                    | string[] | Conditions section of the licence text                                                                   | Recommended if non-empty                                   |
+| `actualConsumption_m3_per_year` | number?  | Annual reporting summary, if disclosed                                                                   | Optional                                                   |
+| `consumptionReportingYear`      | number?  | Year of the reported consumption                                                                         | Optional (required if `actualConsumption_m3_per_year` set) |
+| `s35TreatyRightsAcknowledged`   | boolean? | Read the licence text — explicit s.35 / Treaty wording? Almost always `false` for AB Water Act licences. | Optional                                                   |
+| `consultationDocumented`        | boolean? | Look for an attached consultation record or pre-issuance FN engagement note in the registry.             | Optional                                                   |
 
 ### Source-citation requirements per row
 
 The row's `sourceRecordSlugs` array must reference one or more `SourceRecord` entries. Each cited `SourceRecord` should:
+
 - Have a `url` that resolves to a public registry page or licence record.
 - Have an `accessedAt` ISO date set by the human reviewer.
 - Have a `supports` field that names what specifically the registry supports for THIS row (not generic).
@@ -177,7 +179,7 @@ Phase 2 implementation work — broken out by file. **This planning commit does 
 - `docs/NRTA_PHASE_1_README.md`
   - Small appendix or migration note pointing at the Phase 2 outcome.
   - Or leave unchanged if Phase 2 lands as its own README.
-- `docs/NRTA_PHASE_2_README.md` (new — *if Phase 2 follows the Phase 1 pattern*).
+- `docs/NRTA_PHASE_2_README.md` (new — _if Phase 2 follows the Phase 1 pattern_).
 
 ### Out of scope this phase
 
@@ -190,6 +192,7 @@ Phase 2 implementation work — broken out by file. **This planning commit does 
 ## 7. Validation rules to add
 
 The current `scripts/check-nrta.mjs` enforces (Phase 1):
+
 1. Slug uniqueness per collection.
 2. Every project / authorization / WUI cites ≥ 1 source record.
 3. Authorization references a known project.
@@ -199,22 +202,22 @@ The current `scripts/check-nrta.mjs` enforces (Phase 1):
 
 Phase 2 adds (proposed; subject to review before the next implementation commit):
 
-| # | Rule | Trigger | Enforcement level |
-|---|---|---|---|
-| P2-V1 | If `ingestionState === "needs_verification"`, `allocatedVolume_m3_per_year` MUST be non-null. | per authorization row | error |
-| P2-V2 | If `ingestionState === "verified"`, `authorizationNumber` MUST be non-null. | per authorization row | error |
-| P2-V3 | If `ingestionState === "verified"`, `allocatedVolume_m3_per_year` MUST be non-null. | per authorization row | error |
-| P2-V4 | If `ingestionState === "verified"`, `firstLicensedAt` MUST be a non-empty ISO date. | per authorization row | error |
-| P2-V5 | If `ingestionState === "verified"`, `sourceWatershed` MUST be non-empty. | per authorization row | error |
-| P2-V6 | If `ingestionState === "verified"`, at least one cited `SourceRecord` MUST have `url` set AND `accessedAt` set. | per authorization row | error |
-| P2-V7 | If `ingestionState !== "placeholder"`, `placeholderFields` MUST be `[]` or absent. | per authorization row | error |
-| P2-V8 | `WaterUseIndicator.computedFromAuthorizationSlugs` MUST not be empty when `ingestionState !== "placeholder"`. | per WUI | error |
-| P2-V9 | `allocatedVolume_m3_per_year` MUST be `>= 0` when non-null. Negative values rejected. | per authorization row | error |
-| P2-V10 | `allocatedVolume_m3_per_year` MUST be `<= 1e10` when non-null (sanity bound; ~31,700 m³/s — physically implausible for a single licence). | per authorization row | error |
-| P2-V11 | `consumptionReportingYear` MUST be present when `actualConsumption_m3_per_year` is non-null. | per authorization row | error |
-| P2-V12 | Disclaimer string MUST still be present at the bundle root. | bundle | error |
-| P2-V13 | `version` MUST start with `0.2.0-phase2` for any bundle where `phase === 2`. | bundle | error |
-| P2-V14 | Any row whose project has `dataSovereigntyNote` MUST stay at `needs_verification` (NOT `verified`) unless an explicit `governanceSignOffAt` ISO date is present. (Requires new optional field, OR enforce via a reviewer-note convention — decide in §9.) | per authorization row | error |
+| #      | Rule                                                                                                                                                                                                                                                      | Trigger               | Enforcement level |
+| ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- | ----------------- |
+| P2-V1  | If `ingestionState === "needs_verification"`, `allocatedVolume_m3_per_year` MUST be non-null.                                                                                                                                                             | per authorization row | error             |
+| P2-V2  | If `ingestionState === "verified"`, `authorizationNumber` MUST be non-null.                                                                                                                                                                               | per authorization row | error             |
+| P2-V3  | If `ingestionState === "verified"`, `allocatedVolume_m3_per_year` MUST be non-null.                                                                                                                                                                       | per authorization row | error             |
+| P2-V4  | If `ingestionState === "verified"`, `firstLicensedAt` MUST be a non-empty ISO date.                                                                                                                                                                       | per authorization row | error             |
+| P2-V5  | If `ingestionState === "verified"`, `sourceWatershed` MUST be non-empty.                                                                                                                                                                                  | per authorization row | error             |
+| P2-V6  | If `ingestionState === "verified"`, at least one cited `SourceRecord` MUST have `url` set AND `accessedAt` set.                                                                                                                                           | per authorization row | error             |
+| P2-V7  | If `ingestionState !== "placeholder"`, `placeholderFields` MUST be `[]` or absent.                                                                                                                                                                        | per authorization row | error             |
+| P2-V8  | `WaterUseIndicator.computedFromAuthorizationSlugs` MUST not be empty when `ingestionState !== "placeholder"`.                                                                                                                                             | per WUI               | error             |
+| P2-V9  | `allocatedVolume_m3_per_year` MUST be `>= 0` when non-null. Negative values rejected.                                                                                                                                                                     | per authorization row | error             |
+| P2-V10 | `allocatedVolume_m3_per_year` MUST be `<= 1e10` when non-null (sanity bound; ~31,700 m³/s — physically implausible for a single licence).                                                                                                                 | per authorization row | error             |
+| P2-V11 | `consumptionReportingYear` MUST be present when `actualConsumption_m3_per_year` is non-null.                                                                                                                                                              | per authorization row | error             |
+| P2-V12 | Disclaimer string MUST still be present at the bundle root.                                                                                                                                                                                               | bundle                | error             |
+| P2-V13 | `version` MUST start with `0.2.0-phase2` for any bundle where `phase === 2`.                                                                                                                                                                              | bundle                | error             |
+| P2-V14 | Any row whose project has `dataSovereigntyNote` MUST stay at `needs_verification` (NOT `verified`) unless an explicit `governanceSignOffAt` ISO date is present. (Requires new optional field, OR enforce via a reviewer-note convention — decide in §9.) | per authorization row | error             |
 
 These rules apply only to the bundle's own self-consistency. They do not validate the licence numbers against external registries — that's still a human reviewer's job.
 
@@ -232,7 +235,7 @@ These rules apply only to the bundle's own self-consistency. They do not validat
    - (a) Annualize over the construction window — captures the magnitude but obscures the one-time-ness.
    - (b) Leave `allocatedVolume_m3_per_year` as null and add a new optional `oneTimeVolume_m3` field — schema change.
    - (c) Use `no_data_in_source` and capture the volume only in `reviewerNote` — punts on the data model.
-   This plan **does not pick** — flag for a schema decision before the next commit.
+     This plan **does not pick** — flag for a schema decision before the next commit.
 
 4. **Onion Lake produced-water disposal** is licensed under AER directives, not the Water Act licence registry. The current `SourceRecord` set doesn't include an AER directive source — Phase 2 may need to add one (`ab-aer-produced-water` or similar).
 
@@ -328,4 +331,4 @@ Phase 3 acceptance criteria remain as defined in `NRTA_WATER_INGESTION_PLAN.md` 
 
 ---
 
-*This plan is a scoping artifact, not a commitment. Adjust as registry access reveals what's actually available.*
+_This plan is a scoping artifact, not a commitment. Adjust as registry access reveals what's actually available._

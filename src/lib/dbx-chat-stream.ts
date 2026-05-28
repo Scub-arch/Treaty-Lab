@@ -39,7 +39,10 @@ export type StreamEvent =
   | { type: "thought"; text: string }
   | { type: "content"; text: string }
   | { type: "model"; model: string }
-  | { type: "usage"; usage: { prompt_tokens?: number; completion_tokens?: number; total_tokens?: number } }
+  | {
+      type: "usage";
+      usage: { prompt_tokens?: number; completion_tokens?: number; total_tokens?: number };
+    }
   | { type: "done" }
   | { type: "error"; error: string };
 
@@ -177,7 +180,10 @@ export async function* chatTreatyStream(
       signal: opts.signal,
     });
   } catch (err) {
-    yield { type: "error", error: `Gateway fetch failed: ${err instanceof Error ? err.message : String(err)}` };
+    yield {
+      type: "error",
+      error: `Gateway fetch failed: ${err instanceof Error ? err.message : String(err)}`,
+    };
     return;
   }
 
@@ -240,7 +246,10 @@ export async function* chatTreatyStream(
       }
     }
   } catch (err) {
-    yield { type: "error", error: `Stream read failed: ${err instanceof Error ? err.message : String(err)}` };
+    yield {
+      type: "error",
+      error: `Stream read failed: ${err instanceof Error ? err.message : String(err)}`,
+    };
     return;
   } finally {
     try {
@@ -289,9 +298,7 @@ interface ChatCompletionChunk {
       /** DeepSeek-style separate reasoning channel */
       reasoning_content?: string;
       /** Databricks reasoning-model nested shape */
-      reasoning?:
-        | string
-        | { text?: string; summary?: Array<{ text: string }> };
+      reasoning?: string | { text?: string; summary?: Array<{ text: string }> };
       role?: string;
     };
     finish_reason?: string | null;

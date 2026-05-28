@@ -1,12 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronLeft, Lightbulb } from "lucide-react";
-import {
-  getExplainer,
-  getExplainers,
-  getEvidenceItem,
-  getProject,
-} from "@/lib/content";
+import { getExplainer, getExplainers, getEvidenceItem, getProject } from "@/lib/content";
 
 export function generateStaticParams() {
   return getExplainers().map((e) => ({ slug: e.slug }));
@@ -41,9 +36,7 @@ export default async function ExplainerDetail(props: PageProps<"/explainers/[slu
         <h1 className="text-2xl md:text-3xl font-semibold tracking-tight leading-tight">
           {item.question}
         </h1>
-        <p className="text-base text-muted-foreground mt-4 leading-relaxed">
-          {item.shortAnswer}
-        </p>
+        <p className="text-base text-muted-foreground mt-4 leading-relaxed">{item.shortAnswer}</p>
       </header>
 
       <article className="prose-tl">
@@ -79,10 +72,7 @@ export default async function ExplainerDetail(props: PageProps<"/explainers/[slu
               return e ? (
                 <li key={s}>
                   →{" "}
-                  <Link
-                    href={`/evidence/${s}`}
-                    className="hover:underline underline-offset-2"
-                  >
+                  <Link href={`/evidence/${s}`} className="hover:underline underline-offset-2">
                     {e.title}
                   </Link>
                 </li>
@@ -103,10 +93,7 @@ export default async function ExplainerDetail(props: PageProps<"/explainers/[slu
               return p ? (
                 <li key={s}>
                   →{" "}
-                  <Link
-                    href={`/projects/${s}`}
-                    className="hover:underline underline-offset-2"
-                  >
+                  <Link href={`/projects/${s}`} className="hover:underline underline-offset-2">
                     {p.name}
                   </Link>
                 </li>

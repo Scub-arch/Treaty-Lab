@@ -36,17 +36,13 @@ export default async function EvidenceDetail(props: PageProps<"/evidence/[slug]"
           </span>
           <EvidenceStrengthBadge strength={item.reliability} />
           {item.publishedAt && (
-            <span className="font-mono text-[10px] text-muted-foreground">
-              {item.publishedAt}
-            </span>
+            <span className="font-mono text-[10px] text-muted-foreground">{item.publishedAt}</span>
           )}
         </div>
         <h1 className="text-2xl md:text-3xl font-semibold tracking-tight leading-tight">
           {item.title}
         </h1>
-        {item.author && (
-          <div className="text-sm text-muted-foreground mt-2">{item.author}</div>
-        )}
+        {item.author && <div className="text-sm text-muted-foreground mt-2">{item.author}</div>}
       </header>
 
       <p className="text-base leading-relaxed">{item.plainSummary}</p>
@@ -99,9 +95,7 @@ export default async function EvidenceDetail(props: PageProps<"/evidence/[slug]"
         )}
       </section>
 
-      {item.citation && (
-        <p className="text-xs text-muted-foreground font-mono">{item.citation}</p>
-      )}
+      {item.citation && <p className="text-xs text-muted-foreground font-mono">{item.citation}</p>}
     </div>
   );
 }

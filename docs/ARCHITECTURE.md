@@ -33,19 +33,19 @@ server; nothing is deployed.
 
 ### Stack
 
-| Layer | Choice | Version |
-|-------|--------|---------|
-| Framework | Next.js (App Router, Turbopack) | 16.2.6 |
-| UI library | React + Server Components | 19.2.4 |
-| Styling | Tailwind CSS v4 + tw-animate-css | 4.x |
-| Component primitives | shadcn (Radix-based) + Base UI | 4.8.0 / 1.5.0 |
-| Charts | Recharts | 3.8.1 |
-| 3D / globe | cobe | 2.0.1 |
-| Tree layouts | d3-hierarchy | 3.1.2 |
-| Markdown | react-markdown + remark-gfm | 10.1.0 / 4.0.1 |
-| Icons | lucide-react | 1.16.0 |
-| Fonts | next/font/google: Inter + JetBrains Mono | — |
-| Type system | TypeScript (strict) | 5.x |
+| Layer                | Choice                                   | Version        |
+| -------------------- | ---------------------------------------- | -------------- |
+| Framework            | Next.js (App Router, Turbopack)          | 16.2.6         |
+| UI library           | React + Server Components                | 19.2.4         |
+| Styling              | Tailwind CSS v4 + tw-animate-css         | 4.x            |
+| Component primitives | shadcn (Radix-based) + Base UI           | 4.8.0 / 1.5.0  |
+| Charts               | Recharts                                 | 3.8.1          |
+| 3D / globe           | cobe                                     | 2.0.1          |
+| Tree layouts         | d3-hierarchy                             | 3.1.2          |
+| Markdown             | react-markdown + remark-gfm              | 10.1.0 / 4.0.1 |
+| Icons                | lucide-react                             | 1.16.0         |
+| Fonts                | next/font/google: Inter + JetBrains Mono | —              |
+| Type system          | TypeScript (strict)                      | 5.x            |
 
 ### Layout
 
@@ -83,22 +83,22 @@ three sections: **Intelligence** (domain modules), **Research** (raw evidence),
 
 Routes under `src/app/`:
 
-| Route | File | Server / Client |
-|-------|------|-----------------|
-| `/` | `page.tsx` | Server (Command Center dashboard) |
-| `/dashboard` | `dashboard/page.tsx` | Server (KPI tabs) |
-| `/treaty`, `/water`, `/energy`, `/finance` | `*/page.tsx` | Server (domain modules) |
-| `/projects` | `projects/page.tsx` | Server (index) |
-| `/projects/[slug]` | `projects/[slug]/page.tsx` | Server (detail + lineage) |
-| `/evidence` | `evidence/page.tsx` | Server (with Sankey + top-cited chart) |
-| `/evidence/[slug]` | `evidence/[slug]/page.tsx` | Server (single evidence card) |
-| `/sources` | `sources/page.tsx` | Server (reliability heatmap) |
-| `/explainers` | `explainers/page.tsx` | Server (FAQ accordion) |
-| `/explainers/[slug]` | `explainers/[slug]/page.tsx` | Server (full body) |
-| `/archive` | `archive/page.tsx` | Server (treaty table from Prisma) |
-| `/archive/[slug]` | `archive/[slug]/page.tsx` | Server (treaty detail) |
-| `/ask` | `ask/page.tsx` + `ask/ask-form.tsx` | Server + Client (terminal console) |
-| `/reports` | `reports/page.tsx` | Server (static PNGs) |
+| Route                                      | File                                | Server / Client                        |
+| ------------------------------------------ | ----------------------------------- | -------------------------------------- |
+| `/`                                        | `page.tsx`                          | Server (Command Center dashboard)      |
+| `/dashboard`                               | `dashboard/page.tsx`                | Server (KPI tabs)                      |
+| `/treaty`, `/water`, `/energy`, `/finance` | `*/page.tsx`                        | Server (domain modules)                |
+| `/projects`                                | `projects/page.tsx`                 | Server (index)                         |
+| `/projects/[slug]`                         | `projects/[slug]/page.tsx`          | Server (detail + lineage)              |
+| `/evidence`                                | `evidence/page.tsx`                 | Server (with Sankey + top-cited chart) |
+| `/evidence/[slug]`                         | `evidence/[slug]/page.tsx`          | Server (single evidence card)          |
+| `/sources`                                 | `sources/page.tsx`                  | Server (reliability heatmap)           |
+| `/explainers`                              | `explainers/page.tsx`               | Server (FAQ accordion)                 |
+| `/explainers/[slug]`                       | `explainers/[slug]/page.tsx`        | Server (full body)                     |
+| `/archive`                                 | `archive/page.tsx`                  | Server (treaty table from Prisma)      |
+| `/archive/[slug]`                          | `archive/[slug]/page.tsx`           | Server (treaty detail)                 |
+| `/ask`                                     | `ask/page.tsx` + `ask/ask-form.tsx` | Server + Client (terminal console)     |
+| `/reports`                                 | `reports/page.tsx`                  | Server (static PNGs)                   |
 
 The Ask page is the only client-heavy surface — `ask-form.tsx` is `"use client"`
 and runs the full terminal-styled REPL.
@@ -123,16 +123,16 @@ and runs the full terminal-styled REPL.
 The "backend" is the Next.js server runtime — there is no separate API tier.
 All backend logic lives in:
 
-| Concern | Location |
-|---------|----------|
-| HTTP API routes | `src/app/api/*/route.ts` |
-| Server-side data loaders | `src/lib/content.ts` (re-exports from `src/lib/content/`) |
-| Prisma client singleton | `src/lib/db.ts` |
-| Databricks AI Gateway client | `src/lib/dbx-chat.ts` (sync) + `src/lib/dbx-chat-stream.ts` (SSE) |
-| Aggregation / chart-data prep | `src/lib/content/aggregations.ts` |
-| Content cross-reference validators | `src/lib/content/validators.ts` |
-| Dashboard mock data | `src/lib/dashboard-data.ts` |
-| Type schemas | `src/lib/content/types.ts` |
+| Concern                            | Location                                                          |
+| ---------------------------------- | ----------------------------------------------------------------- |
+| HTTP API routes                    | `src/app/api/*/route.ts`                                          |
+| Server-side data loaders           | `src/lib/content.ts` (re-exports from `src/lib/content/`)         |
+| Prisma client singleton            | `src/lib/db.ts`                                                   |
+| Databricks AI Gateway client       | `src/lib/dbx-chat.ts` (sync) + `src/lib/dbx-chat-stream.ts` (SSE) |
+| Aggregation / chart-data prep      | `src/lib/content/aggregations.ts`                                 |
+| Content cross-reference validators | `src/lib/content/validators.ts`                                   |
+| Dashboard mock data                | `src/lib/dashboard-data.ts`                                       |
+| Type schemas                       | `src/lib/content/types.ts`                                        |
 
 ### API routes
 
@@ -140,7 +140,7 @@ Only two HTTP endpoints today, both POST:
 
 - **`POST /api/ask`** (`src/app/api/ask/route.ts`)
   Synchronous chat — request body `{question, context?, reasoning?, maxTokens?,
-  temperature?}`, response `{answer, reasoning?, usage, model, contextSummary}`.
+temperature?}`, response `{answer, reasoning?, usage, model, contextSummary}`.
   Default `temperature: 0.3`, `maxTokens: 1500`. Calls `chatTreaty()`.
 
 - **`POST /api/ask/stream`** (`src/app/api/ask/stream/route.ts`)
@@ -180,13 +180,13 @@ hot-reload during dev. Production-mode code reuses the same module without the
 
 Five hand-authored JSON files under `src/content/`:
 
-| File | Schema (in `types.ts`) | Items | Bytes |
-|------|------------------------|-------|-------|
-| `evidence.json` | `EvidenceItem` | 48 | 71 KB |
-| `projects.json` | `ProjectAssessment` | 4 | 32 KB |
-| `indicators.json` | `Indicator` | 37 | 29 KB |
-| `explainers.json` | `PlainLanguageExplainer` | 7 | 11 KB |
-| `modules.json` | `ModuleConfig` | 4 | 4 KB |
+| File              | Schema (in `types.ts`)   | Items | Bytes |
+| ----------------- | ------------------------ | ----- | ----- |
+| `evidence.json`   | `EvidenceItem`           | 48    | 71 KB |
+| `projects.json`   | `ProjectAssessment`      | 4     | 32 KB |
+| `indicators.json` | `Indicator`              | 37    | 29 KB |
+| `explainers.json` | `PlainLanguageExplainer` | 7     | 11 KB |
+| `modules.json`    | `ModuleConfig`           | 4     | 4 KB  |
 
 These are imported as ES modules and cast to typed arrays in `src/lib/content.ts`.
 At Next.js build time they're inlined into the JS bundle — they're not loaded
@@ -363,8 +363,8 @@ Prisma queries. Three things behave cache-like:
 
 2. **Next.js build-time inlining** — the five `src/content/*.json` files are
    imported as ES modules, so they're frozen into the JS bundle. Editing JSON
-   requires a dev-server reload (Turbopack handles it in dev). This is *de
-   facto* caching — at request time the content is in RAM, not on disk.
+   requires a dev-server reload (Turbopack handles it in dev). This is _de
+   facto_ caching — at request time the content is in RAM, not on disk.
 
 3. **Prisma client singleton** — `src/lib/db.ts` keeps one client per Node
    process via `globalThis.prisma`. This is connection-pool caching, not data
@@ -512,36 +512,36 @@ Treaty-Lab/
 
 ### Runtime (production deps)
 
-| Package | Version | What it does here |
-|---------|---------|-------------------|
-| `next` | 16.2.6 | App Router, Turbopack, Server Components |
-| `react`, `react-dom` | 19.2.4 | UI runtime |
-| `@prisma/client` | ^7.8.0 | DB client (used via generated `src/generated/prisma/`) |
-| `@prisma/adapter-better-sqlite3` | ^7.8.0 | Required driver adapter for Prisma 7 + SQLite |
-| `better-sqlite3` | ^12.10.0 | Native SQLite driver |
-| `@base-ui/react` | ^1.5.0 | Unstyled component primitives (used by shadcn) |
-| `class-variance-authority`, `clsx`, `tailwind-merge` | — | Tailwind class utilities |
-| `cobe` | ^2.0.1 | WebGL globe on `/` |
-| `d3-hierarchy` | ^3.1.2 | Tree layout for `ProjectLineageTree` |
-| `date-fns` | ^4.3.0 | Date formatting |
-| `lucide-react` | ^1.16.0 | Icon set |
-| `react-markdown` + `remark-gfm` | 10.1.0 / 4.0.1 | Render assistant markdown in /ask |
-| `recharts` | ^3.8.1 | All non-cobe / non-d3 charts |
-| `shadcn` | ^4.8.0 | UI primitives CLI runtime |
-| `tw-animate-css` | ^1.4.0 | Tailwind animation utilities |
-| `@anthropic-ai/sdk` | ^0.99.0 | Used by `scripts/chat.ts` (not by the web app) |
+| Package                                              | Version        | What it does here                                      |
+| ---------------------------------------------------- | -------------- | ------------------------------------------------------ |
+| `next`                                               | 16.2.6         | App Router, Turbopack, Server Components               |
+| `react`, `react-dom`                                 | 19.2.4         | UI runtime                                             |
+| `@prisma/client`                                     | ^7.8.0         | DB client (used via generated `src/generated/prisma/`) |
+| `@prisma/adapter-better-sqlite3`                     | ^7.8.0         | Required driver adapter for Prisma 7 + SQLite          |
+| `better-sqlite3`                                     | ^12.10.0       | Native SQLite driver                                   |
+| `@base-ui/react`                                     | ^1.5.0         | Unstyled component primitives (used by shadcn)         |
+| `class-variance-authority`, `clsx`, `tailwind-merge` | —              | Tailwind class utilities                               |
+| `cobe`                                               | ^2.0.1         | WebGL globe on `/`                                     |
+| `d3-hierarchy`                                       | ^3.1.2         | Tree layout for `ProjectLineageTree`                   |
+| `date-fns`                                           | ^4.3.0         | Date formatting                                        |
+| `lucide-react`                                       | ^1.16.0        | Icon set                                               |
+| `react-markdown` + `remark-gfm`                      | 10.1.0 / 4.0.1 | Render assistant markdown in /ask                      |
+| `recharts`                                           | ^3.8.1         | All non-cobe / non-d3 charts                           |
+| `shadcn`                                             | ^4.8.0         | UI primitives CLI runtime                              |
+| `tw-animate-css`                                     | ^1.4.0         | Tailwind animation utilities                           |
+| `@anthropic-ai/sdk`                                  | ^0.99.0        | Used by `scripts/chat.ts` (not by the web app)         |
 
 ### Dev / build
 
-| Package | Version | What it does here |
-|---------|---------|-------------------|
-| `typescript` | ^5 | Type-check (`tsc --noEmit` in `npm run check`) |
-| `@types/{node,react,react-dom,d3-hierarchy,better-sqlite3}` | — | DefinitelyTyped |
-| `tailwindcss` + `@tailwindcss/postcss` | ^4 | Styling |
-| `prisma` | ^7.8.0 | Schema migrations, generate |
-| `tsx` | ^4.22.3 | `prisma seed` + `npm run chat` |
-| `dotenv` | ^17.4.2 | Load `.env` in seed/scripts |
-| `unpdf` | ^1.6.2 | PDF triage in `scripts/extract-pdfs.mjs` |
+| Package                                                     | Version | What it does here                              |
+| ----------------------------------------------------------- | ------- | ---------------------------------------------- |
+| `typescript`                                                | ^5      | Type-check (`tsc --noEmit` in `npm run check`) |
+| `@types/{node,react,react-dom,d3-hierarchy,better-sqlite3}` | —       | DefinitelyTyped                                |
+| `tailwindcss` + `@tailwindcss/postcss`                      | ^4      | Styling                                        |
+| `prisma`                                                    | ^7.8.0  | Schema migrations, generate                    |
+| `tsx`                                                       | ^4.22.3 | `prisma seed` + `npm run chat`                 |
+| `dotenv`                                                    | ^17.4.2 | Load `.env` in seed/scripts                    |
+| `unpdf`                                                     | ^1.6.2  | PDF triage in `scripts/extract-pdfs.mjs`       |
 
 ### Overrides
 
@@ -712,7 +712,7 @@ research-pilot → live-product line. **Not built today.**
    for the content team.
 
 2. **Drop SQLite from the prod path.** Use it only for local dev or `npx
-   prisma migrate dev`. Pick one Postgres provider (Neon's branching matches
+prisma migrate dev`. Pick one Postgres provider (Neon's branching matches
    the iterative-content workflow well).
 
 3. **Auth.** Pick a hosted provider (Auth.js with Postgres adapter, or Clerk,
@@ -785,5 +785,5 @@ research-pilot → live-product line. **Not built today.**
 
 ---
 
-*Last updated: 2026-05-27. If you add a new module, route, or external
-dependency, update this document in the same PR.*
+_Last updated: 2026-05-27. If you add a new module, route, or external
+dependency, update this document in the same PR._

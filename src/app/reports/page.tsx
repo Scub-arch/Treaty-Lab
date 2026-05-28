@@ -100,8 +100,7 @@ export default async function ReportsPage() {
         </h1>
         <p className="text-base text-muted-foreground mt-3 max-w-3xl leading-relaxed">
           Publication-quality PNG exports of the evidence cross-reference charts. These are static
-          snapshots — for live, interactive versions that update as the content store changes,
-          visit{" "}
+          snapshots — for live, interactive versions that update as the content store changes, visit{" "}
           <Link href="/evidence" className="underline underline-offset-2 hover:text-foreground">
             /evidence
           </Link>
@@ -130,8 +129,7 @@ export default async function ReportsPage() {
         <section className="border border-rose-300 dark:border-rose-700/60 bg-rose-50 dark:bg-rose-900/20 rounded-lg p-4 text-sm text-rose-900 dark:text-rose-200">
           No exported PNGs found in <code>public/viz/</code>. Generate them with:{" "}
           <code className="font-mono">
-            uv run --with matplotlib --with seaborn --with pandas
-            C:\Claude\viz\treaty_lab_xref.py
+            uv run --with matplotlib --with seaborn --with pandas C:\Claude\viz\treaty_lab_xref.py
           </code>{" "}
           then copy the PNGs into <code>Treaty-Lab/public/viz/</code>.
         </section>
@@ -179,10 +177,12 @@ export default async function ReportsPage() {
 
       <section className="pt-6 border-t border-border text-xs text-muted-foreground leading-relaxed max-w-3xl space-y-1">
         <p>
-          These exports are produced from <code className="font-mono text-foreground/80">src/content/*.json</code> by
-          a standalone Python script in <code className="font-mono text-foreground/80">C:\Claude\viz\</code> — they
-          do not run inside the Next.js app. To keep them current with content edits, re-run the
-          script and re-copy into <code className="font-mono text-foreground/80">Treaty-Lab/public/viz/</code>.
+          These exports are produced from{" "}
+          <code className="font-mono text-foreground/80">src/content/*.json</code> by a standalone
+          Python script in <code className="font-mono text-foreground/80">C:\Claude\viz\</code> —
+          they do not run inside the Next.js app. To keep them current with content edits, re-run
+          the script and re-copy into{" "}
+          <code className="font-mono text-foreground/80">Treaty-Lab/public/viz/</code>.
         </p>
         <p>
           The live recharts versions on /evidence / /projects / /sources update automatically on
