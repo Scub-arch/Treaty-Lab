@@ -82,6 +82,19 @@
         "Page contains no water-use volumes, no source water body, and no Water Act licence numbers",
         "Establishes site proponency only; not a substitute for the AB Authorizations Viewer record"
       ]
+    },
+    {
+      "slug": "cer-tmx-condition-113-hydrostatic-a7j3r7",
+      "registryName": "CER — TMX Condition 113 Hydrostatic Testing Plan, Edmonton Terminal & Pump Stations (doc A7J3R7, 14 October 2020)",
+      "jurisdiction": "FEDERAL",
+      "url": "https://docs2.cer-rec.gc.ca/ll-eng/llisapi.dll/fetch/2000/90464/90552/548311/956726/2392873/3781699/3973015/Condition_113_Hydrostatic_Testing_Plan_Edm_Terminal_&_Pumps_Stations_Oct_14,_2020_-_A7J3R7.pdf",
+      "accessedAt": "2026-05-27",
+      "supports": "Hydrostatic Testing Plan filed by Trans Mountain Pipeline ULC pursuant to Condition 113 of CER Orders AO-002-XO-T260-008-2016 (Pump1), AO-002-XO-T260-009-2016 (Pump2), and AO-001-XO-T260-010-2016 (Tanks). Per the CER project record, the plan covers 15 pump stations grouped by region (Alberta pump stations, Northern British Columbia, Southern British Columbia) and details locations of water withdrawal and disposal sites, water withdrawal volume requirements, and flow rates.",
+      "limitations": [
+        "Direct retrieval of the PDF via the docs2.cer-rec.gc.ca content server returned a fetch error on 2026-05-27; a reviewer should locate the document via CER project folder 2392873 (TMX) and the conditions index",
+        "Per-pump-station withdrawal volumes were not extractable from public summaries; verbatim figures require the PDF itself",
+        "Test medium is water without additives (or glycol/methanol in cold weather) — this is the testing input, not necessarily a Water Act-licensed source"
+      ]
     }
   ],
   "projects": [
@@ -232,15 +245,16 @@
       "registryJurisdiction": "FEDERAL",
       "intendedUse": "hydrostatic_test",
       "allocatedVolume_m3_per_year": null,
-      "sourceRecordSlugs": ["cer-project-filings"],
+      "oneTimeVolume_m3": null,
+      "sourceRecordSlugs": ["cer-project-filings", "cer-tmx-condition-113-hydrostatic-a7j3r7"],
       "ingestionState": "placeholder",
       "placeholderFields": [
         "authorizationNumber",
-        "allocatedVolume_m3_per_year",
+        "oneTimeVolume_m3",
         "sourceBody",
         "firstLicensedAt"
       ],
-      "reviewerNote": "Hydrostatic test water is one-time at construction; volumes are reported in CER project filings."
+      "reviewerNote": "Public record confirms CER Condition 113 (issued under CER Orders AO-002-XO-T260-008-2016 / AO-002-XO-T260-009-2016 / AO-001-XO-T260-010-2016) requires Trans Mountain Pipeline ULC to file a Hydrostatic Testing Plan covering 15 pump stations grouped AB / Northern BC / Southern BC. The plan was filed 14 October 2020 as CER document A7J3R7 ('Condition 113 Hydrostatic Testing Plan Edm Terminal & Pumps Stations'). NOT YET POPULATED: (a) per-AB-pump-station hydrostatic test water volumes (m³) — should populate oneTimeVolume_m3 when retrieved, since hydrostatic test is one-time at construction (not annual); (b) source water bodies for each AB withdrawal site; (c) disposal destinations for spent test water; (d) site-specific mitigation and water-quality monitoring conditions. The A7J3R7 PDF was not directly retrievable via the docs2.cer-rec.gc.ca content server URL on 2026-05-27 — a reviewer should access via CER project folder 2392873 (TMX). authorizationNumber remains null because Condition 113 is a project-wide CER condition, not a per-station licence number; if AB-specific authorization identifiers exist in the filing, capture them then."
     },
     {
       "slug": "tmx-ab-pump-station-operational-water-placeholder",
@@ -252,7 +266,7 @@
       "sourceRecordSlugs": ["ab-authorizations-viewer"],
       "ingestionState": "placeholder",
       "placeholderFields": ["authorizationNumber", "allocatedVolume_m3_per_year", "sourceBody"],
-      "reviewerNote": "AB pump-station operational water draws (cooling and process) are provincially licensed even though the pipeline corridor is federal jurisdiction."
+      "reviewerNote": "AB pump-station operational water draws (cooling and process) are provincially licensed even though the pipeline corridor is federal jurisdiction. The AB-side TMX route runs Edmonton/Sherwood Park → Spruce Grove → Yellowhead County → Hinton (per CER pipeline-profile records) and may correspond to multiple discrete Water Act licences along the corridor. NOT YET POPULATED: (a) per-pump-station Water Act licence numbers — must be retrieved interactively from the Alberta Authorizations Viewer (general web search did not surface specific TMX pump-station licence records on 2026-05-27); (b) allocated volumes per station; (c) source water bodies per station. Splitting this aggregate row into one row per pump station may be appropriate once the registry-side enumeration is complete; deferred until volume data is retrievable."
     }
   ],
   "waterUseIndicators": [
@@ -376,12 +390,16 @@
       "slug": "status-tmx-ab-pump-stations",
       "projectSlug": "tmx-ab-pump-stations",
       "overallState": "placeholder",
-      "phase": 1,
+      "phase": 2,
       "lastReviewedAt": "2026-05-27",
       "outstandingTasks": [
-        "Enumerate each AB pump station and its provincial water-licence record",
-        "Locate hydrostatic-test water volumes in CER project filings",
-        "Confirm whether the Coldwater aquifer concern (BC) has any AB-side counterpart in the public record"
+        "Retrieve the CER A7J3R7 Hydrostatic Testing Plan PDF via CER project folder 2392873 (direct docs2.cer-rec.gc.ca URL returned a fetch error on 2026-05-27)",
+        "Extract per-AB-pump-station hydrostatic-test water withdrawal volumes (m³) and populate as oneTimeVolume_m3 (one-time, not annual)",
+        "Capture source water bodies and disposal destinations for each AB withdrawal site in the A7J3R7 plan",
+        "Interactively query the Alberta Authorizations Viewer for TMX / Trans Mountain operational water licences along the AB corridor (Edmonton → Spruce Grove → Yellowhead → Hinton)",
+        "Once AB Water Act licences are located, capture per-station authorizationNumber, allocatedVolume_m3_per_year, sourceBody, firstLicensedAt",
+        "After per-station data is available, decide whether to split tmx-ab-pump-station-operational-water-placeholder into one row per station",
+        "Confirm whether the BC-side Coldwater aquifer concern has any AB-side counterpart in the public record (no AB equivalent surfaced in general web search on 2026-05-27)"
       ]
     }
   ]
