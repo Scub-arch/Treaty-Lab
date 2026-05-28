@@ -15,9 +15,9 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Treaty-Lab — Indigenous-led infrastructure intelligence",
+  title: "Treaty-Lab — Source-backed Indigenous infrastructure intelligence",
   description:
-    "Indigenous-led treaty, water, infrastructure, and capital-markets intelligence terminal. A pilot from Treaty-Lab.",
+    "Source-backed Indigenous infrastructure intelligence terminal. Designed to help communities, analysts, leadership, and advisors understand project risk before decisions are made — through traceable evidence, plain-language risk analysis, and project decision support.",
 };
 
 export default function RootLayout({

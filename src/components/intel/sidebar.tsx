@@ -70,7 +70,7 @@ export function Sidebar() {
 
       <div className="px-5 py-4 border-t border-border">
         <div className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider">
-          Evidence-First · Plain-Language
+          Evidence-First · Plain-Language · Decision-Support
         </div>
         <div className="font-mono text-[10px] text-muted-foreground mt-1">
           Sample data is illustrative.
