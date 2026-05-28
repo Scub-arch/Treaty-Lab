@@ -108,6 +108,32 @@
       ]
     },
     {
+      "slug": "mpwa-peace-slave-watershed-2024",
+      "registryName": "Mighty Peace Watershed Alliance — The Peace and Slave River Watershed: Current and Future Water Use (June 2024)",
+      "jurisdiction": "AB",
+      "url": "https://mightypeacewatershedalliance.org/wp-content/uploads/2024/07/The-Peace-and-Slave-River-Watershed-Current-and-Future-Water-Use-DRAFT.pdf",
+      "accessedAt": "2026-05-27",
+      "supports": "Watershed Planning and Advisory Council (WPAC) report covering the Peace and Slave River watersheds, including detailed water-allocation analysis for the Wapiti/Smoky sub-basin. Synthesis identifies this report as the source for the 99.64% oil-and-gas allocation-utilization figure already cited at the watershed level.",
+      "limitations": [
+        "Direct PDF fetch returned HTTP 403 on 2026-05-27 — a reviewer must retrieve the report directly from the MPWA site or via a cached copy to extract verbatim aggregate m³/yr figures",
+        "Report is published at the sub-basin level, not per-licensee — per-operator identification requires a separate AB Authorizations Viewer search and is not in scope of this MPWA document",
+        "Draft status (July 2024 file) — confirm whether a finalized version has superseded this before citing in production claims"
+      ]
+    },
+    {
+      "slug": "iaac-mihta-askiy-90036",
+      "registryName": "IAAC — Mihta Askiy Data Center Project (reference 90036)",
+      "jurisdiction": "FEDERAL",
+      "url": "https://iaac-aeic.gc.ca/050/evaluations/proj/90036",
+      "accessedAt": "2026-05-27",
+      "supports": "Public IAAC project registry page for the Mihta Askiy Data Center. Confirms proponent Cree Ative Datacenter Corp GP, project description (650 MW natural-gas generation supporting a data centre, ~40 km NE of Peace River, AB, on Woodland Cree First Nation traditional lands), and the federal review timeline: Initial Project Description filed 11 December 2025, Summary of Issues 30 January 2026, IAAC early-decision-with-reasons issued 4 March 2026 finding no further federal assessment required under the Impact Assessment Act.",
+      "limitations": [
+        "Registry page contains project metadata only — no water-use volumes, source water bodies, or Water Act licence references",
+        "Water-use estimates may exist inside the Initial Project Description PDF, but those would be proponent estimates and not authorizing-instrument data",
+        "Project is in pre-construction at AESO Phase I queue stage; no provincial Water Act licence appears to be issued yet"
+      ]
+    },
+    {
       "slug": "cer-tmx-condition-113-hydrostatic-a7j3r7",
       "registryName": "CER — TMX Condition 113 Hydrostatic Testing Plan, Edmonton Terminal & Pump Stations (doc A7J3R7, 14 October 2020)",
       "jurisdiction": "FEDERAL",
@@ -214,16 +240,13 @@
       "registryJurisdiction": "AB",
       "intendedUse": "cooling",
       "allocatedVolume_m3_per_year": null,
-      "sourceRecordSlugs": ["ab-authorizations-viewer", "iaac-project-registry"],
-      "ingestionState": "placeholder",
-      "placeholderFields": [
-        "authorizationNumber",
-        "allocatedVolume_m3_per_year",
-        "sourceWatershed",
-        "sourceBody",
-        "firstLicensedAt"
+      "sourceRecordSlugs": [
+        "ab-authorizations-viewer",
+        "iaac-project-registry",
+        "iaac-mihta-askiy-90036"
       ],
-      "reviewerNote": "Project is at AESO Phase I queue stage; water-licence application may not yet be public. Confirm whether the IAAC project page or a provincial approval has been published before populating volumes."
+      "ingestionState": "no_data_in_source",
+      "reviewerNote": "Moved from placeholder to no_data_in_source on 2026-05-27 because none of the cited public sources contain a Water Act authorization volume for this project. Specifically: (1) IAAC project 90036 — early decision on 4 March 2026 found no further federal assessment required under the Impact Assessment Act; the IAAC registry page carries project metadata only and lists no water-use volumes. (2) AB Authorizations Viewer — no Mihta Askiy / Cree Ative Water Act licence record returned via general public search on 2026-05-27. The project is in pre-construction at AESO Phase I queue stage with construction targeted mid-2027 (per public CBC News + Alberta Major Projects reporting); a provincial Water Act licence application may not yet have been filed. The Initial Project Description (11 Dec 2025) may contain proponent water-use ESTIMATES, but estimates are not authorization volumes and should not be loaded into allocatedVolume_m3_per_year. Per project IngestionStatus.dataSovereigntyNote: defer Reserve-level / community-relevant data to Woodland Cree FN governance; this row's no_data_in_source state reflects an honest absence from public sources, not an assertion about the project itself."
     },
     {
       "slug": "onion-lake-energy-freshwater-placeholder",
@@ -281,10 +304,10 @@
       "sourceWatershed": "Wapiti / Smoky sub-basin",
       "intendedUse": "process",
       "allocatedVolume_m3_per_year": null,
-      "sourceRecordSlugs": ["ab-authorizations-viewer"],
+      "sourceRecordSlugs": ["ab-authorizations-viewer", "mpwa-peace-slave-watershed-2024"],
       "ingestionState": "placeholder",
       "placeholderFields": ["authorizationNumber", "allocatedVolume_m3_per_year", "sourceBody"],
-      "reviewerNote": "Identify the 1–2 top licensees in the Wapiti/Smoky sub-basin per plan §6. Per-licensee rows should replace this aggregate placeholder in Phase 2."
+      "reviewerNote": "Aggregate placeholder for top oil-and-gas licensees in the Wapiti/Smoky sub-basin. SOURCE-SUPPORTED SIGNAL: the MPWA Peace and Slave Watershed report (June 2024) is the cited source for the sub-basin oil-and-gas water-allocation-utilization rate at the watershed level — a verbatim aggregate m³/yr volume should be extractable from that report but the PDF returned HTTP 403 on direct fetch 2026-05-27 (a reviewer must retrieve it from the MPWA site). PER-LICENSEE SPLIT: no_data_in_source via public web search on 2026-05-27 — no public list of top Wapiti/Smoky sub-basin O&G licensees with per-operator m³/yr allocations was returned. The AB Authorizations Viewer is queryable interactively, but ranking licensees by sub-basin volume requires either a saved registry export or the MPWA report's underlying table. Per the C4 rule for this phase: keep this row as the aggregate (do not invent or estimate licence volumes) and treat the per-licensee split as unresolved pending source retrieval."
     },
     {
       "slug": "tmx-ab-pump-station-hydrostatic-test-placeholder",
@@ -333,12 +356,12 @@
       "slug": "mihta-askiy-total-allocated",
       "projectSlug": "mihta-askiy-cree-ative-datacentre",
       "name": "Mihta Askiy total allocated water (m³/yr)",
-      "description": "Sum of allocated volumes once the project's water-licence application is public.",
+      "description": "Sum of allocated volumes once a Water Act licence is issued. Currently no_data_in_source: project is in pre-construction at AESO Phase I queue stage; no public Water Act authorization volume exists in any cited source as of 2026-05-27.",
       "value": null,
       "unit": "m3_per_year",
       "computedFromAuthorizationSlugs": ["mihta-askiy-water-licence-placeholder"],
-      "ingestionState": "placeholder",
-      "sourceRecordSlugs": ["ab-authorizations-viewer"]
+      "ingestionState": "no_data_in_source",
+      "sourceRecordSlugs": ["ab-authorizations-viewer", "iaac-mihta-askiy-90036"]
     },
     {
       "slug": "onion-lake-energy-total-allocated",
@@ -364,12 +387,12 @@
       "slug": "wapiti-smoky-og-aggregate-allocation",
       "projectSlug": "wapiti-smoky-og-aggregate",
       "name": "Wapiti / Smoky O&G aggregate allocation (m³/yr)",
-      "description": "Aggregate placeholder until top licensees are identified and per-operator rows replace this row.",
+      "description": "Aggregate sub-basin allocation across O&G operators. Source-supported via the MPWA Peace and Slave Watershed report (June 2024) at the percentage/utilization level; verbatim aggregate m³/yr extraction pending MPWA PDF retrieval. Per-licensee split is no_data_in_source via public web search.",
       "value": null,
       "unit": "m3_per_year",
       "computedFromAuthorizationSlugs": ["wapiti-smoky-og-allocation-placeholder"],
       "ingestionState": "placeholder",
-      "sourceRecordSlugs": ["ab-authorizations-viewer"]
+      "sourceRecordSlugs": ["ab-authorizations-viewer", "mpwa-peace-slave-watershed-2024"]
     },
     {
       "slug": "tmx-ab-total-allocated",
@@ -405,15 +428,17 @@
     {
       "slug": "status-mihta-askiy",
       "projectSlug": "mihta-askiy-cree-ative-datacentre",
-      "overallState": "placeholder",
-      "phase": 1,
+      "overallState": "no_data_in_source",
+      "phase": 2,
       "lastReviewedAt": "2026-05-27",
       "outstandingTasks": [
-        "Confirm whether a water-licence application has been filed and is public",
-        "Confirm AESO Phase I queue position from the AESO connection queue",
-        "Locate any IAAC project page once federal assessment is triggered"
+        "Re-check IAAC project 90036 registry on a periodic cadence; project documents (Initial Project Description Dec 2025, Notice of Early Decision Mar 2026) may surface proponent water-use estimates",
+        "Once the proponent files an Alberta Water Act application or approval is granted, re-query the AB Authorizations Viewer for licence # and allocated volume",
+        "Re-check the AESO connection queue periodically to confirm Phase I queue position and any reported water-coupled demand at the Polaris-style data-centre scale",
+        "Do not load proponent water-use estimates from the Initial Project Description into allocatedVolume_m3_per_year — estimates are not authorization data",
+        "On any re-check: continue to limit ingestion to public registry fields and defer Reserve-level data to Woodland Cree FN governance"
       ],
-      "dataSovereigntyNote": "First-Nation-led project; defer to Woodland Cree FN governance on what community-relevant data is appropriate to surface publicly. Limit Phase 1 ingestion to public registry fields only."
+      "dataSovereigntyNote": "First-Nation-led project; defer to Woodland Cree FN governance on what community-relevant data is appropriate to surface publicly. Limit Phase 2 ingestion to public registry fields only. While this dataSovereigntyNote is set, validator rule P2-V14 blocks Mihta Askiy authorization rows from transitioning to `verified`."
     },
     {
       "slug": "status-onion-lake-energy",
@@ -437,12 +462,14 @@
       "slug": "status-wapiti-smoky-og-aggregate",
       "projectSlug": "wapiti-smoky-og-aggregate",
       "overallState": "placeholder",
-      "phase": 1,
+      "phase": 2,
       "lastReviewedAt": "2026-05-27",
       "outstandingTasks": [
-        "Identify the top 1–2 licensees in the Wapiti/Smoky sub-basin",
-        "Replace this aggregate row with per-licensee authorization rows in Phase 2",
-        "Cross-check against the 99.64% allocation utilization indicator cited in the plan"
+        "Retrieve the MPWA Peace and Slave Watershed (June 2024) report PDF — direct fetch returned HTTP 403 on 2026-05-27; access via the MPWA site or a cached copy",
+        "Extract the verbatim aggregate m³/yr Wapiti/Smoky sub-basin O&G allocation figure from the MPWA report (separate from the already-cited 99.64% utilization rate which is a percentage, not a volume)",
+        "Populate the aggregate row's allocatedVolume_m3_per_year once the verbatim figure is extracted; transition the row from placeholder to needs_verification at that point",
+        "PER-LICENSEE SPLIT: currently no_data_in_source via public web search on 2026-05-27 — no public ranking of Wapiti/Smoky sub-basin O&G top licensees with per-operator m³/yr volumes was returned. Closing this gap requires either a saved AB Authorizations Viewer export filtered by sub-basin or an MPWA underlying-data table. Until either is retrieved, do not split this aggregate row into per-licensee rows.",
+        "If/when per-licensee data becomes retrievable, replace the aggregate row with per-licensee authorization rows (preserving an aggregate WaterUseIndicator rollup)"
       ]
     },
     {
