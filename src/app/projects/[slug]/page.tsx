@@ -121,7 +121,9 @@ export default async function ProjectDetail(props: PageProps<"/projects/[slug]">
             <IntelligencePanel title="Open governance questions" code="PRJ · GOV">
               <ul className="space-y-2 text-sm text-muted-foreground">
                 {project.governanceQuestions.map((q, i) => (
-                  <li key={i} className="leading-relaxed">— {q}</li>
+                  <li key={i} className="leading-relaxed">
+                    — {q}
+                  </li>
                 ))}
               </ul>
             </IntelligencePanel>
@@ -133,29 +135,39 @@ export default async function ProjectDetail(props: PageProps<"/projects/[slug]">
           <IntelligencePanel title="Finance summary" code="PRJ · FIN-SUM">
             <dl className="text-sm space-y-3">
               <div>
-                <dt className="font-mono text-[10px] tracking-[0.12em] text-muted-foreground mb-1">STRUCTURE</dt>
+                <dt className="font-mono text-[10px] tracking-[0.12em] text-muted-foreground mb-1">
+                  STRUCTURE
+                </dt>
                 <dd className="leading-relaxed">{project.finance.structure}</dd>
               </div>
               {project.finance.totalCostEstimate && (
                 <div>
-                  <dt className="font-mono text-[10px] tracking-[0.12em] text-muted-foreground mb-1">COST</dt>
+                  <dt className="font-mono text-[10px] tracking-[0.12em] text-muted-foreground mb-1">
+                    COST
+                  </dt>
                   <dd className="font-mono">{project.finance.totalCostEstimate}</dd>
                 </div>
               )}
               {project.finance.costOverrunsNoted && (
                 <div>
-                  <dt className="font-mono text-[10px] tracking-[0.12em] text-muted-foreground mb-1">OVERRUNS</dt>
+                  <dt className="font-mono text-[10px] tracking-[0.12em] text-muted-foreground mb-1">
+                    OVERRUNS
+                  </dt>
                   <dd className="text-muted-foreground">{project.finance.costOverrunsNoted}</dd>
                 </div>
               )}
               {project.finance.loanGuarantor && (
                 <div>
-                  <dt className="font-mono text-[10px] tracking-[0.12em] text-muted-foreground mb-1">LOAN GUARANTOR</dt>
+                  <dt className="font-mono text-[10px] tracking-[0.12em] text-muted-foreground mb-1">
+                    LOAN GUARANTOR
+                  </dt>
                   <dd>{project.finance.loanGuarantor}</dd>
                 </div>
               )}
               <div>
-                <dt className="font-mono text-[10px] tracking-[0.12em] text-muted-foreground mb-1">RISK CARRIER</dt>
+                <dt className="font-mono text-[10px] tracking-[0.12em] text-muted-foreground mb-1">
+                  RISK CARRIER
+                </dt>
                 <dd className="leading-relaxed">{project.finance.riskCarrier}</dd>
               </div>
             </dl>

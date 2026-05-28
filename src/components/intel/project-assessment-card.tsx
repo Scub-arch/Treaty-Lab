@@ -52,19 +52,14 @@ export function ProjectAssessmentCard({
           <EvidenceStrengthBadge strength={project.evidenceConfidence} withIcon={false} />
         </div>
         <h3 className="font-semibold text-base leading-tight">
-          <Link
-            href={`/projects/${project.slug}`}
-            className="hover:underline underline-offset-2"
-          >
+          <Link href={`/projects/${project.slug}`} className="hover:underline underline-offset-2">
             {project.name}
           </Link>
         </h3>
         <div className="text-xs text-muted-foreground mt-1">{project.location}</div>
       </header>
 
-      <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">
-        {project.summary}
-      </p>
+      <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">{project.summary}</p>
 
       <dl className="grid grid-cols-2 gap-y-2 gap-x-4 text-xs">
         <dt className="font-mono text-[10px] tracking-[0.12em] text-muted-foreground">PROPONENT</dt>

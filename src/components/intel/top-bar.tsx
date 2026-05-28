@@ -11,9 +11,7 @@ export function TopBar() {
           <Search className="w-4 h-4" />
           <span className="text-sm">
             Search the terminal{" "}
-            <span className="font-mono text-xs text-muted-foreground/60">
-              (coming soon)
-            </span>
+            <span className="font-mono text-xs text-muted-foreground/60">(coming soon)</span>
           </span>
         </div>
         <div className="ml-auto flex items-center gap-6 font-mono text-[11px] text-muted-foreground">

@@ -161,10 +161,7 @@ export function GeographicOverview({
       <ul className="space-y-1 text-xs text-muted-foreground font-mono tracking-wider max-w-[420px] mx-auto w-full">
         {markers.map((m) => (
           <li key={m.id} className="flex items-center gap-2">
-            <span
-              className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--brand)]"
-              aria-hidden
-            />
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--brand)]" aria-hidden />
             <span className="text-foreground/85">{m.label}</span>
             <span className="ml-auto tabular-nums">
               {m.location[0].toFixed(2)}°, {m.location[1].toFixed(2)}°

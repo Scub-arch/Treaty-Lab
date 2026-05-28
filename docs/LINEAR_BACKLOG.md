@@ -6,6 +6,7 @@
 > days of focused work and ships an independently shippable slice.
 
 **Priority scale:**
+
 - **P0** — must land before anything else in the epic can start.
 - **P1** — important; should land in this iteration.
 - **P2** — high-value but not blocking.
@@ -24,6 +25,7 @@ working tree matches a production-grade layout before any feature work
 lands on it.
 
 **Acceptance criteria:**
+
 - `dev.db`, `.env`, `*.tsbuildinfo`, `node_modules/`, `.next/` are gitignored.
 - `dev.db` and `.env` are `git rm --cached`'d; `ANTHROPIC_API_KEY` is rotated.
 - `.env.example` exists, listing every env var the app reads (no values).
@@ -48,6 +50,7 @@ lands on it.
 build before merge. No more "works on my machine" landing in `main`.
 
 **Acceptance criteria:**
+
 - `.github/workflows/ci.yml` runs on `pull_request` and `push` to `main`.
 - Jobs: `setup` (Node 22, `npm ci`), `typecheck` (`tsc --noEmit`),
   `content-validate` (`npm run check:content`), `build` (`next build` with
@@ -69,6 +72,7 @@ build before merge. No more "works on my machine" landing in `main`.
 **Goal.** Make PR reviews fast and consistent.
 
 **Acceptance criteria:**
+
 - `.github/PULL_REQUEST_TEMPLATE.md` exists with a checklist:
   schema-migration noted, content-validator passes, tests added/updated,
   docs touched, screenshots if UI, breaking-change call-out.
@@ -88,6 +92,7 @@ build before merge. No more "works on my machine" landing in `main`.
 backed by Postgres, with foreign keys replacing slug-string references.
 
 **Acceptance criteria:**
+
 - `prisma/schema.prisma` provider switches from `sqlite` to `postgresql`
   (keep a separate `prisma/schema.sqlite.prisma` for local dev if needed,
   or document the dual-target via `previewFeatures`).
@@ -121,6 +126,7 @@ backed by Postgres, with foreign keys replacing slug-string references.
 surface every project that touches it.
 
 **Acceptance criteria:**
+
 - `ProjectAssessment` gains `relatedTreaties: Treaty[]` (many-to-many) once
   DATA-001 lands.
 - Seed file maps existing project narratives to their relevant treaty slugs
@@ -141,6 +147,7 @@ surface every project that touches it.
 silently overwrite the prior version.
 
 **Acceptance criteria:**
+
 - Each content model gains: `version: Int @default(1)`, `editedBy: String`,
   `editedAt: DateTime @updatedAt`, `deletedAt: DateTime?` (soft delete).
 - A `ContentRevision` table stores prior versions as JSON snapshots, keyed
@@ -163,6 +170,7 @@ silently overwrite the prior version.
 system prompt; one place to change them.
 
 **Acceptance criteria:**
+
 - New module `src/lib/llm/` containing:
   - `prompts.ts` exports `ANALYST_SYSTEM_PROMPT`.
   - `databricks-auth.ts` exports `getToken({noCache}: {noCache?: boolean})`.
@@ -186,6 +194,7 @@ system prompt; one place to change them.
 single client run up the bill.
 
 **Acceptance criteria:**
+
 - New `src/lib/llm/cache.ts` exports `lookup(key)` / `store(key, value, ttl)`.
 - Default backend is in-memory LRU (size cap 1000 entries) — swappable for
   Redis (Upstash) via `LLM_CACHE_BACKEND=redis` env var.
@@ -209,6 +218,7 @@ single client run up the bill.
 on `PATH`, nor on a personal access token.
 
 **Acceptance criteria:**
+
 - `src/lib/llm/databricks-auth.ts` adds a `fetchTokenViaServicePrincipal()`
   branch: POSTs to `${WORKSPACE_HOST}/oidc/v1/token` with
   `client_id` + `client_secret` from env, parses `{access_token, expires_in}`,
@@ -234,10 +244,11 @@ without picking a project, the LLM context should still include the relevant
 evidence items — pulled by retrieval, not by manual slug selection.
 
 **Acceptance criteria:**
+
 - New `src/lib/llm/retrieval.ts` implements a `retrieveEvidence(query)`
   helper that returns the top-K most relevant `EvidenceItem` records.
 - v1 strategy: BM25 (lunr.js or minisearch) over `title + plainSummary +
-  supports[] + tags[]` — no embeddings, no external vector store.
+supports[] + tags[]` — no embeddings, no external vector store.
 - v2 strategy (separate ticket, mention in description): pgvector over
   embedded `plainSummary` + `supports[]`.
 - Both `/api/ask` routes call `retrieveEvidence()` when `context` is empty
@@ -259,6 +270,7 @@ evidence items — pulled by retrieval, not by manual slug selection.
 **Goal.** A bad chart prop or a slow DB call never produces a white screen.
 
 **Acceptance criteria:**
+
 - Add `error.tsx` next to every `src/app/*/page.tsx`. Renders a styled
   "Something went wrong" card with a "Try again" button + the error message
   in `dev` only.
@@ -278,6 +290,7 @@ evidence items — pulled by retrieval, not by manual slug selection.
 **Goal.** Refresh the page; don't lose the conversation.
 
 **Acceptance criteria:**
+
 - New `Session` + `Turn` tables in Prisma; one `Session` per anonymous
   cookie, multiple `Turn` records per session.
 - `/api/sessions` (GET list, POST new, DELETE single, GET `:id` to load).
@@ -300,6 +313,7 @@ v1 can ship independently)
 but isn't the only option.
 
 **Acceptance criteria:**
+
 - `axe-core` integrated in a Playwright smoke test; CI fails on any
   violation of "serious" or "critical" severity.
 - Existing violations triaged: each gets either a fix in this PR or a
@@ -324,6 +338,7 @@ but isn't the only option.
 `C:\Claude\viz\`.
 
 **Acceptance criteria:**
+
 - `src/app/reports/page.tsx` no longer references `public/xref_*.png`.
 - Three sections rendered server-side from the aggregations helpers:
   - "Per-project citations" — reuses `<PerProjectCitationChart>`.
@@ -345,6 +360,7 @@ formatted Word document with the full assessment, claims grouped by kind,
 finance block, primary sources with citations, and an evidence appendix.
 
 **Acceptance criteria:**
+
 - New `POST /api/reports/project/[slug].docx` returns a `.docx` byte stream.
 - Implementation uses `docx` (already familiar from the
   `anthropic-skills:docx` skill); template lives at
@@ -372,6 +388,7 @@ tokens." Pick a provider, wire it in, gate every route that costs money or
 exposes content.
 
 **Acceptance criteria:**
+
 - Auth provider chosen + documented in `docs/DEPLOY.md` (recommended:
   Auth.js with Postgres adapter — fewest moving parts).
 - `User`, `Account`, `Session`, `VerificationToken` Prisma models added.
@@ -394,6 +411,7 @@ exposes content.
 **Goal.** Single-actor abuse can't burn the monthly budget.
 
 **Acceptance criteria:**
+
 - Token-bucket rate limit on `/api/ask` and `/api/ask/stream`:
   - 10 req/min per user (default).
   - 100 req/hour per org.
@@ -414,6 +432,7 @@ exposes content.
 that aren't explicitly allowed.
 
 **Acceptance criteria:**
+
 - `next.config.ts` defines a `headers()` block returning, for `/(.*)`:
   - `Strict-Transport-Security: max-age=63072000; includeSubDomains; preload`
   - `X-Content-Type-Options: nosniff`
@@ -421,9 +440,9 @@ that aren't explicitly allowed.
   - `Referrer-Policy: strict-origin-when-cross-origin`
   - `Permissions-Policy: camera=(), microphone=(), geolocation=()`
   - `Content-Security-Policy: default-src 'self'; img-src 'self' data:;
-     script-src 'self' 'nonce-…'; style-src 'self' 'unsafe-inline';
-     connect-src 'self' https://*.databricks.com; font-src 'self' data:;
-     frame-ancestors 'none'`.
+ script-src 'self' 'nonce-…'; style-src 'self' 'unsafe-inline';
+ connect-src 'self' https://*.databricks.com; font-src 'self' data:;
+ frame-ancestors 'none'`.
 - Next.js' built-in nonce flow used for any inline scripts (Recharts, cobe).
 - `SECURITY.md` (from FND-001) documents the policy.
 - An `observatory.mozilla.org` or `securityheaders.com` scan of the deployed
@@ -441,6 +460,7 @@ that aren't explicitly allowed.
 machine setup.
 
 **Acceptance criteria:**
+
 - `Dockerfile` (multi-stage: deps → build → runtime). Final image ≤ 250 MB.
   Runs `next build` in build stage; runtime stage runs `node server.js`
   (Next standalone output).
@@ -452,7 +472,7 @@ machine setup.
 - `.github/workflows/deploy.yml` deploys on push to `main` after CI passes
   (depends on FND-002).
 - Health endpoint `GET /api/healthz` returns `{status, db: "ok"|"down",
-  gateway: "ok"|"down"}` and is wired to the platform's health check.
+gateway: "ok"|"down"}` and is wired to the platform's health check.
 - DEPLOY.md covers: first-time setup, secret rotation, database backup,
   rollback.
 
@@ -466,6 +486,7 @@ machine setup.
 the retrieval, the DB query, or the network.
 
 **Acceptance criteria:**
+
 - `@opentelemetry/api`, `@opentelemetry/sdk-node`, `@opentelemetry/exporter-trace-otlp-http`
   added.
 - OTel SDK initialized in `instrumentation.ts` (Next.js convention).
@@ -486,16 +507,16 @@ the retrieval, the DB query, or the network.
 
 ## Backlog summary
 
-| Epic | Issues | P0 | P1 | P2 |
-|------|--------|----|----|----|
-| Foundation | 3 | FND-001, FND-002 | — | FND-003 |
-| Database | 3 | DATA-001 | DATA-002, DATA-003 | — |
-| AI / RAG | 4 | AI-001 | AI-002, AI-003, AI-004 | — |
-| UI | 3 | — | UI-001, UI-002, UI-003 | — |
-| Reports | 2 | — | — | RPT-001, RPT-002 |
-| Security | 3 | SEC-001 | SEC-002, SEC-003 | — |
-| Deployment | 2 | — | DPL-001 | DPL-002 |
-| **Total** | **20** | **5** | **10** | **5** |
+| Epic       | Issues | P0               | P1                     | P2               |
+| ---------- | ------ | ---------------- | ---------------------- | ---------------- |
+| Foundation | 3      | FND-001, FND-002 | —                      | FND-003          |
+| Database   | 3      | DATA-001         | DATA-002, DATA-003     | —                |
+| AI / RAG   | 4      | AI-001           | AI-002, AI-003, AI-004 | —                |
+| UI         | 3      | —                | UI-001, UI-002, UI-003 | —                |
+| Reports    | 2      | —                | —                      | RPT-001, RPT-002 |
+| Security   | 3      | SEC-001          | SEC-002, SEC-003       | —                |
+| Deployment | 2      | —                | DPL-001                | DPL-002          |
+| **Total**  | **20** | **5**            | **10**                 | **5**            |
 
 ### Critical path
 
@@ -524,5 +545,5 @@ can be parallelized across two or three contributors.
 
 ---
 
-*Last updated: 2026-05-27. Re-prioritize after each sprint based on what
-actually shipped vs. what surfaced as the next-most-urgent blocker.*
+_Last updated: 2026-05-27. Re-prioritize after each sprint based on what
+actually shipped vs. what surfaced as the next-most-urgent blocker._

@@ -32,9 +32,9 @@ export default function NotFound() {
           View not found.
         </h1>
         <p className="text-sm md:text-base text-muted-foreground mt-3 leading-relaxed">
-          The route you requested isn&apos;t in the registry. It may have been
-          moved, the URL may be misspelled, or the underlying record may have
-          been removed. Use one of the entry points below to get oriented.
+          The route you requested isn&apos;t in the registry. It may have been moved, the URL may be
+          misspelled, or the underlying record may have been removed. Use one of the entry points
+          below to get oriented.
         </p>
 
         <div className="mt-8 flex flex-wrap items-center gap-2">

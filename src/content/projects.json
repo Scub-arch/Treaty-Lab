@@ -17,72 +17,128 @@
         { "name": "BC Environmental Assessment Office", "role": "regulator" },
         { "name": "Impact Assessment Agency of Canada", "role": "regulator" },
         { "name": "BC Energy Regulator (LNG Facility Permit)", "role": "regulator" },
-        { "name": "Innovation, Science and Economic Development Canada (Strategic Innovation Fund — $200M)", "role": "financier" },
+        {
+          "name": "Innovation, Science and Economic Development Canada (Strategic Innovation Fund — $200M)",
+          "role": "financier"
+        },
         { "name": "First Nations Finance Authority (capital commitment)", "role": "financier" },
-        { "name": "Province of BC ($200M electrification contribution agreement)", "role": "financier" }
+        {
+          "name": "Province of BC ($200M electrification contribution agreement)",
+          "role": "financier"
+        }
       ],
       "firstNationImplications": [
         {
           "text": "Haisla Nation holds 50.1% equity — not an impact-benefit beneficiary but the majority owner. The Canada Energy Regulator's 2026 Market Snapshot frames Cedar LNG as the exemplar of Indigenous communities being involved 'during project development' rather than acquiring already-operating assets.",
           "kind": "fact",
-          "sources": [{ "evidenceSlug": "cer-growing-indigenous-ownership-2026", "citing": "CER Market Snapshot, Table 2 + narrative" }]
+          "sources": [
+            {
+              "evidenceSlug": "cer-growing-indigenous-ownership-2026",
+              "citing": "CER Market Snapshot, Table 2 + narrative"
+            }
+          ]
         },
         {
           "text": "The Haisla equity raise is financially advised by CIBC and supported by the federal Strategic Innovation Fund ($200M) and a First Nations Finance Authority capital commitment; CER aggregates federal committed capital at ≈ $400M.",
           "kind": "fact",
           "sources": [
-            { "evidenceSlug": "pembina-cedar-lng-news-release-2024", "citing": "Pembina Apr 4 2024 release — CIBC as Haisla's financial advisor" },
-            { "evidenceSlug": "cer-growing-indigenous-ownership-2026", "citing": "CER 2026 federal capital aggregation" }
+            {
+              "evidenceSlug": "pembina-cedar-lng-news-release-2024",
+              "citing": "Pembina Apr 4 2024 release — CIBC as Haisla's financial advisor"
+            },
+            {
+              "evidenceSlug": "cer-growing-indigenous-ownership-2026",
+              "citing": "CER 2026 federal capital aggregation"
+            }
           ]
         },
         {
           "text": "Project crosses multiple Indigenous Nations' interests via shipping in Douglas Channel; engagement framework on the October 2024 EA amendments explicitly includes 'Haisla Nation and other Indigenous Nations and the community'.",
           "kind": "fact",
-          "sources": [{ "evidenceSlug": "cedar-lng-ea-update-2024", "citing": "Cedar LNG EA Update Dec 2024" }]
+          "sources": [
+            { "evidenceSlug": "cedar-lng-ea-update-2024", "citing": "Cedar LNG EA Update Dec 2024" }
+          ]
         },
         {
           "text": "Long-run effects on Haisla governance capacity, intergenerational wealth, and exposure to global LNG price volatility will be material over the project's operating life — material in proportion to Pembina's disclosed run-rate adjusted EBITDA guidance of US$200M–US$260M per year net to its 50% share.",
           "kind": "question",
-          "sources": [{ "evidenceSlug": "pembina-cedar-lng-news-release-2024", "citing": "Pembina EBITDA guidance" }]
+          "sources": [
+            {
+              "evidenceSlug": "pembina-cedar-lng-news-release-2024",
+              "citing": "Pembina EBITDA guidance"
+            }
+          ]
         }
       ],
       "treatyAndWaterRisk": [
         {
           "text": "Liquefaction is powered by renewable electricity from BC Hydro — proponent characterizes Cedar LNG as 'one of the lowest carbon intensity LNG facilities in the world'.",
           "kind": "fact",
-          "sources": [{ "evidenceSlug": "pembina-cedar-lng-news-release-2024", "citing": "Pembina Apr 4 2024 release" }]
+          "sources": [
+            {
+              "evidenceSlug": "pembina-cedar-lng-news-release-2024",
+              "citing": "Pembina Apr 4 2024 release"
+            }
+          ]
         },
         {
           "text": "October 2024 amendment package proposes an alternate transmission line re-route 'to avoid impacts on mature trees, marbled murrelet habitat, and wetlands', plus a previously-unapproved distribution power line, and an expanded marine terminal area following a switch from strut to spread mooring with anchors located outside the original terminal footprint.",
           "kind": "fact",
-          "sources": [{ "evidenceSlug": "cedar-lng-ea-update-2024", "citing": "Cedar LNG EA Amendments Dec 2024" }]
+          "sources": [
+            {
+              "evidenceSlug": "cedar-lng-ea-update-2024",
+              "citing": "Cedar LNG EA Amendments Dec 2024"
+            }
+          ]
         },
         {
           "text": "Proponent states the spread mooring system 'will not restrict vessel movement in Douglas Channel' — amendment approval remains pending at time of writing.",
           "kind": "needs_validation",
-          "sources": [{ "evidenceSlug": "cedar-lng-ea-update-2024", "citing": "Cedar LNG EA Amendment FAQ" }]
+          "sources": [
+            { "evidenceSlug": "cedar-lng-ea-update-2024", "citing": "Cedar LNG EA Amendment FAQ" }
+          ]
         }
       ],
       "financeRisk": [
         {
           "text": "Class III gross capital cost estimate (April 2024): US$3.4 billion. US$2.3 billion (~70%) is under a fixed-price lump-sum agreement for the FLNG production unit; US$1.1B is onshore infrastructure, owner's costs, commissioning, start-up and financial assurances. Total project cost including ≈ US$0.6B interest during construction and transaction costs ≈ US$4.0 billion (gross).",
           "kind": "fact",
-          "sources": [{ "evidenceSlug": "pembina-cedar-lng-news-release-2024", "citing": "Pembina Apr 4 2024 — Capital Cost Estimate and Funding" }]
+          "sources": [
+            {
+              "evidenceSlug": "pembina-cedar-lng-news-release-2024",
+              "citing": "Pembina Apr 4 2024 — Capital Cost Estimate and Funding"
+            }
+          ]
         },
         {
           "text": "Project financing structure ≈ 60% project debt / 40% equity. MUFG Bank, Ltd. engaged as financial advisor on project financing. EPC consortium = Samsung Heavy Industries (Korea) + Black & Veatch (LNG technology). Counsel: Baker Botts L.L.P. (commercial); King & Spalding LLP (EPC).",
           "kind": "fact",
-          "sources": [{ "evidenceSlug": "pembina-cedar-lng-news-release-2024", "citing": "Pembina Apr 4 2024" }]
+          "sources": [
+            {
+              "evidenceSlug": "pembina-cedar-lng-news-release-2024",
+              "citing": "Pembina Apr 4 2024"
+            }
+          ]
         },
         {
           "text": "20-year take-or-pay liquefaction tolling agreement with ARC Resources Ltd. for 1.5 mtpa at a fixed toll; ARC supplies ≈ 200 mmcf/d of Montney gas via Coastal GasLink. Pembina holds a mirror bridging agreement for the remaining 1.5 mtpa and intends to assign that capacity to a third-party offtaker post-FID.",
           "kind": "fact",
-          "sources": [{ "evidenceSlug": "pembina-cedar-lng-news-release-2024", "citing": "Pembina Apr 4 2024" }]
+          "sources": [
+            {
+              "evidenceSlug": "pembina-cedar-lng-news-release-2024",
+              "citing": "Pembina Apr 4 2024"
+            }
+          ]
         },
         {
           "text": "Federal committed capital ≈ $400M (CER aggregation) — $200M Strategic Innovation Fund + a First Nations Finance Authority capital commitment. BC provincial contribution of $200M specifically supports the electrification of Cedar LNG.",
           "kind": "fact",
-          "sources": [{ "evidenceSlug": "cer-growing-indigenous-ownership-2026", "citing": "CER 2026 — Cedar LNG financing" }]
+          "sources": [
+            {
+              "evidenceSlug": "cer-growing-indigenous-ownership-2026",
+              "citing": "CER 2026 — Cedar LNG financing"
+            }
+          ]
         },
         {
           "text": "LNG price exposure: revenue depends on global LNG prices through offtake agreements (mitigated by 20-year take-or-pay). Sustained low-price environment would compress cash flows available to debt service and to Haisla's equity distribution.",
@@ -91,12 +147,22 @@
         {
           "text": "Pembina's run-rate adjusted EBITDA guidance: US$200M–US$260M per year net to Pembina (50% share). Low end = take-or-pay only; high end includes incremental cargo and marketing upside. Comparable economics attributable to the Haisla 50.1% interest are material over the operating life.",
           "kind": "fact",
-          "sources": [{ "evidenceSlug": "pembina-cedar-lng-news-release-2024", "citing": "Pembina Apr 4 2024 EBITDA guidance" }]
+          "sources": [
+            {
+              "evidenceSlug": "pembina-cedar-lng-news-release-2024",
+              "citing": "Pembina Apr 4 2024 EBITDA guidance"
+            }
+          ]
         },
         {
           "text": "The Morningstar DBRS October 2025 credit rating report on FNFA explicitly cites 'Haisla First Nation's majority equity ownership of the Cedar LNG project' as a driver of equity-participation loan demand growing FNFA's pool — third-party regulatory/credit-agency confirmation of the Haisla majority structure.",
           "kind": "fact",
-          "sources": [{ "evidenceSlug": "fnfa-credit-rating-dbrs-2025", "citing": "DBRS Credit Rating Rationale Oct 2025" }]
+          "sources": [
+            {
+              "evidenceSlug": "fnfa-credit-rating-dbrs-2025",
+              "citing": "DBRS Credit Rating Rationale Oct 2025"
+            }
+          ]
         }
       ],
       "governanceQuestions": [
@@ -117,16 +183,34 @@
         "loanGuarantor": "Federal: $200M Strategic Innovation Fund + FNFA capital commitment. Provincial: $200M BC contribution agreement for electrification.",
         "riskCarrier": "Project equity holders bear operating and LNG-price risk; lenders bear default risk subject to federal participation; Haisla cash flow sits after debt service — meaningful in base/high price scenarios, more exposed in low scenarios.",
         "sources": [
-          { "evidenceSlug": "pembina-cedar-lng-news-release-2024", "citing": "Pembina Apr 4 2024 — financing terms" },
-          { "evidenceSlug": "cer-growing-indigenous-ownership-2026", "citing": "CER 2026 — federal + BC capital" }
+          {
+            "evidenceSlug": "pembina-cedar-lng-news-release-2024",
+            "citing": "Pembina Apr 4 2024 — financing terms"
+          },
+          {
+            "evidenceSlug": "cer-growing-indigenous-ownership-2026",
+            "citing": "CER 2026 — federal + BC capital"
+          }
         ]
       },
       "primarySources": [
         { "evidenceSlug": "cedar-lng-fid-update-2024", "citing": "FID + construction status" },
-        { "evidenceSlug": "pembina-cedar-lng-news-release-2024", "citing": "Capital, financing, offtake, EPC" },
-        { "evidenceSlug": "cedar-lng-ea-update-2024", "citing": "EA approvals + Oct 2024 amendment package" },
-        { "evidenceSlug": "cer-growing-indigenous-ownership-2026", "citing": "Federal regulator confirmation of equity + capital structure" },
-        { "evidenceSlug": "fnfa-credit-rating-dbrs-2025", "citing": "Third-party credit-rating citation of Cedar LNG as Indigenous-finance demand driver" }
+        {
+          "evidenceSlug": "pembina-cedar-lng-news-release-2024",
+          "citing": "Capital, financing, offtake, EPC"
+        },
+        {
+          "evidenceSlug": "cedar-lng-ea-update-2024",
+          "citing": "EA approvals + Oct 2024 amendment package"
+        },
+        {
+          "evidenceSlug": "cer-growing-indigenous-ownership-2026",
+          "citing": "Federal regulator confirmation of equity + capital structure"
+        },
+        {
+          "evidenceSlug": "fnfa-credit-rating-dbrs-2025",
+          "citing": "Third-party credit-rating citation of Cedar LNG as Indigenous-finance demand driver"
+        }
       ],
       "evidenceConfidence": "established",
       "domains": ["treaty", "energy", "finance", "water"],
@@ -145,7 +229,10 @@
       "proponentObjective": "Long-term firm-service contract revenue from LNG Canada and Cedar LNG feedstock supply over the pipeline's operating life.",
       "parties": [
         { "name": "TC Energy Corporation (operator)", "role": "proponent" },
-        { "name": "20 elected First Nation band councils along the route (impact-benefit and option agreements)", "role": "consenting_first_nation" },
+        {
+          "name": "20 elected First Nation band councils along the route (impact-benefit and option agreements)",
+          "role": "consenting_first_nation"
+        },
         { "name": "Wet'suwet'en Hereditary Chiefs", "role": "contesting_first_nation" },
         { "name": "BC Environmental Assessment Office", "role": "regulator" },
         { "name": "Canadian Energy Regulator", "role": "regulator" }
@@ -158,7 +245,12 @@
         {
           "text": "Delgamuukw recognized Wet'suwet'en oral histories of governance; Tsilhqot'in confirms title-holders' decision-making rights. The practical relationship between hereditary and elected authority for consent on this project remains legally and politically contested.",
           "kind": "needs_validation",
-          "sources": [{ "evidenceSlug": "tsilhqotin-2014-scc-44", "citing": "Aboriginal title affirms governance and decision-making over title lands" }]
+          "sources": [
+            {
+              "evidenceSlug": "tsilhqotin-2014-scc-44",
+              "citing": "Aboriginal title affirms governance and decision-making over title lands"
+            }
+          ]
         }
       ],
       "treatyAndWaterRisk": [
@@ -169,7 +261,12 @@
         {
           "text": "Cumulative-effects exposure: this pipeline adds to a corridor of energy infrastructure that has been the subject of treaty-rights infringement findings elsewhere in BC (Yahey 2021 BCSC 1287 — Treaty 8).",
           "kind": "risk",
-          "sources": [{ "evidenceSlug": "yahey-2021-bcsc-1287", "citing": "Yahey precedent on cumulative effects in Treaty 8 territory" }]
+          "sources": [
+            {
+              "evidenceSlug": "yahey-2021-bcsc-1287",
+              "citing": "Yahey precedent on cumulative effects in Treaty 8 territory"
+            }
+          ]
         }
       ],
       "financeRisk": [
@@ -180,7 +277,12 @@
         {
           "text": "FNMPC's 2024 primer documents that 'some First Nations attempted to acquire an additional 10% in a now-completed [CGL] financing round and had to forfeit their opportunity to their private-sector partners as they were unable to successfully raise capital at rates that made the equity investment financially viable'.",
           "kind": "fact",
-          "sources": [{ "evidenceSlug": "fnmpc-loan-guarantee-primer-2024", "citing": "FNMPC Loan Guarantee Primer — CGL case study" }]
+          "sources": [
+            {
+              "evidenceSlug": "fnmpc-loan-guarantee-primer-2024",
+              "citing": "FNMPC Loan Guarantee Primer — CGL case study"
+            }
+          ]
         },
         {
           "text": "The CGL forfeiture pre-dates federal CILGC ILGP operationalization (the federal Indigenous loan-guarantee program announced Fall 2023, with the v3 applicant guide dated 2026). The Coastal GasLink case is the canonical documented illustration that without the federal guarantee, capital-cost barriers translate into actual lost ownership opportunities.",
@@ -193,7 +295,12 @@
         {
           "text": "FNMPC's January 2024 portfolio lists 'Coastal GasLink Equity Option (10%) $14.2B' as one of its 14 active support files.",
           "kind": "fact",
-          "sources": [{ "evidenceSlug": "fnmpc-loan-guarantee-primer-2024", "citing": "FNMPC Primer portfolio" }]
+          "sources": [
+            {
+              "evidenceSlug": "fnmpc-loan-guarantee-primer-2024",
+              "citing": "FNMPC Primer portfolio"
+            }
+          ]
         }
       ],
       "governanceQuestions": [
@@ -216,9 +323,18 @@
         "riskCarrier": "Construction-cost overruns borne by TC Energy and resolved with shippers. The forfeited Indigenous equity opportunity is borne by the communities that could not finance it — the documented cost of inaction."
       },
       "primarySources": [
-        { "evidenceSlug": "fnmpc-loan-guarantee-primer-2024", "citing": "FNMPC primer — CGL forfeiture case study" },
-        { "evidenceSlug": "cilgc-applicant-guide-v3", "citing": "Federal ILGP that did not exist at time of forfeiture" },
-        { "evidenceSlug": "yahey-2021-bcsc-1287", "citing": "Cumulative-effects precedent in Treaty 8 corridor" }
+        {
+          "evidenceSlug": "fnmpc-loan-guarantee-primer-2024",
+          "citing": "FNMPC primer — CGL forfeiture case study"
+        },
+        {
+          "evidenceSlug": "cilgc-applicant-guide-v3",
+          "citing": "Federal ILGP that did not exist at time of forfeiture"
+        },
+        {
+          "evidenceSlug": "yahey-2021-bcsc-1287",
+          "citing": "Cumulative-effects precedent in Treaty 8 corridor"
+        }
       ],
       "evidenceConfidence": "strong",
       "domains": ["treaty", "energy", "finance", "water"],
@@ -250,12 +366,22 @@
         {
           "text": "The Blueberry River Implementation Agreement (January 2023) explicitly carves out electricity transmission and distribution rights-of-way outside Area 1 — or inside Area 1 with Blueberry consent — from the definition of 'New Disturbance'. This was a deliberate accommodation enabling Site C transmission corridors to proceed in their current form post-Yahey.",
           "kind": "fact",
-          "sources": [{ "evidenceSlug": "blueberry-river-implementation-agreement-2023", "citing": "Blueberry River Implementation Agreement — PNG / Site C carveout" }]
+          "sources": [
+            {
+              "evidenceSlug": "blueberry-river-implementation-agreement-2023",
+              "citing": "Blueberry River Implementation Agreement — PNG / Site C carveout"
+            }
+          ]
         },
         {
           "text": "Reservoir flooding affects burial sites, fishing sites, hunting territories, and cultural sites. The long-term cultural-loss impact extends across generations and is not fully quantified in the public record.",
           "kind": "needs_validation",
-          "sources": [{ "evidenceSlug": "yahey-2021-bcsc-1287", "citing": "Treaty 8 hunting/fishing/trapping rights affirmed in Yahey" }]
+          "sources": [
+            {
+              "evidenceSlug": "yahey-2021-bcsc-1287",
+              "citing": "Treaty 8 hunting/fishing/trapping rights affirmed in Yahey"
+            }
+          ]
         }
       ],
       "treatyAndWaterRisk": [
@@ -267,7 +393,12 @@
         {
           "text": "Reservoir conversion of riverine ecosystem to lake-like conditions affects sediment transport, fish habitat, and the downstream flow regime for decades. Site C reservoir filling began August 2024 (per AB GoA tracking); transboundary flow effects are rated 'low' impact in the MPWA 2024 Peace & Slave Watershed report but actively monitored.",
           "kind": "risk",
-          "sources": [{ "evidenceSlug": "peace-slave-water-use-2024", "citing": "MPWA Peace & Slave Watershed 2024 report" }]
+          "sources": [
+            {
+              "evidenceSlug": "peace-slave-water-use-2024",
+              "citing": "MPWA Peace & Slave Watershed 2024 report"
+            }
+          ]
         }
       ],
       "financeRisk": [
@@ -302,8 +433,14 @@
         "riskCarrier": "BC ratepayers via electricity rates; with Provincial backstop."
       },
       "primarySources": [
-        { "evidenceSlug": "yahey-2021-bcsc-1287", "citing": "Treaty 8 cumulative-effects doctrine" },
-        { "evidenceSlug": "blueberry-river-implementation-agreement-2023", "citing": "Site C transmission carveout" },
+        {
+          "evidenceSlug": "yahey-2021-bcsc-1287",
+          "citing": "Treaty 8 cumulative-effects doctrine"
+        },
+        {
+          "evidenceSlug": "blueberry-river-implementation-agreement-2023",
+          "citing": "Site C transmission carveout"
+        },
         { "evidenceSlug": "bc-dripa-2019", "citing": "Post-2019 BC consultation framework" },
         { "evidenceSlug": "peace-slave-water-use-2024", "citing": "Transboundary flow tracking" }
       ],
@@ -324,18 +461,29 @@
       "proponentObjective": "Operate the pipeline to recover capital cost via committed shipper tolls under regulated tariffs.",
       "parties": [
         { "name": "Trans Mountain Corporation", "role": "proponent" },
-        { "name": "129 Indigenous groups along the route (per Trans Mountain Corp.)", "role": "consenting_first_nation" },
+        {
+          "name": "129 Indigenous groups along the route (per Trans Mountain Corp.)",
+          "role": "consenting_first_nation"
+        },
         { "name": "Tsleil-Waututh Nation", "role": "contesting_first_nation" },
         { "name": "Squamish Nation", "role": "contesting_first_nation" },
         { "name": "Coldwater Indian Band", "role": "contesting_first_nation" },
         { "name": "Canadian Energy Regulator", "role": "regulator" },
-        { "name": "Government of Canada (sole shareholder via Canada TMP Finance Ltd.)", "role": "financier" }
+        {
+          "name": "Government of Canada (sole shareholder via Canada TMP Finance Ltd.)",
+          "role": "financier"
+        }
       ],
       "firstNationImplications": [
         {
           "text": "The Federal Court of Appeal in 2018 (Tsleil-Waututh Nation v. Canada) found that the second-round Phase III consultation was inadequate and quashed the original federal approval; the project was re-approved in 2019 after a remedial consultation process.",
           "kind": "fact",
-          "sources": [{ "evidenceSlug": "haida-nation-2004-scc-73", "citing": "Duty-to-consult standard applied in TMX litigation" }]
+          "sources": [
+            {
+              "evidenceSlug": "haida-nation-2004-scc-73",
+              "citing": "Duty-to-consult standard applied in TMX litigation"
+            }
+          ]
         },
         {
           "text": "Multiple First Nation-led equity acquisition proposals (e.g. Project Reconciliation, Nesika, Iron Coalition) have been publicly discussed; no transaction has been announced as of this writing.",
@@ -345,14 +493,25 @@
           "text": "The closest documented analogue for an Indigenous-led pipeline-equity acquisition is the Athabasca Indigenous Investments transaction: $1.12B raised for an 11.57% Enbridge Oilsands stake — first $250M ATB Financial loan was guaranteed by AIOC; remaining $870M raised via bond. Demonstrates that the loan-guarantee architecture can support Indigenous equity in operating pipelines at scale.",
           "kind": "fact",
           "sources": [
-            { "evidenceSlug": "fnmpc-loan-guarantee-primer-2024", "citing": "FNMPC primer — Athabasca Indigenous Investments / Enbridge transaction" },
-            { "evidenceSlug": "cer-growing-indigenous-ownership-2026", "citing": "CER 2026 — Enbridge Oilsands Lines / Athabasca Indigenous Investments 11.57%" }
+            {
+              "evidenceSlug": "fnmpc-loan-guarantee-primer-2024",
+              "citing": "FNMPC primer — Athabasca Indigenous Investments / Enbridge transaction"
+            },
+            {
+              "evidenceSlug": "cer-growing-indigenous-ownership-2026",
+              "citing": "CER 2026 — Enbridge Oilsands Lines / Athabasca Indigenous Investments 11.57%"
+            }
           ]
         },
         {
           "text": "If a sale to an Indigenous-led consortium were structured with CILGC ILGP support, per-deal headroom would be up to $1B (with a 75% federal stacking cap if combined with CIB or other federal Crown exposure). Specific TMX divestment terms remain open.",
           "kind": "question",
-          "sources": [{ "evidenceSlug": "cilgc-applicant-guide-v3", "citing": "CILGC ILGP — per-deal maximum and stacking cap" }]
+          "sources": [
+            {
+              "evidenceSlug": "cilgc-applicant-guide-v3",
+              "citing": "CILGC ILGP — per-deal maximum and stacking cap"
+            }
+          ]
         }
       ],
       "treatyAndWaterRisk": [
@@ -397,9 +556,18 @@
       },
       "primarySources": [
         { "evidenceSlug": "haida-nation-2004-scc-73", "citing": "Duty-to-consult standard" },
-        { "evidenceSlug": "constitution-act-1867-1982", "citing": "Constitutional basis for treaty-rights claims" },
-        { "evidenceSlug": "fnmpc-loan-guarantee-primer-2024", "citing": "Athabasca Indigenous Investments / Enbridge precedent" },
-        { "evidenceSlug": "cilgc-applicant-guide-v3", "citing": "Federal ILGP framework relevant to a future Indigenous-led TMX acquisition" }
+        {
+          "evidenceSlug": "constitution-act-1867-1982",
+          "citing": "Constitutional basis for treaty-rights claims"
+        },
+        {
+          "evidenceSlug": "fnmpc-loan-guarantee-primer-2024",
+          "citing": "Athabasca Indigenous Investments / Enbridge precedent"
+        },
+        {
+          "evidenceSlug": "cilgc-applicant-guide-v3",
+          "citing": "Federal ILGP framework relevant to a future Indigenous-led TMX acquisition"
+        }
       ],
       "evidenceConfidence": "strong",
       "domains": ["treaty", "finance", "water", "energy"],

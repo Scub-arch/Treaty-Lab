@@ -4,7 +4,10 @@ import type { EvidenceStrength, SourceType } from "@/lib/content/types";
 
 interface Props {
   /** Pivoted counts: sourceType -> reliability -> count. From evidenceCountsBySourceTypeAndReliability(). */
-  counts: Array<{ sourceType: SourceType; reliabilityCounts: Array<{ reliability: EvidenceStrength; count: number }> }>;
+  counts: Array<{
+    sourceType: SourceType;
+    reliabilityCounts: Array<{ reliability: EvidenceStrength; count: number }>;
+  }>;
   reliabilityColumns: EvidenceStrength[];
   total: number;
 }
@@ -41,8 +44,12 @@ function cellStyle(count: number, maxCount: number): React.CSSProperties {
   const ratio = maxCount > 0 ? count / maxCount : 0;
   // Linear interpolation between light blue (#dbeafe) and deep blue (#1e40af)
   // returning rgb so dark/light mode both stay readable.
-  const lightR = 219, lightG = 234, lightB = 254;
-  const darkR = 30,  darkG = 64,   darkB = 175;
+  const lightR = 219,
+    lightG = 234,
+    lightB = 254;
+  const darkR = 30,
+    darkG = 64,
+    darkB = 175;
   const r = Math.round(lightR + (darkR - lightR) * ratio);
   const g = Math.round(lightG + (darkG - lightG) * ratio);
   const b = Math.round(lightB + (darkB - lightB) * ratio);

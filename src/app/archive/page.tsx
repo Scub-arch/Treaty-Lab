@@ -9,9 +9,7 @@ export default async function ArchivePage(props: PageProps<"/archive">) {
   const topicFilter = typeof search.topic === "string" ? search.topic : undefined;
 
   const treaties = await prisma.treaty.findMany({
-    where: topicFilter
-      ? { topics: { some: { slug: topicFilter } } }
-      : undefined,
+    where: topicFilter ? { topics: { some: { slug: topicFilter } } } : undefined,
     include: {
       topics: true,
       signatures: { include: { party: true } },

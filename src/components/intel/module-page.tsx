@@ -34,9 +34,7 @@ export function ModulePage({ slug }: { slug: Domain }) {
         <p className="text-base text-muted-foreground mt-3 max-w-3xl leading-relaxed">
           {mod.tagline}
         </p>
-        <p className="text-sm text-muted-foreground mt-3 max-w-3xl leading-relaxed">
-          {mod.lede}
-        </p>
+        <p className="text-sm text-muted-foreground mt-3 max-w-3xl leading-relaxed">{mod.lede}</p>
       </section>
 
       {/* Featured indicators */}
@@ -52,7 +50,10 @@ export function ModulePage({ slug }: { slug: Domain }) {
       {/* Additional indicators in this domain */}
       {additionalIndicators.length > 0 && (
         <section>
-          <SubHeader title="Additional readings in this domain" code={`${mod.slug.toUpperCase()} · 02`} />
+          <SubHeader
+            title="Additional readings in this domain"
+            code={`${mod.slug.toUpperCase()} · 02`}
+          />
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-4">
             {additionalIndicators.map((i) => (
               <RiskCard key={i.slug} indicator={i} />
@@ -63,7 +64,10 @@ export function ModulePage({ slug }: { slug: Domain }) {
 
       {/* Featured projects in this module */}
       <section>
-        <SubHeader title="Projects exposed to this module" code={`${mod.slug.toUpperCase()} · 03`} />
+        <SubHeader
+          title="Projects exposed to this module"
+          code={`${mod.slug.toUpperCase()} · 03`}
+        />
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-4">
           {featuredProjects.map((p) => (
             <ProjectAssessmentCard key={p.slug} project={p} />
@@ -77,9 +81,7 @@ export function ModulePage({ slug }: { slug: Domain }) {
 function SubHeader({ title, code }: { title: string; code: string }) {
   return (
     <div>
-      <div className="font-mono text-[10px] tracking-[0.18em] text-muted-foreground">
-        {code}
-      </div>
+      <div className="font-mono text-[10px] tracking-[0.18em] text-muted-foreground">{code}</div>
       <h2 className="text-lg font-semibold tracking-tight mt-1">{title}</h2>
     </div>
   );

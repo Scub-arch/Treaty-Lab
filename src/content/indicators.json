@@ -9,7 +9,12 @@
       "severity": "high",
       "trend": "deteriorating",
       "note": "Previously Mikisew (2005 SCC 69) required 'no meaningful exercise'. Yahey lowers that to 'significant or meaningful diminishment' and aggregates cumulative effects of many prior approvals.",
-      "sources": [{ "evidenceSlug": "yahey-2021-bcsc-1287", "citing": "Yahey v. British Columbia, 2021 BCSC 1287" }],
+      "sources": [
+        {
+          "evidenceSlug": "yahey-2021-bcsc-1287",
+          "citing": "Yahey v. British Columbia, 2021 BCSC 1287"
+        }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -23,7 +28,9 @@
       "severity": "critical",
       "trend": "deteriorating",
       "note": "Factual basis on which Justice Burke found unjustified Treaty 8 infringement in Yahey.",
-      "sources": [{ "evidenceSlug": "yahey-2021-bcsc-1287", "citing": "Yahey 2021 BCSC 1287, paras 813, 906" }],
+      "sources": [
+        { "evidenceSlug": "yahey-2021-bcsc-1287", "citing": "Yahey 2021 BCSC 1287, paras 813, 906" }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -37,7 +44,12 @@
       "severity": "elevated",
       "trend": "improving",
       "note": "Plus ~350,000 m³/yr Fort St. John TSA forestry reduction; PNG no-go and 50% reduction zones; Site C transmission carveout from 'New Disturbance' definition.",
-      "sources": [{ "evidenceSlug": "blueberry-river-implementation-agreement-2023", "citing": "Implementation Agreement Jan 18 2023" }],
+      "sources": [
+        {
+          "evidenceSlug": "blueberry-river-implementation-agreement-2023",
+          "citing": "Implementation Agreement Jan 18 2023"
+        }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -51,7 +63,12 @@
       "severity": "high",
       "trend": "improving",
       "note": "Signals that the Yahey precedent reaches well beyond Blueberry River alone.",
-      "sources": [{ "evidenceSlug": "five-nations-treaty-8-settlement-2023", "citing": "Apr 2023 federal + BC settlement" }],
+      "sources": [
+        {
+          "evidenceSlug": "five-nations-treaty-8-settlement-2023",
+          "citing": "Apr 2023 federal + BC settlement"
+        }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -65,7 +82,12 @@
       "severity": "high",
       "trend": "deteriorating",
       "note": "Risk indicator: fast-track timelines compress the space for adequate consultation and FPIC. Compare against AB consultation guide Level 3 maximum of 60 working days for 'exploring concerns'.",
-      "sources": [{ "evidenceSlug": "ab-indigenous-relations-business-plan-2026-29", "citing": "Ministry will support 120-day priority project approval timeline" }],
+      "sources": [
+        {
+          "evidenceSlug": "ab-indigenous-relations-business-plan-2026-29",
+          "citing": "Ministry will support 120-day priority project approval timeline"
+        }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -77,7 +99,12 @@
       "severity": "high",
       "trend": "stable",
       "note": "REDA s.34 leaves the decision to hold a hearing to AER discretion; ABCA review only on questions of law or jurisdiction.",
-      "sources": [{ "evidenceSlug": "davidson-edou-robinson-legislative-slippage-2018", "citing": "Davidson/Edou/Robinson, ERSS 46 (2018)" }],
+      "sources": [
+        {
+          "evidenceSlug": "davidson-edou-robinson-legislative-slippage-2018",
+          "citing": "Davidson/Edou/Robinson, ERSS 46 (2018)"
+        }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -91,7 +118,10 @@
       "note": "Water Act last substantively amended 1999. Treaty rights to water (where established) flow through Section 35 and common law, not statute.",
       "sources": [
         { "evidenceSlug": "ab-water-act", "citing": "Water Act, RSA 2000, c W-3 (full-text grep)" },
-        { "evidenceSlug": "tsuu-tina-2008-abqb-547", "citing": "Tsuu T'ina Nation v. Alberta, 2008 ABQB 547" }
+        {
+          "evidenceSlug": "tsuu-tina-2008-abqb-547",
+          "citing": "Tsuu T'ina Nation v. Alberta, 2008 ABQB 547"
+        }
       ],
       "updatedAt": "2026-05-25"
     },
@@ -103,7 +133,9 @@
       "value": "Heightened scrutiny",
       "severity": "moderate",
       "trend": "stable",
-      "sources": [{ "evidenceSlug": "haida-nation-2004-scc-73", "citing": "Duty-to-consult framework" }],
+      "sources": [
+        { "evidenceSlug": "haida-nation-2004-scc-73", "citing": "Duty-to-consult framework" }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -115,7 +147,12 @@
       "severity": "critical",
       "trend": "stable",
       "note": "First Nation on-Reserve use is one of only four explicit exceptions — the most-protected modern pathway for new Indigenous-led water development in southern Alberta.",
-      "sources": [{ "evidenceSlug": "ssrb-closed-basin-policy-directive-2016", "citing": "AEP Directive 2016 No. 3" }],
+      "sources": [
+        {
+          "evidenceSlug": "ssrb-closed-basin-policy-directive-2016",
+          "citing": "AEP Directive 2016 No. 3"
+        }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -129,7 +166,12 @@
       "severity": "critical",
       "trend": "stable",
       "note": "Structural over-allocation pre-dating the 2007 SSRB closure; persists as a baseline scarcity factor.",
-      "sources": [{ "evidenceSlug": "ssrb-water-allocation-2003-2005", "citing": "AEnv 2003 SSRB Water Allocation, Conclusions" }],
+      "sources": [
+        {
+          "evidenceSlug": "ssrb-water-allocation-2003-2005",
+          "citing": "AEnv 2003 SSRB Water Allocation, Conclusions"
+        }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -142,8 +184,14 @@
       "trend": "improving",
       "note": "Five-stage system (S0 Adequate → S5 Catastrophic); S5 corresponds to 1-in-50-year event.",
       "sources": [
-        { "evidenceSlug": "alberta-drought-response-plan-2025", "citing": "AB Drought Response Plan §2.3" },
-        { "evidenceSlug": "ab-water-supply-outlook-2026-02", "citing": "AB Water Supply Outlook Feb 2026 §6" }
+        {
+          "evidenceSlug": "alberta-drought-response-plan-2025",
+          "citing": "AB Drought Response Plan §2.3"
+        },
+        {
+          "evidenceSlug": "ab-water-supply-outlook-2026-02",
+          "citing": "AB Water Supply Outlook Feb 2026 §6"
+        }
       ],
       "updatedAt": "2026-05-25"
     },
@@ -157,7 +205,12 @@
       "unit": "% of median (Oldman near Lethbridge)",
       "severity": "low",
       "trend": "improving",
-      "sources": [{ "evidenceSlug": "ab-water-supply-outlook-2026-02", "citing": "AB Water Supply Outlook Feb 2026" }],
+      "sources": [
+        {
+          "evidenceSlug": "ab-water-supply-outlook-2026-02",
+          "citing": "AB Water Supply Outlook Feb 2026"
+        }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -171,7 +224,12 @@
       "severity": "high",
       "trend": "deteriorating",
       "note": "Pressure point in northern Alberta for upstream Indigenous communities. Lower Peace livestock currently overuses allocation by 468%.",
-      "sources": [{ "evidenceSlug": "peace-slave-water-use-2024", "citing": "MPWA Peace & Slave 2024, Wapiti/Smoky sub-basin" }],
+      "sources": [
+        {
+          "evidenceSlug": "peace-slave-water-use-2024",
+          "citing": "MPWA Peace & Slave 2024, Wapiti/Smoky sub-basin"
+        }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -184,7 +242,12 @@
       "unit": "m³/s",
       "severity": "elevated",
       "trend": "deteriorating",
-      "sources": [{ "evidenceSlug": "osm-state-of-environment-2025", "citing": "OSM 2025 §7 Water Levels and Indigenous Travel, Figure 14" }],
+      "sources": [
+        {
+          "evidenceSlug": "osm-state-of-environment-2025",
+          "citing": "OSM 2025 §7 Water Levels and Indigenous Travel, Figure 14"
+        }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -197,7 +260,9 @@
       "unit": "%",
       "severity": "critical",
       "trend": "deteriorating",
-      "sources": [{ "evidenceSlug": "weber-wetland-governance-2017", "citing": "Weber et al. 2017, §4.2" }],
+      "sources": [
+        { "evidenceSlug": "weber-wetland-governance-2017", "citing": "Weber et al. 2017, §4.2" }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -211,7 +276,12 @@
       "severity": "high",
       "trend": "deteriorating",
       "note": "Double-bind: heavier short-duration storms (more overflow/tailings risk) plus much less snowpack (less summer baseflow).",
-      "sources": [{ "evidenceSlug": "palash-mine-water-climate-2025", "citing": "Palash et al. 2025, Table 2" }],
+      "sources": [
+        {
+          "evidenceSlug": "palash-mine-water-climate-2025",
+          "citing": "Palash et al. 2025, Table 2"
+        }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -226,7 +296,10 @@
       "trend": "deteriorating",
       "note": "Applications, not approvals. June 2025 Phase I snapshot: 29 data-centre applications totalling 16,229 MW.",
       "sources": [
-        { "evidenceSlug": "aeso-2025-annual-report", "citing": "AESO 2025 Annual Report — Data Centres and Reliability Standards" },
+        {
+          "evidenceSlug": "aeso-2025-annual-report",
+          "citing": "AESO 2025 Annual Report — Data Centres and Reliability Standards"
+        },
         { "evidenceSlug": "aeso-phase1-large-load-2025", "citing": "AESO Phase I deck, slide 12" }
       ],
       "updatedAt": "2026-05-25"
@@ -242,7 +315,9 @@
       "severity": "high",
       "trend": "stable",
       "note": "AESO frames 1,200 MW as 'the equivalent of 10 per cent to the province's current peak electricity use'.",
-      "sources": [{ "evidenceSlug": "aeso-phase1-large-load-2025", "citing": "AESO Phase I deck, slide 14" }],
+      "sources": [
+        { "evidenceSlug": "aeso-phase1-large-load-2025", "citing": "AESO Phase I deck, slide 14" }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -256,7 +331,12 @@
       "severity": "elevated",
       "trend": "deteriorating",
       "note": "2025 internal-load growth 2.0% vs five-year average 1.5% — pre-data-centre baseline.",
-      "sources": [{ "evidenceSlug": "aeso-2025-annual-report", "citing": "AESO 2025 Annual Report — By the Numbers" }],
+      "sources": [
+        {
+          "evidenceSlug": "aeso-2025-annual-report",
+          "citing": "AESO 2025 Annual Report — By the Numbers"
+        }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -270,7 +350,12 @@
       "severity": "elevated",
       "trend": "deteriorating",
       "note": "Increase reflects more events requiring TMR in the northwest area (Treaty 8 corridor) and renewables-curtailment congestion.",
-      "sources": [{ "evidenceSlug": "aeso-2025-annual-report", "citing": "AESO 2025 Annual Report — Other Ancillary Services" }],
+      "sources": [
+        {
+          "evidenceSlug": "aeso-2025-annual-report",
+          "citing": "AESO 2025 Annual Report — Other Ancillary Services"
+        }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -284,7 +369,9 @@
       "severity": "high",
       "trend": "deteriorating",
       "note": "Empirical basis behind AESO's Phase I reliability caution. AESO committed to adopt forthcoming NERC large-load standards in Phase II.",
-      "sources": [{ "evidenceSlug": "nerc-large-loads-task-force-2025", "citing": "NERC LLTF 2025" }],
+      "sources": [
+        { "evidenceSlug": "nerc-large-loads-task-force-2025", "citing": "NERC LLTF 2025" }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -299,7 +386,10 @@
       "trend": "stable",
       "note": "Capital Power newsletter does not mention Treaty 6 status, First Nation consultation, or impact-benefit framework.",
       "sources": [
-        { "evidenceSlug": "capital-power-genesee-dc-2025", "citing": "Capital Power Dec 2025 newsletter" },
+        {
+          "evidenceSlug": "capital-power-genesee-dc-2025",
+          "citing": "Capital Power Dec 2025 newsletter"
+        },
         { "evidenceSlug": "aeso-phase2a-feb2026", "citing": "AESO Phase 2A direction" }
       ],
       "updatedAt": "2026-05-25"
@@ -313,7 +403,12 @@
       "severity": "moderate",
       "trend": "unknown",
       "note": "Important corrective: widely-circulated 'CAD $100B by year X' framing is not present in the strategy document itself. Treaty-Lab will only report what the source actually documents.",
-      "sources": [{ "evidenceSlug": "ab-ai-data-centre-strategy-2024", "citing": "GoA AI DC Strategy, full document" }],
+      "sources": [
+        {
+          "evidenceSlug": "ab-ai-data-centre-strategy-2024",
+          "citing": "GoA AI DC Strategy, full document"
+        }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -326,7 +421,12 @@
       "unit": "CAD$M (max per deal)",
       "severity": "low",
       "trend": "stable",
-      "sources": [{ "evidenceSlug": "cib-indigenous-equity-initiative", "citing": "CIB IEI Indicative Loan Terms" }],
+      "sources": [
+        {
+          "evidenceSlug": "cib-indigenous-equity-initiative",
+          "citing": "CIB IEI Indicative Loan Terms"
+        }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -340,7 +440,9 @@
       "severity": "low",
       "trend": "improving",
       "note": "Eligibility limited to Indigenous groups with credibly asserted or affirmed Section 35 rights.",
-      "sources": [{ "evidenceSlug": "cilgc-applicant-guide-v3", "citing": "CILGC Applicant Guide v3.0" }],
+      "sources": [
+        { "evidenceSlug": "cilgc-applicant-guide-v3", "citing": "CILGC Applicant Guide v3.0" }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -370,7 +472,9 @@
       "unit": "CAD$M",
       "severity": "elevated",
       "trend": "improving",
-      "sources": [{ "evidenceSlug": "fnmpc-loan-guarantee-primer-2024", "citing": "FNMPC Primer table" }],
+      "sources": [
+        { "evidenceSlug": "fnmpc-loan-guarantee-primer-2024", "citing": "FNMPC Primer table" }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -383,7 +487,12 @@
       "unit": "CAD$M",
       "severity": "critical",
       "trend": "deteriorating",
-      "sources": [{ "evidenceSlug": "fnfa-annual-report-2024-2025", "citing": "FNFA Annual Report — Message from the President and CEO" }],
+      "sources": [
+        {
+          "evidenceSlug": "fnfa-annual-report-2024-2025",
+          "citing": "FNFA Annual Report — Message from the President and CEO"
+        }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -395,7 +504,12 @@
       "severity": "high",
       "trend": "stable",
       "note": "Forfeiture occurred before federal ILGP/CILGC existed (announced Fall 2023). Establishes baseline cost of inaction as a documented opportunity loss.",
-      "sources": [{ "evidenceSlug": "fnmpc-loan-guarantee-primer-2024", "citing": "FNMPC Primer, CGL case study" }],
+      "sources": [
+        {
+          "evidenceSlug": "fnmpc-loan-guarantee-primer-2024",
+          "citing": "FNMPC Primer, CGL case study"
+        }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -409,7 +523,12 @@
       "severity": "low",
       "trend": "improving",
       "note": "Active comparator precedent for regulated-utility-anchored Indigenous equity (vs. commodity-exposure equity). Codified in Hydro One's signed Indigenous Relations Policy.",
-      "sources": [{ "evidenceSlug": "hydro-one-indigenous-relations-policy-2025", "citing": "Hydro One IR Policy 2025" }],
+      "sources": [
+        {
+          "evidenceSlug": "hydro-one-indigenous-relations-policy-2025",
+          "citing": "Hydro One IR Policy 2025"
+        }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -422,7 +541,12 @@
       "unit": "CAD$M (guarantee)",
       "severity": "low",
       "trend": "improving",
-      "sources": [{ "evidenceSlug": "cer-growing-indigenous-ownership-2026", "citing": "CER 2026 Market Snapshot inventory" }],
+      "sources": [
+        {
+          "evidenceSlug": "cer-growing-indigenous-ownership-2026",
+          "citing": "CER 2026 Market Snapshot inventory"
+        }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -435,7 +559,12 @@
       "unit": "km",
       "severity": "low",
       "trend": "improving",
-      "sources": [{ "evidenceSlug": "cer-growing-indigenous-ownership-2026", "citing": "CER 2026 Market Snapshot lead paragraph" }],
+      "sources": [
+        {
+          "evidenceSlug": "cer-growing-indigenous-ownership-2026",
+          "citing": "CER 2026 Market Snapshot lead paragraph"
+        }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -446,7 +575,12 @@
       "value": "In implementation; first 5-year review due 2028",
       "severity": "moderate",
       "trend": "improving",
-      "sources": [{ "evidenceSlug": "undrip-act-action-plan-2023-2028", "citing": "Shared Priorities Measures 19–34" }],
+      "sources": [
+        {
+          "evidenceSlug": "undrip-act-action-plan-2023-2028",
+          "citing": "Shared Priorities Measures 19–34"
+        }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -460,7 +594,12 @@
       "severity": "high",
       "trend": "stable",
       "note": "Access to Information Act allows de-identified First Nations community-aggregate data to be released to any requester over the objections of the First Nation.",
-      "sources": [{ "evidenceSlug": "fnigc-barriers-levers-ocap-2014", "citing": "FNIGC Barriers & Levers 2014" }],
+      "sources": [
+        {
+          "evidenceSlug": "fnigc-barriers-levers-ocap-2014",
+          "citing": "FNIGC Barriers & Levers 2014"
+        }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -472,7 +611,12 @@
       "severity": "high",
       "trend": "stable",
       "note": "Provincial parallel: only Nova Scotia and Alberta recognize FN governments as 'governments' for confidential info sharing. UNDRIP Act Measure 30 commits to addressing this through legislative, regulatory, and policy options.",
-      "sources": [{ "evidenceSlug": "fnigc-barriers-levers-ocap-2014", "citing": "FNIGC Barriers & Levers — Legislative obstacles" }],
+      "sources": [
+        {
+          "evidenceSlug": "fnigc-barriers-levers-ocap-2014",
+          "citing": "FNIGC Barriers & Levers — Legislative obstacles"
+        }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -484,7 +628,12 @@
       "severity": "low",
       "trend": "improving",
       "note": "Direct, replicable template for Treaty-Lab-style data governance: First Nation enacts its own privacy law, then federal-data-holders can transfer custody outside ATIP scope.",
-      "sources": [{ "evidenceSlug": "fnigc-barriers-levers-ocap-2014", "citing": "FNIGC Barriers & Levers, 'Levers' section" }],
+      "sources": [
+        {
+          "evidenceSlug": "fnigc-barriers-levers-ocap-2014",
+          "citing": "FNIGC Barriers & Levers, 'Levers' section"
+        }
+      ],
       "updatedAt": "2026-05-25"
     },
     {
@@ -498,7 +647,12 @@
       "severity": "elevated",
       "trend": "stable",
       "note": "Most Alberta First Nations sit outside a formal protocol or relationship agreement. These are not equity agreements.",
-      "sources": [{ "evidenceSlug": "ab-indigenous-relations-business-plan-2026-29", "citing": "AB IR Business Plan Performance Measure 4.a" }],
+      "sources": [
+        {
+          "evidenceSlug": "ab-indigenous-relations-business-plan-2026-29",
+          "citing": "AB IR Business Plan Performance Measure 4.a"
+        }
+      ],
       "updatedAt": "2026-05-25"
     }
   ]
