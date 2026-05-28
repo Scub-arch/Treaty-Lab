@@ -175,6 +175,16 @@ export interface Authorization {
   intendedUse: IntendedWaterUse;
   /** Allocated volume in m³/yr. Phase 1: null = placeholder, not zero. */
   allocatedVolume_m3_per_year: number | null;
+  /**
+   * One-time water-use volume in m³ — for licences whose volume is not
+   * meaningfully expressed as an annual rate. Examples: TMX hydrostatic
+   * test water (construction phase), commissioning fills, single-event
+   * dewatering campaigns. Phase 2 addition (NRTA-002 decision #2). Either
+   * `allocatedVolume_m3_per_year` OR `oneTimeVolume_m3` must be set for a
+   * row to leave `placeholder` state; both may be set if a licence
+   * authorizes both annual and one-time draws.
+   */
+  oneTimeVolume_m3?: number | null;
   /** Actual consumption m³/yr from latest public reporting, if available. */
   actualConsumption_m3_per_year?: number | null;
   /** Year of `actualConsumption_m3_per_year`. */
@@ -192,6 +202,17 @@ export interface Authorization {
   consultationDocumented?: boolean;
   /** Slugs of `SourceRecord`s grounding this row. MUST have ≥ 1 entry. */
   sourceRecordSlugs: string[];
+  /**
+   * Set when the authorization sits in a different province (or registry
+   * jurisdiction) than its parent `NrtaProject.province`. Marks the row
+   * for cross-border verification handling — most commonly when a
+   * First Nation reserve or operation straddles a provincial border
+   * (e.g. Onion Lake Reserve on the AB/SK line). Free-form note; intended
+   * to signal "do not treat this as an Alberta authorization record" when
+   * the project's primary province is Alberta but the licence lives in
+   * another registry. Phase 2 addition (NRTA-002 decision #3).
+   */
+  crossBorderNote?: string;
   /** Data-quality state for this row. Phase 1 default is `placeholder`. */
   ingestionState: IngestionState;
   /**
