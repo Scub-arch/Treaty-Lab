@@ -84,6 +84,30 @@
       ]
     },
     {
+      "slug": "sk-water-security-agency",
+      "registryName": "Saskatchewan Water Security Agency — Water Allocation",
+      "jurisdiction": "SK",
+      "url": "https://www.wsask.ca/permits-approvals/water-allocation/",
+      "accessedAt": "2026-05-27",
+      "supports": "Issues Water Rights Licences for non-domestic water use in Saskatchewan; the licence specifies annual allocation, source, and conditions. Required for all non-domestic use, and for domestic use exceeding 5 cubic decametres.",
+      "limitations": [
+        "Public ledger of per-licence records is less directly queryable than the Alberta Authorizations Viewer; per-licence drill-down may require contacting the agency or filing a request",
+        "Phase 2 plan §3 flags this registry as 'less publicly indexed' than AB"
+      ]
+    },
+    {
+      "slug": "aer-directive-051-injection-disposal",
+      "registryName": "Alberta Energy Regulator — Directive 051: Injection and Disposal Wells",
+      "jurisdiction": "AB",
+      "url": "https://www.aer.ca/regulations-and-compliance-enforcement/rules-and-regulations/directives/directive-051",
+      "accessedAt": "2026-05-27",
+      "supports": "AER directive governing Class II disposal wells used to inject produced water (brine) or brine-equivalent fluids from upstream oil and gas operations in Alberta. Sets out wellbore design, integrity logging, operational monitoring, and reporting requirements for disposal wells.",
+      "limitations": [
+        "Directive itself does not list per-operator volumes; per-well disposal volumes are reported separately under AER Directive 081 and via the AER's Class II Fluid Disposal application records",
+        "Per-operator records (including Onion Lake-specific disposal volumes) require an interactive search against AER application data, not retrievable via general web search"
+      ]
+    },
+    {
       "slug": "cer-tmx-condition-113-hydrostatic-a7j3r7",
       "registryName": "CER — TMX Condition 113 Hydrostatic Testing Plan, Edmonton Terminal & Pump Stations (doc A7J3R7, 14 October 2020)",
       "jurisdiction": "FEDERAL",
@@ -128,8 +152,13 @@
       "treatyArea": "Treaty 6",
       "category": "oil_and_gas_upstream",
       "tier": 1,
-      "summary": "First-Nation-owned upstream oil production on the AB/SK border, listed in plan §2 Tier 1. Authorizations may span Alberta, Saskatchewan, and IOGC federal registries.",
-      "sourceRecordSlugs": ["ab-authorizations-viewer", "iogc-water-registry"]
+      "summary": "First-Nation-owned upstream oil production on the AB/SK border, listed in plan §2 Tier 1. Authorizations may span Alberta, Saskatchewan, and IOGC federal registries. The `province` field above records the primary jurisdiction (AB) for project-level tagging only; the operation is cross-border and per-row `registryJurisdiction` values capture where each authorization actually sits. See per-row `crossBorderNote` on the SK-side row.",
+      "sourceRecordSlugs": [
+        "ab-authorizations-viewer",
+        "sk-water-security-agency",
+        "aer-directive-051-injection-disposal",
+        "iogc-water-registry"
+      ]
     },
     {
       "slug": "wapiti-smoky-og-aggregate",
@@ -211,7 +240,26 @@
         "sourceWatershed",
         "sourceBody"
       ],
-      "reviewerNote": "Reserve straddles the AB/SK border per plan §1 edge case; freshwater allocations may live in both provincial registries plus federal IOGC. ATIP may be required for IOGC ledger access."
+      "reviewerNote": "AB-side freshwater allocations for Onion Lake Energy upstream operations. Per Phase 2 plan §1 edge case (NRTA-002 decision #3): this row is a sibling to onion-lake-energy-sk-freshwater-placeholder under one cross-border operation, not an independent project. NOT YET POPULATED: (a) per-licence authorizationNumber from the Alberta Authorizations Viewer (general web search did not return Onion Lake-specific Water Act licence records on 2026-05-27); (b) allocatedVolume_m3_per_year; (c) sourceWatershed and sourceBody. Per project IngestionStatus.dataSovereigntyNote: limit Phase 2 ingestion to public registry fields only; defer Reserve-level / community-relevant data to Onion Lake Cree Nation governance per FNIGC OCAP principles. IOGC ledger access likely requires ATIP per Phase 2 plan §3 (deferred to Phase 4)."
+    },
+    {
+      "slug": "onion-lake-energy-sk-freshwater-placeholder",
+      "projectSlug": "onion-lake-energy",
+      "authorizationNumber": null,
+      "registryJurisdiction": "SK",
+      "intendedUse": "process",
+      "allocatedVolume_m3_per_year": null,
+      "sourceRecordSlugs": ["sk-water-security-agency", "iogc-water-registry"],
+      "crossBorderNote": "Onion Lake Cree Nation Reserve straddles the AB/SK border; this row represents the SK-side water allocations for the same single operation captured in onion-lake-energy-freshwater-placeholder (AB-side). Verification must use the SK Water Security Agency, not the Alberta Authorizations Viewer. Per NRTA-002 decision #3, treat these AB and SK rows as siblings under one Indigenous-led economic operation rather than two independent projects. The project's primary `province` tag remains AB for project-level grouping; this row's `registryJurisdiction: SK` is the source-of-truth for verification routing.",
+      "ingestionState": "placeholder",
+      "placeholderFields": [
+        "authorizationNumber",
+        "allocatedVolume_m3_per_year",
+        "sourceWatershed",
+        "sourceBody",
+        "firstLicensedAt"
+      ],
+      "reviewerNote": "SK-side freshwater allocations for Onion Lake Energy upstream operations. Phase 2 plan §3 flags the SK Water Security Agency registry as 'less publicly indexed' than AB — per-licence drill-down may require contacting the agency directly. NOT YET POPULATED: all licence-identity and volume fields. The SK Water Security Agency Act requires a Water Rights Licence for any non-domestic use; if Onion Lake Energy has SK operations, at least one such licence is expected to exist in the registry. Per project IngestionStatus.dataSovereigntyNote: limit Phase 2 ingestion to public registry fields only; defer Reserve-level / community-relevant data to Onion Lake Cree Nation governance per FNIGC OCAP principles."
     },
     {
       "slug": "onion-lake-energy-produced-water-placeholder",
@@ -220,10 +268,10 @@
       "registryJurisdiction": "AB",
       "intendedUse": "produced_water_disposal",
       "allocatedVolume_m3_per_year": null,
-      "sourceRecordSlugs": ["ab-authorizations-viewer"],
+      "sourceRecordSlugs": ["ab-authorizations-viewer", "aer-directive-051-injection-disposal"],
       "ingestionState": "placeholder",
       "placeholderFields": ["authorizationNumber", "allocatedVolume_m3_per_year"],
-      "reviewerNote": "Produced-water disposal volumes are a separately-licensed signal per plan §4; track disposal destinations alongside freshwater allocations."
+      "reviewerNote": "AB-side produced-water disposal for Onion Lake Energy upstream operations. Disposal is regulated under AER Directive 051 (Class II injection/disposal wells); per-well disposal volumes are reported separately under AER Directive 081 and via the AER Class II Fluid Disposal application records. NOT YET POPULATED: (a) per-well authorization identifiers from the AER application records (interactive search required — not retrievable via general web search on 2026-05-27); (b) allocatedVolume_m3_per_year per disposal well or aggregated across the operation. A parallel SK-side row may be appropriate once SK-side produced-water disposal records have been confirmed (regulated under the Saskatchewan Ministry of Environment / SK energy regulator rather than the SK Water Security Agency); deferred until SK-side activity is mapped. Per project IngestionStatus.dataSovereigntyNote: limit Phase 2 ingestion to public registry fields only."
     },
     {
       "slug": "wapiti-smoky-og-allocation-placeholder",
@@ -296,15 +344,21 @@
       "slug": "onion-lake-energy-total-allocated",
       "projectSlug": "onion-lake-energy",
       "name": "Onion Lake Energy total allocated water (m³/yr)",
-      "description": "Aggregate freshwater + produced-water disposal volumes across AB, SK, and IOGC registries.",
+      "description": "Aggregate freshwater (AB + SK sibling rows) plus produced-water disposal across AB authorizations and IOGC federal records. Cross-border: rolls up sibling rows under one Indigenous-led operation that straddles the provincial line.",
       "value": null,
       "unit": "m3_per_year",
       "computedFromAuthorizationSlugs": [
         "onion-lake-energy-freshwater-placeholder",
+        "onion-lake-energy-sk-freshwater-placeholder",
         "onion-lake-energy-produced-water-placeholder"
       ],
       "ingestionState": "placeholder",
-      "sourceRecordSlugs": ["ab-authorizations-viewer", "iogc-water-registry"]
+      "sourceRecordSlugs": [
+        "ab-authorizations-viewer",
+        "sk-water-security-agency",
+        "aer-directive-051-injection-disposal",
+        "iogc-water-registry"
+      ]
     },
     {
       "slug": "wapiti-smoky-og-aggregate-allocation",
@@ -365,14 +419,19 @@
       "slug": "status-onion-lake-energy",
       "projectSlug": "onion-lake-energy",
       "overallState": "placeholder",
-      "phase": 1,
+      "phase": 2,
       "lastReviewedAt": "2026-05-27",
       "outstandingTasks": [
-        "Enumerate AB and SK provincial water-licence rows separately (Reserve straddles the border)",
-        "Identify whether IOGC holds any federal licences for the same operations",
-        "Capture produced-water disposal destinations alongside freshwater allocations"
+        "Interactively query the Alberta Authorizations Viewer for Onion Lake Energy Water Act licence records (general web search did not surface specific records on 2026-05-27)",
+        "Capture per-licence authorizationNumber, allocatedVolume_m3_per_year, sourceWatershed, sourceBody for the AB-side freshwater row",
+        "Contact or query the SK Water Security Agency Water Allocation registry for SK-side Onion Lake Energy Water Rights Licence records (per Phase 2 plan §3, SK ledger is less directly indexed than AB)",
+        "Capture the equivalent licence identity and volume fields for the SK-side row",
+        "Interactively query the AER Class II Fluid Disposal application records and AER Directive 081 reports for Onion Lake-specific produced-water disposal volumes",
+        "Confirm whether SK-side produced-water disposal records exist under SK regulators (parallel to AER on AB side); if so, decide whether to add a sibling SK row for the disposal stream",
+        "Defer IOGC federal-records ingestion to Phase 4 (ATIP-gated per plan §3); ground any future IOGC pulls in FNIGC OCAP guidance",
+        "Throughout: limit ingestion to public-registry fields only; defer Reserve-level / community-relevant data to Onion Lake Cree Nation governance"
       ],
-      "dataSovereigntyNote": "Reserve-level water-use data may be subject to OCAP principles per plan §8.2. Ground IOGC ingestion in FNIGC guidance before pulling federal records."
+      "dataSovereigntyNote": "Reserve-level water-use data may be subject to OCAP principles per plan §8.2. Ground IOGC ingestion in FNIGC guidance before pulling federal records. While this dataSovereigntyNote is set, validator rule P2-V14 blocks any Onion Lake authorization row from transitioning to `verified`; rows may move to `needs_verification` once volumes are populated from public sources."
     },
     {
       "slug": "status-wapiti-smoky-og-aggregate",
