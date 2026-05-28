@@ -1,8 +1,8 @@
 {
-  "version": "0.1.0-phase1",
+  "version": "0.2.0-phase2",
   "generatedAt": "2026-05-27",
-  "phase": 1,
-  "disclaimer": "Phase 1 foundation data. All volume fields are placeholders pending manual verification against the cited registry. Nothing in this file is legal advice, regulatory evidence, or a final claim about any project, operator, First Nation, or watershed. See docs/NRTA_PHASE_1_README.md.",
+  "phase": 2,
+  "disclaimer": "Phase 2 in progress. Volume fields are populated only where a per-licence registry record has been located; otherwise they remain null and the row stays at placeholder or needs_verification per docs/NRTA_PHASE_2_PLAN.md §4. Nothing in this file is legal advice, regulatory evidence, or a final claim about any project, operator, First Nation, or watershed. See docs/NRTA_PHASE_1_README.md and docs/NRTA_PHASE_2_PLAN.md.",
   "sourceRecords": [
     {
       "slug": "ab-authorizations-viewer",
@@ -68,6 +68,19 @@
       "limitations": [
         "Per plan §3, full ledger access likely requires an ATIP request",
         "Coverage of contemporary use is unclear from the public site"
+      ]
+    },
+    {
+      "slug": "iaac-genesee-expansion-80059",
+      "registryName": "IAAC — Genesee Generating Station Expansion Project (reference 80059)",
+      "jurisdiction": "FEDERAL",
+      "url": "https://iaac-aeic.gc.ca/050/evaluations/proj/80059",
+      "accessedAt": "2026-05-27",
+      "supports": "Confirms Capital Power Generation Service Inc. is the proponent for the Genesee site; the 2014 federal decision found no environmental assessment required for the natural-gas expansion (Genesee 4 & 5, ~1,050 MW combined, ~17 km north of Warburg, AB).",
+      "limitations": [
+        "Decision predates the Polaris @ Genesee Energy Campus data-centre proposal (publicly announced 2026)",
+        "Page contains no water-use volumes, no source water body, and no Water Act licence numbers",
+        "Establishes site proponency only; not a substitute for the AB Authorizations Viewer record"
       ]
     }
   ],
@@ -137,7 +150,11 @@
       "sourceWatershed": "North Saskatchewan River Basin",
       "intendedUse": "cooling",
       "allocatedVolume_m3_per_year": null,
-      "sourceRecordSlugs": ["ab-authorizations-viewer", "ab-epea-industrial-approvals"],
+      "sourceRecordSlugs": [
+        "ab-authorizations-viewer",
+        "ab-epea-industrial-approvals",
+        "iaac-genesee-expansion-80059"
+      ],
       "ingestionState": "placeholder",
       "placeholderFields": [
         "authorizationNumber",
@@ -146,7 +163,7 @@
         "firstLicensedAt",
         "conditions"
       ],
-      "reviewerNote": "Locate the Genesee site water-licence record(s) in the Alberta Authorizations Viewer and the EPEA approval; capture allocated cooling-water volume and the source water body."
+      "reviewerNote": "Public sources confirm the data-centre proposal is named 'Polaris @ Genesee Energy Campus' (1.0-1.5 GW hyperscale, 2028 target in-service), anchored at the existing 1,800 MW Genesee Generating Station ~17 km north of Warburg, AB. The site has an existing cooling-pond and EPEA-approved water-use regime from the natural-gas expansion (IAAC ref 80059, 2014 'no EA required' decision). NOT YET POPULATED: (a) the specific Water Act licence number(s) governing site cooling water — must be retrieved interactively from the Alberta Authorizations Viewer; (b) allocated cooling-water volume (m³/yr); (c) the specific source water body (Lake Wabamun vs. North Saskatchewan River direct intake vs. cooling pond return-flow); (d) first-licensed date and licence conditions; (e) whether Polaris will draw from the existing site allocation or trigger a new Water Act approval. Stays at placeholder per Phase 2 plan §4: no volume number can be entered without a per-licence registry record."
     },
     {
       "slug": "mihta-askiy-water-licence-placeholder",
@@ -306,13 +323,15 @@
       "slug": "status-capital-power-genesee",
       "projectSlug": "capital-power-genesee-data-centre",
       "overallState": "placeholder",
-      "phase": 1,
+      "phase": 2,
       "lastReviewedAt": "2026-05-27",
       "outstandingTasks": [
-        "Locate Genesee Water Act licence number(s) in the Alberta Authorizations Viewer",
-        "Locate EPEA industrial approval and capture cooling-water volume",
-        "Confirm source water body (NSRB tributary)",
-        "Cross-check AESO Phase II framework status against capacity in MW"
+        "Retrieve specific Water Act licence number(s) for the Genesee site from the Alberta Authorizations Viewer (interactive search — not retrievable via general web search)",
+        "Capture the allocated cooling-water volume in m³/yr from the located licence record",
+        "Confirm the source water body: Lake Wabamun direct intake, North Saskatchewan River intake, or cooling-pond return-flow",
+        "Retrieve EPEA industrial operating approval document and capture process-water and return-flow conditions",
+        "Confirm whether the Polaris @ Genesee Energy Campus data centre will draw against the existing site allocation or trigger a new Water Act approval",
+        "Verify AESO Phase II framework queue position for the 1.0-1.5 GW Polaris load"
       ]
     },
     {
