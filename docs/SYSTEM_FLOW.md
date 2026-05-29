@@ -548,17 +548,17 @@ the client immediately. This matters when running behind any reverse proxy.
 
 ## 7. Failure modes
 
-| Failure | Where it surfaces | Recovery |
-|---------|-------------------|----------|
-| Databricks auth fails (no cache, no CLI, no env) | `chatTreaty()` throws `"No Databricks auth available…"` | Route returns 502 with the error message in `error` field. UI shows red alert. |
-| Gateway 5xx | `chatTreaty()` throws `"Databricks gateway HTTP {status}: {body}"` | 502 to client. No retry. |
-| Gateway 4xx (bad model, bad messages) | Same as above. | 502. Inspect message body — usually a validation issue. |
-| `getProject(slug)` returns `undefined` | Route silently skips that context block. `contextSummary.projectsCount` stays 0. | UI looks normal; question is sent without the project context. |
-| Invalid JSON in request body | Route returns 400 `{error:"Invalid JSON body"}`. | Client should validate before sending. |
-| Empty `question` | Route returns 400 `{error:"question is required and must be a string"}`. | Client disables submit button when empty. |
-| Token cache write fails | Silently swallowed. Token is still used for the current call. | Next call will refetch from CLI. |
-| Prisma can't open `dev.db` | Server startup error. Page renders fail with stack trace. | Run `npx prisma migrate dev` to create. |
-| Content JSON has dangling slug | Validator catches at `npm run check`; runtime UI silently drops the reference (the `?? ""` fallback path). | Run validator and fix the JSON. |
+| Failure                                          | Where it surfaces                                                                                          | Recovery                                                                       |
+| ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| Databricks auth fails (no cache, no CLI, no env) | `chatTreaty()` throws `"No Databricks auth available…"`                                                    | Route returns 502 with the error message in `error` field. UI shows red alert. |
+| Gateway 5xx                                      | `chatTreaty()` throws `"Databricks gateway HTTP {status}: {body}"`                                         | 502 to client. No retry.                                                       |
+| Gateway 4xx (bad model, bad messages)            | Same as above.                                                                                             | 502. Inspect message body — usually a validation issue.                        |
+| `getProject(slug)` returns `undefined`           | Route silently skips that context block. `contextSummary.projectsCount` stays 0.                           | UI looks normal; question is sent without the project context.                 |
+| Invalid JSON in request body                     | Route returns 400 `{error:"Invalid JSON body"}`.                                                           | Client should validate before sending.                                         |
+| Empty `question`                                 | Route returns 400 `{error:"question is required and must be a string"}`.                                   | Client disables submit button when empty.                                      |
+| Token cache write fails                          | Silently swallowed. Token is still used for the current call.                                              | Next call will refetch from CLI.                                               |
+| Prisma can't open `dev.db`                       | Server startup error. Page renders fail with stack trace.                                                  | Run `npx prisma migrate dev` to create.                                        |
+| Content JSON has dangling slug                   | Validator catches at `npm run check`; runtime UI silently drops the reference (the `?? ""` fallback path). | Run validator and fix the JSON.                                                |
 
 ---
 
@@ -594,4 +594,4 @@ A failing smoke is usually one of:
 
 ---
 
-*Last updated: 2026-05-27.*
+_Last updated: 2026-05-27._

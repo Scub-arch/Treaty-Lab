@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  PolarAngleAxis,
-  PolarGrid,
-  PolarRadiusAxis,
-  Radar,
-  RadarChart,
-} from "recharts";
+import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart } from "recharts";
 import { ChartContainer, type ChartConfig } from "@/components/ui/chart";
 
 export interface DomainComposite {
@@ -55,12 +49,7 @@ export function RadarOverview({ composites, maxScore = 5 }: Props) {
               letterSpacing: "0.05em",
             }}
           />
-          <PolarRadiusAxis
-            angle={90}
-            domain={[0, maxScore]}
-            tick={false}
-            axisLine={false}
-          />
+          <PolarRadiusAxis angle={90} domain={[0, maxScore]} tick={false} axisLine={false} />
           <Radar
             dataKey="severity"
             stroke="var(--color-severity)"

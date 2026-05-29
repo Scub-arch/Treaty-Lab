@@ -57,12 +57,8 @@ export function Sidebar() {
           <div className="font-mono text-[11px] tracking-[0.2em] text-muted-foreground">
             TREATY · LAB
           </div>
-          <div className="font-semibold tracking-tight text-base mt-0.5">
-            Intelligence Terminal
-          </div>
-          <div className="font-mono text-[10px] text-muted-foreground mt-1">
-            PILOT v0.1
-          </div>
+          <div className="font-semibold tracking-tight text-base mt-0.5">Intelligence Terminal</div>
+          <div className="font-mono text-[10px] text-muted-foreground mt-1">PILOT v0.1</div>
         </Link>
       </div>
 

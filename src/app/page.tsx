@@ -1,19 +1,11 @@
 import Link from "next/link";
-import {
-  getIndicators,
-  getProjects,
-  getExplainer,
-  getModules,
-} from "@/lib/content";
+import { getIndicators, getProjects, getExplainer, getModules } from "@/lib/content";
 import type { Domain, Severity } from "@/lib/content/types";
 import { IntelligencePanel } from "@/components/intel/intelligence-panel";
 import { RiskCard } from "@/components/intel/risk-card";
 import { WatchlistTable } from "@/components/intel/watchlist-table";
 import { PlainLanguageBox } from "@/components/intel/plain-language-box";
-import {
-  RadarOverview,
-  type DomainComposite,
-} from "@/components/intel/radar-overview";
+import { RadarOverview, type DomainComposite } from "@/components/intel/radar-overview";
 import { GeographicOverview } from "@/components/intel/geographic-overview";
 import { LoadGrowthTrend } from "@/components/intel/load-growth-trend";
 import { Glow } from "@/components/ui/glow";
@@ -23,14 +15,54 @@ import { ArrowRight } from "lucide-react";
 // Project + territory anchors plotted on the Command Center globe.
 // Coordinates are approximate — sourced from public maps / regulator filings.
 const GLOBE_MARKERS = [
-  { id: "cedar-lng", location: [54.05, -128.65] as [number, number], label: "Cedar LNG · Kitimat (Haisla territory)", kind: "project" as const },
-  { id: "cgl-east", location: [55.77, -120.24] as [number, number], label: "Coastal GasLink · Dawson Creek (origin)", kind: "project" as const },
-  { id: "site-c", location: [56.25, -120.85] as [number, number], label: "Site C · Peace River (Treaty 8)", kind: "project" as const },
-  { id: "blueberry-river", location: [57.0, -122.0] as [number, number], label: "Blueberry River FN territory (Yahey claim area)", kind: "territory" as const },
-  { id: "tmx-edmonton", location: [53.55, -113.49] as [number, number], label: "TMX origin · Edmonton", kind: "project" as const },
-  { id: "tmx-burnaby", location: [49.27, -122.95] as [number, number], label: "TMX terminus · Burnaby (Tsleil-Waututh)", kind: "project" as const },
-  { id: "genesee-dc", location: [53.30, -114.30] as [number, number], label: "Capital Power Genesee DC proposal (Treaty 6)", kind: "datacentre" as const },
-  { id: "aeso-calgary", location: [51.05, -114.07] as [number, number], label: "AESO data-centre cluster · Calgary (3,533 MW)", kind: "datacentre" as const },
+  {
+    id: "cedar-lng",
+    location: [54.05, -128.65] as [number, number],
+    label: "Cedar LNG · Kitimat (Haisla territory)",
+    kind: "project" as const,
+  },
+  {
+    id: "cgl-east",
+    location: [55.77, -120.24] as [number, number],
+    label: "Coastal GasLink · Dawson Creek (origin)",
+    kind: "project" as const,
+  },
+  {
+    id: "site-c",
+    location: [56.25, -120.85] as [number, number],
+    label: "Site C · Peace River (Treaty 8)",
+    kind: "project" as const,
+  },
+  {
+    id: "blueberry-river",
+    location: [57.0, -122.0] as [number, number],
+    label: "Blueberry River FN territory (Yahey claim area)",
+    kind: "territory" as const,
+  },
+  {
+    id: "tmx-edmonton",
+    location: [53.55, -113.49] as [number, number],
+    label: "TMX origin · Edmonton",
+    kind: "project" as const,
+  },
+  {
+    id: "tmx-burnaby",
+    location: [49.27, -122.95] as [number, number],
+    label: "TMX terminus · Burnaby (Tsleil-Waututh)",
+    kind: "project" as const,
+  },
+  {
+    id: "genesee-dc",
+    location: [53.3, -114.3] as [number, number],
+    label: "Capital Power Genesee DC proposal (Treaty 6)",
+    kind: "datacentre" as const,
+  },
+  {
+    id: "aeso-calgary",
+    location: [51.05, -114.07] as [number, number],
+    label: "AESO data-centre cluster · Calgary (3,533 MW)",
+    kind: "datacentre" as const,
+  },
 ];
 
 const GLOBE_ARCS = [
@@ -67,21 +99,18 @@ export default function CommandCenter() {
     .slice(0, 4);
 
   // Composite per-domain severity for the radar overview.
-  const composites: DomainComposite[] = (Object.keys(DOMAIN_LABELS) as Domain[]).map(
-    (domain) => {
-      const inDomain = indicators.filter((i) => i.domain === domain);
-      const score = inDomain.length
-        ? inDomain.reduce((sum, i) => sum + SEVERITY_RANK[i.severity], 0) /
-          inDomain.length
-        : 0;
-      return {
-        domain,
-        label: DOMAIN_LABELS[domain],
-        severityScore: Number(score.toFixed(2)),
-        indicatorCount: inDomain.length,
-      };
-    },
-  );
+  const composites: DomainComposite[] = (Object.keys(DOMAIN_LABELS) as Domain[]).map((domain) => {
+    const inDomain = indicators.filter((i) => i.domain === domain);
+    const score = inDomain.length
+      ? inDomain.reduce((sum, i) => sum + SEVERITY_RANK[i.severity], 0) / inDomain.length
+      : 0;
+    return {
+      domain,
+      label: DOMAIN_LABELS[domain],
+      severityScore: Number(score.toFixed(2)),
+      indicatorCount: inDomain.length,
+    };
+  });
 
   const projectCertainty = getExplainer("what-is-project-certainty");
 
@@ -111,16 +140,15 @@ export default function CommandCenter() {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-semibold tracking-tight leading-tight max-w-4xl">
-          Project certainty now depends on water, grid realism, treaty rights,
-          Indigenous validation, and evidence traceability.
+          Project certainty now depends on water, grid realism, treaty rights, Indigenous
+          validation, and evidence traceability.
         </h1>
         <p className="text-muted-foreground mt-4 max-w-3xl leading-relaxed">
           Treaty-Lab turns messy legal, financial, technical, government, and community information
-          into clear intelligence for decision-making — for First Nation communities,
-          infrastructure investors, legal and policy researchers, and government-relations teams.
-          Every claim in this pilot is traced to public-record evidence and clearly separated into
-          confirmed facts, risks, questions, assumptions, and items needing legal or community
-          validation.
+          into clear intelligence for decision-making — for First Nation communities, infrastructure
+          investors, legal and policy researchers, and government-relations teams. Every claim in
+          this pilot is traced to public-record evidence and clearly separated into confirmed facts,
+          risks, questions, assumptions, and items needing legal or community validation.
         </p>
         <p className="text-muted-foreground mt-3 max-w-3xl leading-relaxed">
           Every analytical layer below — water, energy, finance, governance — operates{" "}
@@ -161,9 +189,7 @@ export default function CommandCenter() {
                       <span className="font-mono tabular-nums font-medium">
                         {c.severityScore.toFixed(2)}
                       </span>
-                      <span className="font-mono text-[10px] text-muted-foreground">
-                        / 5.00
-                      </span>
+                      <span className="font-mono text-[10px] text-muted-foreground">/ 5.00</span>
                       <span className="font-mono text-[10px] text-muted-foreground">
                         ({c.indicatorCount} ind.)
                       </span>
@@ -207,10 +233,13 @@ export default function CommandCenter() {
         </div>
       </section>
 
-
       {/* Featured risk indicators */}
       <section>
-        <PanelHeader title="Current Risk Indicators" code="CMD · 01" subtitle="Highest-severity readings across all modules." />
+        <PanelHeader
+          title="Current Risk Indicators"
+          code="CMD · 01"
+          subtitle="Highest-severity readings across all modules."
+        />
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mt-4">
           {featured.map((i) => (
             <RiskCard key={i.slug} indicator={i} />
@@ -251,9 +280,7 @@ export default function CommandCenter() {
               <h3 className="font-semibold text-base mt-1 group-hover:underline underline-offset-2">
                 {m.title}
               </h3>
-              <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
-                {m.tagline}
-              </p>
+              <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{m.tagline}</p>
               <div className="font-mono text-[10px] tracking-[0.12em] text-foreground/70 mt-4 inline-flex items-center gap-1 group-hover:text-foreground">
                 OPEN MODULE
                 <ArrowRight className="w-3 h-3" />
@@ -279,22 +306,22 @@ export default function CommandCenter() {
         >
           <ul className="text-sm text-muted-foreground space-y-2 leading-relaxed">
             <li>
-              <span className="font-medium text-foreground">The Treaties came first.</span>{" "}
-              This terminal treats Crown–Indigenous Treaty covenants as the foundational layer of
-              every infrastructure analysis — not as one variable among many. Where provincial
+              <span className="font-medium text-foreground">The Treaties came first.</span> This
+              terminal treats Crown–Indigenous Treaty covenants as the foundational layer of every
+              infrastructure analysis — not as one variable among many. Where provincial
               legislation, regulatory frameworks, or project financing structures are silent on s.35
               rights or fail to address Treaty obligations, that silence is itself an analytical
               signal.
             </li>
             <li>
               <span className="font-medium text-foreground">Claims are separated by kind.</span>{" "}
-              Each project assessment distinguishes confirmed facts, identified risks, open questions,
-              stated assumptions, and items that need community or legal validation.
+              Each project assessment distinguishes confirmed facts, identified risks, open
+              questions, stated assumptions, and items that need community or legal validation.
             </li>
             <li>
-              <span className="font-medium text-foreground">Sources are linked.</span>{" "}
-              Indicators and claims cite items in the Evidence Library, which records reliability,
-              what each source actually supports, and known limitations.
+              <span className="font-medium text-foreground">Sources are linked.</span> Indicators
+              and claims cite items in the Evidence Library, which records reliability, what each
+              source actually supports, and known limitations.
             </li>
             <li>
               <span className="font-medium text-foreground">Plain-language explainers</span>{" "}
@@ -302,8 +329,7 @@ export default function CommandCenter() {
               community decision-making.
             </li>
             <li>
-              <span className="font-medium text-foreground">The Treaty Archive</span>{" "}
-              ({" "}
+              <span className="font-medium text-foreground">The Treaty Archive</span> ({" "}
               <Link href="/archive" className="underline underline-offset-2 hover:text-foreground">
                 /archive
               </Link>{" "}
@@ -338,9 +364,7 @@ function PanelHeader({
         )}
         <h2 className="text-lg font-semibold tracking-tight mt-1">{title}</h2>
         {subtitle && (
-          <p className="text-sm text-muted-foreground mt-1 max-w-3xl leading-relaxed">
-            {subtitle}
-          </p>
+          <p className="text-sm text-muted-foreground mt-1 max-w-3xl leading-relaxed">{subtitle}</p>
         )}
       </div>
       {action && (

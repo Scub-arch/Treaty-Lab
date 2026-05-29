@@ -25,7 +25,10 @@ type StreamEvent =
   | { type: "thought"; text: string }
   | { type: "content"; text: string }
   | { type: "model"; model: string }
-  | { type: "usage"; usage: { prompt_tokens?: number; completion_tokens?: number; total_tokens?: number } }
+  | {
+      type: "usage";
+      usage: { prompt_tokens?: number; completion_tokens?: number; total_tokens?: number };
+    }
   | { type: "done" }
   | { type: "error"; error: string };
 
@@ -114,9 +117,7 @@ export function ChatPanel() {
         if (!resp.ok || !resp.body) {
           const text = !resp.ok ? await resp.text().catch(() => `HTTP ${resp.status}`) : "no body";
           setMessages((prev) =>
-            prev.map((m) =>
-              m.id === assistantMsg.id ? { ...m, pending: false, error: text } : m,
-            ),
+            prev.map((m) => (m.id === assistantMsg.id ? { ...m, pending: false, error: text } : m)),
           );
           return;
         }
@@ -180,9 +181,7 @@ export function ChatPanel() {
         } else {
           const msg = err instanceof Error ? err.message : String(err);
           setMessages((prev) =>
-            prev.map((m) =>
-              m.id === assistantMsg.id ? { ...m, pending: false, error: msg } : m,
-            ),
+            prev.map((m) => (m.id === assistantMsg.id ? { ...m, pending: false, error: msg } : m)),
           );
         }
       } finally {
@@ -235,9 +234,7 @@ export function ChatPanel() {
             <div className="font-mono text-[10px] tracking-[0.18em] text-muted-foreground mb-0.5">
               ANALYST CHAT · TREATY MODEL
             </div>
-            <h3 className="font-semibold text-sm text-foreground leading-tight">
-              Analyst Q&amp;A
-            </h3>
+            <h3 className="font-semibold text-sm text-foreground leading-tight">Analyst Q&amp;A</h3>
           </div>
           <div className="flex items-center gap-1 shrink-0">
             {messages.length > 0 && (
@@ -267,7 +264,15 @@ export function ChatPanel() {
             <div className="text-center text-xs text-muted-foreground pt-12 px-6 leading-relaxed">
               Ask a question grounded in the platform&apos;s evidence library — treaty rights,
               project assessments, indicators. The model separates facts from risks, questions,
-              assumptions, and items needing validation. Press <kbd className="font-mono text-[10px] px-1 py-0.5 rounded-sm bg-muted/60 border border-border">Enter</kbd> to send, <kbd className="font-mono text-[10px] px-1 py-0.5 rounded-sm bg-muted/60 border border-border">Shift+Enter</kbd> for a new line.
+              assumptions, and items needing validation. Press{" "}
+              <kbd className="font-mono text-[10px] px-1 py-0.5 rounded-sm bg-muted/60 border border-border">
+                Enter
+              </kbd>{" "}
+              to send,{" "}
+              <kbd className="font-mono text-[10px] px-1 py-0.5 rounded-sm bg-muted/60 border border-border">
+                Shift+Enter
+              </kbd>{" "}
+              for a new line.
             </div>
           )}
           {messages.map((m) => (
@@ -319,7 +324,11 @@ function MessageBubble({ message: m }: { message: ChatMessage }) {
   }
   // Last line of thoughts shown as live status while streaming
   const lastThoughtLine =
-    m.thoughts.split("\n").map((l) => l.trim()).filter(Boolean).slice(-1)[0] ?? "";
+    m.thoughts
+      .split("\n")
+      .map((l) => l.trim())
+      .filter(Boolean)
+      .slice(-1)[0] ?? "";
   return (
     <div className="space-y-1.5">
       {(m.pending || m.thoughts) && lastThoughtLine && (

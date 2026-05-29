@@ -20,7 +20,15 @@ const TONE_CLASSES: Record<NonNullable<Props["tone"]>, string> = {
   sky: "text-sky-400",
 };
 
-export function KpiCard({ code, label, value, sublabel, icon: Icon, tone = "default", className }: Props) {
+export function KpiCard({
+  code,
+  label,
+  value,
+  sublabel,
+  icon: Icon,
+  tone = "default",
+  className,
+}: Props) {
   return (
     <div
       className={cn(
@@ -29,9 +37,7 @@ export function KpiCard({ code, label, value, sublabel, icon: Icon, tone = "defa
       )}
     >
       <div className="flex items-start justify-between gap-2 mb-2">
-        <div className="font-mono text-[10px] text-muted-foreground tracking-[0.15em]">
-          {code}
-        </div>
+        <div className="font-mono text-[10px] text-muted-foreground tracking-[0.15em]">{code}</div>
         {Icon && <Icon className="w-3.5 h-3.5 text-muted-foreground/70" />}
       </div>
       <div

@@ -123,7 +123,7 @@ async function main() {
   const rl = createInterface({ input, output });
 
   console.log(
-    `Treaty-Lab chat (model: ${MODEL}, tools: query_database). Type 'exit' or Ctrl+C to quit.\n`
+    `Treaty-Lab chat (model: ${MODEL}, tools: query_database). Type 'exit' or Ctrl+C to quit.\n`,
   );
 
   while (true) {
@@ -157,21 +157,25 @@ async function main() {
 
       if (finalMessage.stop_reason === "end_turn") {
         process.stdout.write("\n\n");
-        const { input_tokens, cache_creation_input_tokens, cache_read_input_tokens, output_tokens } =
-          finalMessage.usage;
+        const {
+          input_tokens,
+          cache_creation_input_tokens,
+          cache_read_input_tokens,
+          output_tokens,
+        } = finalMessage.usage;
         console.error(
-          `[in: ${input_tokens} | cache write: ${cache_creation_input_tokens ?? 0} | cache read: ${cache_read_input_tokens ?? 0} | out: ${output_tokens}]\n`
+          `[in: ${input_tokens} | cache write: ${cache_creation_input_tokens ?? 0} | cache read: ${cache_read_input_tokens ?? 0} | out: ${output_tokens}]\n`,
         );
         break;
       }
 
       if (finalMessage.stop_reason === "tool_use") {
         const toolUseBlocks = finalMessage.content.filter(
-          (b): b is Anthropic.ToolUseBlock => b.type === "tool_use"
+          (b): b is Anthropic.ToolUseBlock => b.type === "tool_use",
         );
         const toolResults = toolUseBlocks.map((b) => {
           process.stdout.write(
-            `\n[calling ${b.name}: ${JSON.stringify(b.input).slice(0, 120)}...]\n`
+            `\n[calling ${b.name}: ${JSON.stringify(b.input).slice(0, 120)}...]\n`,
           );
           return executeToolUse(b);
         });

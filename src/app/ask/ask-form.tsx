@@ -123,7 +123,12 @@ export function AskForm({ projects, domains }: Props) {
       setTurns((t) =>
         t.map((tt) =>
           tt.id === id
-            ? { ...tt, response, finishedAt, durationMs: finishedAt.getTime() - startedAt.getTime() }
+            ? {
+                ...tt,
+                response,
+                finishedAt,
+                durationMs: finishedAt.getTime() - startedAt.getTime(),
+              }
             : tt,
         ),
       );
@@ -138,10 +143,10 @@ export function AskForm({ projects, domains }: Props) {
   }
 
   const projectLabel = projectSlug
-    ? projects.find((p) => p.slug === projectSlug)?.name ?? projectSlug
+    ? (projects.find((p) => p.slug === projectSlug)?.name ?? projectSlug)
     : "—";
   const domainLabel = domainSlug
-    ? domains.find((d) => d.slug === domainSlug)?.title ?? domainSlug
+    ? (domains.find((d) => d.slug === domainSlug)?.title ?? domainSlug)
     : "—";
 
   const totalTokens = turns.reduce((acc, t) => acc + (t.response?.usage?.total_tokens ?? 0), 0);
@@ -155,9 +160,20 @@ export function AskForm({ projects, domains }: Props) {
           <span>TREATY-LAB · ANALYST CONSOLE</span>
         </div>
         <div className="flex items-center gap-4">
-          <span>MODEL · <span className="text-emerald-300">{lastModel}</span></span>
+          <span>
+            MODEL · <span className="text-emerald-300">{lastModel}</span>
+          </span>
           <span className="text-zinc-700">│</span>
-          <span>CTX · P:<span className={projectSlug ? "text-emerald-300" : "text-zinc-600"}>{projectSlug ? "1" : "0"}</span> D:<span className={domainSlug ? "text-emerald-300" : "text-zinc-600"}>{domainSlug ? "1" : "0"}</span></span>
+          <span>
+            CTX · P:
+            <span className={projectSlug ? "text-emerald-300" : "text-zinc-600"}>
+              {projectSlug ? "1" : "0"}
+            </span>{" "}
+            D:
+            <span className={domainSlug ? "text-emerald-300" : "text-zinc-600"}>
+              {domainSlug ? "1" : "0"}
+            </span>
+          </span>
           <span className="text-zinc-700">│</span>
           <span>{clock.toISOString().slice(11, 19)}Z</span>
         </div>
@@ -175,7 +191,9 @@ export function AskForm({ projects, domains }: Props) {
           >
             <option value="">— none —</option>
             {projects.map((p) => (
-              <option key={p.slug} value={p.slug}>{p.name}</option>
+              <option key={p.slug} value={p.slug}>
+                {p.name}
+              </option>
             ))}
           </select>
         </div>
@@ -189,7 +207,9 @@ export function AskForm({ projects, domains }: Props) {
           >
             <option value="">— none —</option>
             {domains.map((d) => (
-              <option key={d.slug} value={d.slug}>{d.title}</option>
+              <option key={d.slug} value={d.slug}>
+                {d.title}
+              </option>
             ))}
           </select>
         </div>
@@ -219,8 +239,12 @@ export function AskForm({ projects, domains }: Props) {
           <div className="text-zinc-600 space-y-1">
             <div>[BOOT] treaty-lab · analyst console ready</div>
             <div>[BOOT] live LLM backend: databricks ai-gateway → treaty (gpt-oss-120b)</div>
-            <div>[BOOT] context: {projects.length} projects · {domains.length} domains indexed</div>
-            <div className="text-zinc-700">─ type a question below, or click a quick prompt to start ─</div>
+            <div>
+              [BOOT] context: {projects.length} projects · {domains.length} domains indexed
+            </div>
+            <div className="text-zinc-700">
+              ─ type a question below, or click a quick prompt to start ─
+            </div>
           </div>
         )}
         {turns.map((t) => (
@@ -236,7 +260,11 @@ export function AskForm({ projects, domains }: Props) {
       {/* ─── Input ───────────────────────────────────────────────────────── */}
       <div className="border-t border-zinc-800 bg-[#06090a] px-4 py-3">
         <div className="flex items-start gap-2 border border-emerald-500/30 bg-[#04070880] px-2 py-1.5">
-          <span className={`text-lg leading-none mt-0.5 ${pending ? "text-amber-300 animate-pulse" : "text-emerald-300"}`}>▸</span>
+          <span
+            className={`text-lg leading-none mt-0.5 ${pending ? "text-amber-300 animate-pulse" : "text-emerald-300"}`}
+          >
+            ▸
+          </span>
           <textarea
             ref={inputRef}
             value={cmd}
@@ -248,7 +276,11 @@ export function AskForm({ projects, domains }: Props) {
               }
             }}
             rows={2}
-            placeholder={pending ? "waiting on gateway…" : "ask a question — Enter to send, Shift+Enter for newline"}
+            placeholder={
+              pending
+                ? "waiting on gateway…"
+                : "ask a question — Enter to send, Shift+Enter for newline"
+            }
             disabled={pending}
             className="flex-1 bg-transparent text-[12px] text-zinc-100 placeholder:text-zinc-600 focus:outline-none resize-none leading-relaxed disabled:opacity-50"
           />
@@ -291,16 +323,29 @@ export function AskForm({ projects, domains }: Props) {
       {/* ─── Bottom status bar ──────────────────────────────────────────── */}
       <div className="flex items-center justify-between border-t border-zinc-900 bg-[#04070a] px-4 py-1 text-[10px] tracking-[0.18em] text-zinc-500">
         <div className="flex items-center gap-4">
-          <span>TURNS · <span className="text-emerald-300">{turns.length}</span></span>
+          <span>
+            TURNS · <span className="text-emerald-300">{turns.length}</span>
+          </span>
           <span className="text-zinc-700">│</span>
-          <span>TOKENS · <span className="text-emerald-300">{totalTokens}</span></span>
+          <span>
+            TOKENS · <span className="text-emerald-300">{totalTokens}</span>
+          </span>
           <span className="text-zinc-700">│</span>
-          <span>STATE · <span className={pending ? "text-amber-300" : "text-emerald-300"}>{pending ? "PENDING" : "READY"}</span></span>
+          <span>
+            STATE ·{" "}
+            <span className={pending ? "text-amber-300" : "text-emerald-300"}>
+              {pending ? "PENDING" : "READY"}
+            </span>
+          </span>
         </div>
         <div className="flex items-center gap-4">
-          <span className="hidden md:inline">PROJ · <span className="text-zinc-300 normal-case tracking-normal">{projectLabel}</span></span>
+          <span className="hidden md:inline">
+            PROJ · <span className="text-zinc-300 normal-case tracking-normal">{projectLabel}</span>
+          </span>
           <span className="text-zinc-700 hidden md:inline">│</span>
-          <span className="hidden md:inline">DOM · <span className="text-zinc-300 normal-case tracking-normal">{domainLabel}</span></span>
+          <span className="hidden md:inline">
+            DOM · <span className="text-zinc-300 normal-case tracking-normal">{domainLabel}</span>
+          </span>
           <span className="text-zinc-700">│</span>
           <span>HOST · databricks-ai-gateway</span>
         </div>
@@ -322,10 +367,10 @@ function TurnView({
 }) {
   const ts = turn.startedAt.toISOString().slice(11, 19);
   const projectName = turn.projectSlug
-    ? projects.find((p) => p.slug === turn.projectSlug)?.name ?? turn.projectSlug
+    ? (projects.find((p) => p.slug === turn.projectSlug)?.name ?? turn.projectSlug)
     : null;
   const domainName = turn.domainSlug
-    ? domains.find((d) => d.slug === turn.domainSlug)?.title ?? turn.domainSlug
+    ? (domains.find((d) => d.slug === turn.domainSlug)?.title ?? turn.domainSlug)
     : null;
 
   return (
@@ -340,13 +385,19 @@ function TurnView({
       {(projectName || domainName || turn.reasoning) && (
         <div className="ml-12 mt-1 flex flex-wrap gap-1.5 text-[9px] tracking-[0.15em] text-zinc-500">
           {projectName && (
-            <span className="border border-zinc-800 bg-[#0a0f11] px-1.5 py-px">PROJ · {projectName}</span>
+            <span className="border border-zinc-800 bg-[#0a0f11] px-1.5 py-px">
+              PROJ · {projectName}
+            </span>
           )}
           {domainName && (
-            <span className="border border-zinc-800 bg-[#0a0f11] px-1.5 py-px">DOM · {domainName}</span>
+            <span className="border border-zinc-800 bg-[#0a0f11] px-1.5 py-px">
+              DOM · {domainName}
+            </span>
           )}
           {turn.reasoning && (
-            <span className="border border-amber-500/30 bg-amber-500/5 text-amber-300 px-1.5 py-px">TRACE</span>
+            <span className="border border-amber-500/30 bg-amber-500/5 text-amber-300 px-1.5 py-px">
+              TRACE
+            </span>
           )}
         </div>
       )}
@@ -396,13 +447,12 @@ function TurnView({
             )}
             {turn.response.contextSummary && (
               <span>
-                CTX · {turn.response.contextSummary.projectsCount}p / {turn.response.contextSummary.indicatorsCount}i /{" "}
+                CTX · {turn.response.contextSummary.projectsCount}p /{" "}
+                {turn.response.contextSummary.indicatorsCount}i /{" "}
                 {turn.response.contextSummary.evidenceCount}e
               </span>
             )}
-            {turn.durationMs != null && (
-              <span>DT · {(turn.durationMs / 1000).toFixed(1)}s</span>
-            )}
+            {turn.durationMs != null && <span>DT · {(turn.durationMs / 1000).toFixed(1)}s</span>}
           </div>
         </div>
       )}
@@ -433,10 +483,18 @@ function MarkdownAnswer({ text }: { text: string }) {
             {children}
           </h3>
         ),
-        ul: ({ children }) => <ul className="mb-2 ml-4 list-disc marker:text-emerald-500/60 space-y-0.5">{children}</ul>,
-        ol: ({ children }) => <ol className="mb-2 ml-4 list-decimal marker:text-emerald-500/60 space-y-0.5">{children}</ol>,
+        ul: ({ children }) => (
+          <ul className="mb-2 ml-4 list-disc marker:text-emerald-500/60 space-y-0.5">{children}</ul>
+        ),
+        ol: ({ children }) => (
+          <ol className="mb-2 ml-4 list-decimal marker:text-emerald-500/60 space-y-0.5">
+            {children}
+          </ol>
+        ),
         li: ({ children }) => <li className="text-zinc-200">{children}</li>,
-        strong: ({ children }) => <strong className="text-emerald-200 font-semibold">{children}</strong>,
+        strong: ({ children }) => (
+          <strong className="text-emerald-200 font-semibold">{children}</strong>
+        ),
         em: ({ children }) => <em className="text-amber-200/90 not-italic">{children}</em>,
         code: ({ children, className }) => {
           const isBlock = className?.includes("language-");
@@ -453,14 +511,23 @@ function MarkdownAnswer({ text }: { text: string }) {
             </code>
           );
         },
-        pre: ({ children }) => <pre className="my-2 border border-zinc-800 bg-[#04070a] p-2 text-[11px] overflow-x-auto">{children}</pre>,
+        pre: ({ children }) => (
+          <pre className="my-2 border border-zinc-800 bg-[#04070a] p-2 text-[11px] overflow-x-auto">
+            {children}
+          </pre>
+        ),
         blockquote: ({ children }) => (
           <blockquote className="my-2 border-l-2 border-amber-500/40 pl-3 text-amber-100/70 italic">
             {children}
           </blockquote>
         ),
         a: ({ children, href }) => (
-          <a href={href} target="_blank" rel="noreferrer" className="text-cyan-300 underline decoration-cyan-300/30 hover:decoration-cyan-300">
+          <a
+            href={href}
+            target="_blank"
+            rel="noreferrer"
+            className="text-cyan-300 underline decoration-cyan-300/30 hover:decoration-cyan-300"
+          >
             {children}
           </a>
         ),
@@ -475,7 +542,9 @@ function MarkdownAnswer({ text }: { text: string }) {
             {children}
           </th>
         ),
-        td: ({ children }) => <td className="border border-zinc-800 px-2 py-1 text-zinc-200">{children}</td>,
+        td: ({ children }) => (
+          <td className="border border-zinc-800 px-2 py-1 text-zinc-200">{children}</td>
+        ),
         hr: () => <hr className="my-3 border-zinc-800" />,
       }}
     >

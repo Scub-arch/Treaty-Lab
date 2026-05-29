@@ -99,11 +99,7 @@ export function topCitedEvidence(
 
   for (const p of projects) {
     for (const ref of p.primarySources) inc(ref.evidenceSlug);
-    for (const claim of [
-      ...p.firstNationImplications,
-      ...p.treatyAndWaterRisk,
-      ...p.financeRisk,
-    ]) {
+    for (const claim of [...p.firstNationImplications, ...p.treatyAndWaterRisk, ...p.financeRisk]) {
       for (const ref of claim.sources ?? []) inc(ref.evidenceSlug);
     }
     for (const ref of p.finance.sources ?? []) inc(ref.evidenceSlug);
@@ -183,7 +179,10 @@ export function sankeyEvidenceToProject(
   evidenceBySlug: Map<string, EvidenceItem>,
 ): SankeyData {
   // Walk projects to count (sourceType, project) -> count
-  const flow = new Map<string, { sourceType: SourceType; project: ProjectAssessment; count: number }>();
+  const flow = new Map<
+    string,
+    { sourceType: SourceType; project: ProjectAssessment; count: number }
+  >();
 
   const tally = (sourceType: SourceType, project: ProjectAssessment) => {
     const key = `${sourceType}|${project.slug}`;
@@ -197,11 +196,7 @@ export function sankeyEvidenceToProject(
       const ev = evidenceBySlug.get(ref.evidenceSlug);
       if (ev) tally(ev.sourceType, p);
     }
-    for (const claim of [
-      ...p.firstNationImplications,
-      ...p.treatyAndWaterRisk,
-      ...p.financeRisk,
-    ]) {
+    for (const claim of [...p.firstNationImplications, ...p.treatyAndWaterRisk, ...p.financeRisk]) {
       for (const ref of claim.sources ?? []) {
         const ev = evidenceBySlug.get(ref.evidenceSlug);
         if (ev) tally(ev.sourceType, p);
@@ -228,7 +223,9 @@ export function sankeyEvidenceToProject(
 
   const nodes: SankeyNode[] = [
     ...sourceTypesUsed.map((st): SankeyNode => ({ name: st, kind: "sourceType", value: 0 })),
-    ...projectsUsed.map((p): SankeyNode => ({ name: p.shortName ?? p.name, kind: "project", value: 0 })),
+    ...projectsUsed.map(
+      (p): SankeyNode => ({ name: p.shortName ?? p.name, kind: "project", value: 0 }),
+    ),
   ];
 
   const links: SankeyLink[] = [];

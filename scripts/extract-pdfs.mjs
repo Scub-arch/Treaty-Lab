@@ -59,7 +59,9 @@ async function extractOne(pdfPath) {
 
 async function main() {
   await mkdir(OUT_ROOT, { recursive: true });
-  let ok = 0, skip = 0, fail = 0;
+  let ok = 0,
+    skip = 0,
+    fail = 0;
   for await (const pdfPath of walkPdfs(ROOT)) {
     const r = await extractOne(pdfPath);
     if (r.status === "ok") {

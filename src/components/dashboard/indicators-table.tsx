@@ -47,9 +47,7 @@ export function IndicatorsTable({ rows }: Props) {
                   {r.domainLabel}
                 </span>
               </td>
-              <td className="px-3 py-3 text-right font-mono text-sm tabular-nums">
-                {r.value}
-              </td>
+              <td className="px-3 py-3 text-right font-mono text-sm tabular-nums">{r.value}</td>
               <td className="px-3 py-3">
                 <SeverityBadge severity={r.severity} />
               </td>

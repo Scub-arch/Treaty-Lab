@@ -34,40 +34,29 @@ export function LoadGrowthTrend() {
         <div className="font-mono text-[10px] tracking-[0.15em] text-muted-foreground uppercase">
           AESO Large-Load Queue · 2025
         </div>
-        <div className="font-mono text-[10px] text-muted-foreground tabular-nums">
-          MW
-        </div>
+        <div className="font-mono text-[10px] text-muted-foreground tabular-nums">MW</div>
       </div>
       <div className="flex items-baseline gap-3">
-        <div className="font-mono text-2xl font-semibold tabular-nums text-foreground">
-          20,000+
-        </div>
+        <div className="font-mono text-2xl font-semibold tabular-nums text-foreground">20,000+</div>
         <div className="font-mono text-[10px] tracking-[0.12em] text-orange-400">
           ↗ +69% Mar → YE
         </div>
       </div>
       <p className="text-[11px] text-muted-foreground leading-relaxed mt-1">
-        Year-end 2025 queue is ≈1.9× Alberta&apos;s avg demand (~10,500 MW) and
-        ≈17× the 1,200 MW Phase I cap actually cleared.
+        Year-end 2025 queue is ≈1.9× Alberta&apos;s avg demand (~10,500 MW) and ≈17× the 1,200 MW
+        Phase I cap actually cleared.
       </p>
 
       <div className="h-[180px] w-full mt-3">
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart
-            data={QUEUE_TIMELINE}
-            margin={{ top: 4, right: 4, left: 4, bottom: 4 }}
-          >
+          <AreaChart data={QUEUE_TIMELINE} margin={{ top: 4, right: 4, left: 4, bottom: 4 }}>
             <defs>
               <linearGradient id="fill-queue" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor="var(--brand)" stopOpacity={0.45} />
                 <stop offset="100%" stopColor="var(--brand)" stopOpacity={0.02} />
               </linearGradient>
             </defs>
-            <CartesianGrid
-              vertical={false}
-              stroke="currentColor"
-              strokeOpacity={0.08}
-            />
+            <CartesianGrid vertical={false} stroke="currentColor" strokeOpacity={0.08} />
             <XAxis
               dataKey="period"
               axisLine={false}
@@ -79,10 +68,7 @@ export function LoadGrowthTrend() {
                 fontFamily: "var(--font-mono)",
               }}
             />
-            <YAxis
-              hide
-              domain={[0, 22000]}
-            />
+            <YAxis hide domain={[0, 22000]} />
             <Tooltip
               cursor={{ stroke: "currentColor", strokeOpacity: 0.2 }}
               contentStyle={{
@@ -122,9 +108,7 @@ export function LoadGrowthTrend() {
         </div>
         <div className="flex items-baseline justify-between">
           <span className="text-muted-foreground">Phase I cap cleared</span>
-          <span className="tabular-nums text-foreground/85">
-            {PHASE_I_CAP_MW.toLocaleString()}
-          </span>
+          <span className="tabular-nums text-foreground/85">{PHASE_I_CAP_MW.toLocaleString()}</span>
         </div>
       </div>
     </div>

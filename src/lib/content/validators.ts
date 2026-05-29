@@ -13,21 +13,10 @@
  *     dev-only effect to surface drift while editing JSON)
  */
 
-import {
-  getEvidence,
-  getIndicators,
-  getProjects,
-  getExplainers,
-  getModules,
-} from "@/lib/content";
+import { getEvidence, getIndicators, getProjects, getExplainers, getModules } from "@/lib/content";
 import type { Claim, ProjectAssessment } from "@/lib/content/types";
 
-export type ValidationCollection =
-  | "evidence"
-  | "indicator"
-  | "project"
-  | "explainer"
-  | "module";
+export type ValidationCollection = "evidence" | "indicator" | "project" | "explainer" | "module";
 
 export interface ValidationError {
   /** Human-readable location of the broken reference, e.g. `projects[cedar-lng].firstNationImplications[2].sources[0]` */
@@ -89,8 +78,16 @@ export function validateContent(): ValidationResult {
     });
 
     // firstNationImplications / treatyAndWaterRisk / financeRisk claim arrays
-    errors.push(...checkClaimSources(project.firstNationImplications, `${root}.firstNationImplications`, evidenceSlugs));
-    errors.push(...checkClaimSources(project.treatyAndWaterRisk, `${root}.treatyAndWaterRisk`, evidenceSlugs));
+    errors.push(
+      ...checkClaimSources(
+        project.firstNationImplications,
+        `${root}.firstNationImplications`,
+        evidenceSlugs,
+      ),
+    );
+    errors.push(
+      ...checkClaimSources(project.treatyAndWaterRisk, `${root}.treatyAndWaterRisk`, evidenceSlugs),
+    );
     errors.push(...checkClaimSources(project.financeRisk, `${root}.financeRisk`, evidenceSlugs));
 
     // finance.sources[]
@@ -120,14 +117,18 @@ export function validateContent(): ValidationResult {
     if (explainer.relatedEvidence) {
       explainer.relatedEvidence.forEach((slug, i) => {
         if (!evidenceSlugs.has(slug)) {
-          errors.push(missingRef(`explainers[${explainer.slug}].relatedEvidence[${i}]`, slug, "evidence"));
+          errors.push(
+            missingRef(`explainers[${explainer.slug}].relatedEvidence[${i}]`, slug, "evidence"),
+          );
         }
       });
     }
     if (explainer.relatedProjects) {
       explainer.relatedProjects.forEach((slug, i) => {
         if (!projectSlugs.has(slug)) {
-          errors.push(missingRef(`explainers[${explainer.slug}].relatedProjects[${i}]`, slug, "project"));
+          errors.push(
+            missingRef(`explainers[${explainer.slug}].relatedProjects[${i}]`, slug, "project"),
+          );
         }
       });
     }
@@ -137,12 +138,16 @@ export function validateContent(): ValidationResult {
   for (const module of modules) {
     module.featuredIndicatorSlugs.forEach((slug, i) => {
       if (!indicatorSlugs.has(slug)) {
-        errors.push(missingRef(`modules[${module.slug}].featuredIndicatorSlugs[${i}]`, slug, "indicator"));
+        errors.push(
+          missingRef(`modules[${module.slug}].featuredIndicatorSlugs[${i}]`, slug, "indicator"),
+        );
       }
     });
     module.featuredProjectSlugs.forEach((slug, i) => {
       if (!projectSlugs.has(slug)) {
-        errors.push(missingRef(`modules[${module.slug}].featuredProjectSlugs[${i}]`, slug, "project"));
+        errors.push(
+          missingRef(`modules[${module.slug}].featuredProjectSlugs[${i}]`, slug, "project"),
+        );
       }
     });
   }

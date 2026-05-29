@@ -55,16 +55,11 @@ export function PlainLanguageBox({
         </span>
       </div>
       <h3 className="font-semibold text-base leading-tight mb-2">
-        <Link
-          href={`/explainers/${explainer.slug}`}
-          className="hover:underline underline-offset-2"
-        >
+        <Link href={`/explainers/${explainer.slug}`} className="hover:underline underline-offset-2">
           {explainer.question}
         </Link>
       </h3>
-      <p className="text-sm text-muted-foreground leading-relaxed">
-        {explainer.shortAnswer}
-      </p>
+      <p className="text-sm text-muted-foreground leading-relaxed">{explainer.shortAnswer}</p>
       <div className="mt-3 pt-3 border-t border-border/60">
         <Link
           href={`/explainers/${explainer.slug}`}

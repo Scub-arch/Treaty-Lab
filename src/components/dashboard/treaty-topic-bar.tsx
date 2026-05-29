@@ -18,11 +18,7 @@ export function TreatyTopicBar({ data }: Props) {
   return (
     <div className="w-full" style={{ height: Math.max(180, data.length * 28 + 40) }}>
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart
-          data={data}
-          layout="vertical"
-          margin={{ top: 4, right: 16, left: 4, bottom: 0 }}
-        >
+        <BarChart data={data} layout="vertical" margin={{ top: 4, right: 16, left: 4, bottom: 0 }}>
           <CartesianGrid stroke="var(--border)" horizontal={false} strokeDasharray="3 3" />
           <XAxis
             type="number"
