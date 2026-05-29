@@ -102,7 +102,9 @@ export async function POST(req: Request) {
     if (module) {
       const featProjects = resolveProjects(module.featuredProjectSlugs);
       const featIndicators = resolveIndicators(module.featuredIndicatorSlugs);
-      contextBlocks.push(formatDomainContext(body.context.domain, module.lede, featProjects, featIndicators));
+      contextBlocks.push(
+        formatDomainContext(body.context.domain, module.lede, featProjects, featIndicators),
+      );
       summary.projectsCount += featProjects.length;
       summary.indicatorsCount += featIndicators.length;
     }
@@ -161,7 +163,10 @@ export async function POST(req: Request) {
 function formatProjectContext(p: ProjectAssessment): string {
   const claims = allClaimsForProject(p);
   const claimSummary = claims
-    .map((c) => `- [${c.kind.toUpperCase()}] ${c.text}${c.sources ? ` (sources: ${c.sources.map((s) => s.evidenceSlug).join(", ")})` : ""}`)
+    .map(
+      (c) =>
+        `- [${c.kind.toUpperCase()}] ${c.text}${c.sources ? ` (sources: ${c.sources.map((s) => s.evidenceSlug).join(", ")})` : ""}`,
+    )
     .join("\n");
 
   return [
@@ -194,7 +199,10 @@ function formatDomainContext(
 ): string {
   const projLines = projects.map((p) => `- ${p.name} (${p.slug}): ${p.summary}`).join("\n");
   const indLines = indicators
-    .map((i) => `- ${i.name} (${i.slug}): ${i.value} · severity=${i.severity} trend=${i.trend} — ${i.summary}`)
+    .map(
+      (i) =>
+        `- ${i.name} (${i.slug}): ${i.value} · severity=${i.severity} trend=${i.trend} — ${i.summary}`,
+    )
     .join("\n");
   return [
     `### Domain: ${domain}`,
@@ -217,7 +225,9 @@ function formatIndicatorsContext(indicators: Indicator[]): string {
       ? i.sources
           .map((s) => {
             const e = getEvidenceItem(s.evidenceSlug);
-            return e ? `\n    [${e.slug}] ${e.title} (${e.sourceType}, reliability=${e.reliability})` : "";
+            return e
+              ? `\n    [${e.slug}] ${e.title} (${e.sourceType}, reliability=${e.reliability})`
+              : "";
           })
           .join("")
       : "";
@@ -228,7 +238,9 @@ function formatIndicatorsContext(indicators: Indicator[]): string {
       `  Summary: ${i.summary}`,
       i.note ? `  Note: ${i.note}` : "",
       sources + evidenceDetails,
-    ].filter(Boolean).join("\n");
+    ]
+      .filter(Boolean)
+      .join("\n");
   });
   return ["### Indicators", ...lines].join("\n");
 }

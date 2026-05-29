@@ -68,7 +68,10 @@ export type NrtaValidationErrorKind =
   | "missing_project_ref"
   | "missing_authorization_ref"
   | "missing_required_field"
-  | "claim_without_source";
+  | "claim_without_source"
+  // Phase 2 additions
+  | "state_invariant_violation"
+  | "out_of_bounds";
 
 export interface NrtaValidationError {
   location: string;
@@ -135,6 +138,21 @@ export function validateNrtaBundle(input: NrtaBundle = bundle): NrtaValidationRe
     }
   }
 
+  // Phase 2 helpers ----------------------------------------------------------
+  const sourceBySlug = new Map(input.sourceRecords.map((s) => [s.slug, s]));
+  const statusByProject = new Map(input.ingestionStatus.map((s) => [s.projectSlug, s]));
+  const MAX_VOLUME = 1e10;
+
+  const hasVolumeData = (a: Authorization): boolean =>
+    (a.allocatedVolume_m3_per_year !== null && a.allocatedVolume_m3_per_year !== undefined) ||
+    (a.oneTimeVolume_m3 !== null && a.oneTimeVolume_m3 !== undefined);
+
+  const hasQualifiedSource = (a: Authorization): boolean =>
+    (a.sourceRecordSlugs ?? []).some((slug) => {
+      const s = sourceBySlug.get(slug);
+      return s !== undefined && !!s.url && !!s.accessedAt;
+    });
+
   // Authorizations -----------------------------------------------------------
   for (const a of input.authorizations) {
     const root = `authorizations[${a.slug}]`;
@@ -161,6 +179,129 @@ export function validateNrtaBundle(input: NrtaBundle = bundle): NrtaValidationRe
           });
         }
       }
+    }
+
+    // ---- Phase 2 rules ----
+
+    // P2-V1: needs_verification requires volume data.
+    if (a.ingestionState === "needs_verification" && !hasVolumeData(a)) {
+      errors.push({
+        location: `${root}.allocatedVolume_m3_per_year`,
+        kind: "state_invariant_violation",
+        detail:
+          "needs_verification row must have non-null allocatedVolume_m3_per_year or oneTimeVolume_m3",
+      });
+    }
+
+    // P2-V2 / V3 / V4 / V5 / V6: verified row invariants.
+    if (a.ingestionState === "verified") {
+      if (!a.authorizationNumber) {
+        errors.push({
+          location: `${root}.authorizationNumber`,
+          kind: "state_invariant_violation",
+          detail: "verified row must have a non-null authorizationNumber",
+        });
+      }
+      if (!hasVolumeData(a)) {
+        errors.push({
+          location: `${root}.allocatedVolume_m3_per_year`,
+          kind: "state_invariant_violation",
+          detail: "verified row must have non-null allocatedVolume_m3_per_year or oneTimeVolume_m3",
+        });
+      }
+      if (!a.firstLicensedAt) {
+        errors.push({
+          location: `${root}.firstLicensedAt`,
+          kind: "state_invariant_violation",
+          detail: "verified row must have firstLicensedAt set",
+        });
+      }
+      if (!a.sourceWatershed) {
+        errors.push({
+          location: `${root}.sourceWatershed`,
+          kind: "state_invariant_violation",
+          detail: "verified row must have sourceWatershed set",
+        });
+      }
+      if (!hasQualifiedSource(a)) {
+        errors.push({
+          location: `${root}.sourceRecordSlugs`,
+          kind: "state_invariant_violation",
+          detail:
+            "verified row must cite at least one SourceRecord with both url and accessedAt set",
+        });
+      }
+
+      // P2-V14: Indigenous-data-sovereignty gate.
+      const status = statusByProject.get(a.projectSlug);
+      if (status && status.dataSovereigntyNote) {
+        errors.push({
+          location: `${root}.ingestionState`,
+          kind: "state_invariant_violation",
+          detail:
+            "cannot be verified while project's IngestionStatus has dataSovereigntyNote — Indigenous-data-sovereignty gate",
+        });
+      }
+    }
+
+    // P2-V7: non-placeholder rows must not carry placeholderFields entries.
+    if (
+      a.ingestionState !== "placeholder" &&
+      Array.isArray(a.placeholderFields) &&
+      a.placeholderFields.length > 0
+    ) {
+      errors.push({
+        location: `${root}.placeholderFields`,
+        kind: "state_invariant_violation",
+        detail: `non-placeholder row must have empty placeholderFields (found: ${a.placeholderFields.join(", ")})`,
+      });
+    }
+
+    // P2-V9 / V10: numeric bounds on populated volume fields.
+    const volumeFields = [
+      "allocatedVolume_m3_per_year",
+      "oneTimeVolume_m3",
+      "actualConsumption_m3_per_year",
+    ] as const;
+    for (const field of volumeFields) {
+      const v = a[field];
+      if (v === null || v === undefined) continue;
+      if (typeof v !== "number" || Number.isNaN(v)) {
+        errors.push({
+          location: `${root}.${field}`,
+          kind: "out_of_bounds",
+          detail: `${field} must be a finite number (got ${JSON.stringify(v)})`,
+        });
+        continue;
+      }
+      if (v < 0) {
+        errors.push({
+          location: `${root}.${field}`,
+          kind: "out_of_bounds",
+          detail: `${field} must be >= 0 (got ${v})`,
+        });
+      }
+      if (v > MAX_VOLUME) {
+        errors.push({
+          location: `${root}.${field}`,
+          kind: "out_of_bounds",
+          detail: `${field} exceeds sanity bound ${MAX_VOLUME} m³ (got ${v}) — likely a unit error`,
+        });
+      }
+    }
+
+    // P2-V11: actualConsumption requires consumptionReportingYear.
+    if (
+      a.actualConsumption_m3_per_year !== null &&
+      a.actualConsumption_m3_per_year !== undefined &&
+      (a.consumptionReportingYear === null || a.consumptionReportingYear === undefined)
+    ) {
+      errors.push({
+        location: `${root}.consumptionReportingYear`,
+        kind: "state_invariant_violation",
+        detail:
+          "consumptionReportingYear must be set when actualConsumption_m3_per_year is populated",
+      });
     }
   }
 
@@ -199,6 +340,20 @@ export function validateNrtaBundle(input: NrtaBundle = bundle): NrtaValidationRe
         });
       }
     }
+
+    // P2-V8: non-placeholder WUI must reference at least one authorization.
+    if (w.ingestionState !== "placeholder") {
+      const refs = Array.isArray(w.computedFromAuthorizationSlugs)
+        ? w.computedFromAuthorizationSlugs
+        : [];
+      if (refs.length === 0) {
+        errors.push({
+          location: `${root}.computedFromAuthorizationSlugs`,
+          kind: "state_invariant_violation",
+          detail: "non-placeholder WaterUseIndicator must reference at least one authorization",
+        });
+      }
+    }
   }
 
   // Ingestion status ---------------------------------------------------------
@@ -211,6 +366,30 @@ export function validateNrtaBundle(input: NrtaBundle = bundle): NrtaValidationRe
         detail: `unknown project slug "${s.projectSlug}"`,
       });
     }
+  }
+
+  // Bundle-level Phase 2 rules ----------------------------------------------
+
+  // P2-V12: disclaimer present at bundle root.
+  if (
+    !input.disclaimer ||
+    typeof input.disclaimer !== "string" ||
+    input.disclaimer.trim().length === 0
+  ) {
+    errors.push({
+      location: "bundle.disclaimer",
+      kind: "missing_required_field",
+      detail: "bundle must carry a non-empty disclaimer",
+    });
+  }
+
+  // P2-V13: when phase === 2, version must start with "0.2.0-phase2".
+  if (input.phase === 2 && (!input.version || !String(input.version).startsWith("0.2.0-phase2"))) {
+    errors.push({
+      location: "bundle.version",
+      kind: "state_invariant_violation",
+      detail: `bundle.phase === 2 requires version to start with "0.2.0-phase2" (got "${input.version}")`,
+    });
   }
 
   return {

@@ -88,19 +88,11 @@ for (const project of projects) {
     }
   }
 
-  for (const claimArrayName of [
-    "firstNationImplications",
-    "treatyAndWaterRisk",
-    "financeRisk",
-  ]) {
+  for (const claimArrayName of ["firstNationImplications", "treatyAndWaterRisk", "financeRisk"]) {
     for (const [ci, claim] of (project[claimArrayName] ?? []).entries()) {
       for (const [si, ref] of (claim.sources ?? []).entries()) {
         if (!evidenceSlugs.has(ref.evidenceSlug)) {
-          err(
-            `${root}.${claimArrayName}[${ci}].sources[${si}]`,
-            ref.evidenceSlug,
-            "evidence",
-          );
+          err(`${root}.${claimArrayName}[${ci}].sources[${si}]`, ref.evidenceSlug, "evidence");
         }
       }
     }
@@ -164,9 +156,7 @@ const inspected = {
 };
 
 if (wantJson) {
-  console.log(
-    JSON.stringify({ ok: errors.length === 0, inspected, errors }, null, 2),
-  );
+  console.log(JSON.stringify({ ok: errors.length === 0, inspected, errors }, null, 2));
 } else {
   console.log(
     `Inspected: ${inspected.project} projects, ${inspected.evidence} evidence items, ${inspected.indicator} indicators, ${inspected.explainer} explainers, ${inspected.module} modules.`,
@@ -179,7 +169,9 @@ if (wantJson) {
       if (e.kind === "missing_reference") {
         console.error(`  - ${e.location} -> unknown ${e.expectedCollection} slug "${e.badValue}"`);
       } else if (e.kind === "duplicate_slug") {
-        console.error(`  - ${e.location} -> duplicate ${e.expectedCollection} slug "${e.badValue}"`);
+        console.error(
+          `  - ${e.location} -> duplicate ${e.expectedCollection} slug "${e.badValue}"`,
+        );
       } else {
         console.error(`  - ${e.location} -> ${e.kind}: "${e.badValue}"`);
       }

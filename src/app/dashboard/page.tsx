@@ -37,9 +37,9 @@ export default async function DashboardPage() {
         </h1>
         <p className="text-sm text-muted-foreground max-w-3xl leading-relaxed">
           Three-lens view of the platform: the treaty catalog (Prisma), resource indicators across
-          energy/water/finance (content aggregations), and the evidence + project library
-          (citation graph + reliability). Click rows in the treaty catalog to investigate
-          signatures, ratifications, and topics.
+          energy/water/finance (content aggregations), and the evidence + project library (citation
+          graph + reliability). Click rows in the treaty catalog to investigate signatures,
+          ratifications, and topics.
         </p>
       </header>
 

@@ -1,13 +1,11 @@
-import {
-  getProjects,
-  getEvidence,
-  evidenceMap,
-  projectCitationsBySourceType,
-} from "@/lib/content";
+import { getProjects, getEvidence, evidenceMap, projectCitationsBySourceType } from "@/lib/content";
 import type { SourceType } from "@/lib/content/types";
 import { ProjectAssessmentCard } from "@/components/intel/project-assessment-card";
 import { WatchlistTable } from "@/components/intel/watchlist-table";
-import { PerProjectCitationChart, type CitationChartRow } from "@/components/intel/per-project-citation-chart";
+import {
+  PerProjectCitationChart,
+  type CitationChartRow,
+} from "@/components/intel/per-project-citation-chart";
 
 export const metadata = { title: "Project Assessments — Treaty-Lab" };
 
@@ -83,9 +81,10 @@ export default function ProjectsPage() {
             </h2>
             <p className="text-xs text-muted-foreground mt-1 max-w-3xl leading-relaxed">
               Total of {totalCitations} citation sites across the {projects.length} project
-              assessments, including primary sources, claim sources, and finance sources. Bar
-              colour shows the source-type mix grounding each project; bar width is the count.
-              Computed live from the content store via the <code className="font-mono">aggregations</code> helpers.
+              assessments, including primary sources, claim sources, and finance sources. Bar colour
+              shows the source-type mix grounding each project; bar width is the count. Computed
+              live from the content store via the <code className="font-mono">aggregations</code>{" "}
+              helpers.
             </p>
           </div>
           <PerProjectCitationChart rows={chartRows} presentTypes={presentTypes} />

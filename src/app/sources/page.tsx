@@ -22,14 +22,48 @@ const SOURCE_TYPE_LABEL: Record<EvidenceItem["sourceType"], string> = {
 };
 
 const TAG_GROUPS: { tag: string; label: string; description: string }[] = [
-  { tag: "law", label: "Law", description: "Constitution, treaties, statutes, court decisions, regulatory directives." },
-  { tag: "finance", label: "Finance", description: "Loan-guarantee program docs, FNFA filings, CER market snapshots, corporate financing disclosures." },
-  { tag: "water", label: "Water", description: "Allocation directives, drought response, watershed studies, oil-sands monitoring." },
-  { tag: "power", label: "Power", description: "AESO filings, NERC, AB AI strategy, proponent disclosures." },
-  { tag: "government", label: "Government", description: "Federal Action Plans, provincial business plans, ministerial guidance." },
-  { tag: "community", label: "Community", description: "OCAP principles, First Nations data sovereignty, project assessments." },
-  { tag: "market", label: "Market", description: "Capital-markets disclosures, credit-rating reports, sector reviews." },
-  { tag: "company", label: "Company", description: "Proponent fact sheets, investor releases, corporate policy documents." },
+  {
+    tag: "law",
+    label: "Law",
+    description: "Constitution, treaties, statutes, court decisions, regulatory directives.",
+  },
+  {
+    tag: "finance",
+    label: "Finance",
+    description:
+      "Loan-guarantee program docs, FNFA filings, CER market snapshots, corporate financing disclosures.",
+  },
+  {
+    tag: "water",
+    label: "Water",
+    description:
+      "Allocation directives, drought response, watershed studies, oil-sands monitoring.",
+  },
+  {
+    tag: "power",
+    label: "Power",
+    description: "AESO filings, NERC, AB AI strategy, proponent disclosures.",
+  },
+  {
+    tag: "government",
+    label: "Government",
+    description: "Federal Action Plans, provincial business plans, ministerial guidance.",
+  },
+  {
+    tag: "community",
+    label: "Community",
+    description: "OCAP principles, First Nations data sovereignty, project assessments.",
+  },
+  {
+    tag: "market",
+    label: "Market",
+    description: "Capital-markets disclosures, credit-rating reports, sector reviews.",
+  },
+  {
+    tag: "company",
+    label: "Company",
+    description: "Proponent fact sheets, investor releases, corporate policy documents.",
+  },
 ];
 
 export default function SourcesIndexPage() {
@@ -102,9 +136,9 @@ export default function SourcesIndexPage() {
             <p className="text-xs text-muted-foreground mt-1 max-w-3xl leading-relaxed">
               Cells shade by count — darker means more evidence items in that category. Reliability
               tracks the source itself (primary law &gt; peer-reviewed / government &gt; reputable
-              news &gt; single-source), not whether you should agree with what it says. The
-              platform deliberately avoids weak / moderate sources — if a column is empty, that
-              column has zero cited items.
+              news &gt; single-source), not whether you should agree with what it says. The platform
+              deliberately avoids weak / moderate sources — if a column is empty, that column has
+              zero cited items.
             </p>
           </div>
           <SourceReliabilityHeatmap

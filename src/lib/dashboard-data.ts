@@ -62,7 +62,7 @@ export interface TreatyRow {
   slug: string;
   name: string;
   shortName: string | null;
-  openedAt: string;          // ISO yyyy-mm-dd
+  openedAt: string; // ISO yyyy-mm-dd
   enteredIntoForceAt: string | null;
   depository: string | null;
   partyCount: number;
@@ -316,7 +316,7 @@ export interface ResourcesTabData {
     deterioratingCount: number;
     crossDomainProjects: number;
   };
-  composites: DomainComposite[];           // for RadarOverview
+  composites: DomainComposite[]; // for RadarOverview
   rows: IndicatorRow[];
   severityBreakdown: SeveritySlice[];
   trendBreakdown: TrendSlice[];
@@ -356,9 +356,9 @@ export function getResourcesTabData(): ResourcesTabData {
       updatedAt: i.updatedAt,
     }));
 
-  const severityBreakdown: SeveritySlice[] = [...countBy(resourceIndicators, (i: Indicator) => i.severity).entries()].map(
-    ([severity, count]) => ({ severity, count }),
-  );
+  const severityBreakdown: SeveritySlice[] = [
+    ...countBy(resourceIndicators, (i: Indicator) => i.severity).entries(),
+  ].map(([severity, count]) => ({ severity, count }));
 
   const trendBreakdown: TrendSlice[] = [...countByTrend(resourceIndicators).entries()].map(
     ([trend, count]) => ({ trend, count }),
@@ -371,7 +371,9 @@ export function getResourcesTabData(): ResourcesTabData {
   return {
     kpis: {
       indicatorCount: resourceIndicators.length,
-      criticalOrHigh: resourceIndicators.filter((i) => i.severity === "critical" || i.severity === "high").length,
+      criticalOrHigh: resourceIndicators.filter(
+        (i) => i.severity === "critical" || i.severity === "high",
+      ).length,
       deterioratingCount: resourceIndicators.filter((i) => i.trend === "deteriorating").length,
       crossDomainProjects,
     },
@@ -438,13 +440,15 @@ export function getEvidenceTabData(): EvidenceTabData {
   // Heatmap: pivot helper returns Map<SourceType, Map<EvidenceStrength, number>>;
   // SourceReliabilityHeatmap wants a flatter shape.
   const heatmapRaw = evidenceCountsBySourceTypeAndReliability(evidence);
-  const counts: ReliabilityHeatmapData["counts"] = [...heatmapRaw.entries()].map(([sourceType, inner]) => ({
-    sourceType,
-    reliabilityCounts: RELIABILITY_ORDER.map((reliability) => ({
-      reliability,
-      count: inner.get(reliability) ?? 0,
-    })),
-  }));
+  const counts: ReliabilityHeatmapData["counts"] = [...heatmapRaw.entries()].map(
+    ([sourceType, inner]) => ({
+      sourceType,
+      reliabilityCounts: RELIABILITY_ORDER.map((reliability) => ({
+        reliability,
+        count: inner.get(reliability) ?? 0,
+      })),
+    }),
+  );
   // Order rows by total count desc for readability
   counts.sort((a, b) => {
     const sumA = a.reliabilityCounts.reduce((s, r) => s + r.count, 0);
@@ -452,9 +456,9 @@ export function getEvidenceTabData(): EvidenceTabData {
     return sumB - sumA;
   });
 
-  const sourceTypeBreakdown = [...countBy(evidence, (e: EvidenceItem) => e.sourceType).entries()].map(
-    ([sourceType, count]) => ({ sourceType, count }),
-  );
+  const sourceTypeBreakdown = [
+    ...countBy(evidence, (e: EvidenceItem) => e.sourceType).entries(),
+  ].map(([sourceType, count]) => ({ sourceType, count }));
 
   // projectsPendingValidation: projects that have at least one needs_validation claim
   const projectsPendingValidation = projects.filter((p) => {

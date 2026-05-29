@@ -72,12 +72,16 @@ export function getModules(): ModuleConfig[] {
 
 /** Resolve a list of indicator slugs to populated indicator objects (preserving order, dropping unknowns). */
 export function resolveIndicators(slugs: string[]): Indicator[] {
-  return slugs.map((s) => indicators.find((i) => i.slug === s)).filter((x): x is Indicator => Boolean(x));
+  return slugs
+    .map((s) => indicators.find((i) => i.slug === s))
+    .filter((x): x is Indicator => Boolean(x));
 }
 
 /** Resolve a list of project slugs to populated project objects. */
 export function resolveProjects(slugs: string[]): ProjectAssessment[] {
-  return slugs.map((s) => projects.find((p) => p.slug === s)).filter((x): x is ProjectAssessment => Boolean(x));
+  return slugs
+    .map((s) => projects.find((p) => p.slug === s))
+    .filter((x): x is ProjectAssessment => Boolean(x));
 }
 
 // Re-export cross-reference validators + aggregation helpers so the public

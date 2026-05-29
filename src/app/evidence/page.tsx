@@ -69,9 +69,9 @@ export default function EvidenceLibraryPage() {
               Top {TOP_N} most-cited evidence items
             </h2>
             <p className="text-xs text-muted-foreground mt-1 max-w-3xl leading-relaxed">
-              Citation sites counted across all project assessments (primary sources + claim
-              sources + finance sources), indicators, and explainer cross-references. Bar colour
-              shows source type. The same source can appear in multiple places; this counts each.
+              Citation sites counted across all project assessments (primary sources + claim sources
+              + finance sources), indicators, and explainer cross-references. Bar colour shows
+              source type. The same source can appear in multiple places; this counts each.
             </p>
           </div>
           <TopCitedEvidenceChart records={topCited} />
@@ -89,9 +89,9 @@ export default function EvidenceLibraryPage() {
             </h2>
             <p className="text-xs text-muted-foreground mt-1 max-w-3xl leading-relaxed">
               {totalSankeyFlow} project-level citation sites grouped by source type (left) and
-              destination project (right). Band thickness = citation count. Reading bottom-up
-              shows which projects lean on which evidence categories; reading left-to-right shows
-              where each source type is doing work.
+              destination project (right). Band thickness = citation count. Reading bottom-up shows
+              which projects lean on which evidence categories; reading left-to-right shows where
+              each source type is doing work.
             </p>
           </div>
           <CitationSankey data={sankey} />

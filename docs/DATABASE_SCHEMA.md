@@ -98,26 +98,28 @@ in free text, but nothing in the schema connects `ProjectAssessment.slug` to
 
 The instrument itself. Source: `prisma/schema.prisma`.
 
-| Field | Type | Constraints | Notes |
-|-------|------|-------------|-------|
-| `id` | `String` | `@id @default(cuid())` | Primary key |
-| `slug` | `String` | `@unique` | URL-stable identifier, e.g. `treaty-6-1876` |
-| `name` | `String` | not null | Full instrument name |
-| `shortName` | `String?` | nullable | "Treaty 6", "NPT", etc. |
-| `openedAt` | `DateTime` | not null, indexed | Date opened for signature |
-| `enteredIntoForceAt` | `DateTime?` | indexed | May be null if never entered force |
-| `depository` | `String?` | nullable | Who holds the official text (UN, ICRC, Crown, …) |
-| `summary` | `String?` | nullable | 1-2 sentence summary |
-| `fullText` | `String` | not null | Full narrative text — sometimes a paraphrase, sometimes the canonical text. Audit before treating as legally authoritative. |
-| `sourceUrl` | `String?` | nullable | External canonical link |
-| `createdAt` | `DateTime` | `@default(now())` | |
-| `updatedAt` | `DateTime` | `@updatedAt` | |
+| Field                | Type        | Constraints            | Notes                                                                                                                       |
+| -------------------- | ----------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `id`                 | `String`    | `@id @default(cuid())` | Primary key                                                                                                                 |
+| `slug`               | `String`    | `@unique`              | URL-stable identifier, e.g. `treaty-6-1876`                                                                                 |
+| `name`               | `String`    | not null               | Full instrument name                                                                                                        |
+| `shortName`          | `String?`   | nullable               | "Treaty 6", "NPT", etc.                                                                                                     |
+| `openedAt`           | `DateTime`  | not null, indexed      | Date opened for signature                                                                                                   |
+| `enteredIntoForceAt` | `DateTime?` | indexed                | May be null if never entered force                                                                                          |
+| `depository`         | `String?`   | nullable               | Who holds the official text (UN, ICRC, Crown, …)                                                                            |
+| `summary`            | `String?`   | nullable               | 1-2 sentence summary                                                                                                        |
+| `fullText`           | `String`    | not null               | Full narrative text — sometimes a paraphrase, sometimes the canonical text. Audit before treating as legally authoritative. |
+| `sourceUrl`          | `String?`   | nullable               | External canonical link                                                                                                     |
+| `createdAt`          | `DateTime`  | `@default(now())`      |                                                                                                                             |
+| `updatedAt`          | `DateTime`  | `@updatedAt`           |                                                                                                                             |
 
 **Indices:**
+
 - `@@index([openedAt])` — for chronological queries (treaty-timeline chart).
 - `@@index([enteredIntoForceAt])` — for "active treaties" queries.
 
 **Relations:**
+
 - `topics: Topic[]` via `@relation("TreatyTopics")` (many-to-many, implicit join).
 - `signatures: Signature[]` (one-to-many, owns).
 
@@ -125,12 +127,12 @@ The instrument itself. Source: `prisma/schema.prisma`.
 
 A signing entity — country (ISO 3166-1 alpha-2) or organization.
 
-| Field | Type | Constraints | Notes |
-|-------|------|-------------|-------|
-| `id` | `String` | `@id @default(cuid())` | |
-| `code` | `String` | `@unique` | `"CA"`, `"UN-GA"`, `"PLAINS-CREE"`, … |
-| `name` | `String` | not null | Display name |
-| `type` | `String` | indexed | `"country"` \| `"organization"` |
+| Field  | Type     | Constraints            | Notes                                 |
+| ------ | -------- | ---------------------- | ------------------------------------- |
+| `id`   | `String` | `@id @default(cuid())` |                                       |
+| `code` | `String` | `@unique`              | `"CA"`, `"UN-GA"`, `"PLAINS-CREE"`, … |
+| `name` | `String` | not null               | Display name                          |
+| `type` | `String` | indexed                | `"country"` \| `"organization"`       |
 
 **Indices:** `@@index([type])` — filter countries vs organizations.
 
@@ -140,17 +142,18 @@ A signing entity — country (ISO 3166-1 alpha-2) or organization.
 
 A specific party's signature on a specific treaty. Join table with attributes.
 
-| Field | Type | Constraints | Notes |
-|-------|------|-------------|-------|
-| `id` | `String` | `@id @default(cuid())` | |
-| `treatyId` | `String` | FK → `Treaty.id`, `ON DELETE CASCADE` | |
-| `partyId` | `String` | FK → `Party.id`, `ON DELETE CASCADE` | |
-| `signedAt` | `DateTime?` | indexed | Date of signature |
-| `ratifiedAt` | `DateTime?` | nullable | Date of ratification (may be much later) |
-| `reservation` | `String?` | nullable | Free-text reservation/declaration |
-| `createdAt` | `DateTime` | `@default(now())` | |
+| Field         | Type        | Constraints                           | Notes                                    |
+| ------------- | ----------- | ------------------------------------- | ---------------------------------------- |
+| `id`          | `String`    | `@id @default(cuid())`                |                                          |
+| `treatyId`    | `String`    | FK → `Treaty.id`, `ON DELETE CASCADE` |                                          |
+| `partyId`     | `String`    | FK → `Party.id`, `ON DELETE CASCADE`  |                                          |
+| `signedAt`    | `DateTime?` | indexed                               | Date of signature                        |
+| `ratifiedAt`  | `DateTime?` | nullable                              | Date of ratification (may be much later) |
+| `reservation` | `String?`   | nullable                              | Free-text reservation/declaration        |
+| `createdAt`   | `DateTime`  | `@default(now())`                     |                                          |
 
 **Indices:**
+
 - `@@index([treatyId])` — "all signatures for treaty X"
 - `@@index([partyId])` — "all treaties signed by party Y"
 - `@@index([signedAt])` — chronological signing queries
@@ -162,14 +165,15 @@ A specific party's signature on a specific treaty. Join table with attributes.
 
 Hierarchical topical tag, e.g. "Indigenous rights" → "Numbered Treaty" → …
 
-| Field | Type | Constraints | Notes |
-|-------|------|-------------|-------|
-| `id` | `String` | `@id @default(cuid())` | |
-| `slug` | `String` | `@unique` | `"indigenous-rights"`, `"numbered-treaty"`, … |
-| `name` | `String` | not null | Display name |
-| `parentId` | `String?` | FK → `Topic.id`, `ON DELETE SET NULL` | Self-reference for hierarchy |
+| Field      | Type      | Constraints                           | Notes                                         |
+| ---------- | --------- | ------------------------------------- | --------------------------------------------- |
+| `id`       | `String`  | `@id @default(cuid())`                |                                               |
+| `slug`     | `String`  | `@unique`                             | `"indigenous-rights"`, `"numbered-treaty"`, … |
+| `name`     | `String`  | not null                              | Display name                                  |
+| `parentId` | `String?` | FK → `Topic.id`, `ON DELETE SET NULL` | Self-reference for hierarchy                  |
 
 **Relations:**
+
 - `parent: Topic?` (many-to-one to itself).
 - `children: Topic[]` (one-to-many to itself).
 - `treaties: Treaty[]` via `@relation("TreatyTopics")`.
@@ -178,10 +182,10 @@ Currently 9 topics are seeded; only one level deep (no parent set).
 
 #### `_TreatyTopics` (implicit Prisma join)
 
-| Column | Type | Constraints | Notes |
-|--------|------|-------------|-------|
-| `A` | `String` | FK → `Topic.id`, `ON DELETE CASCADE` | |
-| `B` | `String` | FK → `Treaty.id`, `ON DELETE CASCADE` | |
+| Column | Type     | Constraints                           | Notes |
+| ------ | -------- | ------------------------------------- | ----- |
+| `A`    | `String` | FK → `Topic.id`, `ON DELETE CASCADE`  |       |
+| `B`    | `String` | FK → `Treaty.id`, `ON DELETE CASCADE` |       |
 
 **Indices:** `UNIQUE(A, B)`, `INDEX(B)`.
 
@@ -332,8 +336,8 @@ self-contained.
 #### Enums
 
 ```ts
-type Severity        = "low" | "moderate" | "elevated" | "high" | "critical";
-type Trend           = "improving" | "stable" | "deteriorating" | "unknown";
+type Severity = "low" | "moderate" | "elevated" | "high" | "critical";
+type Trend = "improving" | "stable" | "deteriorating" | "unknown";
 type EvidenceStrength = "weak" | "moderate" | "strong" | "established";
 type SourceType =
   | "court_decision"
@@ -347,8 +351,14 @@ type SourceType =
   | "corporate_disclosure"
   | "financial_prospectus";
 type ProjectStatus =
-  | "proposed" | "in_review" | "approved" | "under_construction"
-  | "operational" | "paused" | "litigated" | "cancelled";
+  | "proposed"
+  | "in_review"
+  | "approved"
+  | "under_construction"
+  | "operational"
+  | "paused"
+  | "litigated"
+  | "cancelled";
 type Domain = "treaty" | "water" | "energy" | "finance" | "governance";
 ```
 
@@ -356,8 +366,8 @@ type Domain = "treaty" | "water" | "energy" | "finance" | "governance";
 
 ```ts
 interface SourceReference {
-  evidenceSlug: string;   // FK into evidence.json
-  citing: string;         // What this source is cited for, in this context
+  evidenceSlug: string; // FK into evidence.json
+  citing: string; // What this source is cited for, in this context
 }
 
 interface Claim {
@@ -368,9 +378,9 @@ interface Claim {
 
 interface PartyReference {
   name: string;
-  role: string;           // proponent | consenting_first_nation |
-                          // contesting_first_nation | regulator | financier |
-                          // government | affected_community
+  role: string; // proponent | consenting_first_nation |
+  // contesting_first_nation | regulator | financier |
+  // government | affected_community
   statementUrl?: string;
 }
 ```
@@ -379,18 +389,18 @@ interface PartyReference {
 
 ```ts
 interface EvidenceItem {
-  slug: string;                // PK within evidence.json
+  slug: string; // PK within evidence.json
   title: string;
   sourceType: SourceType;
-  author?: string;             // Citation-style author or issuing body
-  publishedAt?: string;        // ISO date or YYYY
+  author?: string; // Citation-style author or issuing body
+  publishedAt?: string; // ISO date or YYYY
   url?: string;
-  citation?: string;           // Bluebook-style cite (no URL fallback)
+  citation?: string; // Bluebook-style cite (no URL fallback)
   reliability: EvidenceStrength;
-  tags: string[];              // ['law','finance','water',…]
-  supports: string[];          // What this source ACTUALLY proves
-  limitations?: string[];      // What it does NOT prove
-  plainSummary: string;        // 1-2 sentence non-specialist summary
+  tags: string[]; // ['law','finance','water',…]
+  supports: string[]; // What this source ACTUALLY proves
+  limitations?: string[]; // What it does NOT prove
+  plainSummary: string; // 1-2 sentence non-specialist summary
 }
 ```
 
@@ -401,18 +411,18 @@ authors must explicitly say what a source does and doesn't establish.
 
 ```ts
 interface Indicator {
-  slug: string;                // PK within indicators.json
+  slug: string; // PK within indicators.json
   domain: Domain;
   name: string;
   summary: string;
-  value: string;               // Display string ("3.50%", "Elevated", …)
-  numericValue?: number;       // For sparkline/sort
+  value: string; // Display string ("3.50%", "Elevated", …)
+  numericValue?: number; // For sparkline/sort
   unit?: string;
-  severity: Severity;          // For color coding
-  trend: Trend;                // For arrow indicator
+  severity: Severity; // For color coding
+  trend: Trend; // For arrow indicator
   note?: string;
   sources?: SourceReference[];
-  updatedAt: string;           // ISO date
+  updatedAt: string; // ISO date
 }
 ```
 
@@ -420,13 +430,13 @@ interface Indicator {
 
 ```ts
 interface ProjectAssessment {
-  slug: string;                          // PK within projects.json
+  slug: string; // PK within projects.json
   name: string;
   shortName?: string;
   status: ProjectStatus;
   summary: string;
   location: string;
-  jurisdictions: string[];               // ["British Columbia", "Federal Canada"]
+  jurisdictions: string[]; // ["British Columbia", "Federal Canada"]
   proponent: string;
   governmentObjective: string;
   proponentObjective: string;
@@ -437,18 +447,18 @@ interface ProjectAssessment {
   governanceQuestions: string[];
   recommendedCommunityQuestions: string[];
   finance: ProjectFinance;
-  primarySources: SourceReference[];     // FK[] into evidence.json
+  primarySources: SourceReference[]; // FK[] into evidence.json
   evidenceConfidence: EvidenceStrength;
-  domains: Domain[];                     // Multi-valued
-  lastReviewed: string;                  // ISO date
+  domains: Domain[]; // Multi-valued
+  lastReviewed: string; // ISO date
 }
 
 interface ProjectFinance {
-  structure: string;                     // "Federal Crown corp", "CIB loan", …
+  structure: string; // "Federal Crown corp", "CIB loan", …
   totalCostEstimate?: string;
   costOverrunsNoted?: string;
   loanGuarantor?: string;
-  riskCarrier: string;                   // Plain-language risk landing
+  riskCarrier: string; // Plain-language risk landing
   sources?: SourceReference[];
 }
 ```
@@ -460,9 +470,9 @@ interface PlainLanguageExplainer {
   slug: string;
   question: string;
   shortAnswer: string;
-  body: string;                          // Markdown
-  relatedEvidence?: string[];            // FK[] into evidence.json
-  relatedProjects?: string[];            // FK[] into projects.json
+  body: string; // Markdown
+  relatedEvidence?: string[]; // FK[] into evidence.json
+  relatedProjects?: string[]; // FK[] into projects.json
 }
 ```
 
@@ -470,12 +480,12 @@ interface PlainLanguageExplainer {
 
 ```ts
 interface ModuleConfig {
-  slug: Domain;                          // PK within modules.json
+  slug: Domain; // PK within modules.json
   title: string;
   tagline: string;
   lede: string;
-  featuredIndicatorSlugs: string[];      // FK[] into indicators.json
-  featuredProjectSlugs: string[];        // FK[] into projects.json
+  featuredIndicatorSlugs: string[]; // FK[] into indicators.json
+  featuredProjectSlugs: string[]; // FK[] into projects.json
 }
 ```
 
@@ -519,19 +529,19 @@ explainers.json  PlainLanguageExplainer.relatedEvidence[]
 
 `src/lib/content/validators.ts` enforces:
 
-| Check | Failure mode |
-|-------|--------------|
-| Slug uniqueness within each collection | `duplicate_slug` error |
-| Every `evidenceSlug` resolves to an `EvidenceItem` | `missing_reference` error with location path |
-| Every featured indicator/project slug on a module resolves | `missing_reference` |
-| Every `relatedEvidence` / `relatedProjects` on an explainer resolves | `missing_reference` |
+| Check                                                                | Failure mode                                 |
+| -------------------------------------------------------------------- | -------------------------------------------- |
+| Slug uniqueness within each collection                               | `duplicate_slug` error                       |
+| Every `evidenceSlug` resolves to an `EvidenceItem`                   | `missing_reference` error with location path |
+| Every featured indicator/project slug on a module resolves           | `missing_reference`                          |
+| Every `relatedEvidence` / `relatedProjects` on an explainer resolves | `missing_reference`                          |
 
 Errors are typed as:
 
 ```ts
 interface ValidationError {
-  location: string;            // e.g. "projects[cedar-lng].financeRisk[2].sources[0]"
-  badValue: string;            // the offending slug
+  location: string; // e.g. "projects[cedar-lng].financeRisk[2].sources[0]"
+  badValue: string; // the offending slug
   expectedCollection: "evidence" | "indicator" | "project" | "explainer" | "module";
   kind: "missing_reference" | "duplicate_slug" | "missing_required_field";
 }
@@ -728,4 +738,4 @@ sqlite3 .\dev.db "SELECT p.code, p.name, COUNT(s.id) AS sigs `
 
 ---
 
-*Last updated: 2026-05-27.*
+_Last updated: 2026-05-27._

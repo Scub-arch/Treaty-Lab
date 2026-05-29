@@ -1,8 +1,8 @@
 {
-  "version": "0.1.0-phase1",
+  "version": "0.2.0-phase2",
   "generatedAt": "2026-05-27",
-  "phase": 1,
-  "disclaimer": "Phase 1 foundation data. All volume fields are placeholders pending manual verification against the cited registry. Nothing in this file is legal advice, regulatory evidence, or a final claim about any project, operator, First Nation, or watershed. See docs/NRTA_PHASE_1_README.md.",
+  "phase": 2,
+  "disclaimer": "Phase 2 in progress. Volume fields are populated only where a per-licence registry record has been located; otherwise they remain null and the row stays at placeholder or needs_verification per docs/NRTA_PHASE_2_PLAN.md §4. Nothing in this file is legal advice, regulatory evidence, or a final claim about any project, operator, First Nation, or watershed. See docs/NRTA_PHASE_1_README.md and docs/NRTA_PHASE_2_PLAN.md.",
   "sourceRecords": [
     {
       "slug": "ab-authorizations-viewer",
@@ -69,6 +69,82 @@
         "Per plan §3, full ledger access likely requires an ATIP request",
         "Coverage of contemporary use is unclear from the public site"
       ]
+    },
+    {
+      "slug": "iaac-genesee-expansion-80059",
+      "registryName": "IAAC — Genesee Generating Station Expansion Project (reference 80059)",
+      "jurisdiction": "FEDERAL",
+      "url": "https://iaac-aeic.gc.ca/050/evaluations/proj/80059",
+      "accessedAt": "2026-05-27",
+      "supports": "Confirms Capital Power Generation Service Inc. is the proponent for the Genesee site; the 2014 federal decision found no environmental assessment required for the natural-gas expansion (Genesee 4 & 5, ~1,050 MW combined, ~17 km north of Warburg, AB).",
+      "limitations": [
+        "Decision predates the Polaris @ Genesee Energy Campus data-centre proposal (publicly announced 2026)",
+        "Page contains no water-use volumes, no source water body, and no Water Act licence numbers",
+        "Establishes site proponency only; not a substitute for the AB Authorizations Viewer record"
+      ]
+    },
+    {
+      "slug": "sk-water-security-agency",
+      "registryName": "Saskatchewan Water Security Agency — Water Allocation",
+      "jurisdiction": "SK",
+      "url": "https://www.wsask.ca/permits-approvals/water-allocation/",
+      "accessedAt": "2026-05-27",
+      "supports": "Issues Water Rights Licences for non-domestic water use in Saskatchewan; the licence specifies annual allocation, source, and conditions. Required for all non-domestic use, and for domestic use exceeding 5 cubic decametres.",
+      "limitations": [
+        "Public ledger of per-licence records is less directly queryable than the Alberta Authorizations Viewer; per-licence drill-down may require contacting the agency or filing a request",
+        "Phase 2 plan §3 flags this registry as 'less publicly indexed' than AB"
+      ]
+    },
+    {
+      "slug": "aer-directive-051-injection-disposal",
+      "registryName": "Alberta Energy Regulator — Directive 051: Injection and Disposal Wells",
+      "jurisdiction": "AB",
+      "url": "https://www.aer.ca/regulations-and-compliance-enforcement/rules-and-regulations/directives/directive-051",
+      "accessedAt": "2026-05-27",
+      "supports": "AER directive governing Class II disposal wells used to inject produced water (brine) or brine-equivalent fluids from upstream oil and gas operations in Alberta. Sets out wellbore design, integrity logging, operational monitoring, and reporting requirements for disposal wells.",
+      "limitations": [
+        "Directive itself does not list per-operator volumes; per-well disposal volumes are reported separately under AER Directive 081 and via the AER's Class II Fluid Disposal application records",
+        "Per-operator records (including Onion Lake-specific disposal volumes) require an interactive search against AER application data, not retrievable via general web search"
+      ]
+    },
+    {
+      "slug": "mpwa-peace-slave-watershed-2024",
+      "registryName": "Mighty Peace Watershed Alliance — The Peace and Slave River Watershed: Current and Future Water Use (June 2024)",
+      "jurisdiction": "AB",
+      "url": "https://mightypeacewatershedalliance.org/wp-content/uploads/2024/07/The-Peace-and-Slave-River-Watershed-Current-and-Future-Water-Use-DRAFT.pdf",
+      "accessedAt": "2026-05-27",
+      "supports": "Watershed Planning and Advisory Council (WPAC) report covering the Peace and Slave River watersheds, including detailed water-allocation analysis for the Wapiti/Smoky sub-basin. Synthesis identifies this report as the source for the 99.64% oil-and-gas allocation-utilization figure already cited at the watershed level.",
+      "limitations": [
+        "Direct PDF fetch returned HTTP 403 on 2026-05-27 — a reviewer must retrieve the report directly from the MPWA site or via a cached copy to extract verbatim aggregate m³/yr figures",
+        "Report is published at the sub-basin level, not per-licensee — per-operator identification requires a separate AB Authorizations Viewer search and is not in scope of this MPWA document",
+        "Draft status (July 2024 file) — confirm whether a finalized version has superseded this before citing in production claims"
+      ]
+    },
+    {
+      "slug": "iaac-mihta-askiy-90036",
+      "registryName": "IAAC — Mihta Askiy Data Center Project (reference 90036)",
+      "jurisdiction": "FEDERAL",
+      "url": "https://iaac-aeic.gc.ca/050/evaluations/proj/90036",
+      "accessedAt": "2026-05-27",
+      "supports": "Public IAAC project registry page for the Mihta Askiy Data Center. Confirms proponent Cree Ative Datacenter Corp GP, project description (650 MW natural-gas generation supporting a data centre, ~40 km NE of Peace River, AB, on Woodland Cree First Nation traditional lands), and the federal review timeline: Initial Project Description filed 11 December 2025, Summary of Issues 30 January 2026, IAAC early-decision-with-reasons issued 4 March 2026 finding no further federal assessment required under the Impact Assessment Act.",
+      "limitations": [
+        "Registry page contains project metadata only — no water-use volumes, source water bodies, or Water Act licence references",
+        "Water-use estimates may exist inside the Initial Project Description PDF, but those would be proponent estimates and not authorizing-instrument data",
+        "Project is in pre-construction at AESO Phase I queue stage; no provincial Water Act licence appears to be issued yet"
+      ]
+    },
+    {
+      "slug": "cer-tmx-condition-113-hydrostatic-a7j3r7",
+      "registryName": "CER — TMX Condition 113 Hydrostatic Testing Plan, Edmonton Terminal & Pump Stations (doc A7J3R7, 14 October 2020)",
+      "jurisdiction": "FEDERAL",
+      "url": "https://docs2.cer-rec.gc.ca/ll-eng/llisapi.dll/fetch/2000/90464/90552/548311/956726/2392873/3781699/3973015/Condition_113_Hydrostatic_Testing_Plan_Edm_Terminal_&_Pumps_Stations_Oct_14,_2020_-_A7J3R7.pdf",
+      "accessedAt": "2026-05-27",
+      "supports": "Hydrostatic Testing Plan filed by Trans Mountain Pipeline ULC pursuant to Condition 113 of CER Orders AO-002-XO-T260-008-2016 (Pump1), AO-002-XO-T260-009-2016 (Pump2), and AO-001-XO-T260-010-2016 (Tanks). Per the CER project record, the plan covers 15 pump stations grouped by region (Alberta pump stations, Northern British Columbia, Southern British Columbia) and details locations of water withdrawal and disposal sites, water withdrawal volume requirements, and flow rates.",
+      "limitations": [
+        "Direct retrieval of the PDF via the docs2.cer-rec.gc.ca content server returned a fetch error on 2026-05-27; a reviewer should locate the document via CER project folder 2392873 (TMX) and the conditions index",
+        "Per-pump-station withdrawal volumes were not extractable from public summaries; verbatim figures require the PDF itself",
+        "Test medium is water without additives (or glycol/methanol in cold weather) — this is the testing input, not necessarily a Water Act-licensed source"
+      ]
     }
   ],
   "projects": [
@@ -102,8 +178,13 @@
       "treatyArea": "Treaty 6",
       "category": "oil_and_gas_upstream",
       "tier": 1,
-      "summary": "First-Nation-owned upstream oil production on the AB/SK border, listed in plan §2 Tier 1. Authorizations may span Alberta, Saskatchewan, and IOGC federal registries.",
-      "sourceRecordSlugs": ["ab-authorizations-viewer", "iogc-water-registry"]
+      "summary": "First-Nation-owned upstream oil production on the AB/SK border, listed in plan §2 Tier 1. Authorizations may span Alberta, Saskatchewan, and IOGC federal registries. The `province` field above records the primary jurisdiction (AB) for project-level tagging only; the operation is cross-border and per-row `registryJurisdiction` values capture where each authorization actually sits. See per-row `crossBorderNote` on the SK-side row.",
+      "sourceRecordSlugs": [
+        "ab-authorizations-viewer",
+        "sk-water-security-agency",
+        "aer-directive-051-injection-disposal",
+        "iogc-water-registry"
+      ]
     },
     {
       "slug": "wapiti-smoky-og-aggregate",
@@ -137,7 +218,11 @@
       "sourceWatershed": "North Saskatchewan River Basin",
       "intendedUse": "cooling",
       "allocatedVolume_m3_per_year": null,
-      "sourceRecordSlugs": ["ab-authorizations-viewer", "ab-epea-industrial-approvals"],
+      "sourceRecordSlugs": [
+        "ab-authorizations-viewer",
+        "ab-epea-industrial-approvals",
+        "iaac-genesee-expansion-80059"
+      ],
       "ingestionState": "placeholder",
       "placeholderFields": [
         "authorizationNumber",
@@ -146,7 +231,7 @@
         "firstLicensedAt",
         "conditions"
       ],
-      "reviewerNote": "Locate the Genesee site water-licence record(s) in the Alberta Authorizations Viewer and the EPEA approval; capture allocated cooling-water volume and the source water body."
+      "reviewerNote": "Public sources confirm the data-centre proposal is named 'Polaris @ Genesee Energy Campus' (1.0-1.5 GW hyperscale, 2028 target in-service), anchored at the existing 1,800 MW Genesee Generating Station ~17 km north of Warburg, AB. The site has an existing cooling-pond and EPEA-approved water-use regime from the natural-gas expansion (IAAC ref 80059, 2014 'no EA required' decision). NOT YET POPULATED: (a) the specific Water Act licence number(s) governing site cooling water — must be retrieved interactively from the Alberta Authorizations Viewer; (b) allocated cooling-water volume (m³/yr); (c) the specific source water body (Lake Wabamun vs. North Saskatchewan River direct intake vs. cooling pond return-flow); (d) first-licensed date and licence conditions; (e) whether Polaris will draw from the existing site allocation or trigger a new Water Act approval. Stays at placeholder per Phase 2 plan §4: no volume number can be entered without a per-licence registry record."
     },
     {
       "slug": "mihta-askiy-water-licence-placeholder",
@@ -155,16 +240,13 @@
       "registryJurisdiction": "AB",
       "intendedUse": "cooling",
       "allocatedVolume_m3_per_year": null,
-      "sourceRecordSlugs": ["ab-authorizations-viewer", "iaac-project-registry"],
-      "ingestionState": "placeholder",
-      "placeholderFields": [
-        "authorizationNumber",
-        "allocatedVolume_m3_per_year",
-        "sourceWatershed",
-        "sourceBody",
-        "firstLicensedAt"
+      "sourceRecordSlugs": [
+        "ab-authorizations-viewer",
+        "iaac-project-registry",
+        "iaac-mihta-askiy-90036"
       ],
-      "reviewerNote": "Project is at AESO Phase I queue stage; water-licence application may not yet be public. Confirm whether the IAAC project page or a provincial approval has been published before populating volumes."
+      "ingestionState": "no_data_in_source",
+      "reviewerNote": "Moved from placeholder to no_data_in_source on 2026-05-27 because none of the cited public sources contain a Water Act authorization volume for this project. Specifically: (1) IAAC project 90036 — early decision on 4 March 2026 found no further federal assessment required under the Impact Assessment Act; the IAAC registry page carries project metadata only and lists no water-use volumes. (2) AB Authorizations Viewer — no Mihta Askiy / Cree Ative Water Act licence record returned via general public search on 2026-05-27. The project is in pre-construction at AESO Phase I queue stage with construction targeted mid-2027 (per public CBC News + Alberta Major Projects reporting); a provincial Water Act licence application may not yet have been filed. The Initial Project Description (11 Dec 2025) may contain proponent water-use ESTIMATES, but estimates are not authorization volumes and should not be loaded into allocatedVolume_m3_per_year. Per project IngestionStatus.dataSovereigntyNote: defer Reserve-level / community-relevant data to Woodland Cree FN governance; this row's no_data_in_source state reflects an honest absence from public sources, not an assertion about the project itself."
     },
     {
       "slug": "onion-lake-energy-freshwater-placeholder",
@@ -181,7 +263,26 @@
         "sourceWatershed",
         "sourceBody"
       ],
-      "reviewerNote": "Reserve straddles the AB/SK border per plan §1 edge case; freshwater allocations may live in both provincial registries plus federal IOGC. ATIP may be required for IOGC ledger access."
+      "reviewerNote": "AB-side freshwater allocations for Onion Lake Energy upstream operations. Per Phase 2 plan §1 edge case (NRTA-002 decision #3): this row is a sibling to onion-lake-energy-sk-freshwater-placeholder under one cross-border operation, not an independent project. NOT YET POPULATED: (a) per-licence authorizationNumber from the Alberta Authorizations Viewer (general web search did not return Onion Lake-specific Water Act licence records on 2026-05-27); (b) allocatedVolume_m3_per_year; (c) sourceWatershed and sourceBody. Per project IngestionStatus.dataSovereigntyNote: limit Phase 2 ingestion to public registry fields only; defer Reserve-level / community-relevant data to Onion Lake Cree Nation governance per FNIGC OCAP principles. IOGC ledger access likely requires ATIP per Phase 2 plan §3 (deferred to Phase 4)."
+    },
+    {
+      "slug": "onion-lake-energy-sk-freshwater-placeholder",
+      "projectSlug": "onion-lake-energy",
+      "authorizationNumber": null,
+      "registryJurisdiction": "SK",
+      "intendedUse": "process",
+      "allocatedVolume_m3_per_year": null,
+      "sourceRecordSlugs": ["sk-water-security-agency", "iogc-water-registry"],
+      "crossBorderNote": "Onion Lake Cree Nation Reserve straddles the AB/SK border; this row represents the SK-side water allocations for the same single operation captured in onion-lake-energy-freshwater-placeholder (AB-side). Verification must use the SK Water Security Agency, not the Alberta Authorizations Viewer. Per NRTA-002 decision #3, treat these AB and SK rows as siblings under one Indigenous-led economic operation rather than two independent projects. The project's primary `province` tag remains AB for project-level grouping; this row's `registryJurisdiction: SK` is the source-of-truth for verification routing.",
+      "ingestionState": "placeholder",
+      "placeholderFields": [
+        "authorizationNumber",
+        "allocatedVolume_m3_per_year",
+        "sourceWatershed",
+        "sourceBody",
+        "firstLicensedAt"
+      ],
+      "reviewerNote": "SK-side freshwater allocations for Onion Lake Energy upstream operations. Phase 2 plan §3 flags the SK Water Security Agency registry as 'less publicly indexed' than AB — per-licence drill-down may require contacting the agency directly. NOT YET POPULATED: all licence-identity and volume fields. The SK Water Security Agency Act requires a Water Rights Licence for any non-domestic use; if Onion Lake Energy has SK operations, at least one such licence is expected to exist in the registry. Per project IngestionStatus.dataSovereigntyNote: limit Phase 2 ingestion to public registry fields only; defer Reserve-level / community-relevant data to Onion Lake Cree Nation governance per FNIGC OCAP principles."
     },
     {
       "slug": "onion-lake-energy-produced-water-placeholder",
@@ -190,10 +291,10 @@
       "registryJurisdiction": "AB",
       "intendedUse": "produced_water_disposal",
       "allocatedVolume_m3_per_year": null,
-      "sourceRecordSlugs": ["ab-authorizations-viewer"],
+      "sourceRecordSlugs": ["ab-authorizations-viewer", "aer-directive-051-injection-disposal"],
       "ingestionState": "placeholder",
       "placeholderFields": ["authorizationNumber", "allocatedVolume_m3_per_year"],
-      "reviewerNote": "Produced-water disposal volumes are a separately-licensed signal per plan §4; track disposal destinations alongside freshwater allocations."
+      "reviewerNote": "AB-side produced-water disposal for Onion Lake Energy upstream operations. Disposal is regulated under AER Directive 051 (Class II injection/disposal wells); per-well disposal volumes are reported separately under AER Directive 081 and via the AER Class II Fluid Disposal application records. NOT YET POPULATED: (a) per-well authorization identifiers from the AER application records (interactive search required — not retrievable via general web search on 2026-05-27); (b) allocatedVolume_m3_per_year per disposal well or aggregated across the operation. A parallel SK-side row may be appropriate once SK-side produced-water disposal records have been confirmed (regulated under the Saskatchewan Ministry of Environment / SK energy regulator rather than the SK Water Security Agency); deferred until SK-side activity is mapped. Per project IngestionStatus.dataSovereigntyNote: limit Phase 2 ingestion to public registry fields only."
     },
     {
       "slug": "wapiti-smoky-og-allocation-placeholder",
@@ -203,10 +304,10 @@
       "sourceWatershed": "Wapiti / Smoky sub-basin",
       "intendedUse": "process",
       "allocatedVolume_m3_per_year": null,
-      "sourceRecordSlugs": ["ab-authorizations-viewer"],
+      "sourceRecordSlugs": ["ab-authorizations-viewer", "mpwa-peace-slave-watershed-2024"],
       "ingestionState": "placeholder",
       "placeholderFields": ["authorizationNumber", "allocatedVolume_m3_per_year", "sourceBody"],
-      "reviewerNote": "Identify the 1–2 top licensees in the Wapiti/Smoky sub-basin per plan §6. Per-licensee rows should replace this aggregate placeholder in Phase 2."
+      "reviewerNote": "Aggregate placeholder for top oil-and-gas licensees in the Wapiti/Smoky sub-basin. SOURCE-SUPPORTED SIGNAL: the MPWA Peace and Slave Watershed report (June 2024) is the cited source for the sub-basin oil-and-gas water-allocation-utilization rate at the watershed level — a verbatim aggregate m³/yr volume should be extractable from that report but the PDF returned HTTP 403 on direct fetch 2026-05-27 (a reviewer must retrieve it from the MPWA site). PER-LICENSEE SPLIT: no_data_in_source via public web search on 2026-05-27 — no public list of top Wapiti/Smoky sub-basin O&G licensees with per-operator m³/yr allocations was returned. The AB Authorizations Viewer is queryable interactively, but ranking licensees by sub-basin volume requires either a saved registry export or the MPWA report's underlying table. Per the C4 rule for this phase: keep this row as the aggregate (do not invent or estimate licence volumes) and treat the per-licensee split as unresolved pending source retrieval."
     },
     {
       "slug": "tmx-ab-pump-station-hydrostatic-test-placeholder",
@@ -215,15 +316,16 @@
       "registryJurisdiction": "FEDERAL",
       "intendedUse": "hydrostatic_test",
       "allocatedVolume_m3_per_year": null,
-      "sourceRecordSlugs": ["cer-project-filings"],
+      "oneTimeVolume_m3": null,
+      "sourceRecordSlugs": ["cer-project-filings", "cer-tmx-condition-113-hydrostatic-a7j3r7"],
       "ingestionState": "placeholder",
       "placeholderFields": [
         "authorizationNumber",
-        "allocatedVolume_m3_per_year",
+        "oneTimeVolume_m3",
         "sourceBody",
         "firstLicensedAt"
       ],
-      "reviewerNote": "Hydrostatic test water is one-time at construction; volumes are reported in CER project filings."
+      "reviewerNote": "Public record confirms CER Condition 113 (issued under CER Orders AO-002-XO-T260-008-2016 / AO-002-XO-T260-009-2016 / AO-001-XO-T260-010-2016) requires Trans Mountain Pipeline ULC to file a Hydrostatic Testing Plan covering 15 pump stations grouped AB / Northern BC / Southern BC. The plan was filed 14 October 2020 as CER document A7J3R7 ('Condition 113 Hydrostatic Testing Plan Edm Terminal & Pumps Stations'). NOT YET POPULATED: (a) per-AB-pump-station hydrostatic test water volumes (m³) — should populate oneTimeVolume_m3 when retrieved, since hydrostatic test is one-time at construction (not annual); (b) source water bodies for each AB withdrawal site; (c) disposal destinations for spent test water; (d) site-specific mitigation and water-quality monitoring conditions. The A7J3R7 PDF was not directly retrievable via the docs2.cer-rec.gc.ca content server URL on 2026-05-27 — a reviewer should access via CER project folder 2392873 (TMX). authorizationNumber remains null because Condition 113 is a project-wide CER condition, not a per-station licence number; if AB-specific authorization identifiers exist in the filing, capture them then."
     },
     {
       "slug": "tmx-ab-pump-station-operational-water-placeholder",
@@ -235,7 +337,7 @@
       "sourceRecordSlugs": ["ab-authorizations-viewer"],
       "ingestionState": "placeholder",
       "placeholderFields": ["authorizationNumber", "allocatedVolume_m3_per_year", "sourceBody"],
-      "reviewerNote": "AB pump-station operational water draws (cooling and process) are provincially licensed even though the pipeline corridor is federal jurisdiction."
+      "reviewerNote": "AB pump-station operational water draws (cooling and process) are provincially licensed even though the pipeline corridor is federal jurisdiction. The AB-side TMX route runs Edmonton/Sherwood Park → Spruce Grove → Yellowhead County → Hinton (per CER pipeline-profile records) and may correspond to multiple discrete Water Act licences along the corridor. NOT YET POPULATED: (a) per-pump-station Water Act licence numbers — must be retrieved interactively from the Alberta Authorizations Viewer (general web search did not surface specific TMX pump-station licence records on 2026-05-27); (b) allocated volumes per station; (c) source water bodies per station. Splitting this aggregate row into one row per pump station may be appropriate once the registry-side enumeration is complete; deferred until volume data is retrievable."
     }
   ],
   "waterUseIndicators": [
@@ -254,37 +356,43 @@
       "slug": "mihta-askiy-total-allocated",
       "projectSlug": "mihta-askiy-cree-ative-datacentre",
       "name": "Mihta Askiy total allocated water (m³/yr)",
-      "description": "Sum of allocated volumes once the project's water-licence application is public.",
+      "description": "Sum of allocated volumes once a Water Act licence is issued. Currently no_data_in_source: project is in pre-construction at AESO Phase I queue stage; no public Water Act authorization volume exists in any cited source as of 2026-05-27.",
       "value": null,
       "unit": "m3_per_year",
       "computedFromAuthorizationSlugs": ["mihta-askiy-water-licence-placeholder"],
-      "ingestionState": "placeholder",
-      "sourceRecordSlugs": ["ab-authorizations-viewer"]
+      "ingestionState": "no_data_in_source",
+      "sourceRecordSlugs": ["ab-authorizations-viewer", "iaac-mihta-askiy-90036"]
     },
     {
       "slug": "onion-lake-energy-total-allocated",
       "projectSlug": "onion-lake-energy",
       "name": "Onion Lake Energy total allocated water (m³/yr)",
-      "description": "Aggregate freshwater + produced-water disposal volumes across AB, SK, and IOGC registries.",
+      "description": "Aggregate freshwater (AB + SK sibling rows) plus produced-water disposal across AB authorizations and IOGC federal records. Cross-border: rolls up sibling rows under one Indigenous-led operation that straddles the provincial line.",
       "value": null,
       "unit": "m3_per_year",
       "computedFromAuthorizationSlugs": [
         "onion-lake-energy-freshwater-placeholder",
+        "onion-lake-energy-sk-freshwater-placeholder",
         "onion-lake-energy-produced-water-placeholder"
       ],
       "ingestionState": "placeholder",
-      "sourceRecordSlugs": ["ab-authorizations-viewer", "iogc-water-registry"]
+      "sourceRecordSlugs": [
+        "ab-authorizations-viewer",
+        "sk-water-security-agency",
+        "aer-directive-051-injection-disposal",
+        "iogc-water-registry"
+      ]
     },
     {
       "slug": "wapiti-smoky-og-aggregate-allocation",
       "projectSlug": "wapiti-smoky-og-aggregate",
       "name": "Wapiti / Smoky O&G aggregate allocation (m³/yr)",
-      "description": "Aggregate placeholder until top licensees are identified and per-operator rows replace this row.",
+      "description": "Aggregate sub-basin allocation across O&G operators. Source-supported via the MPWA Peace and Slave Watershed report (June 2024) at the percentage/utilization level; verbatim aggregate m³/yr extraction pending MPWA PDF retrieval. Per-licensee split is no_data_in_source via public web search.",
       "value": null,
       "unit": "m3_per_year",
       "computedFromAuthorizationSlugs": ["wapiti-smoky-og-allocation-placeholder"],
       "ingestionState": "placeholder",
-      "sourceRecordSlugs": ["ab-authorizations-viewer"]
+      "sourceRecordSlugs": ["ab-authorizations-viewer", "mpwa-peace-slave-watershed-2024"]
     },
     {
       "slug": "tmx-ab-total-allocated",
@@ -306,63 +414,78 @@
       "slug": "status-capital-power-genesee",
       "projectSlug": "capital-power-genesee-data-centre",
       "overallState": "placeholder",
-      "phase": 1,
+      "phase": 2,
       "lastReviewedAt": "2026-05-27",
       "outstandingTasks": [
-        "Locate Genesee Water Act licence number(s) in the Alberta Authorizations Viewer",
-        "Locate EPEA industrial approval and capture cooling-water volume",
-        "Confirm source water body (NSRB tributary)",
-        "Cross-check AESO Phase II framework status against capacity in MW"
+        "Retrieve specific Water Act licence number(s) for the Genesee site from the Alberta Authorizations Viewer (interactive search — not retrievable via general web search)",
+        "Capture the allocated cooling-water volume in m³/yr from the located licence record",
+        "Confirm the source water body: Lake Wabamun direct intake, North Saskatchewan River intake, or cooling-pond return-flow",
+        "Retrieve EPEA industrial operating approval document and capture process-water and return-flow conditions",
+        "Confirm whether the Polaris @ Genesee Energy Campus data centre will draw against the existing site allocation or trigger a new Water Act approval",
+        "Verify AESO Phase II framework queue position for the 1.0-1.5 GW Polaris load"
       ]
     },
     {
       "slug": "status-mihta-askiy",
       "projectSlug": "mihta-askiy-cree-ative-datacentre",
-      "overallState": "placeholder",
-      "phase": 1,
+      "overallState": "no_data_in_source",
+      "phase": 2,
       "lastReviewedAt": "2026-05-27",
       "outstandingTasks": [
-        "Confirm whether a water-licence application has been filed and is public",
-        "Confirm AESO Phase I queue position from the AESO connection queue",
-        "Locate any IAAC project page once federal assessment is triggered"
+        "Re-check IAAC project 90036 registry on a periodic cadence; project documents (Initial Project Description Dec 2025, Notice of Early Decision Mar 2026) may surface proponent water-use estimates",
+        "Once the proponent files an Alberta Water Act application or approval is granted, re-query the AB Authorizations Viewer for licence # and allocated volume",
+        "Re-check the AESO connection queue periodically to confirm Phase I queue position and any reported water-coupled demand at the Polaris-style data-centre scale",
+        "Do not load proponent water-use estimates from the Initial Project Description into allocatedVolume_m3_per_year — estimates are not authorization data",
+        "On any re-check: continue to limit ingestion to public registry fields and defer Reserve-level data to Woodland Cree FN governance"
       ],
-      "dataSovereigntyNote": "First-Nation-led project; defer to Woodland Cree FN governance on what community-relevant data is appropriate to surface publicly. Limit Phase 1 ingestion to public registry fields only."
+      "dataSovereigntyNote": "First-Nation-led project; defer to Woodland Cree FN governance on what community-relevant data is appropriate to surface publicly. Limit Phase 2 ingestion to public registry fields only. While this dataSovereigntyNote is set, validator rule P2-V14 blocks Mihta Askiy authorization rows from transitioning to `verified`."
     },
     {
       "slug": "status-onion-lake-energy",
       "projectSlug": "onion-lake-energy",
       "overallState": "placeholder",
-      "phase": 1,
+      "phase": 2,
       "lastReviewedAt": "2026-05-27",
       "outstandingTasks": [
-        "Enumerate AB and SK provincial water-licence rows separately (Reserve straddles the border)",
-        "Identify whether IOGC holds any federal licences for the same operations",
-        "Capture produced-water disposal destinations alongside freshwater allocations"
+        "Interactively query the Alberta Authorizations Viewer for Onion Lake Energy Water Act licence records (general web search did not surface specific records on 2026-05-27)",
+        "Capture per-licence authorizationNumber, allocatedVolume_m3_per_year, sourceWatershed, sourceBody for the AB-side freshwater row",
+        "Contact or query the SK Water Security Agency Water Allocation registry for SK-side Onion Lake Energy Water Rights Licence records (per Phase 2 plan §3, SK ledger is less directly indexed than AB)",
+        "Capture the equivalent licence identity and volume fields for the SK-side row",
+        "Interactively query the AER Class II Fluid Disposal application records and AER Directive 081 reports for Onion Lake-specific produced-water disposal volumes",
+        "Confirm whether SK-side produced-water disposal records exist under SK regulators (parallel to AER on AB side); if so, decide whether to add a sibling SK row for the disposal stream",
+        "Defer IOGC federal-records ingestion to Phase 4 (ATIP-gated per plan §3); ground any future IOGC pulls in FNIGC OCAP guidance",
+        "Throughout: limit ingestion to public-registry fields only; defer Reserve-level / community-relevant data to Onion Lake Cree Nation governance"
       ],
-      "dataSovereigntyNote": "Reserve-level water-use data may be subject to OCAP principles per plan §8.2. Ground IOGC ingestion in FNIGC guidance before pulling federal records."
+      "dataSovereigntyNote": "Reserve-level water-use data may be subject to OCAP principles per plan §8.2. Ground IOGC ingestion in FNIGC guidance before pulling federal records. While this dataSovereigntyNote is set, validator rule P2-V14 blocks any Onion Lake authorization row from transitioning to `verified`; rows may move to `needs_verification` once volumes are populated from public sources."
     },
     {
       "slug": "status-wapiti-smoky-og-aggregate",
       "projectSlug": "wapiti-smoky-og-aggregate",
       "overallState": "placeholder",
-      "phase": 1,
+      "phase": 2,
       "lastReviewedAt": "2026-05-27",
       "outstandingTasks": [
-        "Identify the top 1–2 licensees in the Wapiti/Smoky sub-basin",
-        "Replace this aggregate row with per-licensee authorization rows in Phase 2",
-        "Cross-check against the 99.64% allocation utilization indicator cited in the plan"
+        "Retrieve the MPWA Peace and Slave Watershed (June 2024) report PDF — direct fetch returned HTTP 403 on 2026-05-27; access via the MPWA site or a cached copy",
+        "Extract the verbatim aggregate m³/yr Wapiti/Smoky sub-basin O&G allocation figure from the MPWA report (separate from the already-cited 99.64% utilization rate which is a percentage, not a volume)",
+        "Populate the aggregate row's allocatedVolume_m3_per_year once the verbatim figure is extracted; transition the row from placeholder to needs_verification at that point",
+        "PER-LICENSEE SPLIT: currently no_data_in_source via public web search on 2026-05-27 — no public ranking of Wapiti/Smoky sub-basin O&G top licensees with per-operator m³/yr volumes was returned. Closing this gap requires either a saved AB Authorizations Viewer export filtered by sub-basin or an MPWA underlying-data table. Until either is retrieved, do not split this aggregate row into per-licensee rows.",
+        "If/when per-licensee data becomes retrievable, replace the aggregate row with per-licensee authorization rows (preserving an aggregate WaterUseIndicator rollup)"
       ]
     },
     {
       "slug": "status-tmx-ab-pump-stations",
       "projectSlug": "tmx-ab-pump-stations",
       "overallState": "placeholder",
-      "phase": 1,
+      "phase": 2,
       "lastReviewedAt": "2026-05-27",
       "outstandingTasks": [
-        "Enumerate each AB pump station and its provincial water-licence record",
-        "Locate hydrostatic-test water volumes in CER project filings",
-        "Confirm whether the Coldwater aquifer concern (BC) has any AB-side counterpart in the public record"
+        "Retrieve the CER A7J3R7 Hydrostatic Testing Plan PDF via CER project folder 2392873 (direct docs2.cer-rec.gc.ca URL returned a fetch error on 2026-05-27)",
+        "Extract per-AB-pump-station hydrostatic-test water withdrawal volumes (m³) and populate as oneTimeVolume_m3 (one-time, not annual)",
+        "Capture source water bodies and disposal destinations for each AB withdrawal site in the A7J3R7 plan",
+        "Interactively query the Alberta Authorizations Viewer for TMX / Trans Mountain operational water licences along the AB corridor (Edmonton → Spruce Grove → Yellowhead → Hinton)",
+        "Once AB Water Act licences are located, capture per-station authorizationNumber, allocatedVolume_m3_per_year, sourceBody, firstLicensedAt",
+        "After per-station data is available, decide whether to split tmx-ab-pump-station-operational-water-placeholder into one row per station",
+        "Confirm whether the BC-side Coldwater aquifer concern has any AB-side counterpart in the public record (no AB equivalent surfaced in general web search on 2026-05-27)"
       ]
     }
   ]
