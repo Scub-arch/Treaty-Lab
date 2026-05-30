@@ -136,6 +136,33 @@ npm run dev
 
 The app boots on `http://localhost:3000` (or the next available port).
 
+## Contributing
+
+All changes land through a pull request. A GitHub Actions **CI gate**
+(`.github/workflows/ci.yml`) runs on every PR and on every push to `main`, and
+branch protection on `main` requires its `gate` job to pass before a PR can be
+merged.
+
+The gate runs three checks in parallel after a shared dependency-install step:
+
+| Job                | What it runs                                   | Why it can fail                                            |
+| ------------------ | ---------------------------------------------- | --------------------------------------------------------- |
+| `typecheck`        | `tsc --noEmit` (after `prisma generate` + `next typegen`) | A type error anywhere in `src/` or `prisma/`.   |
+| `content-validate` | `npm run check:content` + `npm run check:nrta` | Content JSON drifts from the schema or NRTA invariants.    |
+| `build`            | `next build` with `NODE_ENV=production` (after `prisma migrate deploy` + `db seed`) | The production build breaks, including static generation. |
+
+A final `gate` job depends on all three and is the single required status
+check. Reproduce the whole gate locally before pushing:
+
+```bash
+npm run check   # check:content + check:nrta + tsc --noEmit
+npm run build   # production build
+```
+
+Caching keeps the gate fast: `node_modules` is cached by the `package-lock.json`
+hash, and `.next/cache` is cached by the source-tree hash, so warm runs skip the
+cold install and reuse the incremental build cache.
+
 ## Project layout
 
 ```
