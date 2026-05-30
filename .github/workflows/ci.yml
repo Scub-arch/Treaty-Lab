@@ -24,5 +24,9 @@ jobs:
       # has data to render (mirrors local `npm run build`).
       - run: npx prisma migrate deploy
       - run: npx prisma db seed
+      # Next 16 emits PageProps/LayoutProps/RouteContext into .next/types only on
+      # `next dev`, `next build`, or `next typegen`. tsc --noEmit (inside
+      # `npm run check`) needs these — generate them before the check step.
+      - run: npx next typegen
       - run: npm run check
       - run: npm run build
