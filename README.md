@@ -71,20 +71,20 @@ legal advice, investment advice, or community consent processes.
 
 The intelligence terminal is organised in three groups in the sidebar:
 
-| Group        | Module              | Path          | Purpose                                                                                                                                                                        |
-| ------------ | ------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Intelligence | Command Center      | `/`           | Foundational thesis, cross-domain severity composite, current risk indicators, infrastructure watchlist, module index                                                          |
-| Intelligence | Treaty Terminal     | `/treaty`     | Treaty rights, consultation status, governance risk, community validation                                                                                                      |
-| Intelligence | Water Intelligence  | `/water`      | Watershed stress, drought, industrial demand, First Nation water rights                                                                                                        |
-| Intelligence | Energy & Grid       | `/energy`     | Transmission constraints, AI/data-centre load growth, asset-stranding exposure                                                                                                 |
-| Intelligence | Indigenous Finance  | `/finance`    | Ownership structures, CIB/AIOC/FNFA financing, debt exposure, cash-flow waterfalls                                                                                             |
-| Research     | Project Assessments | `/projects`   | Detailed assessments of 4 real Canadian projects, with claims separated by kind                                                                                                |
-| Research     | Evidence Library    | `/evidence`   | 48 public-record sources (treaty texts, SCC decisions, legislation, regulatory filings, program documentation)                                                                 |
-| Research     | Cited Sources       | `/sources`    | Source-reliability heatmap and cross-reference index                                                                                                                           |
-| Research     | Plain-Language      | `/explainers` | 7 explainers for community-decision-relevant concepts                                                                                                                          |
-| Research     | Treaty Archive      | `/archive`    | Searchable archive of historical treaties — Numbered Treaties 1, 4, 6, 7, 8, 11 + international instruments (UNDRIP, ILO 169, UN Charter, VCLT, Geneva IV, Paris Agreement)    |
-| Tools        | Analyst Q&A         | `/ask`        | Source-grounded question console backed by the Databricks AI Gateway                                                                                                           |
-| Tools        | Static Reports      | `/reports`    | Cross-reference visualisations (per-project citation mix, top-cited evidence, source-reliability heatmap)                                                                      |
+| Group        | Module              | Path          | Purpose                                                                                                                                                                     |
+| ------------ | ------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Intelligence | Command Center      | `/`           | Foundational thesis, cross-domain severity composite, current risk indicators, infrastructure watchlist, module index                                                       |
+| Intelligence | Treaty Terminal     | `/treaty`     | Treaty rights, consultation status, governance risk, community validation                                                                                                   |
+| Intelligence | Water Intelligence  | `/water`      | Watershed stress, drought, industrial demand, First Nation water rights                                                                                                     |
+| Intelligence | Energy & Grid       | `/energy`     | Transmission constraints, AI/data-centre load growth, asset-stranding exposure                                                                                              |
+| Intelligence | Indigenous Finance  | `/finance`    | Ownership structures, CIB/AIOC/FNFA financing, debt exposure, cash-flow waterfalls                                                                                          |
+| Research     | Project Assessments | `/projects`   | Detailed assessments of 4 real Canadian projects, with claims separated by kind                                                                                             |
+| Research     | Evidence Library    | `/evidence`   | 48 public-record sources (treaty texts, SCC decisions, legislation, regulatory filings, program documentation)                                                              |
+| Research     | Cited Sources       | `/sources`    | Source-reliability heatmap and cross-reference index                                                                                                                        |
+| Research     | Plain-Language      | `/explainers` | 7 explainers for community-decision-relevant concepts                                                                                                                       |
+| Research     | Treaty Archive      | `/archive`    | Searchable archive of historical treaties — Numbered Treaties 1, 4, 6, 7, 8, 11 + international instruments (UNDRIP, ILO 169, UN Charter, VCLT, Geneva IV, Paris Agreement) |
+| Tools        | Analyst Q&A         | `/ask`        | Source-grounded question console backed by the Databricks AI Gateway                                                                                                        |
+| Tools        | Static Reports      | `/reports`    | Cross-reference visualisations (per-project citation mix, top-cited evidence, source-reliability heatmap)                                                                   |
 
 Current content counts (kept in sync by the validator in
 `src/lib/content/validators.ts`): **4 project assessments · 48 evidence items ·
@@ -122,10 +122,28 @@ npx prisma generate
 npx prisma migrate dev
 ```
 
-Seed the Treaty Archive:
+Seed the database — the Treaty Archive **and** the content collections
+(evidence, projects, indicators, explainers, modules), read from
+`src/content/*.json`:
 
 ```bash
 npx prisma db seed
+```
+
+The five `src/content/*.json` files are the **source of truth for seeding** the
+content tables: the seed validates every cross-reference write-time and resolves
+slug references to real foreign keys (an unresolved reference aborts the whole
+transaction). To drop, re-migrate, and re-seed in one step:
+
+```bash
+npm run db:reset
+```
+
+Production runs on Postgres. After any schema change, regenerate the Postgres
+target from the canonical SQLite schema:
+
+```bash
+npm run db:postgres-schema   # writes prisma/schema.postgres.prisma
 ```
 
 Run the dev server:
@@ -179,9 +197,10 @@ src/
 └── app/globals.css       # Tailwind v4 theme
 
 prisma/
-├── schema.prisma         # Treaty / Party / Signature / Topic
-├── seed.ts               # 12 historical treaties
-└── migrations/           # SQLite migrations
+├── schema.prisma          # SQLite (canonical): treaty registry + content models
+├── schema.postgres.prisma # GENERATED prod target (scripts/gen-postgres-schema.mjs)
+├── seed.ts                # 12 treaties + content collections from src/content/*.json
+└── migrations/            # SQLite migrations
 ```
 
 ## Design intent

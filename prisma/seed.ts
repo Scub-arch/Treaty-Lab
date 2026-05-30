@@ -5,8 +5,17 @@
 // Run with: npx prisma db seed   (or `npx tsx prisma/seed.ts`)
 
 import "dotenv/config";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { PrismaClient } from "../src/generated/prisma/client";
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
+import type {
+  EvidenceItem,
+  Indicator,
+  ProjectAssessment,
+  PlainLanguageExplainer,
+  ModuleConfig,
+} from "../src/lib/content/types";
 
 const dbUrl = process.env.DATABASE_URL ?? "file:./prisma/dev.db";
 const dbPath = dbUrl.startsWith("file:") ? dbUrl.slice(5) : dbUrl;
@@ -292,6 +301,290 @@ const TREATIES: SeedTreaty[] = [
   },
 ];
 
+// ---------------------------------------------------------------------------
+// DATA-001: content collections seeded from src/content/*.json into the Prisma
+// models added by the data-001 migration. The JSON files stay the source of
+// truth for seeding; slug cross-references are resolved to FK ids here. A
+// pre-insert validator fails loud (listing every dangling ref) BEFORE any row
+// is written, and all inserts run in one $transaction.
+// ---------------------------------------------------------------------------
+
+interface ContentBundle {
+  evidence: EvidenceItem[];
+  indicators: Indicator[];
+  projects: ProjectAssessment[];
+  explainers: PlainLanguageExplainer[];
+  modules: ModuleConfig[];
+}
+
+function readContent<T>(file: string, key: string): T[] {
+  const raw = readFileSync(join(process.cwd(), "src", "content", file), "utf8");
+  const arr = (JSON.parse(raw) as Record<string, unknown>)[key];
+  if (!Array.isArray(arr)) {
+    throw new Error(`Seed: expected an array at "${key}" in src/content/${file}`);
+  }
+  return arr as T[];
+}
+
+function loadContent(): ContentBundle {
+  return {
+    evidence: readContent<EvidenceItem>("evidence.json", "items"),
+    indicators: readContent<Indicator>("indicators.json", "indicators"),
+    projects: readContent<ProjectAssessment>("projects.json", "projects"),
+    explainers: readContent<PlainLanguageExplainer>("explainers.json", "explainers"),
+    modules: readContent<ModuleConfig>("modules.json", "modules"),
+  };
+}
+
+const CLAIM_GROUPS = ["firstNationImplications", "treatyAndWaterRisk", "financeRisk"] as const;
+
+/** Write-time cross-reference validator: throws one readable error before insert. */
+function validateContentForSeed(c: ContentBundle): void {
+  const errors: string[] = [];
+
+  const uniqueSlugs = (rows: { slug: string }[], label: string): Set<string> => {
+    const seen = new Set<string>();
+    for (const r of rows) {
+      if (seen.has(r.slug)) errors.push(`duplicate ${label} slug "${r.slug}"`);
+      seen.add(r.slug);
+    }
+    return seen;
+  };
+  const evidence = uniqueSlugs(c.evidence, "evidence");
+  const indicators = uniqueSlugs(c.indicators, "indicator");
+  const projects = uniqueSlugs(c.projects, "project");
+  uniqueSlugs(c.explainers, "explainer");
+  uniqueSlugs(c.modules, "module");
+
+  const needEvidence = (slug: string, where: string) => {
+    if (!evidence.has(slug)) errors.push(`${where} -> unknown evidence "${slug}"`);
+  };
+  for (const i of c.indicators) {
+    (i.sources ?? []).forEach((s) => needEvidence(s.evidenceSlug, `indicator[${i.slug}]`));
+  }
+  for (const p of c.projects) {
+    p.primarySources.forEach((s) =>
+      needEvidence(s.evidenceSlug, `project[${p.slug}].primarySources`),
+    );
+    for (const g of CLAIM_GROUPS) {
+      for (const cl of p[g]) {
+        (cl.sources ?? []).forEach((s) => needEvidence(s.evidenceSlug, `project[${p.slug}].${g}`));
+      }
+    }
+    (p.finance.sources ?? []).forEach((s) =>
+      needEvidence(s.evidenceSlug, `project[${p.slug}].finance`),
+    );
+  }
+  for (const e of c.explainers) {
+    (e.relatedEvidence ?? []).forEach((s) =>
+      needEvidence(s, `explainer[${e.slug}].relatedEvidence`),
+    );
+    (e.relatedProjects ?? []).forEach((s) => {
+      if (!projects.has(s))
+        errors.push(`explainer[${e.slug}].relatedProjects -> unknown project "${s}"`);
+    });
+  }
+  for (const m of c.modules) {
+    m.featuredIndicatorSlugs.forEach((s) => {
+      if (!indicators.has(s))
+        errors.push(`module[${m.slug}].featuredIndicatorSlugs -> unknown indicator "${s}"`);
+    });
+    m.featuredProjectSlugs.forEach((s) => {
+      if (!projects.has(s))
+        errors.push(`module[${m.slug}].featuredProjectSlugs -> unknown project "${s}"`);
+    });
+  }
+
+  if (errors.length > 0) {
+    throw new Error(
+      `Content validation failed (${errors.length} error(s)):\n  ${errors.join("\n  ")}`,
+    );
+  }
+}
+
+async function seedContent(): Promise<void> {
+  const c = loadContent();
+  validateContentForSeed(c); // fail loud BEFORE writing anything
+
+  // Clean existing content. Delete order respects the onDelete: Restrict edges
+  // (modules/explainers reference indicators/projects/evidence; evidence last).
+  await prisma.moduleConfig.deleteMany();
+  await prisma.plainLanguageExplainer.deleteMany();
+  await prisma.projectAssessment.deleteMany();
+  await prisma.indicator.deleteMany();
+  await prisma.evidenceItem.deleteMany();
+
+  await prisma.$transaction(
+    async (tx) => {
+      const evId = new Map<string, string>();
+      for (const e of c.evidence) {
+        const row = await tx.evidenceItem.create({
+          data: {
+            slug: e.slug,
+            title: e.title,
+            sourceType: e.sourceType,
+            author: e.author,
+            publishedAt: e.publishedAt,
+            url: e.url,
+            citation: e.citation,
+            reliability: e.reliability,
+            plainSummary: e.plainSummary,
+            tags: e.tags,
+            supports: e.supports,
+            limitations: e.limitations ?? undefined,
+          },
+        });
+        evId.set(e.slug, row.id);
+      }
+
+      const indId = new Map<string, string>();
+      for (const i of c.indicators) {
+        const row = await tx.indicator.create({
+          data: {
+            slug: i.slug,
+            domain: i.domain,
+            name: i.name,
+            summary: i.summary,
+            value: i.value,
+            numericValue: i.numericValue,
+            unit: i.unit,
+            severity: i.severity,
+            trend: i.trend,
+            note: i.note,
+            updatedAt: i.updatedAt,
+            sources: {
+              create: (i.sources ?? []).map((s, order) => ({
+                evidenceId: evId.get(s.evidenceSlug)!,
+                citing: s.citing,
+                order,
+              })),
+            },
+          },
+        });
+        indId.set(i.slug, row.id);
+      }
+
+      const projId = new Map<string, string>();
+      for (const p of c.projects) {
+        const claims = CLAIM_GROUPS.flatMap((group) =>
+          p[group].map((cl, order) => ({
+            group,
+            kind: cl.kind,
+            text: cl.text,
+            order,
+            sources: {
+              create: (cl.sources ?? []).map((s, si) => ({
+                evidenceId: evId.get(s.evidenceSlug)!,
+                citing: s.citing,
+                order: si,
+              })),
+            },
+          })),
+        );
+        const row = await tx.projectAssessment.create({
+          data: {
+            slug: p.slug,
+            name: p.name,
+            shortName: p.shortName,
+            status: p.status,
+            summary: p.summary,
+            location: p.location,
+            proponent: p.proponent,
+            governmentObjective: p.governmentObjective,
+            proponentObjective: p.proponentObjective,
+            evidenceConfidence: p.evidenceConfidence,
+            lastReviewed: p.lastReviewed,
+            jurisdictions: p.jurisdictions,
+            domains: p.domains,
+            governanceQuestions: p.governanceQuestions,
+            recommendedCommunityQuestions: p.recommendedCommunityQuestions,
+            parties: {
+              create: p.parties.map((pt, order) => ({
+                name: pt.name,
+                role: pt.role,
+                statementUrl: pt.statementUrl,
+                order,
+              })),
+            },
+            claims: { create: claims },
+            primarySources: {
+              create: p.primarySources.map((s, order) => ({
+                evidenceId: evId.get(s.evidenceSlug)!,
+                citing: s.citing,
+                order,
+              })),
+            },
+            finance: {
+              create: {
+                structure: p.finance.structure,
+                totalCostEstimate: p.finance.totalCostEstimate,
+                costOverrunsNoted: p.finance.costOverrunsNoted,
+                loanGuarantor: p.finance.loanGuarantor,
+                riskCarrier: p.finance.riskCarrier,
+                sources: {
+                  create: (p.finance.sources ?? []).map((s, order) => ({
+                    evidenceId: evId.get(s.evidenceSlug)!,
+                    citing: s.citing,
+                    order,
+                  })),
+                },
+              },
+            },
+          },
+        });
+        projId.set(p.slug, row.id);
+      }
+
+      for (const e of c.explainers) {
+        await tx.plainLanguageExplainer.create({
+          data: {
+            slug: e.slug,
+            question: e.question,
+            shortAnswer: e.shortAnswer,
+            body: e.body,
+            relatedEvidence: {
+              create: (e.relatedEvidence ?? []).map((slug, order) => ({
+                evidenceId: evId.get(slug)!,
+                order,
+              })),
+            },
+            relatedProjects: {
+              create: (e.relatedProjects ?? []).map((slug, order) => ({
+                projectId: projId.get(slug)!,
+                order,
+              })),
+            },
+          },
+        });
+      }
+
+      for (const m of c.modules) {
+        await tx.moduleConfig.create({
+          data: {
+            slug: m.slug,
+            title: m.title,
+            tagline: m.tagline,
+            lede: m.lede,
+            featuredIndicators: {
+              create: m.featuredIndicatorSlugs.map((slug, order) => ({
+                indicatorId: indId.get(slug)!,
+                order,
+              })),
+            },
+            featuredProjects: {
+              create: m.featuredProjectSlugs.map((slug, order) => ({
+                projectId: projId.get(slug)!,
+                order,
+              })),
+            },
+          },
+        });
+      }
+    },
+    { timeout: 60000 },
+  );
+}
+
 async function main() {
   // Reset (clean re-seed)
   await prisma.signature.deleteMany();
@@ -356,13 +649,23 @@ async function main() {
     });
   }
 
+  await seedContent();
+
   const treatyCount = await prisma.treaty.count();
   const partyCount = await prisma.party.count();
   const signatureCount = await prisma.signature.count();
   const topicCount = await prisma.topic.count();
+  const evidenceCount = await prisma.evidenceItem.count();
+  const indicatorCount = await prisma.indicator.count();
+  const projectCount = await prisma.projectAssessment.count();
+  const explainerCount = await prisma.plainLanguageExplainer.count();
+  const moduleCount = await prisma.moduleConfig.count();
 
   console.log(
     `Seeded: ${treatyCount} treaties, ${partyCount} parties, ${signatureCount} signatures, ${topicCount} topics`,
+  );
+  console.log(
+    `Content: ${projectCount} projects, ${evidenceCount} evidence, ${indicatorCount} indicators, ${explainerCount} explainers, ${moduleCount} modules`,
   );
 }
 

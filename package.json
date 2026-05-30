@@ -9,6 +9,8 @@
     "check:content": "node scripts/check-content.mjs",
     "check:nrta": "node scripts/check-nrta.mjs",
     "check": "npm run check:content && npm run check:nrta && tsc --noEmit",
+    "db:reset": "prisma migrate reset --force",
+    "db:postgres-schema": "node scripts/gen-postgres-schema.mjs",
     "chat": "tsx scripts/chat.ts",
     "lint": "eslint .",
     "format": "prettier --write .",
