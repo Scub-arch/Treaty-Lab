@@ -54,3 +54,5 @@ next-env.d.ts
 *.db
 .work/
 !.env.example
+# Keep research synthesis markers (referenced in README "Phase 8 Sources" note)
+!.work/agent-out-*.md
