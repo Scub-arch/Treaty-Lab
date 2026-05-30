@@ -3,11 +3,14 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [main, fnd-002-ci-gate]
 
 jobs:
   check:
     runs-on: ubuntu-latest
+    env:
+      # Prisma reads this at build time — generateStaticParams queries the SQLite DB.
+      DATABASE_URL: file:./prisma/dev.db
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -15,5 +18,11 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # The Prisma client (src/generated/prisma) is gitignored — regenerate it.
       - run: npx prisma generate
+      # Create the schema in a fresh SQLite DB and seed it so the static build
+      # has data to render (mirrors local `npm run build`).
+      - run: npx prisma migrate deploy
+      - run: npx prisma db seed
       - run: npm run check
+      - run: npm run build
