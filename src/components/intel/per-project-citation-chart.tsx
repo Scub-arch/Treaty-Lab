@@ -11,6 +11,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import type { SourceType } from "@/lib/content/types";
+import { withChartErrorBoundary } from "@/components/ui/chart-error-boundary";
 
 export interface CitationChartRow {
   project: string;
@@ -62,7 +63,7 @@ const SOURCE_TYPE_LABEL: Record<SourceType, string> = {
   financial_prospectus: "Financial prospectus",
 };
 
-export function PerProjectCitationChart({ rows, presentTypes }: Props) {
+function PerProjectCitationChartInner({ rows, presentTypes }: Props) {
   return (
     <div className="w-full">
       <ResponsiveContainer width="100%" height={Math.max(220, rows.length * 56)}>
@@ -123,3 +124,8 @@ export function PerProjectCitationChart({ rows, presentTypes }: Props) {
     </div>
   );
 }
+
+export const PerProjectCitationChart = withChartErrorBoundary(
+  PerProjectCitationChartInner,
+  "PRJ · CITATIONS",
+);

@@ -2,6 +2,7 @@
 
 import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart } from "recharts";
 import { ChartContainer, type ChartConfig } from "@/components/ui/chart";
+import { withChartErrorBoundary } from "@/components/ui/chart-error-boundary";
 
 export interface DomainComposite {
   /** Domain key (treaty, water, energy, finance, governance) */
@@ -21,7 +22,7 @@ interface Props {
 }
 
 /** Cross-domain composite severity radar — Command Center centerpiece. */
-export function RadarOverview({ composites, maxScore = 5 }: Props) {
+function RadarOverviewInner({ composites, maxScore = 5 }: Props) {
   const chartConfig: ChartConfig = {
     severity: {
       label: "Composite severity",
@@ -67,3 +68,5 @@ export function RadarOverview({ composites, maxScore = 5 }: Props) {
     </div>
   );
 }
+
+export const RadarOverview = withChartErrorBoundary(RadarOverviewInner, "CMD · SEVERITY RADAR");

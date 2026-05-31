@@ -10,12 +10,13 @@ import {
   YAxis,
 } from "recharts";
 import type { TreatyTimelinePoint } from "@/lib/dashboard-data";
+import { withChartErrorBoundary } from "@/components/ui/chart-error-boundary";
 
 interface Props {
   data: TreatyTimelinePoint[];
 }
 
-export function TreatyTimelineChart({ data }: Props) {
+function TreatyTimelineChartInner({ data }: Props) {
   if (data.length === 0) {
     return (
       <div className="h-48 flex items-center justify-center text-xs text-muted-foreground">
@@ -87,3 +88,8 @@ export function TreatyTimelineChart({ data }: Props) {
     </div>
   );
 }
+
+export const TreatyTimelineChart = withChartErrorBoundary(
+  TreatyTimelineChartInner,
+  "DSH · TIMELINE",
+);

@@ -12,6 +12,7 @@ import {
 } from "recharts";
 import type { SourceType } from "@/lib/content/types";
 import type { CitedEvidenceRecord } from "@/lib/content";
+import { withChartErrorBoundary } from "@/components/ui/chart-error-boundary";
 
 interface Props {
   records: CitedEvidenceRecord[];
@@ -49,7 +50,7 @@ function truncate(s: string, max: number): string {
   return s.slice(0, max - 1) + "…";
 }
 
-export function TopCitedEvidenceChart({ records }: Props) {
+function TopCitedEvidenceChartInner({ records }: Props) {
   // Reverse so that the highest-cited bar sits at the TOP of the chart.
   const data = [...records].reverse().map((r) => ({
     label: truncate(r.title, 70),
@@ -143,3 +144,8 @@ export function TopCitedEvidenceChart({ records }: Props) {
     </div>
   );
 }
+
+export const TopCitedEvidenceChart = withChartErrorBoundary(
+  TopCitedEvidenceChartInner,
+  "EVD · TOP CITED",
+);

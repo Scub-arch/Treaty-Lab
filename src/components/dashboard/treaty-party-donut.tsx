@@ -2,6 +2,7 @@
 
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import type { PartyTypeSlice } from "@/lib/dashboard-data";
+import { withChartErrorBoundary } from "@/components/ui/chart-error-boundary";
 
 interface Props {
   data: PartyTypeSlice[];
@@ -14,7 +15,7 @@ const TYPE_LABEL: Record<string, string> = {
   organization: "Organizations",
 };
 
-export function TreatyPartyDonut({ data }: Props) {
+function TreatyPartyDonutInner({ data }: Props) {
   if (data.length === 0) {
     return (
       <div className="h-48 flex items-center justify-center text-xs text-muted-foreground">
@@ -72,3 +73,5 @@ export function TreatyPartyDonut({ data }: Props) {
     </div>
   );
 }
+
+export const TreatyPartyDonut = withChartErrorBoundary(TreatyPartyDonutInner, "DSH · PARTIES");
