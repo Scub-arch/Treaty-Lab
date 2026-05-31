@@ -56,6 +56,11 @@ if (matches.length !== 1) {
 
 const generated = HEADER + source.replace('provider = "sqlite"', 'provider = "postgresql"');
 
+// Compare line-ending-agnostically: the source/target working-tree files may be
+// CRLF on Windows but LF on Linux/CI (git autocrlf). Drift detection should fire
+// on real content changes only, not on checkout line-ending differences.
+const normalizeEol = (s) => s.replace(/\r\n/g, "\n");
+
 if (checkOnly) {
   let current = null;
   try {
@@ -66,7 +71,7 @@ if (checkOnly) {
     );
     process.exit(1);
   }
-  if (current !== generated) {
+  if (normalizeEol(current) !== normalizeEol(generated)) {
     console.error(
       "FAIL: prisma/schema.postgres.prisma is stale. Run: node scripts/gen-postgres-schema.mjs",
     );
