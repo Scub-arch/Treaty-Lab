@@ -28,6 +28,7 @@ import {
 } from "@/lib/content";
 import type { Domain, ProjectAssessment, Indicator } from "@/lib/content/types";
 import type { Message } from "@/lib/dbx-chat";
+import { auth } from "@/lib/auth";
 import { chatTreatyStream, type StreamEvent } from "@/lib/dbx-chat-stream";
 
 export const runtime = "nodejs";
@@ -65,6 +66,14 @@ const SYSTEM_PROMPT = [
 ].join("\n");
 
 export async function POST(req: Request) {
+  const session = await auth();
+  if (!session) {
+    return new Response(JSON.stringify({ error: "Authentication required." }), {
+      status: 401,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
   let body: AskStreamRequest;
   try {
     body = (await req.json()) as AskStreamRequest;

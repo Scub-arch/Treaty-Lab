@@ -9,8 +9,9 @@
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/db";
 import { generateToken, hashToken } from "./tokens";
+import { SESSION_COOKIE_NAME } from "./constants";
 
-export const SESSION_COOKIE_NAME = "tl_session";
+export { SESSION_COOKIE_NAME };
 const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
 
 export interface SessionUser {
