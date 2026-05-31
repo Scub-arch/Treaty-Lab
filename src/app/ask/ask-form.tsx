@@ -184,6 +184,7 @@ export function AskForm({ projects, domains }: Props) {
         <div className="col-span-12 md:col-span-5">
           <div className="text-[9px] tracking-[0.2em] text-zinc-500 mb-1">PROJECT CONTEXT</div>
           <select
+            aria-label="Project context"
             value={projectSlug}
             onChange={(e) => setProjectSlug(e.target.value)}
             disabled={pending}
@@ -200,6 +201,7 @@ export function AskForm({ projects, domains }: Props) {
         <div className="col-span-12 md:col-span-5">
           <div className="text-[9px] tracking-[0.2em] text-zinc-500 mb-1">DOMAIN CONTEXT</div>
           <select
+            aria-label="Domain context"
             value={domainSlug}
             onChange={(e) => setDomainSlug(e.target.value)}
             disabled={pending}

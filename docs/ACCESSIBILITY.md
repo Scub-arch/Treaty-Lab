@@ -62,16 +62,27 @@ gate. Promote it to a required check once the triage below is clean.
 > Note: the axe smoke is validated in CI (Linux). It is not run on the author's
 > Windows box, where Smart App Control blocks the bundled Chromium.
 
-## Triage — known default-theme items
+## Triage — axe baseline
 
-The default terminal theme uses some intentionally dim, low-opacity decorative
-text. These are **resolved in the High-contrast theme** and are tracked as a
-follow-up for the default theme rather than fixed here (to keep this PR off
-shared dashboard files):
+The first axe run (CI) captured the app's accessibility baseline. The job is
+**non-required** until the serious-contrast backlog below is cleared.
 
-- `text-muted-foreground/60` em-dashes / counts in `components/dashboard/treaties-table.tsx`.
-- `/60` chevron and list-marker decoration in `app/sources/page.tsx`, `app/evidence/[slug]/page.tsx`.
-- The `text-muted-foreground/50` 404 numeral (`app/not-found.tsx`) — large display text, ≥3:1.
-- `placeholder:text-muted-foreground/60` in the chat composer (placeholders are exempt from the AA text-contrast rule).
+**Fixed in this PR:**
 
-Fixed here: the `text-muted-foreground/60` "(coming soon)" label in the top bar.
+- `select-name` (**critical**, `/ask`) — the Project/Domain context `<select>`s
+  had visible `<div>` labels but no programmatic name; given `aria-label`s.
+- `aria-hidden-focus` (serious, `/dashboard`) — the slide-in `ChatPanel` aside
+  was `aria-hidden` while closed but kept focusable children in the tab order;
+  switched to `inert={!open}`.
+- The theme menu's own a11y (radio-group keyboard pattern + initial focus,
+  Label-in-Name trigger, named dialog) and the `/60` top-bar contrast.
+
+**Deferred (follow-up — the audit stays non-required until done):**
+
+- `color-contrast` (serious) on most routes. The bulk is **hard-coded** per
+  component colours (`text-zinc-500`, `text-amber-300/80`, etc.) that bypass the
+  theme tokens, plus the default theme's intentionally dim `--muted-foreground`.
+  The terminal aesthetic is the deliberate default (per UI-003), so the
+  remediation is the **High-contrast theme** for users who need AA, with a
+  separate pass to lift the hard-coded default-theme colours. This is a broad,
+  cross-file change kept out of this PR.
