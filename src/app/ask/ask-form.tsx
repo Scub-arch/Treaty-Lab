@@ -31,6 +31,17 @@ interface Turn {
   response?: AskResponse;
 }
 
+/** UI-002: a turn row as returned by GET /api/sessions/[id]. */
+interface PersistedTurn {
+  question: string;
+  answer: string;
+  reasoning: string | null;
+  model: string | null;
+  projectSlug: string | null;
+  domainSlug: string | null;
+  createdAt: string;
+}
+
 const QUICK_PROMPTS = [
   "Summarize the Yahey v BC decision in three sentences",
   "What are the open questions on the Cascade 6-Nations partnership?",
@@ -45,6 +56,7 @@ export function AskForm({ projects, domains }: Props) {
   const [domainSlug, setDomainSlug] = useState<string>("");
   const [includeReasoning, setIncludeReasoning] = useState(false);
   const [turns, setTurns] = useState<Turn[]>([]);
+  const [sessionId, setSessionId] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
   const [clock, setClock] = useState(() => new Date());
   const turnCounter = useRef(0);
@@ -67,6 +79,39 @@ export function AskForm({ projects, domains }: Props) {
   // Focus input on mount
   useEffect(() => {
     inputRef.current?.focus();
+  }, []);
+
+  // UI-002: hydrate the transcript from ?session=<id> if present.
+  useEffect(() => {
+    const sid = new URLSearchParams(window.location.search).get("session");
+    if (!sid) return;
+    let active = true;
+    fetch(`/api/sessions/${sid}`, { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: { session?: { turns: PersistedTurn[] } } | null) => {
+        if (!active || !data?.session) return;
+        setSessionId(sid);
+        setTurns(
+          data.session.turns.map((t) => ({
+            id: ++turnCounter.current,
+            question: t.question,
+            projectSlug: t.projectSlug ?? "",
+            domainSlug: t.domainSlug ?? "",
+            reasoning: Boolean(t.reasoning),
+            startedAt: new Date(t.createdAt),
+            finishedAt: new Date(t.createdAt),
+            response: {
+              answer: t.answer,
+              reasoning: t.reasoning ?? undefined,
+              model: t.model ?? undefined,
+            },
+          })),
+        );
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
   }, []);
 
   const lastModel = useMemo(() => {
@@ -98,6 +143,21 @@ export function AskForm({ projects, domains }: Props) {
     setCmd("");
 
     startTransition(async () => {
+      // UI-002: ensure a persisted session exists before the turn lands.
+      let sid = sessionId;
+      if (!sid) {
+        try {
+          const cr = await fetch("/api/sessions", { method: "POST" });
+          if (cr.ok) {
+            sid = ((await cr.json()) as { id: string }).id;
+            setSessionId(sid);
+            window.history.replaceState(null, "", `/ask?session=${sid}`);
+          }
+        } catch {
+          // non-fatal — the turn still renders, just isn't persisted
+        }
+      }
+
       let response: AskResponse;
       try {
         const r = await fetch("/api/ask", {
@@ -132,6 +192,23 @@ export function AskForm({ projects, domains }: Props) {
             : tt,
         ),
       );
+
+      // UI-002: persist the completed turn (best-effort).
+      if (sid && response.answer) {
+        fetch(`/api/sessions/${sid}/turns`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            question,
+            answer: response.answer,
+            reasoning: response.reasoning,
+            model: response.model,
+            projectSlug: projectSlugAtSubmit,
+            domainSlug: domainSlugAtSubmit,
+          }),
+        }).catch(() => {});
+      }
+
       // refocus input for next question
       requestAnimationFrame(() => inputRef.current?.focus());
     });
@@ -139,6 +216,8 @@ export function AskForm({ projects, domains }: Props) {
 
   function clearTranscript() {
     setTurns([]);
+    setSessionId(null);
+    window.history.replaceState(null, "", "/ask");
     requestAnimationFrame(() => inputRef.current?.focus());
   }
 

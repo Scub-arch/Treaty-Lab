@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -66,6 +67,7 @@ export function Sidebar() {
         <NavGroup title="Intelligence" items={intelligence} pathname={pathname} />
         <NavGroup title="Research" items={research} pathname={pathname} />
         <NavGroup title="Tools" items={tools} pathname={pathname} />
+        <RecentChats pathname={pathname} />
       </nav>
 
       <div className="px-5 py-4 border-t border-border">
@@ -77,6 +79,63 @@ export function Sidebar() {
         </div>
       </div>
     </aside>
+  );
+}
+
+interface ChatSessionSummary {
+  id: string;
+  title: string | null;
+  turnCount: number;
+}
+
+// UI-002: the signed-in user's recent /ask conversations. Hidden when empty or
+// signed out (the API returns 401). Refetches on navigation.
+function RecentChats({ pathname }: { pathname: string }) {
+  const [sessions, setSessions] = useState<ChatSessionSummary[]>([]);
+
+  useEffect(() => {
+    let active = true;
+    fetch("/api/sessions", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: { sessions?: ChatSessionSummary[] } | null) => {
+        if (active) setSessions(d?.sessions ?? []);
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, [pathname]);
+
+  if (sessions.length === 0) return null;
+
+  return (
+    <div>
+      <div className="px-2 mb-2 font-mono text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
+        Recent
+      </div>
+      <ul className="space-y-0.5">
+        {sessions.map((s) => {
+          const href = `/ask?session=${s.id}`;
+          const active = pathname === "/ask";
+          return (
+            <li key={s.id}>
+              <Link
+                href={href}
+                className={cn(
+                  "flex items-center gap-2 px-2.5 py-1.5 rounded-md text-xs transition-colors",
+                  "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                  active ? "text-sidebar-foreground/90" : "text-sidebar-foreground/70",
+                )}
+              >
+                <MessageSquare className="w-3.5 h-3.5 shrink-0 opacity-60" />
+                <span className="flex-1 truncate">{s.title ?? "Untitled chat"}</span>
+                <span className="font-mono text-[10px] text-muted-foreground">{s.turnCount}</span>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 }
 
