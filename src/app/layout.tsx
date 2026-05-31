@@ -26,7 +26,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <head>
+        {/* UI-003: apply the saved theme before paint to avoid a flash. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var m=document.cookie.match(/(?:^|; )tl_theme=([^;]+)/);var t=m?decodeURIComponent(m[1]):'dark';document.documentElement.className=t==='light'?'':t==='high-contrast'?'high-contrast':'dark';}catch(e){}`,
+          }}
+        />
+      </head>
       <body
         className={`${inter.variable} ${mono.variable} antialiased bg-background text-foreground min-h-screen`}
       >

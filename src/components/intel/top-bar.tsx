@@ -1,5 +1,6 @@
 import { Search } from "lucide-react";
 import { AuthStatus } from "@/components/intel/auth-status";
+import { ThemeMenu } from "@/components/intel/theme-menu";
 
 export function TopBar() {
   // Live UTC + system status line — institutional terminal feel.
@@ -22,6 +23,7 @@ export function TopBar() {
           </div>
           <div>UTC {utc}</div>
           <div>SAMPLE DATA · NOT INVESTMENT ADVICE</div>
+          <ThemeMenu />
           <AuthStatus />
         </div>
       </div>
