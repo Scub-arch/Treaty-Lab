@@ -24,8 +24,10 @@ inline script restores the saved theme with no flash; no console/hydration error
 `globals.css` honours `@media (prefers-reduced-motion: reduce)` globally
 (animations/transitions reduced to ~0ms) and force-calms the High-Contrast theme
 regardless of OS setting. This covers the pulsing "LIVE" indicator and similar
-CSS animation. The `cobe` globe on the Command Center is a canvas animation — a
-follow-up should pass it a `prefers-reduced-motion` flag to stop the spin.
+CSS animation. The `cobe` globe on the Command Center is a canvas animation, so
+it checks `matchMedia("(prefers-reduced-motion: reduce)")` directly and **stops
+auto-rotating** (it still renders and stays draggable); its canvas also carries
+`role="img"` + an `aria-label`.
 
 ## Conformance target & follow-up
 
@@ -35,8 +37,9 @@ The target is **WCAG 2.1 AA**. Still to do (deferred from UI-003 as heavier infr
   `@axe-core/playwright` against the key routes and fail CI on any
   serious/critical violation. This pulls Playwright + a browser into CI and is
   best landed as its own change.
-- Triage and fix violations surfaced by that audit.
-- `cobe` reduced-motion flag (above).
+- Triage and fix violations surfaced by that audit. The audit must sign in first
+  (most routes are gated by SEC-001), so it needs a Playwright auth fixture using
+  the dev magic-link flow — otherwise it scans `/login` for the gated routes.
 
 ## Enforced CSP note
 
