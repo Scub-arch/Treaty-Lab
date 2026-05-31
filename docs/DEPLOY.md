@@ -107,16 +107,16 @@ deploy"` and the `/api/healthz` check.
 - **`.github/workflows/deploy.yml`** — manual (`workflow_dispatch`), guarded on the
   `DEPLOY_ENABLED` repo variable so it never auto-runs before a target exists.
 
-### ⚠ Prerequisites before a build actually runs (NOT yet done)
+### ⚠ Remaining before a build actually runs
 
-These could not be authored/verified in the build sandbox (no Docker daemon, no
-Postgres, no deploy account) and are required for a working production image:
-
-1. **Postgres adapter in `src/lib/db.ts`.** It currently hardcodes
-   `@prisma/adapter-better-sqlite3`, whose native binding is **not traced into
-   `.next/standalone`**. Production must select a Postgres adapter (e.g.
-   `@prisma/adapter-pg`) for `postgres://` URLs while keeping SQLite for local dev.
-   Track as a small follow-up; it is the one true blocker for `docker build`.
+1. **Postgres adapter — DONE.** `src/lib/db.ts` now selects the driver adapter by
+   `DATABASE_URL` scheme: `@prisma/adapter-pg` for `postgres://`/`postgresql://`,
+   `@prisma/adapter-better-sqlite3` for `file:` (local dev + CI). Adapters are
+   dynamically imported so production never loads better-sqlite3 (whose native
+   binding is not traced into `.next/standalone`). Verified: SQLite path
+   unchanged (build prerenders 95 pages off it); the Postgres adapter constructs
+   from a connection string; types clean. The Postgres path is not runtime-tested
+   here (no Postgres instance) — exercise it with `fly postgres` on first deploy.
 2. **Validate the `Dockerfile`** against a real `docker build` (image size target
    ≤ 250 MB; confirm the standalone COPY paths and that `prisma migrate deploy`
    works from the runtime image).
