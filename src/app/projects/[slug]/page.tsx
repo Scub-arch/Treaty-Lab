@@ -131,6 +131,31 @@ export default async function ProjectDetail(props: PageProps<"/projects/[slug]">
         </div>
 
         <aside className="space-y-6">
+          {/* Operates under (DATA-002: treaty jurisdiction) */}
+          {project.relatedTreaties && project.relatedTreaties.length > 0 && (
+            <IntelligencePanel
+              title="Operates under"
+              code="PRJ · TTY"
+              subtitle="Treaty jurisdiction(s) this project sits within. The Treaties came first."
+            >
+              <ul className="space-y-2 text-sm">
+                {project.relatedTreaties.map((t) => (
+                  <li key={t.slug}>
+                    <Link
+                      href={`/archive/${t.slug}`}
+                      className="font-medium hover:underline underline-offset-2"
+                    >
+                      {t.shortName ?? t.name}
+                    </Link>
+                    <div className="text-xs text-muted-foreground leading-snug mt-0.5">
+                      {t.name}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </IntelligencePanel>
+          )}
+
           {/* Finance summary */}
           <IntelligencePanel title="Finance summary" code="PRJ · FIN-SUM">
             <dl className="text-sm space-y-3">

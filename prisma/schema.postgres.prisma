@@ -30,8 +30,9 @@ model Treaty {
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
 
-  topics     Topic[]     @relation("TreatyTopics")
-  signatures Signature[]
+  topics          Topic[]             @relation("TreatyTopics")
+  signatures      Signature[]
+  relatedProjects ProjectAssessment[] @relation("ProjectTreaties")
 
   @@index([openedAt])
   @@index([enteredIntoForceAt])
@@ -156,6 +157,7 @@ model ProjectAssessment {
   primarySources    ProjectSource[]
   explainerLinks    ExplainerProject[]
   featuredInModules ModuleFeaturedProject[]
+  relatedTreaties   Treaty[]                @relation("ProjectTreaties")
 }
 
 model ProjectFinance {

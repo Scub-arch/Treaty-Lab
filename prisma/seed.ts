@@ -339,6 +339,15 @@ function loadContent(): ContentBundle {
 
 const CLAIM_GROUPS = ["firstNationImplications", "treatyAndWaterRisk", "financeRisk"] as const;
 
+// DATA-002: which treaty (registry) each project operates under. Conservative,
+// geography/narrative-grounded mapping; treaties are seeded above in main().
+// Cedar LNG sits on unceded Haisla territory (no Numbered Treaty) — omitted.
+const PROJECT_TREATIES: Record<string, string[]> = {
+  "site-c": ["treaty-8-1899"],
+  "coastal-gaslink": ["treaty-8-1899"],
+  "trans-mountain-expansion": ["treaty-6-1876"],
+};
+
 async function seedContent(): Promise<void> {
   const c = loadContent();
   // Pre-insert gate: fail loud before writing anything. Shares the single rule
@@ -348,6 +357,22 @@ async function seedContent(): Promise<void> {
   if (!validation.ok) {
     throw new Error(
       `Content validation failed — aborting seed:\n${formatValidationReport(validation)}`,
+    );
+  }
+
+  // DATA-002: every mapped treaty slug must resolve to a registry treaty (seeded
+  // above in main()). An unknown slug aborts the seed before any content is written.
+  const treatySlugs = new Set(
+    (await prisma.treaty.findMany({ select: { slug: true } })).map((t) => t.slug),
+  );
+  const badTreatyRefs = Object.entries(PROJECT_TREATIES).flatMap(([proj, slugs]) =>
+    slugs
+      .filter((s) => !treatySlugs.has(s))
+      .map((s) => `project "${proj}" -> unknown treaty "${s}"`),
+  );
+  if (badTreatyRefs.length > 0) {
+    throw new Error(
+      `DATA-002 treaty mapping has unresolved references — aborting seed:\n  ${badTreatyRefs.join("\n  ")}`,
     );
   }
 
@@ -474,6 +499,9 @@ async function seedContent(): Promise<void> {
                   })),
                 },
               },
+            },
+            relatedTreaties: {
+              connect: (PROJECT_TREATIES[p.slug] ?? []).map((slug) => ({ slug })),
             },
           },
         });

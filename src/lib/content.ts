@@ -52,6 +52,10 @@ async function loadContent(): Promise<{
         },
         primarySources: { include: evidenceSlug, orderBy: { order: "asc" } },
         finance: { include: { sources: { include: evidenceSlug, orderBy: { order: "asc" } } } },
+        relatedTreaties: {
+          select: { slug: true, name: true, shortName: true },
+          orderBy: { openedAt: "asc" },
+        },
       },
     }),
     prisma.plainLanguageExplainer.findMany({
@@ -150,6 +154,11 @@ async function loadContent(): Promise<{
       evidenceConfidence: p.evidenceConfidence as EvidenceStrength,
       domains: p.domains as Domain[],
       lastReviewed: p.lastReviewed,
+      relatedTreaties: p.relatedTreaties.map((t) => ({
+        slug: t.slug,
+        name: t.name,
+        shortName: t.shortName ?? undefined,
+      })),
     };
   });
 

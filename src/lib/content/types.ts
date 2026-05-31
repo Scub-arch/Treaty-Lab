@@ -109,6 +109,14 @@ export interface ProjectFinance {
   sources?: SourceReference[];
 }
 
+/** A treaty this project operates under — a cross-store reference into the
+ *  Treaty registry (DATA-002). `slug` links to /archive/[slug]. */
+export interface TreatyRef {
+  slug: string;
+  name: string;
+  shortName?: string;
+}
+
 export interface ProjectAssessment {
   slug: string;
   name: string;
@@ -147,6 +155,9 @@ export interface ProjectAssessment {
   domains: Domain[];
   /** ISO date last reviewed */
   lastReviewed: string;
+  /** Treaties this project operates under (DATA-002). Populated at read time
+   *  from the project↔treaty M2M; not part of the src/content JSON corpus. */
+  relatedTreaties?: TreatyRef[];
 }
 
 export interface PlainLanguageExplainer {
