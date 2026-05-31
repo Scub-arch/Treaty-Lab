@@ -29,17 +29,26 @@ it checks `matchMedia("(prefers-reduced-motion: reduce)")` directly and **stops
 auto-rotating** (it still renders and stays draggable); its canvas also carries
 `role="img"` + an `aria-label`.
 
-## Conformance target & follow-up
+## Automated axe-core audit (CI)
 
-The target is **WCAG 2.1 AA**. Still to do (deferred from UI-003 as heavier infra):
+The target is **WCAG 2.1 AA**. An `@axe-core/playwright` smoke (`npm run test:a11y`)
+crawls every route against the WCAG 2.1 A/AA rule set and fails on any
+`serious`/`critical` violation; `moderate`/`minor` findings are logged for triage.
 
-- **Automated axe-core audit in CI.** Add a Playwright smoke test running
-  `@axe-core/playwright` against the key routes and fail CI on any
-  serious/critical violation. This pulls Playwright + a browser into CI and is
-  best landed as its own change.
-- Triage and fix violations surfaced by that audit. The audit must sign in first
-  (most routes are gated by SEC-001), so it needs a Playwright auth fixture using
-  the dev magic-link flow — otherwise it scans `/login` for the gated routes.
+- **Auth fixture.** Most routes are gated by SEC-001, so the crawl signs in first.
+  `tests/auth.global-setup.ts` mints a real `Session` row exactly as
+  `createSession()` does — stores `sha256(raw)`, hands the raw token out as the
+  `tl_session` cookie — and saves it as Playwright `storageState`, so the crawl
+  hits the real pages instead of `/login`. It runs in Node, so the auth wiring is
+  verifiable with `tsx` without a browser.
+- **CI.** Runs as a separate, **non-required** workflow (`.github/workflows/a11y.yml`)
+  so it surfaces violations on every PR without blocking the required `check`
+  gate. Promote it to required once the contrast triage below is clean.
+- **Triage.** The first run's serious findings are dominated by `color-contrast`
+  from hard-coded per-component colours (`text-zinc-500`, `text-amber-300/80`, …)
+  and the intentionally dim default-theme muted text; the High-contrast theme
+  already clears the token-based ones. Lifting the hard-coded default-theme
+  colours is the remaining cross-file follow-up before the audit can gate.
 
 ## Enforced CSP note
 
