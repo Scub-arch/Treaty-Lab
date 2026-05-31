@@ -383,9 +383,10 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
-  org      Org       @relation(fields: [orgId], references: [id], onDelete: Restrict)
-  accounts Account[]
-  sessions Session[]
+  org          Org           @relation(fields: [orgId], references: [id], onDelete: Restrict)
+  accounts     Account[]
+  sessions     Session[]
+  chatSessions ChatSession[]
 
   @@index([orgId])
 }
@@ -436,4 +437,39 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@index([expires])
+}
+
+// ----------------------------------------------------------------------------
+// UI-002: persisted /ask conversations. Named ChatSession/ChatTurn to avoid
+// colliding with the auth Session model. Scoped to the signed-in user.
+// ----------------------------------------------------------------------------
+
+model ChatSession {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user  User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  turns ChatTurn[]
+
+  @@index([userId])
+  @@index([updatedAt])
+}
+
+model ChatTurn {
+  id            String   @id @default(cuid())
+  chatSessionId String
+  question      String
+  answer        String
+  reasoning     String?
+  model         String?
+  projectSlug   String?
+  domainSlug    String?
+  createdAt     DateTime @default(now())
+
+  session ChatSession @relation(fields: [chatSessionId], references: [id], onDelete: Cascade)
+
+  @@index([chatSessionId])
 }
