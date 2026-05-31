@@ -327,3 +327,88 @@ model ModuleFeaturedProject {
   @@unique([moduleId, projectId])
   @@index([projectId])
 }
+
+// ----------------------------------------------------------------------------
+// SEC-001: authentication (hand-rolled session + magic-link).
+//
+// See docs/SEC-001-PLAN.md. Dual-target safe (no enums, no scalar lists) so the
+// Postgres generator keeps working. Session.sessionToken and
+// VerificationToken.token store SHA-256 HASHES, never the raw token — the cookie
+// / magic link carries the raw value, validation hashes and looks up by hash.
+// ----------------------------------------------------------------------------
+
+model Org {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users    User[]
+  sessions Session[]
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  emailVerified DateTime?
+  image         String?
+  orgId         String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  org      Org       @relation(fields: [orgId], references: [id], onDelete: Restrict)
+  accounts Account[]
+  sessions Session[]
+
+  @@index([orgId])
+}
+
+// OAuth account-linking table. Unused by email-only sign-in today; present so a
+// future OAuth provider does not require a migration.
+model Account {
+  id                String   @id @default(cuid())
+  userId            String
+  type              String // "email" | "oauth" | "oidc"
+  provider          String
+  providerAccountId String
+  accessToken       String?
+  refreshToken      String?
+  expiresAt         Int?
+  tokenType         String?
+  scope             String?
+  idToken           String?
+  createdAt         DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique // SHA-256 hash of the raw cookie token
+  userId       String
+  orgId        String
+  expires      DateTime
+  createdAt    DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  org  Org  @relation(fields: [orgId], references: [id], onDelete: Restrict)
+
+  @@index([userId])
+  @@index([orgId])
+  @@index([expires])
+}
+
+model VerificationToken {
+  identifier String // email the magic link was issued for
+  token      String   @unique // SHA-256 hash of the raw magic-link token
+  expires    DateTime
+  createdAt  DateTime @default(now())
+
+  @@unique([identifier, token])
+  @@index([expires])
+}

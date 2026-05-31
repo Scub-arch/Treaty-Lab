@@ -29,6 +29,7 @@
  */
 
 import { NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
 import {
   getProject,
   getModule,
@@ -70,6 +71,11 @@ const SYSTEM_PROMPT = [
 ].join("\n");
 
 export async function POST(req: Request) {
+  const session = await auth();
+  if (!session) {
+    return NextResponse.json({ error: "Authentication required." }, { status: 401 });
+  }
+
   let body: AskRequest;
   try {
     body = (await req.json()) as AskRequest;
