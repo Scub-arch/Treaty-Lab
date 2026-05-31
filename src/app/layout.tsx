@@ -3,6 +3,7 @@ import { JetBrains_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { Sidebar } from "@/components/intel/sidebar";
 import { TopBar } from "@/components/intel/top-bar";
+import { THEME_INIT_SCRIPT } from "@/lib/theme";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -26,10 +27,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body
         className={`${inter.variable} ${mono.variable} antialiased bg-background text-foreground min-h-screen`}
       >
+        {/* UI-003 — apply the saved theme before paint (no flash, stays static). */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <div className="grid grid-cols-[260px_1fr] min-h-screen">
           <Sidebar />
           <div className="flex flex-col min-w-0">

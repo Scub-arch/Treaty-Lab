@@ -123,6 +123,63 @@
   --brand-foreground: oklch(0.82 0.18 70);
 }
 
+/* UI-003 — High-contrast theme. Layered on `.dark` (so `dark:` utilities still
+   resolve) but overrides every token to a >=7:1 palette and enlarges the
+   smallest type. Applied via <html class="dark theme-hc">; must follow `.dark`
+   so its variables win the cascade. */
+.theme-hc {
+  --background: oklch(0.08 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.14 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.14 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(1 0 0);
+  --primary-foreground: oklch(0.08 0 0);
+  --secondary: oklch(0.3 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.22 0 0);
+  --muted-foreground: oklch(0.9 0 0); /* ~13:1 on bg — no dim greys in HC */
+  --accent: oklch(0.32 0 0);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.75 0.2 25);
+  --border: oklch(1 0 0 / 45%);
+  --input: oklch(1 0 0 / 55%);
+  --ring: oklch(0.9 0.18 95); /* bright amber focus ring */
+  --sidebar: oklch(0.1 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.9 0.18 95);
+  --sidebar-primary-foreground: oklch(0.08 0 0);
+  --sidebar-accent: oklch(0.32 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(1 0 0 / 45%);
+  --sidebar-ring: oklch(0.9 0.18 95);
+  --brand: oklch(0.88 0.18 90);
+  --brand-foreground: oklch(0.92 0.19 92);
+  /* Enlarge the root so rem-based text scales up in high-contrast mode. */
+  font-size: 112.5%; /* 18px base */
+}
+
+/* Floor the smallest absolute-px labels to ~14px in high-contrast mode. */
+.theme-hc :is([class*="text-[10px]"], [class*="text-[11px]"]) {
+  font-size: 0.8125rem;
+}
+
+/* UI-003 — honour prefers-reduced-motion: neutralise CSS animation/transition
+   (the animate-pulse LIVE dot + /ask prompt arrow, accordion/popover/skeleton
+   transitions, spinners). The cobe globe uses requestAnimationFrame and is
+   paused separately in JS (geographic-overview.tsx). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

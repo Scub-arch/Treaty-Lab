@@ -1,0 +1,39 @@
+name: a11y
+
+# UI-003 — accessibility audit (axe-core via Playwright). This is intentionally
+# a SEPARATE, non-required workflow: it surfaces serious/critical WCAG 2.1 A/AA
+# violations on every PR without blocking the required `check` gate. Promote it
+# to a required check once the default-theme triage (see docs/ACCESSIBILITY.md)
+# is clean.
+on:
+  pull_request:
+
+jobs:
+  axe:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: file:./prisma/dev.db
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Generate Prisma client
+        run: npx prisma generate
+      - name: Apply migrations to a fresh SQLite DB
+        run: npx prisma migrate deploy
+      - name: Seed the Treaty Archive
+        run: npx prisma db seed
+      - name: Generate Next.js route types
+        run: npx next typegen
+      - name: Production build
+        env:
+          NODE_ENV: production
+        run: npm run build
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Run axe accessibility smoke
+        run: npm run test:a11y
