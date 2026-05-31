@@ -57,6 +57,9 @@ export function GeographicOverview({
     let globe: ReturnType<typeof createGlobe> | null = null;
     let animationId = 0;
     let phi = initialPhi;
+    // UI-003 — pause auto-rotation for users who prefer reduced motion. The
+    // globe still renders and stays draggable; it just doesn't spin on its own.
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const handlePointerMove = (e: PointerEvent) => {
       if (pointerInteracting.current !== null) {
@@ -105,7 +108,7 @@ export function GeographicOverview({
       });
 
       function animate() {
-        if (!isPausedRef.current) phi += speed;
+        if (!isPausedRef.current && !reduceMotion) phi += speed;
         globe!.update({
           phi: phi + phiOffsetRef.current + dragOffset.current.phi,
           theta: initialTheta + thetaOffsetRef.current + dragOffset.current.theta,
@@ -144,6 +147,8 @@ export function GeographicOverview({
       <div className="relative aspect-square w-full max-w-[420px] mx-auto select-none">
         <canvas
           ref={canvasRef}
+          role="img"
+          aria-label="Interactive globe of the project and territory locations listed below."
           onPointerDown={(e) => {
             pointerInteracting.current = { x: e.clientX, y: e.clientY };
             if (canvasRef.current) canvasRef.current.style.cursor = "grabbing";
