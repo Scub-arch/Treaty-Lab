@@ -27,10 +27,14 @@ import {
   allClaimsForProject,
 } from "@/lib/content";
 import type { Domain, ProjectAssessment, Indicator } from "@/lib/content/types";
-import type { Message } from "@/lib/dbx-chat";
 import { auth } from "@/lib/auth";
 import { checkChatRateLimit, rateLimitResponseInit } from "@/lib/ratelimit";
-import { chatTreatyStream, type StreamEvent } from "@/lib/dbx-chat-stream";
+import {
+  chatTreatyStream,
+  ANALYST_SYSTEM_PROMPT_MARKDOWN,
+  type StreamEvent,
+  type Message,
+} from "@/lib/llm";
 
 export const runtime = "nodejs";
 
@@ -47,24 +51,6 @@ interface AskStreamRequest {
   maxTokens?: number;
   temperature?: number;
 }
-
-const SYSTEM_PROMPT = [
-  "You are an analyst-Q&A assistant for the Treaty-Lab platform — a research-pilot",
-  "intelligence terminal covering Canadian treaty rights, water, energy infrastructure,",
-  "and Indigenous finance. Your audience is First Nation communities, infrastructure",
-  "investors, legal/policy researchers, and government-relations teams.",
-  "",
-  "Core principles:",
-  "1. Separate FACT (directly attested) from RISK (inferred concern), QUESTION (open),",
-  "   ASSUMPTION (stated unverified), and NEEDS_VALIDATION (community/legal sign-off pending).",
-  "2. Cite evidence by slug when context is provided — e.g. '[evidence: yahey-2021-bcsc-1287]'.",
-  "3. Plain language — no jargon for community readers; technical precision for analysts.",
-  "4. Honor the rule: NOT investment advice, NOT legal advice — this is research synthesis.",
-  "5. When evidence is missing or contested, say so explicitly. Don't manufacture certainty.",
-  "6. NRTA + Section 35 + UNDRIP framing is fundamental — the legal regime is contested.",
-  "",
-  "Format responses as Markdown. Use headings, lists, and emphasis. Cite by evidence slug.",
-].join("\n");
 
 export async function POST(req: Request) {
   const session = await auth();
@@ -100,7 +86,7 @@ export async function POST(req: Request) {
   // First turn? Prepend system prompt + optional context block.
   const hasSystem = messages.some((m) => m.role === "system");
   if (!hasSystem) {
-    messages = [{ role: "system", content: SYSTEM_PROMPT }, ...messages];
+    messages = [{ role: "system", content: ANALYST_SYSTEM_PROMPT_MARKDOWN }, ...messages];
   }
 
   // If the client passed only `question`, fold it in as a final user turn,
