@@ -36,11 +36,12 @@ crawls every route against the WCAG 2.1 A/AA rule set and fails on any
 `serious`/`critical` violation; `moderate`/`minor` findings are logged for triage.
 
 - **Auth fixture.** Most routes are gated by SEC-001, so the crawl signs in first.
-  `tests/auth.global-setup.ts` mints a real `Session` row exactly as
-  `createSession()` does — stores `sha256(raw)`, hands the raw token out as the
-  `tl_session` cookie — and saves it as Playwright `storageState`, so the crawl
-  hits the real pages instead of `/login`. It runs in Node, so the auth wiring is
-  verifiable with `tsx` without a browser.
+  a standalone `tsx` step (`tests/seed-auth-session.ts`, run in CI before the
+  crawl) mints a real `Session` row exactly as `createSession()` does — stores
+  `sha256(raw)`, hands the raw token out as the `tl_session` cookie — and saves it
+  as Playwright `storageState`, so the crawl hits the real pages instead of
+  `/login`. It runs in Node (not through Playwright's loader, which can't import
+  the generated Prisma client), so the auth wiring is verifiable with `tsx`.
 - **CI.** Runs as a separate, **non-required** workflow (`.github/workflows/a11y.yml`)
   so it surfaces violations on every PR without blocking the required `check`
   gate. Promote it to required once the contrast triage below is clean.

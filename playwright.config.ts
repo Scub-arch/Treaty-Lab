@@ -1,14 +1,16 @@
 import { defineConfig, devices } from "@playwright/test";
 
-// UI-003 — Playwright config for the axe-core accessibility smoke. globalSetup
-// (tests/auth.global-setup.ts) mints a real session and writes storageState, so
-// the SEC-001-gated pages are crawled signed in rather than redirected to /login.
+// UI-003 — Playwright config for the axe-core accessibility smoke. A standalone
+// tsx pre-step (tests/seed-auth-session.ts, run in CI before this) mints a real
+// session and writes the storageState consumed below, so the SEC-001-gated pages
+// are crawled signed in rather than redirected to /login. (The session is seeded
+// outside Playwright's loader because importing the generated Prisma client
+// through it trips "exports is not defined in ES module scope".)
 const PORT = 3000;
 const HOST = "127.0.0.1";
 
 export default defineConfig({
   testDir: "./tests",
-  globalSetup: "./tests/auth.global-setup.ts",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: 0,
