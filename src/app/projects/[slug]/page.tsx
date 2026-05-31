@@ -5,6 +5,7 @@ import { getProject, getProjects, getEvidenceItem } from "@/lib/content";
 import { IntelligencePanel } from "@/components/intel/intelligence-panel";
 import { EvidenceStrengthBadge } from "@/components/intel/evidence-strength-badge";
 import { ProjectLineageTree } from "@/components/intel/project-lineage-tree";
+import { ExportDocxButton } from "@/components/intel/export-docx-button";
 import type { Claim } from "@/lib/content/types";
 
 export function generateStaticParams() {
@@ -24,8 +25,8 @@ export default async function ProjectDetail(props: PageProps<"/projects/[slug]">
 
   return (
     <div className="px-6 py-8 space-y-8 max-w-[1400px] mx-auto">
-      {/* Back */}
-      <div>
+      {/* Back + actions */}
+      <div className="flex items-center justify-between gap-3">
         <Link
           href="/projects"
           className="inline-flex items-center gap-1 font-mono text-[10px] tracking-[0.12em] text-muted-foreground hover:text-foreground"
@@ -33,6 +34,7 @@ export default async function ProjectDetail(props: PageProps<"/projects/[slug]">
           <ChevronLeft className="w-3 h-3" />
           BACK TO PROJECTS
         </Link>
+        <ExportDocxButton slug={project.slug} />
       </div>
 
       {/* Header */}
