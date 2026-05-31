@@ -30,8 +30,8 @@ model Treaty {
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
 
-  topics     Topic[]     @relation("TreatyTopics")
-  signatures Signature[]
+  topics          Topic[]             @relation("TreatyTopics")
+  signatures      Signature[]
   // DATA-002: projects that operate under this treaty (many-to-many).
   relatedProjects ProjectAssessment[] @relation("ProjectTreaties")
 
@@ -109,6 +109,12 @@ model EvidenceItem {
   supports     Json // string[]
   limitations  Json? // string[] | undefined
 
+  // DATA-003: append-only audit/versioning columns.
+  version   Int       @default(1)
+  editedBy  String?
+  editedAt  DateTime  @default(now()) @updatedAt
+  deletedAt DateTime?
+
   claimSources     ClaimSource[]
   indicatorSources IndicatorSource[]
   projectSources   ProjectSource[]
@@ -129,6 +135,13 @@ model Indicator {
   trend        String // Trend union
   note         String?
   updatedAt    String // content's ISO date — NOT a Prisma-managed column
+
+  // DATA-003: append-only audit/versioning columns. `editedAt` is distinct from
+  // the content `updatedAt` string above.
+  version   Int       @default(1)
+  editedBy  String?
+  editedAt  DateTime  @default(now()) @updatedAt
+  deletedAt DateTime?
 
   sources           IndicatorSource[]
   featuredInModules ModuleFeaturedIndicator[]
@@ -152,6 +165,12 @@ model ProjectAssessment {
   governanceQuestions           Json // string[]
   recommendedCommunityQuestions Json // string[]
 
+  // DATA-003: append-only audit/versioning columns.
+  version   Int       @default(1)
+  editedBy  String?
+  editedAt  DateTime  @default(now()) @updatedAt
+  deletedAt DateTime?
+
   parties           PartyReference[]
   claims            Claim[]
   finance           ProjectFinance?
@@ -160,7 +179,7 @@ model ProjectAssessment {
   featuredInModules ModuleFeaturedProject[]
   // DATA-002: treaties this project operates under (many-to-many). Empty is
   // meaningful — an unceded-territory project (e.g. Cedar LNG) has no treaty FK.
-  relatedTreaties   Treaty[]               @relation("ProjectTreaties")
+  relatedTreaties   Treaty[]                @relation("ProjectTreaties")
 }
 
 model ProjectFinance {
@@ -183,6 +202,12 @@ model PlainLanguageExplainer {
   shortAnswer String
   body        String
 
+  // DATA-003: append-only audit/versioning columns.
+  version   Int       @default(1)
+  editedBy  String?
+  editedAt  DateTime  @default(now()) @updatedAt
+  deletedAt DateTime?
+
   relatedEvidence ExplainerEvidence[]
   relatedProjects ExplainerProject[]
 }
@@ -193,6 +218,12 @@ model ModuleConfig {
   title   String
   tagline String
   lede    String
+
+  // DATA-003: append-only audit/versioning columns.
+  version   Int       @default(1)
+  editedBy  String?
+  editedAt  DateTime  @default(now()) @updatedAt
+  deletedAt DateTime?
 
   featuredIndicators ModuleFeaturedIndicator[]
   featuredProjects   ModuleFeaturedProject[]
@@ -472,4 +503,25 @@ model ChatTurn {
   session ChatSession @relation(fields: [chatSessionId], references: [id], onDelete: Cascade)
 
   @@index([chatSessionId])
+}
+
+// ----------------------------------------------------------------------------
+// DATA-003: append-only content audit log. Each row is an immutable JSON
+// snapshot of a content entity at a given version, keyed by (entity, slug,
+// version). Never updated or deleted in app code. `editedBy` is a plain User.id
+// string (not a FK) so the trail survives user deletion.
+// ----------------------------------------------------------------------------
+
+model ContentRevision {
+  id        String   @id @default(cuid())
+  entity    String // "EvidenceItem" | "Indicator" | "ProjectAssessment" | "PlainLanguageExplainer" | "ModuleConfig"
+  slug      String
+  version   Int
+  snapshot  Json
+  editedBy  String?
+  createdAt DateTime @default(now())
+
+  @@unique([entity, slug, version])
+  @@index([entity, slug])
+  @@index([createdAt])
 }
