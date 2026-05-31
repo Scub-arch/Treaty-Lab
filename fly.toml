@@ -1,0 +1,38 @@
+# DPL-001 — Fly.io deploy config (reference; validate against a real `fly deploy`).
+#
+# First-time setup and the full runbook are in docs/DEPLOY.md.
+#   - Postgres:  fly postgres create  →  fly postgres attach (sets DATABASE_URL)
+#   - Secrets:   fly secrets set DATABRICKS_CLIENT_ID=... DATABRICKS_CLIENT_SECRET=... APP_URL=https://<app>.fly.dev
+
+app = "treaty-lab"
+primary_region = "yyz" # Toronto — closest to the Canadian subject matter
+
+[build]
+  dockerfile = "Dockerfile"
+
+[deploy]
+  # Apply pending Prisma migrations once per release, before the new machines boot.
+  release_command = "npx prisma migrate deploy"
+
+[env]
+  NODE_ENV = "production"
+  PORT = "3000"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+
+  [[http_service.checks]]
+    interval = "30s"
+    timeout = "5s"
+    grace_period = "10s"
+    method = "GET"
+    path = "/api/healthz"
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 512

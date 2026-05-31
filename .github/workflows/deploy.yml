@@ -1,0 +1,26 @@
+name: Deploy
+
+# DPL-001 — manual deploy to Fly.io.
+#
+# Deliberately `workflow_dispatch` only (not push-to-main) AND guarded on a repo
+# variable, so it can never auto-run or fail CI before a deploy target exists.
+# Once Fly is set up (docs/DEPLOY.md), set repo variable DEPLOY_ENABLED=true and
+# secret FLY_API_TOKEN; optionally switch the trigger to `push: branches: [main]`.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ vars.DEPLOY_ENABLED == 'true' }}
+    concurrency:
+      group: deploy-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Deploy
+        run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
