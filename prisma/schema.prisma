@@ -26,6 +26,8 @@ model Treaty {
 
   topics     Topic[]     @relation("TreatyTopics")
   signatures Signature[]
+  // DATA-002: projects that operate under this treaty (many-to-many).
+  relatedProjects ProjectAssessment[] @relation("ProjectTreaties")
 
   @@index([openedAt])
   @@index([enteredIntoForceAt])
@@ -150,6 +152,9 @@ model ProjectAssessment {
   primarySources    ProjectSource[]
   explainerLinks    ExplainerProject[]
   featuredInModules ModuleFeaturedProject[]
+  // DATA-002: treaties this project operates under (many-to-many). Empty is
+  // meaningful — an unceded-territory project (e.g. Cedar LNG) has no treaty FK.
+  relatedTreaties   Treaty[]               @relation("ProjectTreaties")
 }
 
 model ProjectFinance {

@@ -2,6 +2,7 @@
   "projects": [
     {
       "slug": "cedar-lng",
+      "relatedTreatySlugs": [],
       "name": "Cedar LNG",
       "shortName": "Cedar LNG",
       "status": "under_construction",
@@ -218,6 +219,7 @@
     },
     {
       "slug": "coastal-gaslink",
+      "relatedTreatySlugs": ["treaty-8-1899"],
       "name": "Coastal GasLink Pipeline",
       "shortName": "CGL",
       "status": "operational",
@@ -342,6 +344,7 @@
     },
     {
       "slug": "site-c",
+      "relatedTreatySlugs": ["treaty-8-1899"],
       "name": "Site C Clean Energy Project",
       "shortName": "Site C",
       "status": "under_construction",
@@ -450,6 +453,7 @@
     },
     {
       "slug": "trans-mountain-expansion",
+      "relatedTreatySlugs": ["treaty-6-1876"],
       "name": "Trans Mountain Expansion Project (TMX)",
       "shortName": "TMX",
       "status": "operational",

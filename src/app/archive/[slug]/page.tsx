@@ -22,6 +22,10 @@ export default async function TreatyDetail(props: PageProps<"/archive/[slug]">) 
     include: {
       topics: true,
       signatures: { include: { party: true }, orderBy: { signedAt: "asc" } },
+      relatedProjects: {
+        select: { slug: true, name: true, shortName: true },
+        orderBy: { name: "asc" },
+      },
     },
   });
   if (!treaty) notFound();
@@ -95,6 +99,24 @@ export default async function TreatyDetail(props: PageProps<"/archive/[slug]">) 
         </div>
 
         <aside className="space-y-6">
+          {/* Projects affected (DATA-002) */}
+          {treaty.relatedProjects.length > 0 && (
+            <IntelligencePanel title="Projects affected" code="ARC · PRJ">
+              <ul className="space-y-2 text-sm">
+                {treaty.relatedProjects.map((p) => (
+                  <li key={p.slug}>
+                    <Link
+                      href={`/projects/${p.slug}`}
+                      className="font-medium hover:underline underline-offset-2"
+                    >
+                      {p.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </IntelligencePanel>
+          )}
+
           <IntelligencePanel title="Topics" code="ARC · TPC">
             <ul className="flex flex-wrap gap-1.5">
               {treaty.topics.map((t) => (
