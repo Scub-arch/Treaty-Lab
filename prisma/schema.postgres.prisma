@@ -1,3 +1,7 @@
+// GENERATED FILE — do not edit by hand.
+// Postgres (prod) target, derived from prisma/schema.prisma by
+// scripts/gen-postgres-schema.mjs (DATA-001). Edit the SQLite schema instead.
+
 // Treaty-Lab: international treaty database & explorer
 // docs: https://pris.ly/d/prisma-schema
 
@@ -7,7 +11,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
 }
 
 model Treaty {
