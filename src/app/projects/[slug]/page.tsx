@@ -198,6 +198,33 @@ export default async function ProjectDetail(props: PageProps<"/projects/[slug]">
             </ul>
           </IntelligencePanel>
 
+          {/* Operates under (DATA-002) */}
+          <IntelligencePanel title="Operates under" code="PRJ · TXY">
+            {project.relatedTreaties && project.relatedTreaties.length > 0 ? (
+              <ul className="space-y-2 text-sm">
+                {project.relatedTreaties.map((t) => (
+                  <li key={t.slug}>
+                    <Link
+                      href={`/archive/${t.slug}`}
+                      className="font-medium hover:underline underline-offset-2"
+                    >
+                      {t.shortName ?? t.name}
+                    </Link>
+                    <div className="text-xs text-muted-foreground leading-snug mt-0.5">
+                      {t.name}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                No numbered treaty on record for this project&apos;s territory. Where a project sits
+                on unceded land, that absence is itself an analytical signal — see the First Nation
+                implications above.
+              </p>
+            )}
+          </IntelligencePanel>
+
           {/* Primary sources */}
           <IntelligencePanel title="Primary sources" code="PRJ · SRC">
             <ul className="text-sm space-y-2">
