@@ -109,6 +109,13 @@ export interface ProjectFinance {
   sources?: SourceReference[];
 }
 
+/** DATA-002: a treaty a project operates under, resolved from the registry. */
+export interface RelatedTreatyRef {
+  slug: string;
+  name: string;
+  shortName?: string;
+}
+
 export interface ProjectAssessment {
   slug: string;
   name: string;
@@ -147,6 +154,10 @@ export interface ProjectAssessment {
   domains: Domain[];
   /** ISO date last reviewed */
   lastReviewed: string;
+  /** DATA-002 seed input: slugs of treaties this project operates under (registry slugs). */
+  relatedTreatySlugs?: string[];
+  /** DATA-002 runtime: resolved treaty refs, populated from the registry by content.ts. */
+  relatedTreaties?: RelatedTreatyRef[];
 }
 
 export interface PlainLanguageExplainer {

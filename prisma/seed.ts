@@ -359,6 +359,21 @@ async function seedContent(): Promise<void> {
   await prisma.indicator.deleteMany();
   await prisma.evidenceItem.deleteMany();
 
+  // DATA-002: resolve treaty slugs → ids and validate project→treaty FKs at
+  // write time (the registry is seeded before seedContent runs).
+  const treatyId = new Map(
+    (await prisma.treaty.findMany({ select: { id: true, slug: true } })).map((t) => [t.slug, t.id]),
+  );
+  for (const p of c.projects) {
+    for (const slug of p.relatedTreatySlugs ?? []) {
+      if (!treatyId.has(slug)) {
+        throw new Error(
+          `Content validation failed — aborting seed:\n  projects[${p.slug}].relatedTreatySlugs → unknown treaty "${slug}"`,
+        );
+      }
+    }
+  }
+
   await prisma.$transaction(
     async (tx) => {
       const evId = new Map<string, string>();
@@ -443,6 +458,9 @@ async function seedContent(): Promise<void> {
             domains: p.domains,
             governanceQuestions: p.governanceQuestions,
             recommendedCommunityQuestions: p.recommendedCommunityQuestions,
+            relatedTreaties: {
+              connect: (p.relatedTreatySlugs ?? []).map((slug) => ({ id: treatyId.get(slug)! })),
+            },
             parties: {
               create: p.parties.map((pt, order) => ({
                 name: pt.name,
