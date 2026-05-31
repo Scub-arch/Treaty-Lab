@@ -154,15 +154,19 @@ export async function POST(req: Request) {
     { role: "user", content: userMessage },
   ];
 
+  const cacheNoStore = new URL(req.url).searchParams.get("cache") === "no-store";
+
   try {
     const result = await chatTreaty(messages, {
       maxTokens: body.maxTokens ?? 1500,
       temperature: body.temperature ?? 0.3,
+      cache: cacheNoStore ? "no-store" : undefined,
     });
 
     return NextResponse.json({
       answer: result.answer,
       ...(body.reasoning && result.reasoning ? { reasoning: result.reasoning } : {}),
+      ...(result.cached ? { cached: true } : {}),
       usage: result.usage,
       model: result.model,
       contextSummary: summary,
