@@ -1,106 +1,109 @@
-import { readdir, stat } from "node:fs/promises";
-import { join } from "node:path";
+import type { Metadata } from "next";
 import Link from "next/link";
-import { Download, FileImage } from "lucide-react";
-import { format } from "date-fns";
+import {
+  getProjects,
+  getEvidence,
+  getIndicators,
+  getExplainers,
+  evidenceMap,
+  topCitedEvidence,
+  projectCitationsBySourceType,
+  evidenceCountsBySourceTypeAndReliability,
+  type CitedEvidenceRecord,
+} from "@/lib/content";
+import type { EvidenceStrength, SourceType } from "@/lib/content/types";
+import {
+  PerProjectCitationChart,
+  type CitationChartRow,
+} from "@/components/intel/per-project-citation-chart";
+import { TopCitedEvidenceChart } from "@/components/intel/top-cited-evidence-chart";
+import { SourceReliabilityHeatmap } from "@/components/intel/source-reliability-heatmap";
 
-export const metadata = { title: "Static Visualizations — Treaty-Lab" };
+export const metadata: Metadata = { title: "Cross-Reference Reports — Treaty-Lab" };
 
-interface ReportImage {
-  slug: string;
-  code: string;
-  filename: string;
-  title: string;
-  description: string;
-  /** File size in bytes (server-side) */
-  size?: number;
-  /** Last modified date (server-side) */
-  mtime?: Date;
-  /** Recommended display max-width in CSS terms (~ image aspect proxy) */
-  maxClass: string;
-}
-
-const REPORT_IMAGES: ReportImage[] = [
-  {
-    slug: "top-cited",
-    code: "RPT · 01",
-    filename: "xref_top_evidence.png",
-    title: "Top 15 most-cited evidence items",
-    description:
-      "Horizontal bar chart of the evidence items most frequently cited across project assessments, " +
-      "indicators, and explainers. Bars are coloured by source type. Static export from the Python " +
-      "analysis script — for the live interactive version see /evidence (EVD · 00 — TOP CITED).",
-    maxClass: "max-w-[1100px]",
-  },
-  {
-    slug: "source-reliability",
-    code: "RPT · 02",
-    filename: "xref_source_reliability.png",
-    title: "Evidence library skews to government reports + strong-tier reliability",
-    description:
-      "Heatmap of source type × reliability tier (counts of evidence items). No weak / moderate " +
-      "tier items exist — the platform's strong / established primary-source discipline holds. " +
-      "Live interactive version at /sources (SRC · 00 — RELIABILITY MATRIX).",
-    maxClass: "max-w-[800px]",
-  },
-  {
-    slug: "per-project",
-    code: "RPT · 03",
-    filename: "xref_per_project.png",
-    title: "Per-project citation footprint by source type",
-    description:
-      "Stacked horizontal bar showing each pilot project's evidence trail, broken down by source " +
-      "type. Cedar LNG is the densest assessment (21 citations) — by a 2-3× margin over the other " +
-      "three. Live interactive version at /projects (PRJ · 00 — EVIDENCE FOOTPRINT).",
-    maxClass: "max-w-[1100px]",
-  },
+const TOP_N = 15;
+const SOURCE_TYPE_ORDER: SourceType[] = [
+  "government_report",
+  "court_decision",
+  "legislation",
+  "regulatory_filing",
+  "academic",
+  "news",
+  "corporate_disclosure",
+  "treaty_text",
+  "ngo_report",
+  "financial_prospectus",
 ];
+const RELIABILITY_COL_ORDER: EvidenceStrength[] = ["weak", "moderate", "strong", "established"];
 
-const VIZ_PUBLIC_DIR = join(process.cwd(), "public", "viz");
-
-async function loadReportMeta(): Promise<ReportImage[]> {
-  // Read directory once to avoid 3 separate stat() roundtrips on different code paths
-  let available: Set<string>;
-  try {
-    available = new Set(await readdir(VIZ_PUBLIC_DIR));
-  } catch {
-    available = new Set();
-  }
-
-  const out: ReportImage[] = [];
-  for (const r of REPORT_IMAGES) {
-    if (!available.has(r.filename)) continue; // image not yet copied; skip silently
-    try {
-      const s = await stat(join(VIZ_PUBLIC_DIR, r.filename));
-      out.push({ ...r, size: s.size, mtime: s.mtime });
-    } catch {
-      out.push(r);
-    }
-  }
-  return out;
-}
-
-function formatBytes(n: number): string {
-  if (n < 1024) return `${n} B`;
-  if (n < 1024 * 1024) return `${(n / 1024).toFixed(1)} KB`;
-  return `${(n / 1024 / 1024).toFixed(2)} MB`;
-}
-
+// RPT-001 — live evidence cross-reference reports. Replaces the static-PNG page;
+// every figure is computed server-side at request time from the content store
+// (the same helpers that power /evidence, /projects, and /sources), so the
+// charts never go stale and there are no image exports to regenerate.
 export default async function ReportsPage() {
-  const reports = await loadReportMeta();
+  const projects = getProjects();
+  const evidence = getEvidence();
+  const evBySlug = evidenceMap(evidence);
+
+  // (1) Top-cited evidence across every citation surface — top 15 by count.
+  const topCited: CitedEvidenceRecord[] = topCitedEvidence(
+    projects,
+    getIndicators(),
+    getExplainers(),
+    evBySlug,
+    TOP_N,
+  );
+
+  // (2) Source-type × reliability-tier pivot.
+  const totalItems = evidence.length;
+  const reliabilityPivot = evidenceCountsBySourceTypeAndReliability(evidence);
+  const presentReliability: EvidenceStrength[] = RELIABILITY_COL_ORDER.filter((rel) =>
+    [...reliabilityPivot.values()].some((inner) => (inner.get(rel) ?? 0) > 0),
+  );
+  const heatmapRows = [...reliabilityPivot.entries()]
+    .map(([sourceType, inner]) => {
+      const reliabilityCounts = presentReliability.map((rel) => ({
+        reliability: rel,
+        count: inner.get(rel) ?? 0,
+      }));
+      const rowTotal = reliabilityCounts.reduce((acc, c) => acc + c.count, 0);
+      return { sourceType: sourceType as SourceType, reliabilityCounts, rowTotal };
+    })
+    .sort((a, b) => b.rowTotal - a.rowTotal)
+    .map(({ sourceType, reliabilityCounts }) => ({ sourceType, reliabilityCounts }));
+
+  // (3) Per-project citation footprint by source type.
+  const rawRows: CitationChartRow[] = projects.map((p) => {
+    const counts = projectCitationsBySourceType(p, evBySlug);
+    const row: CitationChartRow = { project: p.shortName ?? p.name, total: 0 };
+    let total = 0;
+    for (const st of SOURCE_TYPE_ORDER) {
+      const n = counts.get(st) ?? 0;
+      if (n > 0) {
+        row[st] = n;
+        total += n;
+      }
+    }
+    row.total = total;
+    return row;
+  });
+  const chartRows = [...rawRows].sort((a, b) => a.total - b.total);
+  const presentTypes: SourceType[] = SOURCE_TYPE_ORDER.filter((st) =>
+    chartRows.some((r) => (r[st] as number | undefined) !== undefined && (r[st] as number) > 0),
+  );
 
   return (
-    <div className="px-6 py-8 space-y-8 max-w-[1400px] mx-auto">
+    <div className="px-6 py-8 space-y-10 max-w-[1400px] mx-auto">
       <section>
         <div className="font-mono text-[10px] tracking-[0.25em] text-muted-foreground mb-3">
           RPT · INDEX
         </div>
         <h1 className="text-3xl md:text-4xl font-semibold tracking-tight leading-tight">
-          Static Visualizations
+          Cross-Reference Reports
         </h1>
         <p className="text-base text-muted-foreground mt-3 max-w-3xl leading-relaxed">
-          Publication-quality PNG exports of the evidence cross-reference charts. These are static
-          snapshots — for live, interactive versions that update as the content store changes, visit{" "}
+          Live evidence cross-reference charts, rendered server-side on every request from the same
+          content store as{" "}
           <Link href="/evidence" className="underline underline-offset-2 hover:text-foreground">
             /evidence
           </Link>
@@ -112,83 +115,112 @@ export default async function ReportsPage() {
           <Link href="/sources" className="underline underline-offset-2 hover:text-foreground">
             /sources
           </Link>
-          .
-        </p>
-        <p className="text-xs text-muted-foreground mt-3 max-w-3xl leading-relaxed">
-          PNGs are generated by{" "}
-          <code className="font-mono text-foreground/80 px-1 py-0.5 rounded bg-muted">
-            C:\Claude\viz\treaty_lab_xref.py
-          </code>{" "}
-          using matplotlib + seaborn via{" "}
-          <code className="font-mono text-foreground/80 px-1 py-0.5 rounded bg-muted">uv run</code>.
-          Re-run when the underlying content store changes.
+          . They update automatically as the content store changes — no static exports.
         </p>
       </section>
 
-      {reports.length === 0 && (
-        <section className="border border-rose-300 dark:border-rose-700/60 bg-rose-50 dark:bg-rose-900/20 rounded-lg p-4 text-sm text-rose-900 dark:text-rose-200">
-          No exported PNGs found in <code>public/viz/</code>. Generate them with:{" "}
-          <code className="font-mono">
-            uv run --with matplotlib --with seaborn --with pandas C:\Claude\viz\treaty_lab_xref.py
-          </code>{" "}
-          then copy the PNGs into <code>Treaty-Lab/public/viz/</code>.
-        </section>
-      )}
+      <ReportCard
+        code="RPT · 01 — TOP CITED"
+        title="Top 15 most-cited evidence items"
+        description="Evidence items cited most often across project assessments, indicators, and explainers; bars coloured by source type."
+      >
+        <TopCitedEvidenceChart records={topCited} />
+      </ReportCard>
 
-      {reports.map((r) => (
-        <section key={r.slug}>
-          <div className="font-mono text-[10px] tracking-[0.18em] text-muted-foreground mb-3">
-            {r.code}
+      <ReportCard
+        code="RPT · 02 — RELIABILITY MATRIX"
+        title="Source type × reliability tier"
+        description="Counts of evidence items pivoted by source type and reliability tier across the whole library."
+      >
+        <SourceReliabilityHeatmap
+          counts={heatmapRows}
+          reliabilityColumns={presentReliability}
+          total={totalItems}
+        />
+      </ReportCard>
+
+      <ReportCard
+        code="RPT · 03 — EVIDENCE FOOTPRINT"
+        title="Per-project citation footprint by source type"
+        description="Each pilot project's evidence trail, stacked by source type; densest assessment at the top."
+      >
+        <PerProjectCitationChart rows={chartRows} presentTypes={presentTypes} />
+      </ReportCard>
+
+      {/* Methodology */}
+      <section>
+        <div className="font-mono text-[10px] tracking-[0.18em] text-muted-foreground mb-3">
+          RPT · METHODOLOGY
+        </div>
+        <article className="border border-border rounded-md bg-card overflow-hidden">
+          <header className="px-5 pt-4 pb-3 border-b border-border/60">
+            <h2 className="text-base md:text-lg font-semibold tracking-tight">
+              How these charts are computed
+            </h2>
+          </header>
+          <div className="px-5 py-4 text-xs text-muted-foreground leading-relaxed space-y-3 max-w-3xl">
+            <p>
+              <span className="font-mono text-foreground/80">RPT · 01</span> — Top cited:{" "}
+              <code className="font-mono text-foreground/80">topCitedEvidence</code> walks every
+              citation surface (project primary sources, per-claim sources, project finance sources,
+              indicator sources, explainer related-evidence), counts citations per evidence slug via
+              an <code className="font-mono text-foreground/80">evidenceMap</code> lookup (dangling
+              slugs dropped), and returns the top {TOP_N} by count descending.
+            </p>
+            <p>
+              <span className="font-mono text-foreground/80">RPT · 02</span> — Reliability matrix:{" "}
+              <code className="font-mono text-foreground/80">
+                evidenceCountsBySourceTypeAndReliability
+              </code>{" "}
+              pivots all evidence into a source-type × reliability-tier count map; only tiers
+              present in the data are shown, and source-type rows are sorted by row total
+              descending.
+            </p>
+            <p>
+              <span className="font-mono text-foreground/80">RPT · 03</span> — Evidence footprint:
+              for each project,{" "}
+              <code className="font-mono text-foreground/80">projectCitationsBySourceType</code>{" "}
+              counts citations by source type; rows are sorted ascending by total so the densest
+              project sits at the top, and only source types with non-zero data render as stacks.
+            </p>
+            <p className="pt-2 border-t border-border/60">
+              All figures are derived at request time from{" "}
+              <code className="font-mono text-foreground/80">src/content/*.json</code> (via Prisma)
+              by the same helpers that power /evidence, /projects, and /sources — there are no
+              static image exports.
+            </p>
           </div>
-          <article className="border border-border rounded-md bg-card overflow-hidden">
-            <header className="px-5 pt-4 pb-3 border-b border-border/60">
-              <h2 className="text-base md:text-lg font-semibold tracking-tight">{r.title}</h2>
-              <p className="text-xs text-muted-foreground mt-1 max-w-3xl leading-relaxed">
-                {r.description}
-              </p>
-            </header>
-            <div className="px-5 py-4 bg-zinc-50 dark:bg-zinc-900/40 flex justify-center">
-              <img
-                src={`/viz/${r.filename}`}
-                alt={r.title}
-                loading="lazy"
-                className={`w-full ${r.maxClass} h-auto rounded border border-border/40 bg-white`}
-              />
-            </div>
-            <footer className="px-5 py-3 border-t border-border/60 flex items-center justify-between gap-3 text-[11px] text-muted-foreground font-mono">
-              <div className="flex items-center gap-3 min-w-0 truncate">
-                <FileImage className="w-3.5 h-3.5 shrink-0" />
-                <span className="truncate">{r.filename}</span>
-                {r.size && <span>· {formatBytes(r.size)}</span>}
-                {r.mtime && <span>· generated {format(r.mtime, "MMM dd, yyyy 'at' HH:mm")}</span>}
-              </div>
-              <a
-                href={`/viz/${r.filename}`}
-                download
-                className="inline-flex items-center gap-1.5 hover:text-foreground transition-colors shrink-0"
-              >
-                <Download className="w-3.5 h-3.5" />
-                Download PNG
-              </a>
-            </footer>
-          </article>
-        </section>
-      ))}
-
-      <section className="pt-6 border-t border-border text-xs text-muted-foreground leading-relaxed max-w-3xl space-y-1">
-        <p>
-          These exports are produced from{" "}
-          <code className="font-mono text-foreground/80">src/content/*.json</code> by a standalone
-          Python script in <code className="font-mono text-foreground/80">C:\Claude\viz\</code> —
-          they do not run inside the Next.js app. To keep them current with content edits, re-run
-          the script and re-copy into{" "}
-          <code className="font-mono text-foreground/80">Treaty-Lab/public/viz/</code>.
-        </p>
-        <p>
-          The live recharts versions on /evidence / /projects / /sources update automatically on
-          every request from the same content store, so they never go stale.
-        </p>
+        </article>
       </section>
     </div>
+  );
+}
+
+function ReportCard({
+  code,
+  title,
+  description,
+  children,
+}: {
+  code: string;
+  title: string;
+  description: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section>
+      <div className="font-mono text-[10px] tracking-[0.18em] text-muted-foreground mb-3">
+        {code}
+      </div>
+      <article className="border border-border rounded-md bg-card overflow-hidden">
+        <header className="px-5 pt-4 pb-3 border-b border-border/60">
+          <h2 className="text-base md:text-lg font-semibold tracking-tight">{title}</h2>
+          <p className="text-xs text-muted-foreground mt-1 max-w-3xl leading-relaxed">
+            {description}
+          </p>
+        </header>
+        <div className="px-5 py-4">{children}</div>
+      </article>
+    </section>
   );
 }
