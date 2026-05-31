@@ -128,6 +128,7 @@ export async function POST(req: Request) {
         for await (const ev of chatTreatyStream(messages, {
           maxTokens: body.maxTokens ?? 1500,
           temperature: body.temperature ?? 0.3,
+          cache: new URL(req.url).searchParams.get("cache") === "no-store" ? "no-store" : undefined,
           signal: req.signal,
         })) {
           write(ev);
