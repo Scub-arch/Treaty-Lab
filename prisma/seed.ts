@@ -9,6 +9,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { PrismaClient } from "../src/generated/prisma/client";
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
+import { formatValidationReport, validateContentData } from "../src/lib/content/validate-data";
 import type {
   EvidenceItem,
   Indicator,
@@ -338,73 +339,17 @@ function loadContent(): ContentBundle {
 
 const CLAIM_GROUPS = ["firstNationImplications", "treatyAndWaterRisk", "financeRisk"] as const;
 
-/** Write-time cross-reference validator: throws one readable error before insert. */
-function validateContentForSeed(c: ContentBundle): void {
-  const errors: string[] = [];
-
-  const uniqueSlugs = (rows: { slug: string }[], label: string): Set<string> => {
-    const seen = new Set<string>();
-    for (const r of rows) {
-      if (seen.has(r.slug)) errors.push(`duplicate ${label} slug "${r.slug}"`);
-      seen.add(r.slug);
-    }
-    return seen;
-  };
-  const evidence = uniqueSlugs(c.evidence, "evidence");
-  const indicators = uniqueSlugs(c.indicators, "indicator");
-  const projects = uniqueSlugs(c.projects, "project");
-  uniqueSlugs(c.explainers, "explainer");
-  uniqueSlugs(c.modules, "module");
-
-  const needEvidence = (slug: string, where: string) => {
-    if (!evidence.has(slug)) errors.push(`${where} -> unknown evidence "${slug}"`);
-  };
-  for (const i of c.indicators) {
-    (i.sources ?? []).forEach((s) => needEvidence(s.evidenceSlug, `indicator[${i.slug}]`));
-  }
-  for (const p of c.projects) {
-    p.primarySources.forEach((s) =>
-      needEvidence(s.evidenceSlug, `project[${p.slug}].primarySources`),
-    );
-    for (const g of CLAIM_GROUPS) {
-      for (const cl of p[g]) {
-        (cl.sources ?? []).forEach((s) => needEvidence(s.evidenceSlug, `project[${p.slug}].${g}`));
-      }
-    }
-    (p.finance.sources ?? []).forEach((s) =>
-      needEvidence(s.evidenceSlug, `project[${p.slug}].finance`),
-    );
-  }
-  for (const e of c.explainers) {
-    (e.relatedEvidence ?? []).forEach((s) =>
-      needEvidence(s, `explainer[${e.slug}].relatedEvidence`),
-    );
-    (e.relatedProjects ?? []).forEach((s) => {
-      if (!projects.has(s))
-        errors.push(`explainer[${e.slug}].relatedProjects -> unknown project "${s}"`);
-    });
-  }
-  for (const m of c.modules) {
-    m.featuredIndicatorSlugs.forEach((s) => {
-      if (!indicators.has(s))
-        errors.push(`module[${m.slug}].featuredIndicatorSlugs -> unknown indicator "${s}"`);
-    });
-    m.featuredProjectSlugs.forEach((s) => {
-      if (!projects.has(s))
-        errors.push(`module[${m.slug}].featuredProjectSlugs -> unknown project "${s}"`);
-    });
-  }
-
-  if (errors.length > 0) {
-    throw new Error(
-      `Content validation failed (${errors.length} error(s)):\n  ${errors.join("\n  ")}`,
-    );
-  }
-}
-
 async function seedContent(): Promise<void> {
   const c = loadContent();
-  validateContentForSeed(c); // fail loud BEFORE writing anything
+  // Pre-insert gate: fail loud before writing anything. Shares the single rule
+  // set in src/lib/content/validate-data.ts with the read-time validateContent()
+  // used across the app (check-content.mjs keeps its own dependency-free copy).
+  const validation = validateContentData(c);
+  if (!validation.ok) {
+    throw new Error(
+      `Content validation failed — aborting seed:\n${formatValidationReport(validation)}`,
+    );
+  }
 
   // Clean existing content. Delete order respects the onDelete: Restrict edges
   // (modules/explainers reference indicators/projects/evidence; evidence last).
