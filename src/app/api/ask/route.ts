@@ -30,6 +30,7 @@
 
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
+import { logger } from "@/lib/logger";
 import { checkChatRateLimit, rateLimitResponseInit } from "@/lib/ratelimit";
 import {
   getProject,
@@ -69,8 +70,19 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Authentication required." }, { status: 401 });
   }
 
+  const startedAt = Date.now();
+
   const limited = await checkChatRateLimit(session);
   if (limited) {
+    logger.warn(
+      {
+        event: "ask.ratelimited",
+        userId: session.userId,
+        orgId: session.orgId,
+        scope: limited.scope,
+      },
+      "chat rate limit hit",
+    );
     const { body, headers } = rateLimitResponseInit(limited);
     return NextResponse.json(body, { status: 429, headers });
   }
@@ -163,6 +175,21 @@ export async function POST(req: Request) {
       cache: cacheNoStore ? "no-store" : undefined,
     });
 
+    logger.info(
+      {
+        event: "ask",
+        userId: session.userId,
+        orgId: session.orgId,
+        model: result.model,
+        cacheHit: Boolean(result.cached),
+        promptTokens: result.usage?.prompt_tokens,
+        completionTokens: result.usage?.completion_tokens,
+        evidenceCount: summary.evidenceCount,
+        durationMs: Date.now() - startedAt,
+      },
+      "chat answered",
+    );
+
     return NextResponse.json({
       answer: result.answer,
       ...(body.reasoning && result.reasoning ? { reasoning: result.reasoning } : {}),
@@ -173,6 +200,16 @@ export async function POST(req: Request) {
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
+    logger.error(
+      {
+        event: "ask.error",
+        userId: session.userId,
+        orgId: session.orgId,
+        durationMs: Date.now() - startedAt,
+        err: message,
+      },
+      "chat gateway error",
+    );
     return NextResponse.json({ error: message }, { status: 502 });
   }
 }
