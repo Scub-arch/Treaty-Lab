@@ -41,7 +41,13 @@ import {
   allClaimsForProject,
 } from "@/lib/content";
 import type { Domain, ProjectAssessment, Indicator } from "@/lib/content/types";
-import { chatTreaty, ANALYST_SYSTEM_PROMPT, type Message } from "@/lib/llm";
+import {
+  chatTreaty,
+  ANALYST_SYSTEM_PROMPT,
+  retrieveEvidence,
+  formatRetrievedContext,
+  type Message,
+} from "@/lib/llm";
 
 interface AskRequest {
   question: string;
@@ -53,6 +59,8 @@ interface AskRequest {
   reasoning?: boolean;
   maxTokens?: number;
   temperature?: number;
+  /** AI-004: set false to skip auto evidence retrieval when no context is picked. */
+  retrieve?: boolean;
 }
 
 export async function POST(req: Request) {
@@ -115,6 +123,18 @@ export async function POST(req: Request) {
     summary.indicatorsCount += indicators.length;
     for (const ind of indicators) {
       summary.evidenceCount += ind.sources?.length ?? 0;
+    }
+  }
+
+  // AI-004: when no explicit context was picked, retrieve relevant evidence
+  // (BM25 over the library) and inline it so the model can cite by slug.
+  const retrieveDisabled =
+    new URL(req.url).searchParams.get("retrieve") === "false" || body.retrieve === false;
+  if (contextBlocks.length === 0 && !retrieveDisabled) {
+    const hits = retrieveEvidence(body.question, 5);
+    if (hits.length > 0) {
+      contextBlocks.push(formatRetrievedContext(hits));
+      summary.evidenceCount += hits.length;
     }
   }
 
