@@ -233,7 +233,7 @@ export function AskForm({ projects, domains }: Props) {
   return (
     <div className="border border-zinc-800 bg-[#0a0e10] text-zinc-300 font-mono shadow-2xl">
       {/* ─── Top status bar ──────────────────────────────────────────────── */}
-      <div className="flex items-center justify-between border-b border-zinc-800 bg-[#06090a] px-4 py-1.5 text-[10px] tracking-[0.2em] text-zinc-500">
+      <div className="flex items-center justify-between border-b border-zinc-800 bg-[#06090a] px-4 py-1.5 text-[10px] tracking-[0.2em] text-zinc-400">
         <div className="flex items-center gap-3">
           <span className="text-emerald-400">●</span>
           <span>TREATY-LAB · ANALYST CONSOLE</span>
@@ -261,8 +261,9 @@ export function AskForm({ projects, domains }: Props) {
       {/* ─── Context selectors ──────────────────────────────────────────── */}
       <div className="grid grid-cols-12 border-b border-zinc-800 bg-[#080b0d] px-4 py-2 gap-3 text-[11px]">
         <div className="col-span-12 md:col-span-5">
-          <div className="text-[9px] tracking-[0.2em] text-zinc-500 mb-1">PROJECT CONTEXT</div>
+          <div className="text-[9px] tracking-[0.2em] text-zinc-400 mb-1">PROJECT CONTEXT</div>
           <select
+            aria-label="Project context"
             value={projectSlug}
             onChange={(e) => setProjectSlug(e.target.value)}
             disabled={pending}
@@ -277,8 +278,9 @@ export function AskForm({ projects, domains }: Props) {
           </select>
         </div>
         <div className="col-span-12 md:col-span-5">
-          <div className="text-[9px] tracking-[0.2em] text-zinc-500 mb-1">DOMAIN CONTEXT</div>
+          <div className="text-[9px] tracking-[0.2em] text-zinc-400 mb-1">DOMAIN CONTEXT</div>
           <select
+            aria-label="Domain context"
             value={domainSlug}
             onChange={(e) => setDomainSlug(e.target.value)}
             disabled={pending}
@@ -293,7 +295,7 @@ export function AskForm({ projects, domains }: Props) {
           </select>
         </div>
         <div className="col-span-12 md:col-span-2 flex flex-col">
-          <div className="text-[9px] tracking-[0.2em] text-zinc-500 mb-1">REASONING</div>
+          <div className="text-[9px] tracking-[0.2em] text-zinc-400 mb-1">REASONING</div>
           <button
             type="button"
             onClick={() => setIncludeReasoning((v) => !v)}
@@ -301,7 +303,7 @@ export function AskForm({ projects, domains }: Props) {
             className={`h-7 px-2 text-[11px] tracking-wide border transition ${
               includeReasoning
                 ? "border-amber-500/40 bg-amber-500/10 text-amber-200"
-                : "border-zinc-800 bg-[#06090a] text-zinc-500 hover:border-zinc-700"
+                : "border-zinc-800 bg-[#06090a] text-zinc-400 hover:border-zinc-700"
             }`}
           >
             {includeReasoning ? "TRACE · ON" : "TRACE · OFF"}
@@ -374,7 +376,7 @@ export function AskForm({ projects, domains }: Props) {
             <button
               onClick={clearTranscript}
               disabled={pending || turns.length === 0}
-              className="border border-zinc-800 bg-transparent px-2.5 py-1 text-[10px] tracking-wide text-zinc-500 hover:border-zinc-700 hover:text-zinc-300 disabled:opacity-40 disabled:cursor-not-allowed transition"
+              className="border border-zinc-800 bg-transparent px-2.5 py-1 text-[10px] tracking-wide text-zinc-400 hover:border-zinc-700 hover:text-zinc-300 disabled:opacity-40 disabled:cursor-not-allowed transition"
             >
               CLEAR
             </button>
@@ -383,7 +385,7 @@ export function AskForm({ projects, domains }: Props) {
 
         {/* Quick prompts */}
         <div className="mt-2.5">
-          <div className="text-[9px] tracking-[0.2em] text-zinc-500 mb-1">QUICK PROMPTS</div>
+          <div className="text-[9px] tracking-[0.2em] text-zinc-400 mb-1">QUICK PROMPTS</div>
           <div className="flex flex-wrap gap-1.5">
             {QUICK_PROMPTS.map((q) => (
               <button
@@ -400,7 +402,7 @@ export function AskForm({ projects, domains }: Props) {
       </div>
 
       {/* ─── Bottom status bar ──────────────────────────────────────────── */}
-      <div className="flex items-center justify-between border-t border-zinc-900 bg-[#04070a] px-4 py-1 text-[10px] tracking-[0.18em] text-zinc-500">
+      <div className="flex items-center justify-between border-t border-zinc-900 bg-[#04070a] px-4 py-1 text-[10px] tracking-[0.18em] text-zinc-400">
         <div className="flex items-center gap-4">
           <span>
             TURNS · <span className="text-emerald-300">{turns.length}</span>
@@ -462,7 +464,7 @@ function TurnView({
       </div>
       {/* Context badges under question */}
       {(projectName || domainName || turn.reasoning) && (
-        <div className="ml-12 mt-1 flex flex-wrap gap-1.5 text-[9px] tracking-[0.15em] text-zinc-500">
+        <div className="ml-12 mt-1 flex flex-wrap gap-1.5 text-[9px] tracking-[0.15em] text-zinc-400">
           {projectName && (
             <span className="border border-zinc-800 bg-[#0a0f11] px-1.5 py-px">
               PROJ · {projectName}
