@@ -30,6 +30,7 @@
 
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
+import { checkChatRateLimit, rateLimitResponseInit } from "@/lib/ratelimit";
 import {
   getProject,
   getModule,
@@ -74,6 +75,12 @@ export async function POST(req: Request) {
   const session = await auth();
   if (!session) {
     return NextResponse.json({ error: "Authentication required." }, { status: 401 });
+  }
+
+  const limited = await checkChatRateLimit(session);
+  if (limited) {
+    const { body, headers } = rateLimitResponseInit(limited);
+    return NextResponse.json(body, { status: 429, headers });
   }
 
   let body: AskRequest;

@@ -357,6 +357,20 @@ model Org {
 
   users    User[]
   sessions Session[]
+  quota    Quota?
+}
+
+// SEC-002: per-org rate-limit overrides. Absent → the limiter uses defaults
+// (10 chat req/min per user, 100/hour per org). Admin-edit UI is deferred.
+model Quota {
+  id            String   @id @default(cuid())
+  orgId         String   @unique
+  userPerMinute Int
+  orgPerHour    Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  org Org @relation(fields: [orgId], references: [id], onDelete: Cascade)
 }
 
 model User {
