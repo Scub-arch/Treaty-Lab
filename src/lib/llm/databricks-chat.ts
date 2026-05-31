@@ -73,7 +73,7 @@ export interface StreamOpts {
 // ---------------------------------------------------------------------------
 
 export async function chatTreaty(messages: Message[], opts: ChatOpts = {}): Promise<ChatResult> {
-  const token = getToken({ noCache: opts.noCache });
+  const token = await getToken({ noCache: opts.noCache });
 
   const body = {
     model: opts.model ?? DEFAULT_MODEL,
@@ -170,7 +170,7 @@ export async function* chatTreatyStream(
 ): AsyncGenerator<StreamEvent> {
   let token: string;
   try {
-    token = getToken({ noCache: opts.noCache });
+    token = await getToken({ noCache: opts.noCache });
   } catch (err) {
     yield { type: "error", error: err instanceof Error ? err.message : String(err) };
     return;

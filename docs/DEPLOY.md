@@ -64,6 +64,31 @@ never exposes `devUrl` when `NODE_ENV=production`.
 - [ ] Consider tightening route protection if any currently-public page should be
       gated, and vice versa (`PUBLIC_PATHS` in `src/proxy.ts`).
 
+## Databricks gateway auth (AI-003)
+
+The `/api/ask` endpoints reach the Databricks AI Gateway through `src/lib/llm`.
+Token resolution (`getToken`) tries, in order:
+
+1. **Service-principal M2M** — when `DATABRICKS_CLIENT_ID` + `DATABRICKS_CLIENT_SECRET`
+   are set, it POSTs client credentials to `<DATABRICKS_HOST>/oidc/v1/token` and
+   caches the token in-process under its `expires_in` (minus a 60s safety margin).
+   **This is the production path** — no CLI, no PAT.
+2. Cached U2M OAuth token (`~/.dbx-token.cache.json`, from `databricks auth login`) — local dev.
+3. The `databricks` CLI — local dev only (skipped entirely when `NODE_ENV=production`).
+4. `DATABRICKS_TOKEN` PAT — legacy fallback.
+
+### Production setup
+
+1. Create a Databricks **service principal** and an OAuth secret for it; grant it
+   access to the gateway serving endpoint.
+2. Set `DATABRICKS_CLIENT_ID` + `DATABRICKS_CLIENT_SECRET` (and `DATABRICKS_HOST` if
+   the workspace differs from the default) as server env vars / secrets.
+3. Deploy. With those set and no cache file / CLI present, `/api/ask` resolves a
+   token via M2M on first call and reuses it until expiry.
+
+The in-process M2M cache is per-instance. AI-002 (Upstash Redis) can move it to a
+shared key (`dbx:token:<workspace_host>`) so instances share one token.
+
 ## Infrastructure (DPL-001 — pending)
 
 Dockerfile, hosting target (Fly.io / Vercel / Render), `output: "standalone"`,
