@@ -1,8 +1,10 @@
 # Deployment
 
-> Scope today: **authentication (SEC-001)**. Full infrastructure deploy
-> (Dockerfile, hosting target, CI deploy workflow, health checks) is tracked in
-> DPL-001 and will extend this document.
+> Covers **auth (SEC-001)**, **Databricks gateway auth (AI-003)**, and
+> **containerization + deploy (DPL-001)**. DPL-001's standalone output and
+> `/api/healthz` are in place and verified; the Dockerfile / `fly.toml` / deploy
+> workflow are authored but **need validation against a real Docker/Fly
+> environment** — see "Prerequisites" below.
 
 ## Authentication (SEC-001)
 
@@ -64,8 +66,79 @@ never exposes `devUrl` when `NODE_ENV=production`.
 - [ ] Consider tightening route protection if any currently-public page should be
       gated, and vice versa (`PUBLIC_PATHS` in `src/proxy.ts`).
 
-## Infrastructure (DPL-001 — pending)
+## Databricks gateway auth (AI-003)
 
-Dockerfile, hosting target (Fly.io / Vercel / Render), `output: "standalone"`,
-deploy workflow, `GET /api/healthz`, and secret-rotation/backup/rollback runbooks
-land with DPL-001.
+The `/api/ask` endpoints reach the Databricks AI Gateway through `src/lib/llm`.
+Token resolution (`getToken`) tries, in order:
+
+1. **Service-principal M2M** — when `DATABRICKS_CLIENT_ID` + `DATABRICKS_CLIENT_SECRET`
+   are set, it POSTs client credentials to `<DATABRICKS_HOST>/oidc/v1/token` and
+   caches the token in-process under its `expires_in` (minus a 60s safety margin).
+   **This is the production path** — no CLI, no PAT.
+2. Cached U2M OAuth token (`~/.dbx-token.cache.json`, from `databricks auth login`) — local dev.
+3. The `databricks` CLI — local dev only (skipped entirely when `NODE_ENV=production`).
+4. `DATABRICKS_TOKEN` PAT — legacy fallback.
+
+### Production setup
+
+1. Create a Databricks **service principal** and an OAuth secret for it; grant it
+   access to the gateway serving endpoint.
+2. Set `DATABRICKS_CLIENT_ID` + `DATABRICKS_CLIENT_SECRET` (and `DATABRICKS_HOST` if
+   the workspace differs from the default) as server env vars / secrets.
+3. Deploy. With those set and no cache file / CLI present, `/api/ask` resolves a
+   token via M2M on first call and reuses it until expiry.
+
+The in-process M2M cache is per-instance. AI-002 (Upstash Redis) can move it to a
+shared key (`dbx:token:<workspace_host>`) so instances share one token.
+
+## Containerization & deploy (DPL-001)
+
+### What is in place
+
+- **`output: "standalone"`** (`next.config.ts`) — `next build` emits
+  `.next/standalone/server.js`; the runtime image ships only traced deps.
+- **`GET /api/healthz`** — public probe returning `{ status, db, gateway }` (200
+  healthy / 503 degraded). Wired to the Fly health check (`fly.toml`).
+- **`Dockerfile`** — multi-stage (deps → build → runtime). The build stage uses a
+  throwaway SQLite DB so `generateStaticParams()` can prerender; the runtime stage
+  runs `node server.js` from the standalone output.
+- **`fly.toml`** — Fly.io target with `release_command = "npx prisma migrate
+deploy"` and the `/api/healthz` check.
+- **`.github/workflows/deploy.yml`** — manual (`workflow_dispatch`), guarded on the
+  `DEPLOY_ENABLED` repo variable so it never auto-runs before a target exists.
+
+### ⚠ Prerequisites before a build actually runs (NOT yet done)
+
+These could not be authored/verified in the build sandbox (no Docker daemon, no
+Postgres, no deploy account) and are required for a working production image:
+
+1. **Postgres adapter in `src/lib/db.ts`.** It currently hardcodes
+   `@prisma/adapter-better-sqlite3`, whose native binding is **not traced into
+   `.next/standalone`**. Production must select a Postgres adapter (e.g.
+   `@prisma/adapter-pg`) for `postgres://` URLs while keeping SQLite for local dev.
+   Track as a small follow-up; it is the one true blocker for `docker build`.
+2. **Validate the `Dockerfile`** against a real `docker build` (image size target
+   ≤ 250 MB; confirm the standalone COPY paths and that `prisma migrate deploy`
+   works from the runtime image).
+
+### First-time setup (Fly.io)
+
+1. `fly launch --no-deploy` (or `fly apps create treaty-lab`).
+2. `fly postgres create` then `fly postgres attach` — sets `DATABASE_URL`.
+3. `fly secrets set DATABRICKS_CLIENT_ID=… DATABRICKS_CLIENT_SECRET=… APP_URL=https://treaty-lab.fly.dev`
+   (see the AI-003 + auth sections above for the full env list).
+4. Set repo variable `DEPLOY_ENABLED=true` and secret `FLY_API_TOKEN`
+   (`fly tokens create deploy`), then run the **Deploy** workflow.
+
+### Operations
+
+- **Migrations** run automatically per release via `fly.toml`'s `release_command`.
+- **Secret rotation** — `fly secrets set …` triggers a rolling restart; rotate the
+  Databricks service-principal secret and `FLY_API_TOKEN` periodically.
+- **Database backup** — Fly Postgres snapshots (`fly postgres … ` / volume
+  snapshots); take one before each migration-bearing release.
+- **Rollback** — `fly releases` to list, `fly deploy --image <previous>` (or
+  `fly releases rollback`) to revert; a reverted release re-runs the
+  `release_command`, so keep migrations backward-compatible.
+- **Health** — the platform polls `/api/healthz`; `gateway: "down"` with `db:
+"ok"` still returns 200 (the app serves; only chat is impaired).

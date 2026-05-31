@@ -7,6 +7,7 @@
  */
 
 import { getToken } from "./databricks-auth";
+import { getResponseCache, responseCacheKey, CACHE_TTL_MS } from "./cache";
 
 const DEFAULT_GATEWAY_HOST = "https://7474657386881097.ai-gateway.cloud.databricks.com";
 const DEFAULT_MODEL = "treaty";
@@ -29,8 +30,10 @@ export interface ChatOpts {
   model?: string;
   maxTokens?: number;
   temperature?: number;
-  /** Force a fresh token (skip cache). */
+  /** Force a fresh token (skip the token cache). */
   noCache?: boolean;
+  /** AI-002: set "no-store" to bypass the response cache (read and write). */
+  cache?: "no-store";
 }
 
 export interface ChatResult {
@@ -45,6 +48,8 @@ export interface ChatResult {
   };
   /** Model that actually served the request (after alias resolution). */
   model?: string;
+  /** AI-002: true when served from the response cache (no gateway call). */
+  cached?: boolean;
 }
 
 export type StreamEvent =
@@ -62,8 +67,10 @@ export interface StreamOpts {
   model?: string;
   maxTokens?: number;
   temperature?: number;
-  /** Force a fresh token (skip cache). */
+  /** Force a fresh token (skip the token cache). */
   noCache?: boolean;
+  /** AI-002: set "no-store" to bypass the response cache (read and write). */
+  cache?: "no-store";
   /** Abort signal forwarded to fetch. */
   signal?: AbortSignal;
 }
@@ -73,10 +80,19 @@ export interface StreamOpts {
 // ---------------------------------------------------------------------------
 
 export async function chatTreaty(messages: Message[], opts: ChatOpts = {}): Promise<ChatResult> {
-  const token = getToken({ noCache: opts.noCache });
+  const model = opts.model ?? DEFAULT_MODEL;
+  const useCache = opts.cache !== "no-store";
+  const key = responseCacheKey(model, messages);
+
+  if (useCache) {
+    const hit = getResponseCache().lookup(key);
+    if (hit) return { ...hit, cached: true };
+  }
+
+  const token = await getToken({ noCache: opts.noCache });
 
   const body = {
-    model: opts.model ?? DEFAULT_MODEL,
+    model,
     messages,
     max_tokens: opts.maxTokens ?? 2000,
     temperature: opts.temperature ?? 0.7,
@@ -122,26 +138,29 @@ export async function chatTreaty(messages: Message[], opts: ChatOpts = {}): Prom
     throw new Error("Databricks response had no choices[0].message.content");
   }
 
+  let result: ChatResult;
   if (typeof content === "string") {
-    return { answer: content, usage: json.usage, model: json.model };
+    result = { answer: content, usage: json.usage, model: json.model };
+  } else {
+    // Reasoning-model shape — array of segments.
+    const answerParts = content.filter((s) => s.type === "text").map((s) => s.text);
+    const reasoningParts = content
+      .filter((s) => s.type === "reasoning")
+      .map((s) => {
+        if (s.summary) return s.summary.map((x) => x.text).join("\n");
+        return s.text ?? "";
+      })
+      .filter(Boolean);
+    result = {
+      answer: answerParts.join("\n"),
+      reasoning: reasoningParts.length ? reasoningParts.join("\n") : undefined,
+      usage: json.usage,
+      model: json.model,
+    };
   }
 
-  // Reasoning-model shape — array of segments.
-  const answerParts = content.filter((s) => s.type === "text").map((s) => s.text);
-  const reasoningParts = content
-    .filter((s) => s.type === "reasoning")
-    .map((s) => {
-      if (s.summary) return s.summary.map((x) => x.text).join("\n");
-      return s.text ?? "";
-    })
-    .filter(Boolean);
-
-  return {
-    answer: answerParts.join("\n"),
-    reasoning: reasoningParts.length ? reasoningParts.join("\n") : undefined,
-    usage: json.usage,
-    model: json.model,
-  };
+  if (useCache) getResponseCache().store(key, result, CACHE_TTL_MS);
+  return result;
 }
 
 /** Single-turn convenience wrapper. */
@@ -168,16 +187,33 @@ export async function* chatTreatyStream(
   messages: Message[],
   opts: StreamOpts = {},
 ): AsyncGenerator<StreamEvent> {
+  const model = opts.model ?? DEFAULT_MODEL;
+  const useCache = opts.cache !== "no-store";
+  const key = responseCacheKey(model, messages);
+
+  // Cache hit → replay synthetically so the client renders it like a live stream.
+  if (useCache) {
+    const hit = getResponseCache().lookup(key);
+    if (hit) {
+      if (hit.model) yield { type: "model", model: hit.model };
+      if (hit.reasoning) yield { type: "thought", text: hit.reasoning };
+      if (hit.answer) yield { type: "content", text: hit.answer };
+      if (hit.usage) yield { type: "usage", usage: hit.usage };
+      yield { type: "done" };
+      return;
+    }
+  }
+
   let token: string;
   try {
-    token = getToken({ noCache: opts.noCache });
+    token = await getToken({ noCache: opts.noCache });
   } catch (err) {
     yield { type: "error", error: err instanceof Error ? err.message : String(err) };
     return;
   }
 
   const body = {
-    model: opts.model ?? DEFAULT_MODEL,
+    model,
     messages,
     max_tokens: opts.maxTokens ?? 1500,
     temperature: opts.temperature ?? 0.3,
@@ -220,6 +256,12 @@ export async function* chatTreatyStream(
   let buffer = "";
   let modelEmitted = false;
 
+  // Accumulate the stream so an identical future request can replay from cache.
+  let accContent = "";
+  let accThought = "";
+  let accModel: string | undefined;
+  let accUsage: ChatResult["usage"];
+
   try {
     while (true) {
       const { value, done } = await reader.read();
@@ -239,10 +281,16 @@ export async function* chatTreatyStream(
             continue;
           }
           if (!modelEmitted && parsed.model) {
+            accModel = parsed.model;
             yield { type: "model", model: parsed.model };
             modelEmitted = true;
           }
-          for (const out of extractFromChunk(parsed)) yield out;
+          for (const out of extractFromChunk(parsed)) {
+            if (out.type === "content") accContent += out.text;
+            else if (out.type === "thought") accThought += out.text;
+            else if (out.type === "usage") accUsage = out.usage;
+            yield out;
+          }
         }
       }
     }
@@ -251,7 +299,12 @@ export async function* chatTreatyStream(
         if (ev === "[DONE]") continue;
         try {
           const parsed = JSON.parse(ev) as ChatCompletionChunk;
-          for (const out of extractFromChunk(parsed)) yield out;
+          for (const out of extractFromChunk(parsed)) {
+            if (out.type === "content") accContent += out.text;
+            else if (out.type === "thought") accThought += out.text;
+            else if (out.type === "usage") accUsage = out.usage;
+            yield out;
+          }
         } catch {
           // ignore
         }
@@ -271,6 +324,13 @@ export async function* chatTreatyStream(
     }
   }
 
+  if (useCache && accContent) {
+    getResponseCache().store(
+      key,
+      { answer: accContent, reasoning: accThought || undefined, usage: accUsage, model: accModel },
+      CACHE_TTL_MS,
+    );
+  }
   yield { type: "done" };
 }
 

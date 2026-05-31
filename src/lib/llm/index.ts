@@ -18,3 +18,9 @@ export type {
 } from "./databricks-chat";
 
 export { ANALYST_SYSTEM_PROMPT, ANALYST_SYSTEM_PROMPT_MARKDOWN } from "./prompts";
+
+export { retrieveEvidence, formatRetrievedContext, resetRetrievalIndex } from "./retrieval";
+export type { RetrievedEvidence } from "./retrieval";
+
+export { getResponseCache, responseCacheKey, CACHE_TTL_MS } from "./cache";
+export type { CacheBackend } from "./cache";
