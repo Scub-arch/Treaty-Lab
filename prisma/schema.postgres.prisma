@@ -1,6 +1,8 @@
-// GENERATED FILE — do not edit by hand.
-// Postgres (prod) target, derived from prisma/schema.prisma by
-// scripts/gen-postgres-schema.mjs (DATA-001). Edit the SQLite schema instead.
+// ----------------------------------------------------------------------------
+// GENERATED FILE — DO NOT EDIT.
+// Produced from prisma/schema.prisma by scripts/gen-postgres-schema.mjs.
+// Edit the canonical SQLite schema, then re-run `node scripts/gen-postgres-schema.mjs`.
+// ----------------------------------------------------------------------------
 
 // Treaty-Lab: international treaty database & explorer
 // docs: https://pris.ly/d/prisma-schema
