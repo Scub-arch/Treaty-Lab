@@ -64,7 +64,7 @@ function TreatyPartyDonutInner({ data }: Props) {
             />
             <span className="text-foreground/90 capitalize">{TYPE_LABEL[d.type] ?? d.type}</span>
             <span className="font-mono tabular-nums text-muted-foreground ml-auto">{d.count}</span>
-            <span className="font-mono text-[10px] text-muted-foreground/70">
+            <span className="font-mono text-[10px] text-muted-foreground">
               {((d.count / total) * 100).toFixed(0)}%
             </span>
           </li>
