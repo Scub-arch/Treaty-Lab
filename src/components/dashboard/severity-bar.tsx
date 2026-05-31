@@ -12,6 +12,7 @@ import {
 } from "recharts";
 import type { SeveritySlice } from "@/lib/dashboard-data";
 import type { Severity } from "@/lib/content/types";
+import { withChartErrorBoundary } from "@/components/ui/chart-error-boundary";
 
 const SEVERITY_ORDER: Severity[] = ["low", "moderate", "elevated", "high", "critical"];
 const SEVERITY_COLOR: Record<Severity, string> = {
@@ -33,7 +34,7 @@ interface Props {
   data: SeveritySlice[];
 }
 
-export function SeverityBar({ data }: Props) {
+function SeverityBarInner({ data }: Props) {
   const fullData = SEVERITY_ORDER.map((severity) => ({
     severity,
     label: SEVERITY_LABEL[severity],
@@ -77,3 +78,5 @@ export function SeverityBar({ data }: Props) {
     </div>
   );
 }
+
+export const SeverityBar = withChartErrorBoundary(SeverityBarInner, "DSH · SEVERITY");

@@ -9,6 +9,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { withChartErrorBoundary } from "@/components/ui/chart-error-boundary";
 
 /**
  * AESO large-load (data-centre) interconnection queue growth over 2025.
@@ -27,7 +28,7 @@ const REFERENCE_PEAK_MW = 12785;
 /** Phase I interim cap actually allocated (1,200 MW). */
 const PHASE_I_CAP_MW = 1200;
 
-export function LoadGrowthTrend() {
+function LoadGrowthTrendInner() {
   return (
     <div className="flex flex-col h-full">
       <div className="flex items-baseline justify-between gap-3 mb-1">
@@ -114,3 +115,5 @@ export function LoadGrowthTrend() {
     </div>
   );
 }
+
+export const LoadGrowthTrend = withChartErrorBoundary(LoadGrowthTrendInner, "ENR · LOAD QUEUE");

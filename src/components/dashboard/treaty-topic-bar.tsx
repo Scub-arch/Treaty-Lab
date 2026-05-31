@@ -2,12 +2,13 @@
 
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import type { TopicSlice } from "@/lib/dashboard-data";
+import { withChartErrorBoundary } from "@/components/ui/chart-error-boundary";
 
 interface Props {
   data: TopicSlice[];
 }
 
-export function TreatyTopicBar({ data }: Props) {
+function TreatyTopicBarInner({ data }: Props) {
   if (data.length === 0) {
     return (
       <div className="h-48 flex items-center justify-center text-xs text-muted-foreground">
@@ -51,3 +52,5 @@ export function TreatyTopicBar({ data }: Props) {
     </div>
   );
 }
+
+export const TreatyTopicBar = withChartErrorBoundary(TreatyTopicBarInner, "DSH · TOPICS");

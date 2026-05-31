@@ -4,6 +4,7 @@ import { Sankey, Tooltip, ResponsiveContainer, Rectangle, Layer } from "recharts
 import type { ReactElement } from "react";
 import type { SankeyData } from "@/lib/content";
 import type { SourceType } from "@/lib/content/types";
+import { withChartErrorBoundary } from "@/components/ui/chart-error-boundary";
 
 interface Props {
   data: SankeyData;
@@ -151,7 +152,7 @@ function SankeyCustomLink(props: LinkRendererProps): ReactElement {
   );
 }
 
-export function CitationSankey({ data }: Props) {
+function CitationSankeyInner({ data }: Props) {
   // Height scales with the larger of the two columns to give each node room
   const leftNodes = data.nodes.filter((n) => n.kind === "sourceType").length;
   const rightNodes = data.nodes.filter((n) => n.kind === "project").length;
@@ -184,3 +185,5 @@ export function CitationSankey({ data }: Props) {
     </div>
   );
 }
+
+export const CitationSankey = withChartErrorBoundary(CitationSankeyInner, "EVD · CITATION FLOW");
