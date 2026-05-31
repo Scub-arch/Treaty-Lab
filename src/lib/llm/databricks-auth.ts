@@ -96,21 +96,84 @@ function fetchTokenViaCli(): string | null {
   return null;
 }
 
-/** Resolve a Databricks bearer token, or throw if no auth path is available. */
-export function getToken({ noCache = false }: GetTokenOptions = {}): string {
+// ---------------------------------------------------------------------------
+// M2M service-principal OAuth (AI-003) — the production auth path.
+//
+// POSTs client credentials to the workspace OIDC token endpoint. The token is
+// cached in-process under its `expires_in`; AI-002 can move this cache to Redis
+// (key `dbx:token:<workspace_host>`) so it is shared across instances.
+// ---------------------------------------------------------------------------
+
+let m2mCache: { token: string; expiresAt: number } | null = null;
+
+/**
+ * Fetch a token via the service principal, when DATABRICKS_CLIENT_ID +
+ * DATABRICKS_CLIENT_SECRET are set. Returns null when the env is absent (so
+ * the dev paths run); throws when the env is present but the exchange fails
+ * (so a misconfigured production deploy surfaces clearly).
+ */
+async function fetchTokenViaServicePrincipal(noCache: boolean): Promise<string | null> {
+  const clientId = process.env.DATABRICKS_CLIENT_ID;
+  const clientSecret = process.env.DATABRICKS_CLIENT_SECRET;
+  if (!clientId || !clientSecret) return null;
+
+  if (!noCache && m2mCache && m2mCache.expiresAt > Date.now()) {
+    return m2mCache.token;
+  }
+
+  const basic = Buffer.from(`${clientId}:${clientSecret}`).toString("base64");
+  const r = await fetch(`${WORKSPACE_HOST}/oidc/v1/token`, {
+    method: "POST",
+    headers: {
+      Authorization: `Basic ${basic}`,
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({ grant_type: "client_credentials", scope: "all-apis" }).toString(),
+  });
+
+  if (!r.ok) {
+    const text = await r.text().catch(() => "");
+    throw new Error(`Databricks M2M token exchange HTTP ${r.status}: ${text.slice(0, 300)}`);
+  }
+
+  const json = (await r.json()) as { access_token?: string; expires_in?: number };
+  if (!json.access_token) {
+    throw new Error("Databricks M2M token response had no access_token.");
+  }
+
+  const ttlSec = json.expires_in ?? 3600;
+  // Refresh a minute early to avoid handing out a token that expires mid-call.
+  m2mCache = { token: json.access_token, expiresAt: Date.now() + (ttlSec - 60) * 1000 };
+  return json.access_token;
+}
+
+/**
+ * Resolve a Databricks bearer token, or throw if no auth path is available.
+ * Precedence: cached/fresh M2M (service principal) → cached U2M (local dev) →
+ * `databricks` CLI (local dev) → DATABRICKS_TOKEN PAT (legacy).
+ */
+export async function getToken({ noCache = false }: GetTokenOptions = {}): Promise<string> {
+  // 1. Service-principal M2M — preferred when configured (production).
+  const m2m = await fetchTokenViaServicePrincipal(noCache);
+  if (m2m) return m2m;
+
+  // 2. Cached U2M OAuth token (local dev).
   const cached = loadCachedToken(noCache);
   if (cached) return cached;
 
+  // 3. `databricks` CLI (local dev only; skipped in production by fetchTokenViaCli).
   const fresh = fetchTokenViaCli();
   if (fresh) return fresh;
 
+  // 4. Static PAT (legacy fallback).
   const envToken = process.env.DATABRICKS_TOKEN;
   if (envToken) return envToken;
 
   throw new Error(
-    "No Databricks auth available. Tried: cached OAuth token, `databricks auth token` CLI, " +
+    "No Databricks auth available. Tried: service-principal M2M " +
+      "(DATABRICKS_CLIENT_ID/SECRET), cached OAuth token, `databricks auth token` CLI, " +
       "$DATABRICKS_TOKEN env var. For local dev run `databricks auth login --host " +
       WORKSPACE_HOST +
-      "`. For production set DATABRICKS_TOKEN or implement M2M service-principal OAuth (AI-003).",
+      "`. For production set DATABRICKS_CLIENT_ID + DATABRICKS_CLIENT_SECRET.",
   );
 }
