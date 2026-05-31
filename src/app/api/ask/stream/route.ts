@@ -29,6 +29,7 @@ import {
 import type { Domain, ProjectAssessment, Indicator } from "@/lib/content/types";
 import type { Message } from "@/lib/dbx-chat";
 import { auth } from "@/lib/auth";
+import { checkChatRateLimit, rateLimitResponseInit } from "@/lib/ratelimit";
 import { chatTreatyStream, type StreamEvent } from "@/lib/dbx-chat-stream";
 
 export const runtime = "nodejs";
@@ -71,6 +72,15 @@ export async function POST(req: Request) {
     return new Response(JSON.stringify({ error: "Authentication required." }), {
       status: 401,
       headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  const limited = await checkChatRateLimit(session);
+  if (limited) {
+    const { body: rlBody, headers } = rateLimitResponseInit(limited);
+    return new Response(JSON.stringify(rlBody), {
+      status: 429,
+      headers: { "Content-Type": "application/json", ...headers },
     });
   }
 

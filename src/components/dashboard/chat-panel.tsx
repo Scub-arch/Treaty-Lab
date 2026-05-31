@@ -115,7 +115,16 @@ export function ChatPanel() {
         });
 
         if (!resp.ok || !resp.body) {
-          const text = !resp.ok ? await resp.text().catch(() => `HTTP ${resp.status}`) : "no body";
+          // Prefer the JSON `error` message (e.g. 401 / 429 rate limit) over raw body text.
+          let text = `HTTP ${resp.status}`;
+          if (!resp.ok) {
+            const raw = await resp.text().catch(() => "");
+            try {
+              text = (JSON.parse(raw) as { error?: string }).error ?? raw ?? text;
+            } catch {
+              text = raw || text;
+            }
+          }
           setMessages((prev) =>
             prev.map((m) => (m.id === assistantMsg.id ? { ...m, pending: false, error: text } : m)),
           );
