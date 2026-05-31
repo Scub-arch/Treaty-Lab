@@ -32,6 +32,8 @@ import { checkChatRateLimit, rateLimitResponseInit } from "@/lib/ratelimit";
 import {
   chatTreatyStream,
   ANALYST_SYSTEM_PROMPT_MARKDOWN,
+  retrieveEvidence,
+  formatRetrievedContext,
   type StreamEvent,
   type Message,
 } from "@/lib/llm";
@@ -48,6 +50,8 @@ interface AskStreamRequest {
     domain?: Domain;
     indicatorSlugs?: string[];
   };
+  /** AI-004: set false to skip auto evidence retrieval when no context is picked. */
+  retrieve?: boolean;
   maxTokens?: number;
   temperature?: number;
 }
@@ -92,7 +96,14 @@ export async function POST(req: Request) {
   // If the client passed only `question`, fold it in as a final user turn,
   // wrapped with the requested context block.
   if (body.question) {
-    const contextBlock = buildContextBlock(body.context);
+    let contextBlock = buildContextBlock(body.context);
+    // AI-004: no explicit context → retrieve relevant evidence (BM25) to cite.
+    const retrieveDisabled =
+      new URL(req.url).searchParams.get("retrieve") === "false" || body.retrieve === false;
+    if (!contextBlock && !retrieveDisabled) {
+      const hits = retrieveEvidence(body.question, 5);
+      if (hits.length > 0) contextBlock = formatRetrievedContext(hits);
+    }
     const userMessage = contextBlock
       ? ["## Provided context", contextBlock, "", "## Question", body.question].join("\n")
       : body.question;
