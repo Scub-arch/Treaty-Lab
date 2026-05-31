@@ -175,7 +175,7 @@ export function TreatiesTable({ rows, detailsById }: Props) {
                       {t.enteredIntoForceAt ? (
                         <span className="text-emerald-400">{formatDate(t.enteredIntoForceAt)}</span>
                       ) : (
-                        <span className="text-muted-foreground/60">—</span>
+                        <span className="text-muted-foreground">—</span>
                       )}
                     </td>
                     <td className="px-3 py-3 text-right font-mono text-sm font-medium tabular-nums">
@@ -184,7 +184,7 @@ export function TreatiesTable({ rows, detailsById }: Props) {
                     <td className="px-3 py-3 text-right font-mono text-sm tabular-nums">
                       <span
                         className={cn(
-                          t.ratifiedCount === 0 && "text-muted-foreground/60",
+                          t.ratifiedCount === 0 && "text-muted-foreground",
                           t.ratifiedCount > 0 && t.ratifiedCount < t.partyCount && "text-amber-400",
                           t.ratifiedCount > 0 &&
                             t.ratifiedCount === t.partyCount &&
@@ -193,7 +193,7 @@ export function TreatiesTable({ rows, detailsById }: Props) {
                       >
                         {t.ratifiedCount}
                       </span>
-                      <span className="text-muted-foreground/60"> / {t.partyCount}</span>
+                      <span className="text-muted-foreground"> / {t.partyCount}</span>
                     </td>
                     <td className="px-3 py-3">
                       <div className="flex flex-wrap gap-1">
@@ -206,7 +206,7 @@ export function TreatiesTable({ rows, detailsById }: Props) {
                           </span>
                         ))}
                         {t.topics.length > 3 && (
-                          <span className="font-mono text-[10px] text-muted-foreground/60">
+                          <span className="font-mono text-[10px] text-muted-foreground">
                             +{t.topics.length - 3}
                           </span>
                         )}
@@ -288,7 +288,7 @@ export function TreatiesTable({ rows, detailsById }: Props) {
                       <span>signed: {s.signedAt ? formatDate(s.signedAt) : "—"}</span>
                       <span
                         className={cn(
-                          s.ratifiedAt ? "text-emerald-400" : "text-muted-foreground/60",
+                          s.ratifiedAt ? "text-emerald-400" : "text-muted-foreground",
                         )}
                       >
                         ratified: {s.ratifiedAt ? formatDate(s.ratifiedAt) : "—"}

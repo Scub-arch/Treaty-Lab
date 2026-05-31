@@ -230,9 +230,11 @@ export function ChatPanel() {
         </button>
       )}
 
-      {/* Slide-in panel */}
+      {/* Slide-in panel. `inert` when closed hides it from the a11y tree AND
+          removes the close button + composer from the tab order (fixes the
+          aria-hidden-focus / focusable-disabled violations plain aria-hidden left). */}
       <aside
-        aria-hidden={!open}
+        inert={!open}
         className={cn(
           "fixed z-50 top-0 right-0 h-full w-full sm:w-[520px] bg-card border-l border-border shadow-2xl flex flex-col transition-transform duration-300",
           open ? "translate-x-0" : "translate-x-full",
