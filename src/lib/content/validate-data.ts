@@ -149,19 +149,17 @@ export function validateContentData(collections: ContentCollections): Validation
   }
 
   // --- Module cross-references ----------------------------------------------
-  for (const module of modules) {
-    module.featuredIndicatorSlugs.forEach((slug, i) => {
+  for (const mod of modules) {
+    mod.featuredIndicatorSlugs.forEach((slug, i) => {
       if (!indicatorSlugs.has(slug)) {
         errors.push(
-          missingRef(`modules[${module.slug}].featuredIndicatorSlugs[${i}]`, slug, "indicator"),
+          missingRef(`modules[${mod.slug}].featuredIndicatorSlugs[${i}]`, slug, "indicator"),
         );
       }
     });
-    module.featuredProjectSlugs.forEach((slug, i) => {
+    mod.featuredProjectSlugs.forEach((slug, i) => {
       if (!projectSlugs.has(slug)) {
-        errors.push(
-          missingRef(`modules[${module.slug}].featuredProjectSlugs[${i}]`, slug, "project"),
-        );
+        errors.push(missingRef(`modules[${mod.slug}].featuredProjectSlugs[${i}]`, slug, "project"));
       }
     });
   }

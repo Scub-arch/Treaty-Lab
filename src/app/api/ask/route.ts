@@ -115,12 +115,12 @@ export async function POST(req: Request) {
   }
 
   if (body.context?.domain) {
-    const module = getModule(body.context.domain);
-    if (module) {
-      const featProjects = resolveProjects(module.featuredProjectSlugs);
-      const featIndicators = resolveIndicators(module.featuredIndicatorSlugs);
+    const mod = getModule(body.context.domain);
+    if (mod) {
+      const featProjects = resolveProjects(mod.featuredProjectSlugs);
+      const featIndicators = resolveIndicators(mod.featuredIndicatorSlugs);
       contextBlocks.push(
-        formatDomainContext(body.context.domain, module.lede, featProjects, featIndicators),
+        formatDomainContext(body.context.domain, mod.lede, featProjects, featIndicators),
       );
       summary.projectsCount += featProjects.length;
       summary.indicatorsCount += featIndicators.length;

@@ -29,7 +29,11 @@ export function ThemeMenu() {
   const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => {
+    // Sync the control to the persisted cookie after mount. This must run in an
+    // effect (not a lazy useState initializer) because document.cookie is not
+    // available during SSR; the one-time post-mount setState is intentional.
     const m = document.cookie.match(/(?:^|; )tl_theme=([^;]+)/);
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- SSR-safe client-only cookie read
     if (m) setTheme(decodeURIComponent(m[1]) as Theme);
   }, []);
 

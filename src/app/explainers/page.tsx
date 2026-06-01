@@ -26,8 +26,8 @@ const FAQ_METHODOLOGY: FaqItem[] = [
         stated. <strong>Question</strong> is an open issue with no settled answer in the public
         record. <strong>Assumption</strong> is a stated unverified premise.{" "}
         <strong>Needs validation</strong> means a community or legal sign-off is pending — typically
-        used for confidential agreements or claims that require a Nation's own ratification before
-        they can be treated as established.
+        used for confidential agreements or claims that require a Nation&apos;s own ratification
+        before they can be treated as established.
       </>
     ),
   },
