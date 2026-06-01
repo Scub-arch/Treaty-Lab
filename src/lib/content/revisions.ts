@@ -87,3 +87,24 @@ export async function recordRevision(db: PrismaClient, input: RevisionInput): Pr
     return version;
   });
 }
+
+/**
+ * AUDIT-001b — write a baseline `ContentRevision` at `version` (default 1)
+ * WITHOUT bumping the live row, used at seed time to snapshot the corpus as v1.
+ * Idempotent via the `(entity, slug, version)` unique key, so re-seeding doesn't
+ * duplicate. The snapshot is JSON-normalised (drops `undefined`). Only needs the
+ * `contentRevision` delegate, so a transaction client satisfies it.
+ */
+export async function recordBaseline(
+  db: Pick<PrismaClient, "contentRevision">,
+  input: { entity: ContentEntity; slug: string; snapshot: unknown; version?: number; editedBy?: string | null },
+): Promise<number> {
+  const { entity, slug, snapshot, version = 1, editedBy = null } = input;
+  const clean = JSON.parse(JSON.stringify(snapshot ?? null)) as Prisma.InputJsonValue;
+  await db.contentRevision.upsert({
+    where: { entity_slug_version: { entity, slug, version } },
+    create: { entity, slug, version, snapshot: clean, editedBy },
+    update: { snapshot: clean, editedBy },
+  });
+  return version;
+}

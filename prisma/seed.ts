@@ -9,6 +9,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { PrismaClient } from "../src/generated/prisma/client";
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
+import { recordBaseline } from "../src/lib/content/revisions";
 import { formatValidationReport, validateContentData } from "../src/lib/content/validate-data";
 import type {
   EvidenceItem,
@@ -353,6 +354,8 @@ async function seedContent(): Promise<void> {
 
   // Clean existing content. Delete order respects the onDelete: Restrict edges
   // (modules/explainers reference indicators/projects/evidence; evidence last).
+  // AUDIT-001b: clear the revision log too so re-seeds rebuild v1 baselines cleanly.
+  await prisma.contentRevision.deleteMany();
   await prisma.moduleConfig.deleteMany();
   await prisma.plainLanguageExplainer.deleteMany();
   await prisma.projectAssessment.deleteMany();
@@ -395,6 +398,7 @@ async function seedContent(): Promise<void> {
           },
         });
         evId.set(e.slug, row.id);
+        await recordBaseline(tx, { entity: "EvidenceItem", slug: e.slug, snapshot: e });
       }
 
       const indId = new Map<string, string>();
@@ -422,6 +426,7 @@ async function seedContent(): Promise<void> {
           },
         });
         indId.set(i.slug, row.id);
+        await recordBaseline(tx, { entity: "Indicator", slug: i.slug, snapshot: i });
       }
 
       const projId = new Map<string, string>();
@@ -496,6 +501,7 @@ async function seedContent(): Promise<void> {
           },
         });
         projId.set(p.slug, row.id);
+        await recordBaseline(tx, { entity: "ProjectAssessment", slug: p.slug, snapshot: p });
       }
 
       for (const e of c.explainers) {
@@ -519,6 +525,7 @@ async function seedContent(): Promise<void> {
             },
           },
         });
+        await recordBaseline(tx, { entity: "PlainLanguageExplainer", slug: e.slug, snapshot: e });
       }
 
       for (const m of c.modules) {
@@ -542,6 +549,7 @@ async function seedContent(): Promise<void> {
             },
           },
         });
+        await recordBaseline(tx, { entity: "ModuleConfig", slug: m.slug, snapshot: m });
       }
     },
     { timeout: 60000 },
