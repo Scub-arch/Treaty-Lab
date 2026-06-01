@@ -34,7 +34,15 @@ export default async function ProjectDetail(props: PageProps<"/projects/[slug]">
           <ChevronLeft className="w-3 h-3" />
           BACK TO PROJECTS
         </Link>
-        <ExportDocxButton slug={project.slug} />
+        <div className="flex items-center gap-2">
+          <Link
+            href={`/projects/${project.slug}/questions`}
+            className="inline-flex items-center gap-1 rounded-md border border-border px-3 py-1.5 text-sm hover:border-foreground/40"
+          >
+            Decision questions
+          </Link>
+          <ExportDocxButton slug={project.slug} />
+        </div>
       </div>
 
       {/* Header */}
