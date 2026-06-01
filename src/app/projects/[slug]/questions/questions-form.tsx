@@ -4,6 +4,7 @@ import { useState } from "react";
 import {
   USER_ROLES,
   DOMAIN_LABELS,
+  parseDecisionQuestions,
   type UserRole,
   type DecisionQuestion,
 } from "@/lib/llm/question-generator";
@@ -16,16 +17,14 @@ interface Props {
   domains: Domain[];
 }
 
-interface QuestionsResponse {
-  questionsMarkdown?: string;
-  questions?: DecisionQuestion[];
-  role?: string;
-  count?: number;
-  focus?: string | null;
-  model?: string;
-  contextSummary?: { claimsCount: number; openItemsCount: number; evidenceCount: number };
-  error?: string;
-}
+/** SSE event shape (matches src/lib/llm StreamEvent). */
+type StreamEvent =
+  | { type: "content"; text: string }
+  | { type: "thought"; text: string }
+  | { type: "model"; model: string }
+  | { type: "usage"; usage?: unknown }
+  | { type: "error"; error: string }
+  | { type: "done" };
 
 // Community / leadership / advisor first — the audiences the platform is built
 // for — then the specialist reviewers.
@@ -73,46 +72,93 @@ export function DecisionQuestionsForm({ projectSlug, projectName, domains }: Pro
   const [role, setRole] = useState<UserRole>("community");
   const [count, setCount] = useState(10);
   const [focus, setFocus] = useState<Domain | null>(null);
-  const [loading, setLoading] = useState(false);
+
+  const [streaming, setStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [result, setResult] = useState<QuestionsResponse | null>(null);
+  const [questions, setQuestions] = useState<DecisionQuestion[]>([]);
+  const [rawText, setRawText] = useState("");
+  const [model, setModel] = useState<string | null>(null);
+  const [started, setStarted] = useState(false);
   const [copied, setCopied] = useState(false);
 
   async function generate() {
-    setLoading(true);
+    setStreaming(true);
+    setStarted(true);
     setError(null);
-    setResult(null);
+    setQuestions([]);
+    setRawText("");
+    setModel(null);
     setCopied(false);
+
     try {
-      const res = await fetch("/api/questions", {
+      const res = await fetch("/api/questions/stream", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ projectSlug, role, count, ...(focus ? { focus } : {}) }),
       });
-      const data = (await res.json()) as QuestionsResponse;
-      if (!res.ok) {
-        setError(data.error ?? `Request failed (${res.status})`);
+
+      if (!res.ok || !res.body) {
+        let msg = `Request failed (${res.status})`;
+        try {
+          const j = (await res.json()) as { error?: string };
+          if (j.error) msg = j.error;
+        } catch {
+          // non-JSON error body
+        }
+        setError(msg);
         return;
       }
-      setResult(data);
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let acc = "";
+
+      for (;;) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+
+        let idx: number;
+        while ((idx = buffer.indexOf("\n\n")) !== -1) {
+          const frame = buffer.slice(0, idx);
+          buffer = buffer.slice(idx + 2);
+          const dataLine = frame.split("\n").find((l) => l.startsWith("data:"));
+          if (!dataLine) continue;
+          let ev: StreamEvent;
+          try {
+            ev = JSON.parse(dataLine.slice(5).trim()) as StreamEvent;
+          } catch {
+            continue;
+          }
+          if (ev.type === "content") {
+            acc += ev.text;
+            setRawText(acc);
+            setQuestions(parseDecisionQuestions(acc));
+          } else if (ev.type === "model") {
+            setModel(ev.model);
+          } else if (ev.type === "error") {
+            setError(ev.error);
+          }
+        }
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
     } finally {
-      setLoading(false);
+      setStreaming(false);
     }
   }
 
   async function copyMarkdown() {
-    if (!result) return;
     const md =
-      result.questions && result.questions.length > 0
+      questions.length > 0
         ? questionsToMarkdown(
-            result.questions,
+            questions,
             projectName,
             USER_ROLES[role].label,
             focus ? DOMAIN_LABELS[focus] : null,
           )
-        : (result.questionsMarkdown ?? "");
+        : rawText;
     try {
       await navigator.clipboard.writeText(md);
       setCopied(true);
@@ -121,6 +167,8 @@ export function DecisionQuestionsForm({ projectSlug, projectName, domains }: Pro
       setError("Could not copy to clipboard.");
     }
   }
+
+  const showResults = started && (streaming || questions.length > 0 || rawText.length > 0);
 
   return (
     <div className="space-y-5">
@@ -187,10 +235,10 @@ export function DecisionQuestionsForm({ projectSlug, projectName, domains }: Pro
       <button
         type="button"
         onClick={generate}
-        disabled={loading}
+        disabled={streaming}
         className="rounded-md border border-border bg-card px-4 py-2 text-sm font-medium hover:border-foreground/40 disabled:opacity-50"
       >
-        {loading
+        {streaming
           ? "Generating…"
           : `Generate ${count} questions for a ${USER_ROLES[role].label.toLowerCase()}`}
       </button>
@@ -204,27 +252,28 @@ export function DecisionQuestionsForm({ projectSlug, projectName, domains }: Pro
         </div>
       )}
 
-      {result && (
-        <section className="space-y-4">
+      {showResults && (
+        <section className="space-y-4" aria-busy={streaming}>
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground">
-              {result.questions?.length ?? 0} QUESTIONS · {USER_ROLES[role].label.toUpperCase()}
-              {result.focus ? ` · FOCUS: ${result.focus.toUpperCase()}` : ""}
-              {result.contextSummary ? ` · ${result.contextSummary.openItemsCount} OPEN ITEMS` : ""}
-              {result.model ? ` · ${result.model}` : ""}
+              {questions.length} QUESTIONS · {USER_ROLES[role].label.toUpperCase()}
+              {focus ? ` · FOCUS: ${focus.toUpperCase()}` : ""}
+              {model ? ` · ${model}` : ""}
+              {streaming ? " · STREAMING…" : ""}
             </div>
             <button
               type="button"
               onClick={copyMarkdown}
-              className="rounded-md border border-border px-2.5 py-1 text-xs hover:border-foreground/40"
+              disabled={streaming || (questions.length === 0 && rawText.length === 0)}
+              className="rounded-md border border-border px-2.5 py-1 text-xs hover:border-foreground/40 disabled:opacity-40"
             >
               {copied ? "Copied ✓" : "Copy as Markdown"}
             </button>
           </div>
 
-          {result.questions && result.questions.length > 0 ? (
+          {questions.length > 0 ? (
             <ol className="space-y-3">
-              {result.questions.map((q, i) => (
+              {questions.map((q, i) => (
                 <li key={i} className="rounded-md border border-border bg-card/40 px-4 py-3">
                   <div className="text-sm font-medium leading-relaxed">
                     <span className="text-muted-foreground mr-1.5 font-mono text-xs">{i + 1}.</span>
@@ -250,16 +299,18 @@ export function DecisionQuestionsForm({ projectSlug, projectName, domains }: Pro
               ))}
             </ol>
           ) : (
-            // Parser found no structured items — fall back to the raw model output.
-            <div className="rounded-md border border-border bg-card/40 px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap">
-              {result.questionsMarkdown}
+            // No structured items parsed yet — show streamed text (or a hint).
+            <div className="rounded-md border border-border bg-card/40 px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap text-muted-foreground">
+              {rawText || (streaming ? "Generating…" : "")}
             </div>
           )}
 
-          <p className="text-[11px] text-muted-foreground leading-relaxed">
-            Generated for {projectName}. Treat as prompts for review, not answers — confirm each
-            against the cited evidence.
-          </p>
+          {!streaming && questions.length > 0 && (
+            <p className="text-[11px] text-muted-foreground leading-relaxed">
+              Generated for {projectName}. Treat as prompts for review, not answers — confirm each
+              against the cited evidence.
+            </p>
+          )}
         </section>
       )}
     </div>
