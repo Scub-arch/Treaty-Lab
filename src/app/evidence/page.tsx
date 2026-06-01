@@ -7,7 +7,7 @@ import {
   topCitedEvidence,
   sankeyEvidenceToProject,
 } from "@/lib/content";
-import { SourceCard } from "@/components/intel/source-card";
+import { EvidenceBrowser } from "./evidence-browser";
 import { TopCitedEvidenceChart } from "@/components/intel/top-cited-evidence-chart";
 import { CitationSankey } from "@/components/intel/citation-sankey";
 
@@ -17,7 +17,6 @@ const TOP_N = 15;
 
 export default function EvidenceLibraryPage() {
   const items = getEvidence();
-  const allTags = Array.from(new Set(items.flatMap((i) => i.tags))).sort();
   const evBySlug = evidenceMap(items);
 
   // Server-side citation walk for the top-N chart
@@ -47,16 +46,6 @@ export default function EvidenceLibraryPage() {
           actually supports and its known limitations. Reliability indicates the strength of the
           source itself — not whether you should agree with what it says.
         </p>
-        <div className="mt-4 flex flex-wrap gap-1.5">
-          {allTags.map((t) => (
-            <span
-              key={t}
-              className="font-mono text-[10px] text-muted-foreground tracking-wider px-2 py-0.5 border border-border rounded-sm"
-            >
-              {t}
-            </span>
-          ))}
-        </div>
       </section>
 
       <section>
@@ -98,10 +87,11 @@ export default function EvidenceLibraryPage() {
         </div>
       </section>
 
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {items.map((item) => (
-          <SourceCard key={item.slug} item={item} />
-        ))}
+      <section>
+        <div className="font-mono text-[10px] tracking-[0.18em] text-muted-foreground mb-3">
+          EVD · 02 — ALL SOURCES
+        </div>
+        <EvidenceBrowser items={items} />
       </section>
     </div>
   );
