@@ -14,6 +14,8 @@
  * fact, never give legal or investment advice.
  */
 
+import type { Domain } from "@/lib/content/types";
+
 /** The decision-maker the questions are written for (North Star §3 audiences). */
 export type UserRole =
   | "community"
@@ -96,6 +98,19 @@ export interface DecisionQuestion {
 export const DEFAULT_QUESTION_COUNT = 10;
 export const MAX_QUESTION_COUNT = 20;
 
+/** Human labels for the optional domain focus (AI-006). Keep in sync with `Domain`. */
+export const DOMAIN_LABELS: Record<Domain, string> = {
+  treaty: "treaty rights & consultation",
+  water: "water & watershed",
+  energy: "energy & grid",
+  finance: "finance & ownership",
+  governance: "governance",
+};
+
+export function isDomain(value: unknown): value is Domain {
+  return typeof value === "string" && Object.prototype.hasOwnProperty.call(DOMAIN_LABELS, value);
+}
+
 /**
  * System prompt for the generator, specialised to a role. Built on the same
  * fact/risk/question discipline and safe-wording rules as ANALYST_SYSTEM_PROMPT
@@ -139,13 +154,22 @@ export function questionGeneratorSystemPrompt(role: UserRole): string {
   return lines.join("\n");
 }
 
-/** Build the user turn: the project context block + the explicit ask. */
+/**
+ * Build the user turn: the project context block + the explicit ask.
+ * AI-006: an optional `focus` domain biases the questions toward one dimension
+ * (treaty / water / energy / finance / governance) while still surfacing any
+ * decisive cross-cutting risk.
+ */
 export function buildQuestionUserMessage(
   projectContext: string,
   role: UserRole,
   count: number,
+  focus?: Domain,
 ): string {
   const n = clampCount(count);
+  const focusLine = focus
+    ? `Focus the questions on the ${DOMAIN_LABELS[focus]} dimension of this project where it is material, but still include any cross-cutting question decisive to the overall decision.`
+    : null;
   return [
     "## Project",
     projectContext,
@@ -153,6 +177,7 @@ export function buildQuestionUserMessage(
     "## Task",
     `Generate the ${n} most important questions a ${USER_ROLES[role].label} should`,
     "ask before a decision on this project, following the output format exactly.",
+    ...(focusLine ? ["", focusLine] : []),
   ].join("\n");
 }
 

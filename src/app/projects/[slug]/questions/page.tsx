@@ -52,7 +52,11 @@ export default async function ProjectQuestionsPage(props: PageProps<"/projects/[
         </p>
       </section>
 
-      <DecisionQuestionsForm projectSlug={project.slug} projectName={project.name} />
+      <DecisionQuestionsForm
+        projectSlug={project.slug}
+        projectName={project.name}
+        domains={project.domains}
+      />
     </div>
   );
 }
