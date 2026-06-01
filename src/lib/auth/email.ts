@@ -6,8 +6,9 @@
  * EMAIL_FROM), `getEmailSender()` returns a Resend HTTP sender instead — no SDK
  * dependency, just `fetch`. Call sites are unchanged.
  *
- * Zero-cost discipline: with no provider env set, nothing is sent and no
- * external service is contacted — dev and CI keep the console sender.
+ * Zero-cost discipline: with no provider env set, dev and CI keep the console
+ * sender (nothing is sent, no external service is contacted). In production an
+ * unconfigured sender fails closed (throws) rather than logging tokens.
  */
 
 export interface MagicLinkEmail {
@@ -101,6 +102,12 @@ export function isProdEmailConfigured(): boolean {
 export function getEmailSender(): EmailSender {
   if (isProdEmailConfigured()) {
     return resendSender(process.env.RESEND_API_KEY as string, process.env.EMAIL_FROM as string);
+  }
+  if (process.env.NODE_ENV === "production") {
+    // Fail closed: the console sender writes the sign-in link (which carries the
+    // token) to stdout and sends no email — it must never run in production.
+    // Configure RESEND_API_KEY + EMAIL_FROM for production delivery.
+    throw new Error("No production email sender is configured.");
   }
   return consoleSender;
 }
