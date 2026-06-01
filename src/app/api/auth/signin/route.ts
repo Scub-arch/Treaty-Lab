@@ -8,6 +8,7 @@
 
 import { NextResponse } from "next/server";
 import { createMagicLink, getEmailSender, exposeMagicLinkInResponse } from "@/lib/auth";
+import { logger } from "@/lib/logger";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -40,7 +41,20 @@ export async function POST(req: Request) {
   url.searchParams.set("token", rawToken);
   url.searchParams.set("next", next);
 
-  await getEmailSender().sendMagicLink({ to: email, url: url.toString() });
+  try {
+    await getEmailSender().sendMagicLink({ to: email, url: url.toString() });
+  } catch (err) {
+    // Surface a generic failure (no provider detail, no account-existence
+    // signal); the prod sender throws on a non-2xx from the email provider.
+    logger.error(
+      { event: "signin.email_send_failed", err: err instanceof Error ? err.message : String(err) },
+      "magic-link email send failed",
+    );
+    return NextResponse.json(
+      { error: "Could not send the sign-in email right now. Please try again shortly." },
+      { status: 502 },
+    );
+  }
 
   return NextResponse.json({
     ok: true,
