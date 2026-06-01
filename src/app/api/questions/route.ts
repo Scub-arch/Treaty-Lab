@@ -11,6 +11,7 @@
  *     projectSlug: string,   // required — must resolve to a ProjectAssessment
  *     role: UserRole,        // required — one of USER_ROLES
  *     count?: number,        // questions to generate (default 10, max 20)
+ *     focus?: Domain,        // optional — bias questions toward one dimension
  *     maxTokens?: number,    // default 1800
  *     temperature?: number,  // default 0.4
  *   }
@@ -35,6 +36,8 @@ import { chatTreaty, type Message } from "@/lib/llm";
 import {
   USER_ROLES,
   isUserRole,
+  isDomain,
+  DOMAIN_LABELS,
   clampCount,
   questionGeneratorSystemPrompt,
   buildQuestionUserMessage,
@@ -46,6 +49,8 @@ interface QuestionsRequest {
   projectSlug?: string;
   role?: string;
   count?: number;
+  /** AI-006: optional domain to bias the questions toward (one of `Domain`). */
+  focus?: string;
   maxTokens?: number;
   temperature?: number;
 }
@@ -88,6 +93,14 @@ export async function POST(req: Request) {
     );
   }
 
+  if (body.focus != null && !isDomain(body.focus)) {
+    return NextResponse.json(
+      { error: `\`focus\` must be one of: ${Object.keys(DOMAIN_LABELS).join(", ")}` },
+      { status: 400 },
+    );
+  }
+  const focus = isDomain(body.focus) ? body.focus : undefined;
+
   const project = getProject(body.projectSlug);
   if (!project) {
     return NextResponse.json(
@@ -101,7 +114,7 @@ export async function POST(req: Request) {
 
   const messages: Message[] = [
     { role: "system", content: questionGeneratorSystemPrompt(body.role) },
-    { role: "user", content: buildQuestionUserMessage(context, body.role, count) },
+    { role: "user", content: buildQuestionUserMessage(context, body.role, count, focus) },
   ];
 
   try {
@@ -119,6 +132,7 @@ export async function POST(req: Request) {
         orgId: session.orgId,
         projectSlug: project.slug,
         role: body.role,
+        focus: focus ?? null,
         requested: count,
         parsed: questions.length,
         model: result.model,
@@ -134,6 +148,7 @@ export async function POST(req: Request) {
       projectSlug: project.slug,
       role: body.role,
       count,
+      focus: focus ?? null,
       questionsMarkdown: result.answer,
       questions,
       ...(result.cached ? { cached: true } : {}),
