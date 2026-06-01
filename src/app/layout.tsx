@@ -38,11 +38,22 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${mono.variable} antialiased bg-background text-foreground min-h-screen`}
       >
+        {/* A11y: skip-to-content link — the first focusable element, hidden
+            until keyboard focus, so keyboard and screen-reader users can bypass
+            the sidebar nav on every page and jump straight to the main content. */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:border focus:border-border focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+        >
+          Skip to main content
+        </a>
         <div className="grid grid-cols-[260px_1fr] min-h-screen">
           <Sidebar />
           <div className="flex flex-col min-w-0">
             <TopBar />
-            <main className="flex-1 min-w-0">{children}</main>
+            <main id="main-content" tabIndex={-1} className="flex-1 min-w-0 outline-none">
+              {children}
+            </main>
           </div>
         </div>
       </body>
