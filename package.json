@@ -16,7 +16,8 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test:a11y": "playwright test"
+    "test:a11y": "playwright test",
+    "test:audit": "tsx tests/revisions.audit.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.99.0",
