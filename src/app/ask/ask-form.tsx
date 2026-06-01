@@ -317,13 +317,15 @@ export function AskForm({ projects, domains }: Props) {
         className="min-h-[420px] max-h-[60vh] overflow-y-auto bg-[#070a0c] px-4 py-3 text-[12px] leading-relaxed"
       >
         {turns.length === 0 && (
-          <div className="text-zinc-600 space-y-1">
+          // text-zinc-400 (not 600/700): on the #070a0c console bg these boot
+          // lines must clear WCAG AA 4.5:1 — zinc-600/700 were 2.57/1.9 (axe color-contrast).
+          <div className="text-zinc-400 space-y-1">
             <div>[BOOT] treaty-lab · analyst console ready</div>
             <div>[BOOT] live LLM backend: databricks ai-gateway → treaty (gpt-oss-120b)</div>
             <div>
               [BOOT] context: {projects.length} projects · {domains.length} domains indexed
             </div>
-            <div className="text-zinc-700">
+            <div className="text-zinc-400">
               ─ type a question below, or click a quick prompt to start ─
             </div>
           </div>
