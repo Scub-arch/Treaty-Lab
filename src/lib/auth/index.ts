@@ -29,5 +29,6 @@ export { createSession, destroySession, getSession, SESSION_COOKIE_NAME } from "
 export { createMagicLink, consumeMagicLink } from "./magic-link";
 export { findOrCreateUser } from "./users";
 export { getEmailSender, exposeMagicLinkInResponse } from "./email";
+export { isAdminSession, isAdminEmail } from "./admin";
 export type { SessionUser } from "./session";
 export type { IssuedMagicLink } from "./magic-link";
