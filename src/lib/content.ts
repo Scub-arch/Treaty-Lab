@@ -38,12 +38,19 @@ async function loadContent(): Promise<{
 }> {
   const evidenceSlug = { evidence: { select: { slug: true } } } as const;
 
+  // AUDIT-001c: exclude soft-deleted rows (deletedAt != null) from every content
+  // read. Children come with their parent; only the 5 top-level models carry
+  // deletedAt. The in-memory cache is built once at server start, so live
+  // soft-deletes require a reload — acceptable until a runtime mutation surface
+  // exists (deferred to the AUDIT-003/004 phases).
   const [evRows, indRows, projRows, explRows, modRows] = await Promise.all([
-    prisma.evidenceItem.findMany(),
+    prisma.evidenceItem.findMany({ where: { deletedAt: null } }),
     prisma.indicator.findMany({
+      where: { deletedAt: null },
       include: { sources: { include: evidenceSlug, orderBy: { order: "asc" } } },
     }),
     prisma.projectAssessment.findMany({
+      where: { deletedAt: null },
       include: {
         parties: { orderBy: { order: "asc" } },
         claims: {
@@ -59,6 +66,7 @@ async function loadContent(): Promise<{
       },
     }),
     prisma.plainLanguageExplainer.findMany({
+      where: { deletedAt: null },
       include: {
         relatedEvidence: { include: evidenceSlug, orderBy: { order: "asc" } },
         relatedProjects: {
@@ -68,6 +76,7 @@ async function loadContent(): Promise<{
       },
     }),
     prisma.moduleConfig.findMany({
+      where: { deletedAt: null },
       include: {
         featuredIndicators: {
           include: { indicator: { select: { slug: true } } },
