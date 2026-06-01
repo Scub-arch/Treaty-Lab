@@ -17,7 +17,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test:a11y": "playwright test",
-    "test:audit": "tsx tests/revisions.audit.ts"
+    "test:audit": "tsx tests/revisions.audit.ts",
+    "test:audit-read": "tsx tests/audit-read.audit.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.99.0",
