@@ -18,6 +18,7 @@ const ROUTES = [
   "/finance",
   "/projects",
   "/projects/site-c",
+  "/projects/site-c/questions",
   "/evidence",
   "/evidence/undrip-2007",
   "/explainers",
