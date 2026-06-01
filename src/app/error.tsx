@@ -24,7 +24,6 @@ export default function RootError({
     // Surface in dev consoles + any browser error reporters that listen.
     // Production logging goes through Next.js' built-in error pipeline.
     if (process.env.NODE_ENV !== "production") {
-      // eslint-disable-next-line no-console
       console.error("[Treaty-Lab] route error:", error);
     }
   }, [error]);

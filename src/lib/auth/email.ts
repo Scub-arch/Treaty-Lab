@@ -18,7 +18,6 @@ export interface EmailSender {
 
 const consoleSender: EmailSender = {
   async sendMagicLink({ to, url }) {
-    // eslint-disable-next-line no-console
     console.log(
       `\n──────── Treaty-Lab sign-in link ────────\n  to:  ${to}\n  url: ${url}\n─────────────────────────────────────────\n`,
     );

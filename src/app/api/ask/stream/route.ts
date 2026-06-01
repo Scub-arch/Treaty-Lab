@@ -168,11 +168,11 @@ function buildContextBlock(ctx: AskStreamRequest["context"]): string | null {
     if (project) blocks.push(formatProjectContext(project));
   }
   if (ctx.domain) {
-    const module = getModule(ctx.domain);
-    if (module) {
-      const featProjects = resolveProjects(module.featuredProjectSlugs);
-      const featIndicators = resolveIndicators(module.featuredIndicatorSlugs);
-      blocks.push(formatDomainContext(ctx.domain, module.lede, featProjects, featIndicators));
+    const mod = getModule(ctx.domain);
+    if (mod) {
+      const featProjects = resolveProjects(mod.featuredProjectSlugs);
+      const featIndicators = resolveIndicators(mod.featuredIndicatorSlugs);
+      blocks.push(formatDomainContext(ctx.domain, mod.lede, featProjects, featIndicators));
     }
   }
   if (ctx.indicatorSlugs?.length) {

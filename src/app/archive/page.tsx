@@ -34,7 +34,7 @@ export default async function ArchivePage(props: PageProps<"/archive">) {
         <p className="text-base text-muted-foreground mt-3 max-w-3xl leading-relaxed">
           The historical and international treaty texts that ground the modern Indigenous-rights
           arguments tracked elsewhere in this terminal. The Canadian Numbered Treaties (Treaty 1
-          through Treaty 11) are included with both the Crown's written text and a note on the
+          through Treaty 11) are included with both the Crown&apos;s written text and a note on the
           divergence from oral histories of the signatories. International instruments include
           UNDRIP, ILO 169, the UN Charter, the Vienna Convention on the Law of Treaties, the Paris
           Agreement, and Geneva Convention IV.
