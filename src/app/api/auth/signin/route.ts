@@ -13,6 +13,7 @@ import { NextResponse } from "next/server";
 import { createMagicLink, getEmailSender, exposeMagicLinkInResponse } from "@/lib/auth";
 import { logger } from "@/lib/logger";
 import { getRateLimiter } from "@/lib/ratelimit/limiter";
+import { isProductionLike } from "@/lib/auth/constants";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -24,7 +25,7 @@ const SIGNIN_WINDOW_MS = 10 * 60_000;
 /**
  * The trusted origin used to build magic-link URLs.
  *
- * In production `APP_URL` is REQUIRED and must be a valid http(s) URL — the
+ * In production `APP_URL` is REQUIRED and must be a valid HTTPS URL — the
  * origin is never derived from the request, because a forwarded Host header is
  * attacker-controllable and could point a sign-in link at an untrusted domain.
  * In development/test, fall back to the request origin so local login works.
@@ -42,9 +43,14 @@ function appOrigin(req: Request): string {
     if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
       throw new Error("APP_URL must use http or https.");
     }
+    // Production-like: require HTTPS — an http origin would carry the token in
+    // cleartext and the Secure session cookie would not round-trip.
+    if (isProductionLike() && parsed.protocol !== "https:") {
+      throw new Error("APP_URL must use https in production.");
+    }
     return parsed.origin;
   }
-  if (process.env.NODE_ENV === "production") {
+  if (isProductionLike()) {
     throw new Error("APP_URL must be configured in production to issue sign-in links.");
   }
   return new URL(req.url).origin;

@@ -11,6 +11,8 @@
  * unconfigured sender fails closed (throws) rather than logging tokens.
  */
 
+import { isProductionLike } from "./constants";
+
 export interface MagicLinkEmail {
   to: string;
   url: string;
@@ -103,16 +105,16 @@ export function getEmailSender(): EmailSender {
   if (isProdEmailConfigured()) {
     return resendSender(process.env.RESEND_API_KEY as string, process.env.EMAIL_FROM as string);
   }
-  if (process.env.NODE_ENV === "production") {
+  if (isProductionLike()) {
     // Fail closed: the console sender writes the sign-in link (which carries the
-    // token) to stdout and sends no email — it must never run in production.
+    // token) to stdout and sends no email — it must never run outside dev/test.
     // Configure RESEND_API_KEY + EMAIL_FROM for production delivery.
     throw new Error("No production email sender is configured.");
   }
   return consoleSender;
 }
 
-/** Whether magic-link URLs may be surfaced in API responses (dev convenience). */
+/** Whether magic-link URLs may be surfaced in API responses (dev/test only). */
 export function exposeMagicLinkInResponse(): boolean {
-  return process.env.NODE_ENV !== "production";
+  return !isProductionLike();
 }
