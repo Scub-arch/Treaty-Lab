@@ -61,6 +61,15 @@ disabled in any production-like environment, so tokens are never logged in prod.
 3. You land on your `next` destination, signed in; the TopBar shows your email +
    **Sign out**.
 
+### Admin access (AUDIT-004a)
+
+Admin-only surfaces (e.g. the read-only `/admin/audit` revision log) are gated by
+an **email allowlist**, not a persisted role. Set `ADMIN_EMAILS` (comma/space-
+separated, case-insensitive) to the operator emails; any signed-in session whose
+email is listed is treated as an admin. **Empty or unset ⇒ no admins** (the admin
+surface stays closed). A persisted role model is deferred until multi-admin or
+content-editor needs arise.
+
 ### Production checklist
 
 - [ ] `DATABASE_URL` points at Postgres; run `prisma migrate deploy`.
@@ -70,6 +79,7 @@ disabled in any production-like environment, so tokens are never logged in prod.
       round-trip over plain HTTP).
 - [ ] Consider tightening route protection if any currently-public page should be
       gated, and vice versa (`PUBLIC_PATHS` in `src/proxy.ts`).
+- [ ] Set `ADMIN_EMAILS` for whoever should reach admin surfaces (empty ⇒ no admins).
 
 ## Databricks gateway auth (AI-003)
 

@@ -20,7 +20,8 @@
     "test:audit": "tsx tests/revisions.audit.ts",
     "test:audit-read": "tsx tests/audit-read.audit.ts",
     "test:audit-softdelete": "tsx tests/soft-delete.audit.ts",
-    "test:audit-baseline": "tsx tests/baseline.audit.ts"
+    "test:audit-baseline": "tsx tests/baseline.audit.ts",
+    "test:audit-admin": "tsx tests/admin.audit.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.99.0",
