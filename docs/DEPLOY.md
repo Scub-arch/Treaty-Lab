@@ -35,7 +35,9 @@ design are in [`SEC-001-PLAN.md`](SEC-001-PLAN.md); the short version:
 | Var            | Required        | Notes                                                                          |
 | -------------- | --------------- | ------------------------------------------------------------------------------ |
 | `DATABASE_URL` | yes             | SQLite (`file:./dev.db`) in dev/CI; Postgres in prod.                          |
-| `APP_URL`      | prod (optional) | Base URL for magic-link sign-in URLs. Falls back to the request origin in dev. |
+| `APP_URL`        | prod (required) | Canonical public **HTTPS** origin for magic-link URLs. In production the request Host is never trusted: sign-in returns 500 until set, and non-HTTPS is rejected. Dev/test only: falls back to the request origin. |
+| `RESEND_API_KEY` | prod (required) | Resend API key. Required in prod for email sign-in; absent (with `EMAIL_FROM`) ⇒ sign-in fails closed (502). Dev/test: console sender. |
+| `EMAIL_FROM`     | prod (required) | Resend-verified sender, e.g. `Treaty-Lab <no-reply@your-domain>`. Required in prod alongside `RESEND_API_KEY`. |
 
 There is **no `AUTH_SECRET`** — sessions are random opaque tokens validated by
 database lookup, not signed JWTs, so there is no signing key to manage.
@@ -46,8 +48,11 @@ In dev the magic link is printed to the **server console** and returned in the
 `POST /api/auth/signin` response (`devUrl`) for password-less local sign-in. The
 sender is pluggable: implement an SMTP/provider `EmailSender` in
 [`src/lib/auth/email.ts`](../src/lib/auth/email.ts) (`getEmailSender()`) and wire
-it to env vars (`SMTP_URL`, `EMAIL_FROM`, …) for production. The dev response
-never exposes `devUrl` when `NODE_ENV=production`.
+it to env vars for production. In practice production uses Resend
+(`RESEND_API_KEY` + `EMAIL_FROM`) and **fails closed** (sign-in returns 502) if
+no sender is configured. The link is console-logged and `devUrl` is returned in
+the response **only** in dev/test (`NODE_ENV` `development`/`test`); both are
+disabled in any production-like environment, so tokens are never logged in prod.
 
 ### Local sign-in walkthrough
 
@@ -68,8 +73,8 @@ content-editor needs arise.
 ### Production checklist
 
 - [ ] `DATABASE_URL` points at Postgres; run `prisma migrate deploy`.
-- [ ] `APP_URL` set to the public origin (so links are not built from an internal host).
-- [ ] A real `EmailSender` is wired in `src/lib/auth/email.ts`.
+- [ ] `APP_URL` = canonical public **HTTPS** origin — **required** (sign-in returns 500 until set; the request Host is never trusted in production).
+- [ ] `RESEND_API_KEY` **and** `EMAIL_FROM` set — **required** for email sign-in (absent ⇒ 502; the console sender is disabled in production).
 - [ ] Served over HTTPS (the session cookie is `Secure` in production and will not
       round-trip over plain HTTP).
 - [ ] Consider tightening route protection if any currently-public page should be
