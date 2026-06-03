@@ -32,21 +32,14 @@ import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { logger } from "@/lib/logger";
 import { checkChatRateLimit, rateLimitResponseInit } from "@/lib/ratelimit";
-import {
-  getProject,
-  getModule,
-  getIndicator,
-  resolveIndicators,
-  resolveProjects,
-  getEvidenceItem,
-  allClaimsForProject,
-} from "@/lib/content";
-import type { Domain, ProjectAssessment, Indicator } from "@/lib/content/types";
+import type { Domain } from "@/lib/content/types";
 import {
   chatTreaty,
   ANALYST_SYSTEM_PROMPT,
   retrieveEvidence,
   formatRetrievedContext,
+  buildContextBlock,
+  buildAskUserMessage,
   type Message,
 } from "@/lib/llm";
 
@@ -101,65 +94,24 @@ export async function POST(req: Request) {
     );
   }
 
-  // Build RAG context block
-  const contextBlocks: string[] = [];
-  const summary = { projectsCount: 0, indicatorsCount: 0, evidenceCount: 0 };
-
-  if (body.context?.projectSlug) {
-    const project = getProject(body.context.projectSlug);
-    if (project) {
-      contextBlocks.push(formatProjectContext(project));
-      summary.projectsCount = 1;
-      summary.evidenceCount += project.primarySources.length;
-    }
-  }
-
-  if (body.context?.domain) {
-    const mod = getModule(body.context.domain);
-    if (mod) {
-      const featProjects = resolveProjects(mod.featuredProjectSlugs);
-      const featIndicators = resolveIndicators(mod.featuredIndicatorSlugs);
-      contextBlocks.push(
-        formatDomainContext(body.context.domain, mod.lede, featProjects, featIndicators),
-      );
-      summary.projectsCount += featProjects.length;
-      summary.indicatorsCount += featIndicators.length;
-    }
-  }
-
-  if (body.context?.indicatorSlugs?.length) {
-    const indicators = body.context.indicatorSlugs
-      .map((s) => getIndicator(s))
-      .filter((x): x is Indicator => Boolean(x));
-    contextBlocks.push(formatIndicatorsContext(indicators));
-    summary.indicatorsCount += indicators.length;
-    for (const ind of indicators) {
-      summary.evidenceCount += ind.sources?.length ?? 0;
-    }
-  }
+  // Build the RAG context block from the explicit selection (formatters shared
+  // with the streaming route via src/lib/llm/context.ts).
+  const { block: explicitBlock, summary } = buildContextBlock(body.context);
+  let contextBlock = explicitBlock;
 
   // AI-004: when no explicit context was picked, retrieve relevant evidence
   // (BM25 over the library) and inline it so the model can cite by slug.
   const retrieveDisabled =
     new URL(req.url).searchParams.get("retrieve") === "false" || body.retrieve === false;
-  if (contextBlocks.length === 0 && !retrieveDisabled) {
+  if (!contextBlock && !retrieveDisabled) {
     const hits = retrieveEvidence(body.question, 5);
     if (hits.length > 0) {
-      contextBlocks.push(formatRetrievedContext(hits));
+      contextBlock = formatRetrievedContext(hits);
       summary.evidenceCount += hits.length;
     }
   }
 
-  const userMessage =
-    contextBlocks.length > 0
-      ? [
-          "## Provided context",
-          contextBlocks.join("\n\n---\n\n"),
-          "",
-          "## Question",
-          body.question,
-        ].join("\n")
-      : body.question;
+  const userMessage = buildAskUserMessage(body.question, contextBlock);
 
   const messages: Message[] = [
     { role: "system", content: ANALYST_SYSTEM_PROMPT },
@@ -212,93 +164,4 @@ export async function POST(req: Request) {
     );
     return NextResponse.json({ error: message }, { status: 502 });
   }
-}
-
-// ---------------------------------------------------------------------------
-// Context formatters
-// ---------------------------------------------------------------------------
-
-function formatProjectContext(p: ProjectAssessment): string {
-  const claims = allClaimsForProject(p);
-  const claimSummary = claims
-    .map(
-      (c) =>
-        `- [${c.kind.toUpperCase()}] ${c.text}${c.sources ? ` (sources: ${c.sources.map((s) => s.evidenceSlug).join(", ")})` : ""}`,
-    )
-    .join("\n");
-
-  return [
-    `### Project: ${p.name} (${p.slug})`,
-    `Status: ${p.status} · Location: ${p.location} · Jurisdictions: ${p.jurisdictions.join(", ")}`,
-    `Proponent: ${p.proponent}`,
-    `Summary: ${p.summary}`,
-    `Government objective: ${p.governmentObjective}`,
-    `Proponent objective: ${p.proponentObjective}`,
-    `Evidence confidence: ${p.evidenceConfidence}`,
-    "",
-    "Claims:",
-    claimSummary,
-    "",
-    `Finance structure: ${p.finance.structure}`,
-    p.finance.totalCostEstimate ? `Cost estimate: ${p.finance.totalCostEstimate}` : "",
-    `Risk carrier: ${p.finance.riskCarrier}`,
-    "",
-    `Primary sources: ${p.primarySources.map((s) => `${s.evidenceSlug} — ${s.citing}`).join("; ")}`,
-  ]
-    .filter(Boolean)
-    .join("\n");
-}
-
-function formatDomainContext(
-  domain: Domain,
-  lede: string,
-  projects: ProjectAssessment[],
-  indicators: Indicator[],
-): string {
-  const projLines = projects.map((p) => `- ${p.name} (${p.slug}): ${p.summary}`).join("\n");
-  const indLines = indicators
-    .map(
-      (i) =>
-        `- ${i.name} (${i.slug}): ${i.value} · severity=${i.severity} trend=${i.trend} — ${i.summary}`,
-    )
-    .join("\n");
-  return [
-    `### Domain: ${domain}`,
-    `Module lede: ${lede}`,
-    "",
-    `Featured projects (${projects.length}):`,
-    projLines,
-    "",
-    `Featured indicators (${indicators.length}):`,
-    indLines,
-  ].join("\n");
-}
-
-function formatIndicatorsContext(indicators: Indicator[]): string {
-  const lines = indicators.map((i) => {
-    const sources = i.sources
-      ? `\n  Sources: ${i.sources.map((s) => `${s.evidenceSlug} — ${s.citing}`).join("; ")}`
-      : "";
-    const evidenceDetails = i.sources
-      ? i.sources
-          .map((s) => {
-            const e = getEvidenceItem(s.evidenceSlug);
-            return e
-              ? `\n    [${e.slug}] ${e.title} (${e.sourceType}, reliability=${e.reliability})`
-              : "";
-          })
-          .join("")
-      : "";
-    return [
-      `- ${i.name} (${i.slug})`,
-      `  Domain: ${i.domain} · Severity: ${i.severity} · Trend: ${i.trend}`,
-      `  Value: ${i.value}`,
-      `  Summary: ${i.summary}`,
-      i.note ? `  Note: ${i.note}` : "",
-      sources + evidenceDetails,
-    ]
-      .filter(Boolean)
-      .join("\n");
-  });
-  return ["### Indicators", ...lines].join("\n");
 }
