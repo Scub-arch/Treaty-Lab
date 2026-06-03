@@ -1,32 +1,151 @@
 name: CI
 
+# FND-002 CI gate: every PR (and every push to main) must pass typecheck,
+# content validation, and a production build before it can merge.
 on:
   pull_request:
   push:
-    branches: [main, fnd-002-ci-gate]
+    branches: [main]
+
+env:
+  NODE_VERSION: "22"
+  # Bump this suffix to force-invalidate the node_modules cache if it goes bad.
+  NODE_MODULES_KEY_PREFIX: node-modules-v1
 
 jobs:
-  check:
+  # ---------------------------------------------------------------------------
+  # setup: install dependencies once and publish a node_modules cache keyed by
+  # the package-lock.json hash. The three check jobs below restore this cache
+  # instead of each running a cold `npm ci`.
+  # ---------------------------------------------------------------------------
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - name: Cache node_modules
+        id: node-modules-cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ env.NODE_MODULES_KEY_PREFIX }}-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+  # ---------------------------------------------------------------------------
+  # typecheck: tsc --noEmit. Needs the generated Prisma client (gitignored) and
+  # the Next 16 route types (.next/types, emitted by `next typegen`).
+  # ---------------------------------------------------------------------------
+  typecheck:
+    needs: setup
     runs-on: ubuntu-latest
     env:
-      # Prisma reads this at build time — generateStaticParams queries the SQLite DB.
+      # prisma.config.ts reads DATABASE_URL; `prisma generate` only needs it set,
+      # not reachable. No migrate/seed here — typecheck does not touch the DB.
       DATABASE_URL: file:./prisma/dev.db
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
         with:
-          node-version: 22
+          node-version: ${{ env.NODE_VERSION }}
           cache: npm
-      - run: npm ci
-      # The Prisma client (src/generated/prisma) is gitignored — regenerate it.
-      - run: npx prisma generate
-      # Create the schema in a fresh SQLite DB and seed it so the static build
-      # has data to render (mirrors local `npm run build`).
-      - run: npx prisma migrate deploy
-      - run: npx prisma db seed
-      # Next 16 emits PageProps/LayoutProps/RouteContext into .next/types only on
-      # `next dev`, `next build`, or `next typegen`. tsc --noEmit (inside
-      # `npm run check`) needs these — generate them before the check step.
-      - run: npx next typegen
-      - run: npm run check
-      - run: npm run build
+      - name: Restore node_modules
+        id: node-modules-cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ env.NODE_MODULES_KEY_PREFIX }}-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies (cache-miss fallback)
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Generate Prisma client
+        run: npx prisma generate
+      - name: Generate Next.js route types
+        run: npx next typegen
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+  # ---------------------------------------------------------------------------
+  # content-validate: JSON content + NRTA invariants. The validators are pure
+  # file readers (node:fs/path/url only), so no Prisma/DB setup is required.
+  # ---------------------------------------------------------------------------
+  content-validate:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - name: Restore node_modules
+        id: node-modules-cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ env.NODE_MODULES_KEY_PREFIX }}-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies (cache-miss fallback)
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Validate content collections
+        run: npm run check:content
+      - name: Validate NRTA invariants
+        run: npm run check:nrta
+
+  # ---------------------------------------------------------------------------
+  # build: production `next build`. generateStaticParams queries the SQLite DB,
+  # so the schema must exist and be seeded first. .next/cache is cached, keyed
+  # by the source tree so incremental builds stay warm.
+  # ---------------------------------------------------------------------------
+  build:
+    needs: setup
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: file:./prisma/dev.db
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - name: Restore node_modules
+        id: node-modules-cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ env.NODE_MODULES_KEY_PREFIX }}-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies (cache-miss fallback)
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Generate Prisma client
+        run: npx prisma generate
+      - name: Apply migrations to a fresh SQLite DB
+        run: npx prisma migrate deploy
+      - name: Seed the Treaty Archive
+        run: npx prisma db seed
+      - name: Cache Next.js build cache
+        uses: actions/cache@v4
+        with:
+          path: .next/cache
+          key: nextjs-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('src/**/*.{js,jsx,ts,tsx,css}', 'src/content/**/*.json', 'next.config.ts') }}
+          restore-keys: |
+            nextjs-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
+      - name: Production build
+        env:
+          NODE_ENV: production
+        run: npm run build
+
+  # ---------------------------------------------------------------------------
+  # gate: single required status check. Branch protection on `main` requires
+  # this job, so it transitively requires all three checks above to pass.
+  # ---------------------------------------------------------------------------
+  gate:
+    needs: [typecheck, content-validate, build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: All required checks passed
+        run: echo "typecheck, content-validate, and build all succeeded."
