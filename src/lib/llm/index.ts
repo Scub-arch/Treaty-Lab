@@ -22,5 +22,14 @@ export { ANALYST_SYSTEM_PROMPT, ANALYST_SYSTEM_PROMPT_MARKDOWN } from "./prompts
 export { retrieveEvidence, formatRetrievedContext, resetRetrievalIndex } from "./retrieval";
 export type { RetrievedEvidence } from "./retrieval";
 
+export {
+  formatProjectContext,
+  formatDomainContext,
+  formatIndicatorsContext,
+  buildContextBlock,
+  buildAskUserMessage,
+} from "./context";
+export type { ContextSelection, ContextSummary, BuiltContext } from "./context";
+
 export { getResponseCache, responseCacheKey, CACHE_TTL_MS } from "./cache";
 export type { CacheBackend } from "./cache";
