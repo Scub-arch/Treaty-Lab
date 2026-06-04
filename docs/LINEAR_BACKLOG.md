@@ -16,9 +16,39 @@
 
 ---
 
+## Status — re-baseline (2026-06-03)
+
+> **This backlog had gone stale.** The issue text below is the original v0.3 plan,
+> kept verbatim for reference. This banner re-baselines it against `main` @
+> `8c0bede` — it records what has **since shipped**. It is a status re-baseline,
+> **not** a new feature scope.
+
+**All five original v0.3 P0s are complete and on `main`:**
+
+| P0       | Status                                                                                          |
+| -------- | ----------------------------------------------------------------------------------------------- |
+| FND-001  | ✅ Completed — repo cleanup.                                                                      |
+| FND-002  | ✅ Completed — CI gate; **re-hardened by PR #57** (gate split into parallel jobs + README docs).  |
+| DATA-001 | ✅ Completed — content collections promoted to Prisma/Postgres (#10, #12, #13).                   |
+| AI-001   | ✅ Completed — `/api/ask` token-cache + prompt de-dup; **AI-001b ask-context dedup follow-up merged (PR #58)**. |
+| SEC-001  | ✅ Completed — auth + route protection, hardened through the magic-link work (**PR #55, #56**).    |
+
+**DATA-001 and SEC-001 are no longer the next blockers** — both have landed. The
+broader 20-issue v0.3 milestone is recorded as complete in
+[`V0_3_PLATFORM_STABILIZATION_MILESTONE.md`](V0_3_PLATFORM_STABILIZATION_MILESTONE.md).
+
+**v0.4 — Evidence Operations is already underway** through the AUDIT slices (the
+admin-allowlist work, AUDIT-004a, has merged via #54). The **likely next code item
+is AUDIT-004b** — the read-only, admin-gated `/admin/audit` route — but it is
+**pending ownership/coordination** with the concurrent roadmap driver and is **not
+started here**. See
+[`V0_4_EVIDENCE_OPERATIONS_EPICS.md`](V0_4_EVIDENCE_OPERATIONS_EPICS.md).
+
+---
+
 ## Epic 1 — Foundation (3 issues)
 
-### FND-001 — Clean up the repo per `docs/REPO_MAP.md`
+### FND-001 — Clean up the repo per `docs/REPO_MAP.md` ✅ Completed
 
 **Goal.** Apply the inventory recommendations in `docs/REPO_MAP.md` so the
 working tree matches a production-grade layout before any feature work
@@ -44,7 +74,7 @@ lands on it.
 
 ---
 
-### FND-002 — Add CI workflow (typecheck, content-validate, build)
+### FND-002 — Add CI workflow (typecheck, content-validate, build) ✅ Completed (re-hardened by PR #57)
 
 **Goal.** Every PR must pass typecheck, content-validation, and a production
 build before merge. No more "works on my machine" landing in `main`.
@@ -86,7 +116,7 @@ build before merge. No more "works on my machine" landing in `main`.
 
 ## Epic 2 — Database (3 issues)
 
-### DATA-001 — Promote `evidence`, `projects`, `indicators`, `explainers`, `modules` to Postgres
+### DATA-001 — Promote `evidence`, `projects`, `indicators`, `explainers`, `modules` to Postgres ✅ Completed
 
 **Goal.** Move the five JSON content collections into proper Prisma models
 backed by Postgres, with foreign keys replacing slug-string references.
@@ -164,7 +194,7 @@ silently overwrite the prior version.
 
 ## Epic 3 — AI / RAG (4 issues)
 
-### AI-001 — De-duplicate token cache + system prompt across the two `/api/ask` routes
+### AI-001 — De-duplicate token cache + system prompt across the two `/api/ask` routes ✅ Completed (AI-001b follow-up merged, PR #58)
 
 **Goal.** Single source of truth for the Databricks auth recipe and the
 system prompt; one place to change them.
@@ -381,7 +411,7 @@ finance block, primary sources with citations, and an evidence appendix.
 
 ## Epic 6 — Security (3 issues)
 
-### SEC-001 — Auth on `/api/ask` (and the rest of the app)
+### SEC-001 — Auth on `/api/ask` (and the rest of the app) ✅ Completed (magic-link/auth hardening, PR #55/#56)
 
 **Goal.** No more "anyone who can reach the dev server can spend gateway
 tokens." Pick a provider, wire it in, gate every route that costs money or
@@ -543,7 +573,12 @@ DPL-002
 Five P0s in the critical path. Once those land, the ten P1s and five P2s
 can be parallelized across two or three contributors.
 
+> **Re-baseline (2026-06-03):** all five P0s have since landed — see the Status
+> banner at the top of this document. v0.3 is complete; v0.4 (Evidence Operations)
+> is underway via the AUDIT slices.
+
 ---
 
-_Last updated: 2026-05-27. Re-prioritize after each sprint based on what
-actually shipped vs. what surfaced as the next-most-urgent blocker._
+_Last updated: 2026-06-03 (status re-baseline; original plan dated 2026-05-27).
+Re-prioritize after each sprint based on what actually shipped vs. what surfaced
+as the next-most-urgent blocker._
